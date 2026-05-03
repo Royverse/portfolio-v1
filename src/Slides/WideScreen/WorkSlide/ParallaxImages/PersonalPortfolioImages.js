@@ -6,7 +6,6 @@ const bubbles = new URL('../../../../Assets/Images/Showcase/testing2.jpg', impor
 const paths = new URL('../../../../Assets/Images/Showcase/t2 (3).jpg', import.meta.url).href;
 const bigBubble = new URL('../../../../Assets/Images/Showcase/t2 (1).jpg', import.meta.url).href;
 
-
 const Dots = styled.img.attrs({
   style: ({ scroll }) => ({
     transform: `translate(0px,-${(scroll) * 30}%)`,
@@ -16,7 +15,6 @@ transition: transform 0.2s ease-out;
 position: absolute;
 bottom: -240vh;
 left:0vw;
-/* border: 1px dashed red; */
 height: 50vh; 
 `;
 
@@ -29,9 +27,8 @@ position: absolute;
 bottom:-225vh;
 right: 0vw;
 transform-origin: right center;
-/* border: 1px dashed red; */
 height: 50vh;
-filter: blur(0.6px);
+filter: blur(0.1px);
 `;
 
 const BigBubble = styled.img.attrs({
@@ -42,9 +39,8 @@ const BigBubble = styled.img.attrs({
 bottom:-125vh;
 left:-4vw;
 position: absolute;
-/* border: 1px dashed red; */
 height: 50vh;
-filter: blur(0.8px);
+filter: blur(0.1px);
 `;
 
 const Paths = styled.img.attrs({
@@ -56,12 +52,11 @@ bottom:-80vh;
 right: 1vw;
 transform-origin: right center;
 position: absolute;
-/* border: 1px dashed red; */
 height: 50vh;
-filter: blur(1.2px);
+filter: blur(0.1px);
 `;
 
-class VoistrapWebImages extends Component {
+class PersonalPortfolioImages extends Component {
   render() {
     let { scrollPercent } = this.props;
     const {
@@ -69,7 +64,7 @@ class VoistrapWebImages extends Component {
     } = this.props;
     const heighttoBeReducedinVH = ((boxHeight * index) - 100);
     const scrollOffset = (screenHeight * heighttoBeReducedinVH) / 100;
-    const scrollOffsetInPercent = (scrollOffset * 100 / scrollHeight);
+    const scrollOffsetInPercent = (scrollOffset * 100 / scrollHeight) + (index - 1);
     scrollPercent -= scrollOffsetInPercent;
     return (
       <React.Fragment>
@@ -82,7 +77,7 @@ class VoistrapWebImages extends Component {
   }
 }
 
-VoistrapWebImages.propTypes = {
+PersonalPortfolioImages.propTypes = {
   boxHeight: PropTypes.number.isRequired,
   index: PropTypes.number.isRequired,
   screenHeight: PropTypes.number.isRequired,
@@ -90,4 +85,4 @@ VoistrapWebImages.propTypes = {
   scrollPercent: PropTypes.number.isRequired,
 };
 
-export default VoistrapWebImages;
+export default PersonalPortfolioImages;

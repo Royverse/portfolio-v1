@@ -2,27 +2,25 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import vhCheck from 'vh-check';
-import VoistrapImages from './ParallaxImages/VoistrapImages';
-import WhatsMyFoodImages from './ParallaxImages/WhatsMyFoodImages';
-import ComingOrNotImages from './ParallaxImages/ComingOrNotImages';
-import TeslaImages from './ParallaxImages/TeslaImages';
-import KosenImages from './ParallaxImages/KosenImages';
-import VoistrapWebImages from './ParallaxImages/VoistrapWebImages';
+import BluePrintImages from './ParallaxImages/BluePrintImages';
+import BluePrintAppsImages from './ParallaxImages/BluePrintAppsImages';
+import AdminPortalImages from './ParallaxImages/AdminPortalImages';
+import NailBoutiqueImages from './ParallaxImages/NailBoutiqueImages';
+import ReadpointImages from './ParallaxImages/ReadpointImages';
+import PersonalPortfolioImages from './ParallaxImages/PersonalPortfolioImages';
 
 const ImageContainer = styled.div`
-/* border: 0.1px dashed black; */
-width:100%;
-height:900vh;
-margin-bottom:30vh;
-display: flex;
-flex-flow: column nowrap;
+  width: 100%;
+  height: 900vh;
+  margin-bottom: 30vh;
+  display: flex;
+  flex-flow: column nowrap;
 `;
 
 const ImageBox = styled.div`
-/* outline: 0.1px dashed green; */
-margin-top:30vh;
-height: 100vh;
-position: relative;
+  margin-top: 30vh;
+  height: 100vh;
+  position: relative;
 `;
 
 class ImageContent extends Component {
@@ -39,12 +37,10 @@ class ImageContent extends Component {
   componentDidMount() {
     const vhDiff = vhCheck().offset;
     window.addEventListener('scroll', this.handleScroll);
-    this.setState({ scrollHeight: Math.round(window.document.documentElement.scrollHeight) });
-    this.setState(
-      { screenHeight: Math.round(window.document.documentElement.clientHeight + vhDiff) },
-    );
-    console.log('scrollHeight', Math.round(window.document.documentElement.scrollHeight));
-    console.log('screenHeight', Math.round(window.document.documentElement.clientHeight));
+    this.setState({ 
+      scrollHeight: Math.round(window.document.documentElement.scrollHeight),
+      screenHeight: Math.round(window.document.documentElement.clientHeight + vhDiff)
+    });
   }
 
   componentWillUnmount() {
@@ -69,7 +65,7 @@ class ImageContent extends Component {
     return (
       <ImageContainer>
         <ImageBox height={boxHeight}>
-          <VoistrapImages
+          <BluePrintImages
             boxHeight={boxHeight}
             index={1}
             scrollPercent={scrollPercent}
@@ -78,7 +74,7 @@ class ImageContent extends Component {
           />
         </ImageBox>
         <ImageBox height={boxHeight}>
-          <WhatsMyFoodImages
+          <BluePrintAppsImages
             boxHeight={boxHeight}
             index={2}
             scrollPercent={scrollPercent}
@@ -87,7 +83,7 @@ class ImageContent extends Component {
           />
         </ImageBox>
         <ImageBox height={boxHeight}>
-          <ComingOrNotImages
+          <AdminPortalImages
             boxHeight={boxHeight}
             index={3}
             scrollPercent={scrollPercent}
@@ -96,7 +92,7 @@ class ImageContent extends Component {
           />
         </ImageBox>
         <ImageBox height={boxHeight}>
-          <TeslaImages
+          <NailBoutiqueImages
             boxHeight={boxHeight}
             index={4}
             scrollPercent={scrollPercent}
@@ -105,7 +101,7 @@ class ImageContent extends Component {
           />
         </ImageBox>
         <ImageBox height={boxHeight}>
-          <KosenImages
+          <ReadpointImages
             boxHeight={boxHeight}
             index={5}
             scrollPercent={scrollPercent}
@@ -114,7 +110,7 @@ class ImageContent extends Component {
           />
         </ImageBox>
         <ImageBox height={boxHeight}>
-          <VoistrapWebImages
+          <PersonalPortfolioImages
             boxHeight={boxHeight}
             index={6}
             scrollPercent={scrollPercent}

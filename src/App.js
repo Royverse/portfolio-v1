@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { render } from 'react-dom';
 import MenuScreen from './MenuScreen';
 import LegacyPortfolio from './LegacyPortfolio';
+import FallingLeaves from './FallingLeaves';
 import './Assets/Menu.css';
 
 const LongCat = React.lazy(() => import('./LongCat'));
 
 const App = () => {
-  const [view, setView] = useState('MENU'); // 'MENU' or 'PROJECTS'
+  const [view, setView] = useState('MENU'); // 'MENU' or 'PROFESSIONAL'
   const [transitioning, setTransitioning] = useState(false);
   const [entering, setEntering] = useState(true);
 
@@ -19,10 +20,10 @@ const App = () => {
     }
   }, [entering, view]);
 
-  const goToProjects = () => {
+  const goToProfessional = () => {
     setTransitioning(true);
     setTimeout(() => {
-      setView('PROJECTS');
+      setView('PROFESSIONAL');
       setTransitioning(false);
       setEntering(true);
     }, 500);
@@ -39,7 +40,7 @@ const App = () => {
 
   // Control body scroll based on view
   useEffect(() => {
-    if (view === 'PROJECTS') {
+    if (view === 'PROFESSIONAL') {
       document.body.style.overflow = 'auto';
       document.documentElement.style.overflow = 'auto';
       document.body.style.height = 'auto';
@@ -62,8 +63,9 @@ const App = () => {
 
   return (
     <>
+      <FallingLeaves />
       <div className={`view-wrap ${transitioning ? 'view-exit' : (entering ? 'view-enter' : '')}`}>
-        {view === 'PROJECTS' ? (
+        {view === 'PROFESSIONAL' ? (
           <>
             {/* Floating back button */}
             <button className="back-to-menu-btn" onClick={goToMenu} aria-label="Back to menu">
@@ -73,7 +75,7 @@ const App = () => {
             <LegacyPortfolio />
           </>
         ) : (
-          <MenuScreen onProjectsClick={goToProjects} />
+          <MenuScreen onProjectsClick={goToProfessional} />
         )}
       </div>
 

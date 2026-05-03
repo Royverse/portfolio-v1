@@ -6,7 +6,6 @@ import voistrapMeetingsImg from '../../../../Assets/Images/storybook/Group 16.pn
 import voistrapPeopleImg from '../../../../Assets/Images/storybook/Group 29.png';
 import voistrapPhoneScoreImg from '../../../../Assets/Images/storybook/Group 34.png';
 
-
 const VoistrapPhoneHome = styled.img.attrs({
   style: ({ scroll }) => ({
     transform: `translate(0px,-${(scroll) * 15}%)`,
@@ -16,7 +15,6 @@ transition: transform 0.2s ease-out;
 position: absolute;
 bottom: -20vh;
 left:0vw;
-/* border: 1px dashed red; */
 height: 20vh; 
 `;
 
@@ -29,7 +27,6 @@ transition: transform 0.2s ease-out;
 position: absolute;
 bottom:-100vh;
 right: 2vw;
-/* border: 1px dashed red; */
 height:20vh;
 filter: blur(0.1px);
 `;
@@ -43,7 +40,6 @@ transition: transform 0.2s ease-out;
 bottom:-75vh;
 left:2vw;
 position: absolute;
-/* border: 1px dashed red; */
 height: 20vh;
 filter: blur(0.1px);
 `;
@@ -57,11 +53,10 @@ transition: transform 0.2s ease-out;
 position: absolute;
 bottom: -20vh;
 left:0vw;
-/* border: 1px dashed red; */
 height: 20vh; 
 `;
 
-class VoistrapImages extends Component {
+class BluePrintImages extends Component {
   render() {
     let { scrollPercent } = this.props;
     const {
@@ -69,7 +64,7 @@ class VoistrapImages extends Component {
     } = this.props;
     const heighttoBeReducedinVH = ((boxHeight * index) - 100);
     const scrollOffset = (screenHeight * heighttoBeReducedinVH) / 100;
-    const scrollOffsetInPercent = (scrollOffset * 100 / scrollHeight);
+    const scrollOffsetInPercent = (scrollOffset * 100 / scrollHeight) + (index - 1);
     scrollPercent -= scrollOffsetInPercent;
     return (
       <React.Fragment>
@@ -82,7 +77,7 @@ class VoistrapImages extends Component {
   }
 }
 
-VoistrapImages.propTypes = {
+BluePrintImages.propTypes = {
   boxHeight: PropTypes.number.isRequired,
   index: PropTypes.number.isRequired,
   screenHeight: PropTypes.number.isRequired,
@@ -90,4 +85,4 @@ VoistrapImages.propTypes = {
   scrollPercent: PropTypes.number.isRequired,
 };
 
-export default VoistrapImages;
+export default BluePrintImages;

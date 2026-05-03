@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import dots from '../../../../Assets/Images/Showcase/Dots2.png';
-import bubbles from '../../../../Assets/Images/Showcase/testing2.jpg';
-import paths from '../../../../Assets/Images/Showcase/t2 (3).jpg';
-import bigBubble from '../../../../Assets/Images/Showcase/t2 (1).jpg';
-
+const dots = new URL('../../../../Assets/Images/portal/Group 23.png', import.meta.url).href;
+const bubbles = new URL('../../../../Assets/Images/portal/Group 25.png', import.meta.url).href;
+const paths = new URL('../../../../Assets/Images/portal/Group 24.png', import.meta.url).href;
+const bigBubble = new URL('../../../../Assets/Images/portal/Group 26.png', import.meta.url).href;
 
 const Dots = styled.img.attrs({
   style: ({ scroll }) => ({
@@ -16,8 +15,7 @@ transition: transform 0.2s ease-out;
 position: absolute;
 bottom: -240vh;
 left:0vw;
-/* border: 1px dashed red; */
-height: 20vh; 
+height: 50vh; 
 `;
 
 const Bubbles = styled.img.attrs({
@@ -29,8 +27,7 @@ position: absolute;
 bottom:-225vh;
 right: 0vw;
 transform-origin: right center;
-/* border: 1px dashed red; */
-height: 20vh;
+height: 50vh;
 filter: blur(0.1px);
 `;
 
@@ -42,8 +39,7 @@ const BigBubble = styled.img.attrs({
 bottom:-125vh;
 left:-4vw;
 position: absolute;
-/* border: 1px dashed red; */
-height: 20vh;
+height: 50vh;
 filter: blur(0.1px);
 `;
 
@@ -56,12 +52,11 @@ bottom:-80vh;
 right: 1vw;
 transform-origin: right center;
 position: absolute;
-/* border: 1px dashed red; */
-height: 20vh;
+height: 50vh;
 filter: blur(0.1px);
 `;
 
-class VoistrapWebImages extends Component {
+class AdminPortalImages extends Component {
   render() {
     let { scrollPercent } = this.props;
     const {
@@ -69,20 +64,20 @@ class VoistrapWebImages extends Component {
     } = this.props;
     const heighttoBeReducedinVH = ((boxHeight * index) - 100);
     const scrollOffset = (screenHeight * heighttoBeReducedinVH) / 100;
-    const scrollOffsetInPercent = (scrollOffset * 100 / scrollHeight);
+    const scrollOffsetInPercent = (scrollOffset * 100 / scrollHeight) + (index - 1);
     scrollPercent -= scrollOffsetInPercent;
     return (
       <React.Fragment>
-        <Paths src={paths.default || paths} scroll={scrollPercent} alt="paths" />
-        <BigBubble src={bigBubble.default || bigBubble} scroll={scrollPercent} alt="bigBubble" />
-        <Bubbles src={bubbles.default || bubbles} scroll={scrollPercent} alt="bubbles" />
-        <Dots src={dots.default || dots} scroll={scrollPercent} alt="dots" />
+        <Paths src={paths} scroll={scrollPercent} alt="paths" />
+        <BigBubble src={bigBubble} scroll={scrollPercent} alt="bigBubble" />
+        <Bubbles src={bubbles} scroll={scrollPercent} alt="bubbles" />
+        <Dots src={dots} scroll={scrollPercent} alt="dots" />
       </React.Fragment>
     );
   }
 }
 
-VoistrapWebImages.propTypes = {
+AdminPortalImages.propTypes = {
   boxHeight: PropTypes.number.isRequired,
   index: PropTypes.number.isRequired,
   screenHeight: PropTypes.number.isRequired,
@@ -90,4 +85,4 @@ VoistrapWebImages.propTypes = {
   scrollPercent: PropTypes.number.isRequired,
 };
 
-export default VoistrapWebImages;
+export default AdminPortalImages;

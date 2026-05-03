@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-const homeImg = new URL('../../../../Assets/Images/ppapps/Group 19.png', import.meta.url).href;
-const restaurantImg = new URL('../../../../Assets/Images/ppapps/Group 22.png', import.meta.url).href;
-const addRestaurantImg = new URL('../../../../Assets/Images/ppapps/Group 30.png', import.meta.url).href;
-const addFoodImg = new URL('../../../../Assets/Images/ppapps/Group 31.png', import.meta.url).href;
+import homeImg from '../../../../Assets/Images/ppapps/Group 19.png';
+import restaurantImg from '../../../../Assets/Images/ppapps/Group 22.png';
+import addRestaurantImg from '../../../../Assets/Images/ppapps/Group 30.png';
+import addFoodImg from '../../../../Assets/Images/ppapps/Group 31.png';
 
 const Restaurant = styled.img.attrs({
   style: ({ scroll }) => ({
@@ -15,8 +15,7 @@ transition: transform 0.2s ease-out;
 position: absolute;
 bottom: -90vh;
 left:0vw;
-/* border: 1px dashed red; */
-height: 80vh; 
+height: 30vh; 
 `;
 
 const Home = styled.img.attrs({
@@ -28,8 +27,7 @@ transition: transform 0.2s ease-out;
 position: absolute;
 bottom:-45vh;
 right: 2vw;
-/* border: 1px dashed red; */
-height: 80vh;
+height: 20vh;
 filter: blur(0.2px);
 `;
 
@@ -42,9 +40,8 @@ transition: transform 0.2s ease-out;
 bottom:-60vh;
 left:2vw;
 position: absolute;
-/* border: 1px dashed red; */
-height: 80vh;
-filter: blur(0.4px);
+height: 20vh;
+filter: blur(0.1px);
 `;
 
 const AddRestaurant = styled.img.attrs({
@@ -56,12 +53,11 @@ transition: transform 0.2s ease-out;
 bottom:-45vh;
 right: 4vw;
 position: absolute;
-/* border: 1px dashed red; */
-height: 60vh;
+height: 30vh;
 filter: blur(0.2px);
 `;
 
-class WhatsMyFoodImages extends Component {
+class BluePrintAppsImages extends Component {
   render() {
     let { scrollPercent } = this.props;
     const {
@@ -69,21 +65,20 @@ class WhatsMyFoodImages extends Component {
     } = this.props;
     const heighttoBeReducedinVH = ((boxHeight * index) - 100);
     const scrollOffset = (screenHeight * heighttoBeReducedinVH) / 100;
-    const scrollOffsetInPercent = (scrollOffset * 100 / scrollHeight) + index - 1;
-    // console.log('WMF scrollOffsetPercent ', scrollOffsetInPercent);
+    const scrollOffsetInPercent = (scrollOffset * 100 / scrollHeight) + (index - 1);
     scrollPercent -= scrollOffsetInPercent;
     return (
       <React.Fragment>
-        <AddFood src={addFoodImg} scroll={scrollPercent} alt="addFood" />
-        <AddRestaurant src={addRestaurantImg} scroll={scrollPercent} alt="addRestaurant" />
-        <Home src={homeImg} scroll={scrollPercent} alt="Home" />
-        <Restaurant src={restaurantImg} scroll={scrollPercent} alt="Restaurant" />
+        <AddFood src={addFoodImg.default || addFoodImg} scroll={scrollPercent} alt="addFood" />
+        <AddRestaurant src={addRestaurantImg.default || addRestaurantImg} scroll={scrollPercent} alt="addRestaurant" />
+        <Home src={homeImg.default || homeImg} scroll={scrollPercent} alt="Home" />
+        <Restaurant src={restaurantImg.default || restaurantImg} scroll={scrollPercent} alt="Restaurant" />
       </React.Fragment>
     );
   }
 }
 
-WhatsMyFoodImages.propTypes = {
+BluePrintAppsImages.propTypes = {
   boxHeight: PropTypes.number.isRequired,
   index: PropTypes.number.isRequired,
   screenHeight: PropTypes.number.isRequired,
@@ -91,4 +86,4 @@ WhatsMyFoodImages.propTypes = {
   scrollPercent: PropTypes.number.isRequired,
 };
 
-export default WhatsMyFoodImages;
+export default BluePrintAppsImages;

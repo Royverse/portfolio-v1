@@ -1,0 +1,346 @@
+/* Work Showcase Styles */
+.port {
+  font-family: 'Epilogue', sans-serif;
+  padding: 2rem 0 1rem;
+}
+
+.port-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1.25rem;
+}
+
+.port-title {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.port-count {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-faint);
+  letter-spacing: 0.08em;
+}
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.work-card {
+  background: #fff;
+  border: 0.5px solid var(--rule);
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.18s, transform 0.18s;
+}
+
+.work-card:hover {
+  border-color: var(--border);
+  transform: translateY(-2px);
+}
+
+.work-thumb {
+  width: 100%;
+  aspect-ratio: 16/10;
+  position: relative;
+  overflow: hidden;
+  background: #000;
+}
+
+.work-thumb canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.thumb-num {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.06em;
+  z-index: 1;
+}
+
+.thumb-arrow {
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0);
+  transition: color 0.18s;
+  z-index: 1;
+}
+
+.work-card:hover .thumb-arrow {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.card-body {
+  padding: 11px 13px 13px;
+  border-top: 0.5px solid var(--rule);
+}
+
+.card-tag {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 99px;
+  margin-bottom: 6px;
+}
+
+.card-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.25;
+  margin-bottom: 3px;
+}
+
+.card-sub {
+  font-size: 11px;
+  color: var(--ink-muted);
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+/* Modal */
+.work-modal-wrap {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.work-modal-wrap.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.work-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 31, 26, 0.4);
+  backdrop-filter: blur(8px);
+}
+
+.work-modal {
+  background: var(--bg);
+  border: 0.5px solid var(--border);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 520px;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  transform: translateY(12px);
+  transition: transform 0.3s ease;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.work-modal-wrap.open .work-modal {
+  transform: translateY(0);
+}
+
+.modal-preview {
+  width: 100%;
+  aspect-ratio: 16/8;
+  position: relative;
+  overflow: hidden;
+  background: #000;
+}
+
+.modal-preview canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.modal-body {
+  padding: 18px 20px 20px;
+}
+
+.modal-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 4px;
+}
+
+.modal-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.modal-x {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 0.5px solid var(--border);
+  background: none;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--ink-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.12s;
+}
+
+.modal-x:hover {
+  background: rgba(200, 220, 210, 0.2);
+}
+
+.modal-desc {
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--ink-muted);
+  font-weight: 300;
+  margin: 10px 0 14px;
+}
+
+.modal-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.modal-pills {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.m-pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  padding: 2px 8px;
+  border-radius: 99px;
+  border: 0.5px solid var(--rule);
+  color: var(--ink-muted);
+}
+
+.modal-link {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  padding: 6px 14px;
+  border-radius: 99px;
+  border: 0.5px solid var(--ink);
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.12s;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.modal-link:hover {
+  background: rgba(200, 220, 210, 0.2);
+}
+
+/* Hide portrait and leaves when experience overlay is open */
+.scene:has(.experience-overlay.active) .portrait-wrap,
+.scene:has(.experience-overlay.active) ~ #leaves {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+/* Experience Overlay Container */
+.experience-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100; /* Above everything including nav panel (z-index: 20) */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  background: rgba(243, 246, 244, 0.99);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 80px 10%;
+  overflow-y: auto;
+  transform: scale(1.05);
+}
+
+.experience-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+.experience-overlay.exiting {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(1.05);
+}
+
+/* Close Button */
+.exp-close-btn {
+  position: absolute;
+  top: 28px;
+  right: 36px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--border);
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.exp-close-btn:hover {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .experience-overlay {
+    padding: 20px;
+  }
+  .exp-close-btn {
+    top: 20px;
+    right: 20px;
+  }
+  .port-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}

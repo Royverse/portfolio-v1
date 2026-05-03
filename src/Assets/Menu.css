@@ -97,7 +97,7 @@ html, body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  z-index: 10;
+  z-index: 20; /* Above skills tree overlay (z-index: 15) */
 }
 
 /* thin vertical rule left of nav */
@@ -357,6 +357,11 @@ canvas.particles {
     padding: 20px;
     border-radius: 12px;
     backdrop-filter: blur(10px);
+  }
+
+  .name {
+    font-size: 28px;
+    margin-bottom: 4px;
   }
   
   .portrait-wrap {
