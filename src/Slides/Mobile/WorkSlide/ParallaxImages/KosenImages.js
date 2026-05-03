@@ -74,9 +74,9 @@ class VoistrapWebImages3 extends Component {
     return (
       <React.Fragment>
         {/* <Paths src={paths} scroll={scrollPercent} alt="paths" /> */}
-        <BigBubble src={bigBubble} scroll={scrollPercent} alt="bigBubble" />
-        <Bubbles src={bubbles} scroll={scrollPercent} alt="bubbles" />
-        <Dots src={dots} scroll={scrollPercent} alt="dots" />
+        <BigBubble src={bigBubble.default || bigBubble} scroll={scrollPercent} alt="bigBubble" />
+        <Bubbles src={bubbles.default || bubbles} scroll={scrollPercent} alt="bubbles" />
+        <Dots src={dots.default || dots} scroll={scrollPercent} alt="dots" />
       </React.Fragment>
     );
   }

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import homeImg from '../../../../Assets/Images/ppapps/Group 19.png';
-import restaurantImg from '../../../../Assets/Images/ppapps/Group 22.png';
-import addRestaurantImg from '../../../../Assets/Images/ppapps/Group 30.png';
-import addFoodImg from '../../../../Assets/Images/ppapps/Group 31.png';
+const homeImg = new URL('../../../../Assets/Images/ppapps/Group 19.png', import.meta.url).href;
+const restaurantImg = new URL('../../../../Assets/Images/ppapps/Group 22.png', import.meta.url).href;
+const addRestaurantImg = new URL('../../../../Assets/Images/ppapps/Group 30.png', import.meta.url).href;
+const addFoodImg = new URL('../../../../Assets/Images/ppapps/Group 31.png', import.meta.url).href;
 
 const Restaurant = styled.img.attrs({
   style: ({ scroll }) => ({

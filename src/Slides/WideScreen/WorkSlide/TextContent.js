@@ -239,10 +239,14 @@ class TextContent extends Component {
 TextContent.propTypes = {
   number: PropTypes.string.isRequired,
   projectName: PropTypes.string.isRequired,
-  projectDesc: PropTypes.string.isRequired,
+  projectDesc: PropTypes.node,
   projectType: PropTypes.string.isRequired,
   roles: PropTypes.array.isRequired,
   refreshToggle: PropTypes.bool.isRequired,
+};
+
+TextContent.defaultProps = {
+  projectDesc: null,
 };
 
 export default TextContent;

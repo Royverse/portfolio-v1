@@ -71,7 +71,7 @@ class AboutMe extends Component {
   }
 
   handleScroll(event) {
-    const { body, documentElement } = event.srcElement;
+    const { body, documentElement } = window.document;
     const sd = Math.max(body.scrollTop, documentElement.scrollTop);
     const sp = (sd / (documentElement.scrollHeight - documentElement.clientHeight) * 100);
     const maxlimit = (documentElement.clientHeight * 150) / documentElement.scrollHeight;

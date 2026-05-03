@@ -98,7 +98,7 @@ class Work extends Component {
   }
 
   handleScroll(event) {
-    const { body, documentElement } = event.srcElement;
+    const { body, documentElement } = window.document;
     const { vh, slideNumber } = this.state;
     const scrollDistance = Math.max(body.scrollTop, documentElement.scrollTop);
     if (scrollDistance > this.lastScrollTop) {

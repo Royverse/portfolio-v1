@@ -73,10 +73,10 @@ class VoistrapImages extends Component {
     scrollPercent -= scrollOffsetInPercent;
     return (
       <React.Fragment>
-        <VoistrapPhonePeople src={voistrapPeopleImg} scroll={scrollPercent} alt="voistrapPeople" />
-        <VoistrapPhoneScore src={voistrapPhoneScoreImg} scroll={scrollPercent} alt="voistrapPhone" />
-        <VoistrapPhoneMeetings src={voistrapMeetingsImg} scroll={scrollPercent} alt="voistrapMeetings" />
-        <VoistrapPhoneHome src={voistrapHomeImg} scroll={scrollPercent} alt="voistrapHome" />
+        <VoistrapPhonePeople src={voistrapPeopleImg.default || voistrapPeopleImg} scroll={scrollPercent} alt="voistrapPeople" />
+        <VoistrapPhoneScore src={voistrapPhoneScoreImg.default || voistrapPhoneScoreImg} scroll={scrollPercent} alt="voistrapPhone" />
+        <VoistrapPhoneMeetings src={voistrapMeetingsImg.default || voistrapMeetingsImg} scroll={scrollPercent} alt="voistrapMeetings" />
+        <VoistrapPhoneHome src={voistrapHomeImg.default || voistrapHomeImg} scroll={scrollPercent} alt="voistrapHome" />
       </React.Fragment>
     );
   }

@@ -220,7 +220,7 @@ class Work extends Component {
   }
 
   handleScroll(event) {
-    const { body, documentElement } = event.srcElement;
+    const { body, documentElement } = window.document;
     const { vh, slideNumber } = this.state;
     const scrollDistance = Math.max(body.scrollTop, documentElement.scrollTop);
     if (scrollDistance > this.lastScrollTop) {
@@ -262,12 +262,9 @@ class Work extends Component {
     const refresh = true;
 
     if (slideNumber >= this.workDetails.length) {
-      return null; // No project details to render
+      return null;
     }
-
     const project = this.workDetails[slideNumber];
-    const roles = project.roles.map((role, index) => <span key={index}>{role}</span>);
-
     let description = null;
     if (project.projectDesc) {
       description = (
@@ -288,7 +285,7 @@ class Work extends Component {
         projectName={project.projectName}
         projectDesc={description}
         projectType={project.projectType}
-        roles={roles}
+        roles={project.roles}
         refreshToggle={refresh}
       />
     );

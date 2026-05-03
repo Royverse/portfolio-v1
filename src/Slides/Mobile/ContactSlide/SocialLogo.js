@@ -36,7 +36,7 @@ class SocialLogo extends React.Component {
 }
 
 SocialLogo.propTypes = {
-  imgURL: PropTypes.string.isRequired,
+  imgURL: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
   alternate: PropTypes.string.isRequired,
   redirectURL: PropTypes.string.isRequired,
 };

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import dots from '../../../../Assets/Images/Readpoint/Group 1.png';
-import bubbles from '../../../../Assets/Images/Readpoint/Group 3.png';
-// import paths from '../../../../Assets/Images/Readpoint/Group 4.png';
-import bigBubble from '../../../../Assets/Images/Readpoint/Group 32.png';
+const dots = new URL('../../../../Assets/Images/Readpoint/Group 1.png', import.meta.url).href;
+const bubbles = new URL('../../../../Assets/Images/Readpoint/Group 3.png', import.meta.url).href;
+const bigBubble = new URL('../../../../Assets/Images/Readpoint/Group 32.png', import.meta.url).href;
 
 
 const Dots = styled.img.attrs({

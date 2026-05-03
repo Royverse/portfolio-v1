@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import twitterImg from '../../../Assets/Images/Social/twitter.svg';
-import githubImg from '../../../Assets/Images/Social/git.svg';
-import mailImg from '../../../Assets/Images/Social/mail.svg';
-import instaImg from '../../../Assets/Images/Social/insta.svg';
-import dribbbleImg from '../../../Assets/Images/Social/dribbble.svg';
-import linkedInImg from '../../../Assets/Images/Social/linkedin.svg';
+const githubImg = new URL('../../../Assets/Images/Social/git.svg', import.meta.url).href;
+const mailImg = new URL('../../../Assets/Images/Social/mail.svg', import.meta.url).href;
+const linkedInImg = new URL('../../../Assets/Images/Social/linkedin.svg', import.meta.url).href;
 import SocialLogo from './SocialLogo';
 import device from '../../../Assets/Responsive/breakpoints';
 

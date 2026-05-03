@@ -74,10 +74,10 @@ class WhatsMyFoodImages extends Component {
     scrollPercent -= scrollOffsetInPercent;
     return (
       <React.Fragment>
-        <AddFood src={addFoodImg} scroll={scrollPercent} alt="addFood" />
-        <AddRestaurant src={addRestaurantImg} scroll={scrollPercent} alt="addRestaurant" />
-        <Home src={homeImg} scroll={scrollPercent} alt="Home" />
-        <Restaurant src={restaurantImg} scroll={scrollPercent} alt="Restaurant" />
+        <AddFood src={addFoodImg.default || addFoodImg} scroll={scrollPercent} alt="addFood" />
+        <AddRestaurant src={addRestaurantImg.default || addRestaurantImg} scroll={scrollPercent} alt="addRestaurant" />
+        <Home src={homeImg.default || homeImg} scroll={scrollPercent} alt="Home" />
+        <Restaurant src={restaurantImg.default || restaurantImg} scroll={scrollPercent} alt="Restaurant" />
       </React.Fragment>
     );
   }

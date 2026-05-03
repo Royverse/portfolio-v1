@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import voistrapHomeImg from '../../../../Assets/Images/storybook/Group 14.png';
-import voistrapMeetingsImg from '../../../../Assets/Images/storybook/Group 16.png';
-import voistrapPeopleImg from '../../../../Assets/Images/storybook/Group 29.png';
+const voistrapHomeImg = new URL('../../../../Assets/Images/storybook/Group 14.png', import.meta.url).href;
+const voistrapMeetingsImg = new URL('../../../../Assets/Images/storybook/Group 16.png', import.meta.url).href;
+const voistrapPeopleImg = new URL('../../../../Assets/Images/storybook/Group 29.png', import.meta.url).href;
 
 
 
@@ -74,7 +74,6 @@ class VoistrapImages extends Component {
     return (
       <React.Fragment>
         <VoistrapPhonePeople src={voistrapPeopleImg} scroll={scrollPercent} alt="voistrapPeople" />
-
         <VoistrapPhoneMeetings src={voistrapMeetingsImg} scroll={scrollPercent} alt="voistrapMeetings" />
         <VoistrapPhoneHome src={voistrapHomeImg} scroll={scrollPercent} alt="voistrapHome" />
       </React.Fragment>
