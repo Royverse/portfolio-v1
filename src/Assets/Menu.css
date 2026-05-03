@@ -61,7 +61,7 @@ html, body {
   overflow: hidden;
   border: 0.5px solid var(--border);
   border-bottom: none;
-  z-index: 1;
+  z-index: 10;
 }
 
 .portrait-wrap img {

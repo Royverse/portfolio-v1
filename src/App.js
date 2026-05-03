@@ -4,6 +4,8 @@ import MenuScreen from './MenuScreen';
 import LegacyPortfolio from './LegacyPortfolio';
 import './Assets/Menu.css';
 
+const LongCat = React.lazy(() => import('./LongCat'));
+
 const App = () => {
   const [view, setView] = useState('MENU'); // 'MENU' or 'PROJECTS'
   const [transitioning, setTransitioning] = useState(false);
@@ -58,23 +60,27 @@ const App = () => {
     };
   }, [view]);
 
-  if (view === 'PROJECTS') {
-    return (
-      <div className={`view-wrap ${transitioning ? 'view-exit' : (entering ? 'view-enter' : '')}`}>
-        {/* Floating back button */}
-        <button className="back-to-menu-btn" onClick={goToMenu} aria-label="Back to menu">
-          <span className="back-bar"></span>
-          <span className="back-label">← MENU</span>
-        </button>
-        <LegacyPortfolio />
-      </div>
-    );
-  }
-
   return (
-    <div className={`view-wrap ${transitioning ? 'view-exit' : (entering ? 'view-enter' : '')}`}>
-      <MenuScreen onProjectsClick={goToProjects} />
-    </div>
+    <>
+      <div className={`view-wrap ${transitioning ? 'view-exit' : (entering ? 'view-enter' : '')}`}>
+        {view === 'PROJECTS' ? (
+          <>
+            {/* Floating back button */}
+            <button className="back-to-menu-btn" onClick={goToMenu} aria-label="Back to menu">
+              <span className="back-bar"></span>
+              <span className="back-label">← MENU</span>
+            </button>
+            <LegacyPortfolio />
+          </>
+        ) : (
+          <MenuScreen onProjectsClick={goToProjects} />
+        )}
+      </div>
+
+      <React.Suspense fallback={null}>
+        <LongCat />
+      </React.Suspense>
+    </>
   );
 };
 
