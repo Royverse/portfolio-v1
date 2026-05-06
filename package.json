@@ -1,26 +1,31 @@
 {
-  "name": "my_portfolio",
+  "name": "roy-mootsana-portfolio",
   "version": "1.0.0",
-  "description": "Roy's Portfolio",
-  "main": "App.js",
+  "description": "Roy Mootsana — Software Engineer & UX Architect Portfolio",
   "homepage": "https://roy-mootsana.github.io/portfolio-v1/",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html"
+    "dev": "parcel src/index.html --public-url /",
+    "build": "parcel build src/index.html --public-url /",
+    "build:gh-pages": "parcel build src/index.html --public-url /portfolio-v1/",
+    "postbuild": "copy src\\robots.txt dist\\robots.txt && copy src\\sitemap.xml dist\\sitemap.xml"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/roy-mootsana/portfolio-v1.git"
   },
-  "author": "Roy",
+  "author": "Roy Mootsana",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/sureshmurali/My-Portfolio/issues"
   },
   "devDependencies": {
+    "@parcel/packager-raw-url": "^2.16.4",
+    "@parcel/packager-xml": "^2.16.4",
+    "@parcel/transformer-jsonld": "^2.16.4",
+    "@parcel/transformer-xml": "^2.16.4",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.8.0",
     "eslint-config-airbnb": "^17.1.0",
@@ -28,7 +33,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
     "gh-pages": "^5.0.0",
-    "parcel-bundler": "^1.10.3"
+    "parcel": "^2.16.4"
   },
   "dependencies": {
     "@emotion/react": "^11.11.0",
@@ -36,6 +41,9 @@
     "@material-ui/core": "^4.12.4",
     "@mui/material": "^5.13.2",
     "dotenv": "^6.1.0",
+    "framer-motion": "^4.1.17",
+    "gsap": "^3.15.0",
+    "lottie-react": "^2.4.1",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.0",

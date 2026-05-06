@@ -1,19 +1,54 @@
+# Roy Mootsana - Software Engineer Portfolio
 
+A modern, high-performance web portfolio built with React, Styled-Components, and Parcel 2.
 
-## How to deploy?
+## 🚀 Key Features
 
-1. Clone repo and make sure you're in `dev-portfolio` branch
-2. Run `npm ci && npm run dev`
-3. Make changes in code and debug in `localhost:1234` by running `npm run dev`. (No Hot reload available)
-4. Commit code in dev-portfolio
-5. Run `npm run prod` to create dist files in dist folder
-6. Copy dist files temporarily
-7. Switch to master branch
-8. Overwite temporarily saved dist files in master branch
-9. Updated code reflects in live site
+- **Dynamic Navigation**: A sleek, full-page menu with smooth view transitions.
+- **Parallax Storytelling**: Interactive project showcases using layered parallax images.
+- **Blossom Animation**: A custom-built particle and petal animation for the skills section.
+- **Responsive Design**: Fully optimized for mobile, tablet, and desktop viewing.
+- **Parcel 2 Optimized**: Leverages modern bundling techniques for fast load times and robust asset management.
 
+## 🛠️ Technology Stack
 
-# portfolio
-# portfolio
-# portfolio-v1
-# portfolio-v1
+- **Core**: [React](https://reactjs.org/)
+- **Styling**: [Styled-Components](https://styled-components.com/)
+- **Bundler**: [Parcel 2](https://parceljs.org/)
+- **Animation**: Custom CSS Transitions & Particle Canvas
+
+## 📦 Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (Latest LTS recommended)
+- [npm](https://www.npmjs.com/)
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Royverse/portfolio-v1.git
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+### Development
+
+Run the development server on `http://localhost:1234`:
+```bash
+npm run dev
+```
+
+### Production Build
+
+Generate the optimized production bundle in the `dist/` directory:
+```bash
+npm run build
+```
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).

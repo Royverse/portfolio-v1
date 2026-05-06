@@ -1,48 +1,96 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { render } from 'react-dom';
-import { createGlobalStyle } from 'styled-components';
-import MediaQuery from 'react-responsive';
-import WideScreenHero from './Slides/WideScreen/HeroSlide/Hero';
-import WideScreenWork from './Slides/WideScreen/WorkSlide/Work';
-import WideScreenSkills from './Slides/WideScreen/Skills';
-import WideScreenContact from './Slides/WideScreen/ContactSlide/Contact';
-import MobileHero from './Slides/Mobile/HeroSlide/Hero';
-import MobileWork from './Slides/Mobile/WorkSlide/Work';
-import MobileSkills from './Slides/Mobile/Skills';
-import MobileContact from './Slides/Mobile/ContactSlide/Contact';
-import './Assets/index.css';
+import MenuScreen from './MenuScreen';
+import LegacyPortfolio from './LegacyPortfolio';
+import FallingLeaves from './components/FallingLeaves';
+import WinterWonderland from './components/WinterWonderland';
+import { ThemeProvider, useTheme } from './components/ThemeContext';
+import ThemePicker from './components/ThemePicker';
+import './Assets/Menu.css';
 
-const GlobalStyle = createGlobalStyle`
-html, body { margin: 0;}
-*, *:before, *:after { box-sizing: border-box; }
-`;
+const AppContent = () => {
+  const [view, setView] = useState('MENU'); // 'MENU' or 'PROFESSIONAL'
+  const [transitioning, setTransitioning] = useState(false);
+  const [entering, setEntering] = useState(true);
+  const { activeTheme } = useTheme();
 
-class App extends Component {
-  componentDidMount() {
-    if ('scrollRestoration' in window.history) {
-      window.history.scrollRestoration = 'manual';
+  useEffect(() => {
+    // Clear the enter animation class after it finishes
+    if (entering) {
+      const timer = setTimeout(() => setEntering(false), 500);
+      return () => clearTimeout(timer);
     }
-  }
+  }, [entering, view]);
 
-  render() {
-    return (
-      <React.Fragment>
-        <MediaQuery query="(min-device-width: 1224px)">
-          <WideScreenHero />
-          <WideScreenWork />
-          <WideScreenSkills />
-          <WideScreenContact />
-        </MediaQuery>
-        <MediaQuery query="(max-device-width: 1224px)">
-          <MobileHero />
-          <MobileWork />
-          <MobileSkills />
-          <MobileContact />
-        </MediaQuery>
-        <GlobalStyle />
-      </React.Fragment>
-    );
-  }
-}
+  const goToProfessional = () => {
+    setTransitioning(true);
+    setTimeout(() => {
+      setView('PROFESSIONAL');
+      setTransitioning(false);
+      setEntering(true);
+    }, 500);
+  };
 
-render(React.createElement(App), document.getElementById('root'));
+  const goToMenu = () => {
+    setTransitioning(true);
+    setTimeout(() => {
+      setView('MENU');
+      setTransitioning(false);
+      setEntering(true);
+    }, 500);
+  };
+
+  // Control body scroll based on view
+  useEffect(() => {
+    if (view === 'PROFESSIONAL') {
+      document.body.style.overflow = 'auto';
+      document.documentElement.style.overflow = 'auto';
+      document.body.style.height = 'auto';
+      document.documentElement.style.height = 'auto';
+      window.scrollTo(0, 0);
+    } else {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.height = '100%';
+      document.documentElement.style.height = '100%';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      document.body.style.height = '';
+      document.documentElement.style.height = '';
+    };
+  }, [view]);
+
+  return (
+    <>
+      {activeTheme === 'autumn' ? <FallingLeaves /> : <WinterWonderland isProfessional={view === 'PROFESSIONAL'} />}
+      
+      <div className="bg-switcher-wrap">
+        <ThemePicker />
+      </div>
+
+      <div className={`view-wrap ${transitioning ? 'view-exit' : (entering ? 'view-enter' : '')}`}>
+        {view === 'PROFESSIONAL' ? (
+          <>
+            <button className="back-to-menu-btn" onClick={goToMenu} aria-label="Back to menu">
+              <span className="back-bar"></span>
+              <span className="back-label">← MENU</span>
+            </button>
+            <LegacyPortfolio />
+          </>
+        ) : (
+          <MenuScreen onProjectsClick={goToProfessional} />
+        )}
+      </div>
+    </>
+  );
+};
+
+const App = () => (
+  <ThemeProvider>
+    <AppContent />
+  </ThemeProvider>
+);
+
+render(<App />, document.getElementById('root'));

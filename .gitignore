@@ -23,3 +23,12 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Parcel & Tooling
+.parcel-cache
+.gemini
+netlify_dist
+bash.exe.stackdump
+
+# Local Netlify folder
+.netlify
