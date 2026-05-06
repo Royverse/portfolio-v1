@@ -9,7 +9,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "parcel src/index.html --public-url /",
     "build": "parcel build src/index.html --public-url /",
-    "build:gh-pages": "parcel build src/index.html --public-url /portfolio-v1/"
+    "build:gh-pages": "parcel build src/index.html --public-url /portfolio-v1/",
+    "postbuild": "copy src\\robots.txt dist\\robots.txt && copy src\\sitemap.xml dist\\sitemap.xml"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,10 @@
     "url": "https://github.com/sureshmurali/My-Portfolio/issues"
   },
   "devDependencies": {
+    "@parcel/packager-raw-url": "^2.16.4",
+    "@parcel/packager-xml": "^2.16.4",
+    "@parcel/transformer-jsonld": "^2.16.4",
+    "@parcel/transformer-xml": "^2.16.4",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.8.0",
     "eslint-config-airbnb": "^17.1.0",
