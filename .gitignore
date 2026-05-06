@@ -29,3 +29,6 @@ yarn-error.log*
 .gemini
 netlify_dist
 bash.exe.stackdump
+
+# Local Netlify folder
+.netlify

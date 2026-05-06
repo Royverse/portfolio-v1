@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { render } from 'react-dom';
 import MenuScreen from './MenuScreen';
 import LegacyPortfolio from './LegacyPortfolio';
-import FallingLeaves from './FallingLeaves';
+import FallingLeaves from './components/FallingLeaves';
+import WinterWonderland from './components/WinterWonderland';
+import { ThemeProvider, useTheme } from './components/ThemeContext';
+import ThemePicker from './components/ThemePicker';
 import './Assets/Menu.css';
 
-const LongCat = React.lazy(() => import('./LongCat'));
-
-const App = () => {
+const AppContent = () => {
   const [view, setView] = useState('MENU'); // 'MENU' or 'PROFESSIONAL'
   const [transitioning, setTransitioning] = useState(false);
   const [entering, setEntering] = useState(true);
+  const { activeTheme } = useTheme();
 
   useEffect(() => {
     // Clear the enter animation class after it finishes
@@ -45,7 +47,6 @@ const App = () => {
       document.documentElement.style.overflow = 'auto';
       document.body.style.height = 'auto';
       document.documentElement.style.height = 'auto';
-      // Scroll to top when entering projects
       window.scrollTo(0, 0);
     } else {
       document.body.style.overflow = 'hidden';
@@ -63,11 +64,15 @@ const App = () => {
 
   return (
     <>
-      <FallingLeaves />
+      {activeTheme === 'autumn' ? <FallingLeaves /> : <WinterWonderland isProfessional={view === 'PROFESSIONAL'} />}
+      
+      <div className="bg-switcher-wrap">
+        <ThemePicker />
+      </div>
+
       <div className={`view-wrap ${transitioning ? 'view-exit' : (entering ? 'view-enter' : '')}`}>
         {view === 'PROFESSIONAL' ? (
           <>
-            {/* Floating back button */}
             <button className="back-to-menu-btn" onClick={goToMenu} aria-label="Back to menu">
               <span className="back-bar"></span>
               <span className="back-label">← MENU</span>
@@ -78,12 +83,14 @@ const App = () => {
           <MenuScreen onProjectsClick={goToProfessional} />
         )}
       </div>
-
-      <React.Suspense fallback={null}>
-        <LongCat />
-      </React.Suspense>
     </>
   );
 };
+
+const App = () => (
+  <ThemeProvider>
+    <AppContent />
+  </ThemeProvider>
+);
 
 render(<App />, document.getElementById('root'));

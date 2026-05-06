@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import MediaQuery from 'react-responsive';
 import { createGlobalStyle } from 'styled-components';
 
-import WideScreenHero from './Slides/WideScreen/HeroSlide/Hero';
-import WideScreenWork from './Slides/WideScreen/WorkSlide/Work';
-import WideScreenSkills from './Slides/WideScreen/Skills';
-import WideScreenContact from './Slides/WideScreen/ContactSlide/Contact';
+import WideScreenHero from './components/PortfolioLegacy/WideScreen/HeroSlide/Hero';
+import WideScreenWork from './components/PortfolioLegacy/WideScreen/WorkSlide/Work';
+import WideScreenSkills from './components/PortfolioLegacy/WideScreen/Skills';
+import WideScreenContact from './components/PortfolioLegacy/WideScreen/ContactSlide/Contact';
 
-import MobileHero from './Slides/Mobile/HeroSlide/Hero';
-import MobileWork from './Slides/Mobile/WorkSlide/Work';
-import MobileSkills from './Slides/Mobile/Skills';
-import MobileContact from './Slides/Mobile/ContactSlide/Contact';
+import MobileHero from './components/PortfolioLegacy/Mobile/HeroSlide/Hero';
+import MobileWork from './components/PortfolioLegacy/Mobile/WorkSlide/Work';
+import MobileSkills from './components/PortfolioLegacy/Mobile/Skills';
+import MobileContact from './components/PortfolioLegacy/Mobile/ContactSlide/Contact';
 
 import './Assets/index.css';
 
@@ -29,13 +29,13 @@ class LegacyPortfolio extends Component {
   render() {
     return (
       <React.Fragment>
-        <MediaQuery query="(min-device-width: 1224px)">
+        <MediaQuery query="(min-width: 1225px)">
           <WideScreenHero />
           <WideScreenWork />
           <WideScreenSkills />
           <WideScreenContact />
         </MediaQuery>
-        <MediaQuery query="(max-device-width: 1224px)">
+        <MediaQuery query="(max-width: 1224px)">
           <MobileHero />
           <MobileWork />
           <MobileSkills />

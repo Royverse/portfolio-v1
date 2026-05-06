@@ -2,7 +2,7 @@
 .skills-tree-overlay {
     position: absolute;
     inset: 0;
-    z-index: 15; /* Above portrait (z-index: 10) */
+    z-index: 15; /* Above portrait (z-index: 10), below nav-panel (z-index: 20) */
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.5s ease;
@@ -44,7 +44,7 @@
 
 /* Koala at base of tree */
 .koala-container {
-    position: absolute;
+    position: fixed;
     left: 64%;
     bottom: 20px;
     width: 140px;
@@ -53,7 +53,7 @@
     opacity: 0;
     pointer-events: none;
     transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.23, 1, 0.32, 1);
-    z-index: 6;
+    z-index: 2000000; /* Above CertificateOverlay (z-index: 1000000) */
 }
 
 .koala-container.visible {
@@ -69,21 +69,23 @@
     font-family: 'DM Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.22em;
-    color: #141f1a;
-    background: rgba(255, 255, 255, 0.6);
-    border: 1px solid #c8dcd2;
-    padding: 8px 20px;
-    border-radius: 20px;
+    color: var(--ink);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 8px 18px 8px 14px;
+    border-radius: 99px;
     cursor: pointer;
     z-index: 10;
-    backdrop-filter: blur(4px);
-    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    outline: none;
 }
 
 .skills-close-btn:hover {
-    background: #1d9e75;
-    color: white;
-    border-color: #1d9e75;
+    border-color: var(--accent);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
 }
 
 /* Tooltip */
@@ -201,4 +203,17 @@
     background: linear-gradient(to right, #1d9e75, #5DCAA5);
     border-radius: 2px;
     transition: width 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+@media (max-width: 768px) {
+    .koala-container {
+        width: 100px;
+        height: 100px;
+        bottom: 15px;
+        left: 55%;
+    }
+    .skills-close-btn {
+        top: 24px;
+        right: 24px;
+        padding: 8px 16px 8px 12px;
+    }
 }
