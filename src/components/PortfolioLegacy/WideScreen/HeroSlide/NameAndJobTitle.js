@@ -8,9 +8,9 @@ const Container = styled.div`
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    height:100vh;
-    width:100%;
-    /* border: 1px solid blue; */
+    height: 100vh;
+    width: 100%;
+    /* Keeping the background out assuming your main layout handles the dark theme */
 `;
 
 const bounce = keyframes`
@@ -21,21 +21,38 @@ const bounce = keyframes`
 
 const ArrowWrapper = styled.div`
   animation: ${bounce} 2s infinite;
-  margin-top: 20px;
+  margin-top: 30px;
 `;
 
 class NameAndJobTitle extends Component {
   render() {
     return (
-      <Container>
-        <NameReveal text="Roy Mootsana" fontFam="Algerian" timeDelay={500} />
-        <br />
-        <TitleReveal text="Design and Development " fontFam="Bahnschrift SemiBold" timeDelay={1300} />
-        <ArrowWrapper>
-          <TitleReveal text="⬇" fontFam="Algerian" timeDelay={1300} />
-        </ArrowWrapper>
-   
-      </Container>
+        <Container>
+          {/* Cinzel brings that sharp, dramatic edge */}
+          <NameReveal 
+            text="Roy Mootsana" 
+            fontFam="'Cinzel', serif" 
+            timeDelay={500} 
+          />
+          
+          <div style={{ marginTop: '10px' }} />
+
+          {/* Rajdhani adds a strict, technical contrast */}
+          <TitleReveal 
+            text="Design and Development" 
+            fontFam="'Rajdhani', sans-serif" 
+            timeDelay={1300} 
+          />
+
+          <ArrowWrapper>
+            {/* Swapped the emoji arrow for a cleaner text character, but you can swap it back! */}
+            <TitleReveal 
+              text="↓" 
+              fontFam="'Rajdhani', sans-serif" 
+              timeDelay={1500} 
+            />
+          </ArrowWrapper>
+        </Container>
     );
   }
 }

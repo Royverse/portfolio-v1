@@ -39,6 +39,8 @@ const ThemePicker = () => {
         className={`theme-picker-trigger ${isOpen ? 'open' : ''}`}
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Pick theme"
+        aria-expanded={isOpen}
+        aria-haspopup="listbox"
       >
         <span className="theme-bar"></span>
         <span className="theme-label">{currentThemeObj.label}</span>
@@ -53,6 +55,7 @@ const ThemePicker = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
+            role="listbox"
           >
             <div className="dropdown-header">
               SELECT SEASON
@@ -71,6 +74,8 @@ const ThemePicker = () => {
                   className={`theme-option ${t.status} ${ (theme === t.id || (!theme && t.id === 'auto')) ? 'selected' : ''}`}
                   onClick={() => handleSelect(t.id, t.status)}
                   disabled={t.status === 'pending'}
+                  role="option"
+                  aria-selected={ (theme === t.id || (!theme && t.id === 'auto')) }
                 >
                   <div className="option-info">
                     <span className="option-label">{t.label}</span>

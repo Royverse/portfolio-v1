@@ -10,43 +10,105 @@
     <meta name="author" content="Roy Mootsana" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://roymootsana.art" />
+
+    <!-- Predictive Loading: Domain Warmup -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Predictive Loading: Critical Hero Image -->
+    <link rel="preload" as="image" href="https://roymootsana.art/src/Assets/Images/Portrait/portrait-1.jpg" />
+
+    <!-- Predictive Loading: Critical Fonts -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Rajdhani:wght@600&family=DM+Mono:wght@300;400;500&family=Syne:wght@300;400;500;600&display=swap" />
     
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph / Facebook (Upgraded) -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://roymootsana.art" />
-    <meta property="og:title" content="Roy Mootsana | Software Engineer & UX Architect" />
-    <meta property="og:description" content="Bridging the gap between rigorous engineering and human-centered design. Creative developer based in South Africa." />
-    <meta property="og:image" content="https://roymootsana.art/favicon.png" />
+    <meta property="og:site_name" content="Roy Mootsana | Software Portfolio" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:title" content="Roy Mootsana — Software Engineer & UX Architect" />
+    <meta property="og:description" content="Bridging the gap between rigorous engineering and human-centered design. Creative technologist specializing in premium, high-performance web experiences." />
+    <meta property="og:image" content="https://roymootsana.art/src/Assets/Images/Portrait/portrait-2.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://roymootsana.art" />
-    <meta property="twitter:title" content="Roy Mootsana | Software Engineer & UX Architect" />
-    <meta property="twitter:description" content="Bridging the gap between rigorous engineering and human-centered design." />
-    <meta property="twitter:image" content="https://roymootsana.art/favicon.png" />
+    <!-- Twitter (Upgraded) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://roymootsana.art" />
+    <meta name="twitter:title" content="Roy Mootsana — Software Engineer & UX Architect" />
+    <meta name="twitter:description" content="Engineering human-centered designs and high-performance digital experiences. Based in South Africa." />
+    <meta name="twitter:image" content="https://roymootsana.art/src/Assets/Images/Portrait/portrait-2.jpg" />
+    <link rel="manifest" href="./manifest.json" />
+    <meta name="theme-color" content="#141f1a" />
+    <link rel="apple-touch-icon" href="./favicon.png" />
+    <link rel="icon" type="image/png" href="./favicon.png" />
     
-    <!-- Structured Data (JSON-LD) -->
+    <!-- Structured Data (JSON-LD) - Upgraded to include Projects -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Roy Mootsana",
       "url": "https://roymootsana.art",
+      "image": "https://roymootsana.art/src/Assets/Images/Portrait/portrait-2.jpg",
       "jobTitle": "Software Engineer & UX Architect",
+      "description": "Software Engineer and UX Architect specializing in high-performance web applications and human-centered design.",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Cape Town",
         "addressCountry": "ZA"
       },
+      "knowsAbout": [
+        "Software Engineering",
+        "UX Design",
+        "React",
+        "TypeScript",
+        "Creative Coding",
+        "Interaction Design",
+        "WebAR"
+      ],
       "sameAs": [
         "https://github.com/roy-mootsana",
         "https://www.linkedin.com/in/roymootsana"
-      ]
+      ],
+      "hasCredential": [
+        {
+          "@type": "EducationalOccupationalCredential",
+          "name": "Bachelor of Computer Science",
+          "recognizingOrganization": {
+            "@type": "CollegeOrUniversity",
+            "name": "Monash University"
+          }
+        }
+      ],
+      "mainEntityOfPage": {
+        "@type": "CollectionPage",
+        "name": "Portfolio Projects",
+        "hasPart": [
+          {
+            "@type": "CreativeWork",
+            "name": "IMD Accelerator Platform",
+            "description": "Data-driven EdTech learning dashboard for executive education.",
+            "author": "Roy Mootsana"
+          },
+          {
+            "@type": "CreativeWork",
+            "name": "BluePrint Design System",
+            "description": "Enterprise-scale Angular design system for Standard Bank Group.",
+            "author": "Roy Mootsana"
+          },
+          {
+            "@type": "CreativeWork",
+            "name": "WebAR R&D Prototyping",
+            "description": "Browser-native Augmented Reality simulations using Three.js and A-Frame.",
+            "author": "Roy Mootsana"
+          }
+        ]
+      }
     }
     </script>
 
-    <link rel="icon" type="image/png" href="./favicon.png" />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&family=Epilogue:wght@300;400;500&family=Share+Tech+Mono&family=Barlow:wght@300;400&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&family=Epilogue:wght@300;400;500&family=Share+Tech+Mono&family=Barlow:wght@300;400&family=Cinzel:wght@700&family=Rajdhani:wght@600&display=swap" rel="stylesheet" />
     
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142689179-1"></script>

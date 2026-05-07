@@ -45,6 +45,7 @@ const Portrait = () => {
   const progress = useMotionValue(0);
   
   const cardRef = useRef(null);
+  const touchRaf = useRef(null);
 
   // Motion values for raw mouse/touch position (-1 to 1)
   const mx = useMotionValue(0);
@@ -96,6 +97,18 @@ const Portrait = () => {
     return () => cancelAnimationFrame(frame);
   }, [paused, isHovered, progress]);
 
+  // Preload images for smoother transitions
+  useEffect(() => {
+    IMAGES.forEach(({ src }) => {
+      const img = new Image();
+      img.src = src;
+    });
+    
+    return () => {
+      if (touchRaf.current) cancelAnimationFrame(touchRaf.current);
+    };
+  }, []);
+
   // Unified movement handler for both Mouse and Touch
   const handleMove = (clientX, clientY) => {
     if (!cardRef.current) return;
@@ -112,7 +125,18 @@ const Portrait = () => {
   };
 
   const handleMouseMove = (e) => handleMove(e.clientX, e.clientY);
-  const handleTouchMove = (e) => handleMove(e.touches[0].clientX, e.touches[0].clientY);
+  
+  const handleTouchMove = (e) => {
+    if (touchRaf.current) return;
+    
+    const clientX = e.touches[0].clientX;
+    const clientY = e.touches[0].clientY;
+    
+    touchRaf.current = requestAnimationFrame(() => {
+      handleMove(clientX, clientY);
+      touchRaf.current = null;
+    });
+  };
 
   const handleInteractionStart = () => {
     setIsHovered(true);
@@ -190,6 +214,8 @@ const Portrait = () => {
                 src={IMAGES[current].src}
                 alt=""
                 className="tilted-card-img"
+                loading="eager"
+                decoding="async"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}

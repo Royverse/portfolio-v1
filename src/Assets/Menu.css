@@ -49,6 +49,26 @@ body.theme-winter.force-light-theme .back-to-menu-btn .back-label {
   color: #141f1a !important;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── CUSTOM PREMIUM SCROLLBAR ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ink-faint);
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
 html, body {
   height: 100%;
   background: var(--bg);

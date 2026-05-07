@@ -70,7 +70,7 @@
   will-change: transform;
   cursor: none;
   border-radius: 22px;
-  overflow: hidden;
+  /* overflow: hidden removed to fix WebKit 3D flattening bug */
   background: rgba(255, 255, 255, 0.45);
   backdrop-filter: blur(24px) saturate(1.6);
   -webkit-backdrop-filter: blur(24px) saturate(1.6);

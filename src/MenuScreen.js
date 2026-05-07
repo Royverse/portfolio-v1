@@ -122,6 +122,7 @@ const MenuScreen = ({ onProjectsClick }) => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={() => setIsFabOpen(false)}
+                role="presentation"
               />
               <div className="fab-pills">
                 {menuItems.map((item, i) => (
@@ -147,6 +148,7 @@ const MenuScreen = ({ onProjectsClick }) => {
           className={`fab-main ${isFabOpen ? 'open' : ''}`} 
           onClick={toggleFab}
           aria-label="Toggle menu"
+          aria-expanded={isFabOpen}
         >
           <div className="fab-icon-wrap">
             <span className="fab-line l1"></span>

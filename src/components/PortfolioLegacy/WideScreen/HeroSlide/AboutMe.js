@@ -38,18 +38,18 @@ const AboutMeDescription = styled.div`
   font-family: 'AvenirLight';
   text-align: left;
   margin-left: 30%;
-  top: 50%;
   margin-right: 5%;
+  position: relative;
   @media ${device.laptop} {
-    transform: translateY(90%);
+    transform: translateY(40%);
     font-size: 30px;
   }
   @media ${device.laptopL} {
-    transform: translateY(87%);
+    transform: translateY(35%);
     font-size: 38px;
   }
   @media ${device.desktop} {
-    transform: translateY(80%);
+    transform: translateY(30%);
     font-size: 70px;
   }
 `;
