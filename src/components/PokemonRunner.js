@@ -91,24 +91,81 @@ const LightningSparks = () => {
         }}
         transition={{ duration: 0.5, repeat: Infinity, ease: "linear", delay: 0.2, repeatDelay: 0.5 }}
       />
+    </div>
+  );
+};
 
+const BulbasaurLeaves = () => {
+  const leafCount = 10;
+  return (
+    <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: -1 }}>
+      {/* Nature Core Glow */}
       <motion.div
         style={{
           position: 'absolute',
-          top: '75%',
-          left: '-64px',
-          height: '2px',
-          backgroundColor: '#FEF08A',
+          top: '12px',
+          left: '-24px',
+          bottom: '12px',
+          right: '24px',
           borderRadius: '9999px',
-          filter: 'drop-shadow(0 0 6px rgba(253, 224, 71, 1))',
+          backgroundColor: 'rgba(34, 197, 94, 0.45)',
+          filter: 'blur(35px)',
+          mixBlendMode: 'screen',
+        }}
+        animate={{ opacity: [0.2, 0.6, 0.25], scale: [0.9, 1.1, 0.9] }}
+        transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+      />
+      
+      {/* High-speed leaves flying off back */}
+      {Array.from({ length: leafCount }).map((_, i) => (
+        <motion.div
+          key={i}
+          style={{
+            position: 'absolute',
+            top: `${20 + Math.random() * 60}%`,
+            left: '30px',
+            width: `${10 + Math.random() * 10}px`,
+            height: `${8 + Math.random() * 8}px`,
+            background: i % 2 === 0 
+              ? 'linear-gradient(to bottom right, #309900, #005600)' 
+              : 'linear-gradient(to bottom right, #5e9900, #2b5600)',
+            borderRadius: '5% 40% 70%',
+            transform: 'skew(20deg)',
+            opacity: 0.8,
+          }}
+          animate={{
+            x: [0, -140 - Math.random() * 120],
+            y: [0, (Math.random() - 0.5) * 50],
+            rotate: [0, 360 * (Math.random() > 0.5 ? 1 : -1)],
+            opacity: [0.8, 1, 0],
+          }}
+          transition={{
+            duration: 0.7 + Math.random() * 0.5,
+            repeat: Infinity,
+            ease: "easeOut",
+            delay: Math.random() * 1.5,
+          }}
+        />
+      ))}
+
+      {/* Quick Speed Lines (Green-tinted) */}
+      <motion.div
+        style={{
+          position: 'absolute',
+          top: '40%',
+          left: '-100px',
+          height: '2px',
+          backgroundColor: '#4ade80',
+          borderRadius: '9999px',
+          filter: 'blur(1px)',
           originX: 1,
         }}
         animate={{
-          width: ["0px", "60px", "0px"],
-          opacity: [0, 1, 0],
-          x: [0, -60, -110]
+          width: ["0px", "100px", "0px"],
+          opacity: [0, 0.8, 0],
+          x: [0, -80, -150]
         }}
-        transition={{ duration: 0.45, repeat: Infinity, ease: "linear", delay: 0.6, repeatDelay: 0.35 }}
+        transition={{ duration: 0.6, repeat: Infinity, ease: "linear", delay: 0.3 }}
       />
     </div>
   );
@@ -141,8 +198,8 @@ const PokemonRunner = ({ theme, onComplete }) => {
         zIndex: 100
       }}
     >
-      {/* Lightning effect for Pikachu (non-winter theme) */}
-      {!isWinter && <LightningSparks />}
+      {/* Dynamic Aura effects based on theme */}
+      {isWinter ? <BulbasaurLeaves /> : <LightningSparks />}
 
       <Lottie 
         animationData={animationData} 
