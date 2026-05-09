@@ -18,36 +18,45 @@ const TextContainer = styled.section`
 `;
 
 const ProjectID = styled(motion.div)`
-  font-family: 'DM Mono', monospace;
+  font-family: 'AvenirHeavy', sans-serif;
   font-size: 14px;
   letter-spacing: 0.3em;
   color: var(--accent);
   margin-bottom: 24px;
 `;
 
+const ProjectNameStage = styled.div`
+  overflow: hidden;
+  margin-bottom: 16px;
+`;
+
 const ProjectName = styled(motion.h2)`
-  font-family: 'Bauhaus93';
+  font-family: 'AvenirHeavy', sans-serif;
   color: var(--ink);
   line-height: 1;
-  margin-bottom: 16px;
-  @media ${device.mobileS} { font-size: 36px; }
-  @media ${device.mobileM} { font-size: 42px; }
-  @media ${device.mobileL} { font-size: 48px; }
+  margin-bottom: 0;
+  @media ${device.mobileS} { font-size: 32px; }
+  @media ${device.mobileM} { font-size: 38px; }
+  @media ${device.mobileL} { font-size: 44px; }
   @media ${device.tablet} { font-size: 64px; }
-  @media ${device.laptop} { font-size: 80px; }
+`;
+
+const MyRoleStage = styled.div`
+  overflow: hidden;
+  margin-bottom: 32px;
 `;
 
 const MyRole = styled(motion.div)`
-  font-family: 'DM Mono', monospace;
+  font-family: 'AvenirMedium', sans-serif;
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--ink-muted);
-  margin-bottom: 32px;
+  margin-bottom: 0;
 `;
 
 const ProjectDesc = styled(motion.p)`
-  font-family: 'AvenirRoman';
+  font-family: 'AvenirRoman', sans-serif;
   color: var(--ink);
   line-height: 1.6;
   max-width: 90%;
@@ -60,7 +69,7 @@ const ProjectType = styled(motion.div)`
   position: absolute;
   bottom: 40px;
   right: 24px;
-  font-family: 'DM Mono', monospace;
+  font-family: 'AvenirHeavy', sans-serif;
   font-size: 10px;
   letter-spacing: 0.3em;
   color: var(--ink-faint);
@@ -109,35 +118,37 @@ class TextContent extends Component {
               // PROJECT {number}
             </ProjectID>
  
-            <ProjectName
-              variants={{
-                hidden: { opacity: 0, y: 30 },
-                visible: { 
-                  opacity: 1, 
-                  y: 0,
-                  transition: { duration: 0.8, ease: "easeOut" }
-                }
-              }}
-            >
-              {projectName}
-            </ProjectName>
+            <ProjectNameStage>
+              <ProjectName
+                variants={{
+                  hidden: { y: "100%" },
+                  visible: { 
+                    y: 0,
+                    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+                  }
+                }}
+              >
+                {projectName}
+              </ProjectName>
+            </ProjectNameStage>
  
-            <MyRole
-              variants={{
-                hidden: { opacity: 0, y: 10 },
-                visible: { 
-                  opacity: 1, 
-                  y: 0,
-                  transition: { duration: 0.8, ease: "easeOut" }
-                }
-              }}
-            >
-              {roles.join(' • ')}
-            </MyRole>
+            <MyRoleStage>
+              <MyRole
+                variants={{
+                  hidden: { y: "100%" },
+                  visible: { 
+                    y: 0,
+                    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+                  }
+                }}
+              >
+                {roles.join(' • ')}
+              </MyRole>
+            </MyRoleStage>
  
             <ProjectDesc
               variants={{
-                hidden: { opacity: 0, y: 20 },
+                hidden: { opacity: 0, y: 15 },
                 visible: { 
                   opacity: 1, 
                   y: 0,
