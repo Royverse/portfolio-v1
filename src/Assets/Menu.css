@@ -75,6 +75,17 @@ html, body {
   color: var(--ink);
   font-family: 'Syne', sans-serif;
   overflow: hidden;
+  /* Prevent 'Caret Browsing' cursor in Edge and keep it feeling like an app */
+  caret-color: transparent;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  cursor: default;
+}
+
+/* Allow text selection only where explicitly needed */
+.selectable-text {
+  user-select: text;
+  cursor: text;
 }
 
 /* ── FULL BLEED CANVAS ── */

@@ -6,6 +6,7 @@ import FallingLeaves from './components/FallingLeaves';
 import WinterWonderland from './components/WinterWonderland';
 import { ThemeProvider, useTheme } from './components/ThemeContext';
 import ThemePicker from './components/ThemePicker';
+import BackgroundMusic from './components/BackgroundMusic';
 import './Assets/Menu.css';
 
 const AppContent = () => {
@@ -69,6 +70,8 @@ const AppContent = () => {
       <div className="bg-switcher-wrap">
         <ThemePicker />
       </div>
+
+      <BackgroundMusic />
 
       <div className={`view-wrap ${transitioning ? 'view-exit' : (entering ? 'view-enter' : '')}`}>
         {view === 'PROFESSIONAL' ? (
