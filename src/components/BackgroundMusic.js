@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './BackgroundMusic.css';
-// Using the 'url:' prefix to tell Parcel to treat this as a static asset URL
-import audioFile from 'url:../Assets/Sounds/30 seconds of Experience.mp3';
+// Using new URL() for robust asset resolution in Parcel 2
+const audioFile = new URL('../Assets/Sounds/experience_piano_cover.mp3', import.meta.url).href;
 
 const BackgroundMusic = () => {
   const [isPlaying, setIsPlaying] = useState(false);

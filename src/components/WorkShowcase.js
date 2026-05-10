@@ -44,6 +44,14 @@ const projects = [
     pills: ['Vanilla JS', 'CSS', 'UI System', 'OS UX'],
     url: 'https://midnight-os-demo.netlify.app/',
     draw: drawOS, drawM: drawOSM
+  },
+  {
+    num: '06', name: 'LUMINARY', sub: 'Superhero flight engine',
+    tag: 'Game Engine', tagBg: '#E0F2F1', tagColor: '#0B7A8A',
+    desc: 'Master the skies with supersonic speed. A custom Three.js superhero flight engine and game mechanics experiment featuring energy wings, aerodynamic drag, shockwave impacts, and an expansive neon cityscape.',
+    pills: ['Three.js', 'WebGL', 'Physics', 'JS'],
+    url: 'https://luminary-flight.netlify.app/',
+    draw: drawLuminary, drawM: drawLuminaryModal
   }
 ];
 
@@ -285,6 +293,105 @@ function drawOSM(ctx, w, h, t) {
   ctx.fillText('midnight os  —  v1.0', 8, h - 6);
 }
 
+function drawLuminary(ctx, w, h, t) {
+  ctx.fillStyle = '#040f12';
+  ctx.fillRect(0, 0, w, h);
+
+  ctx.strokeStyle = 'rgba(11,122,138,0.15)';
+  ctx.lineWidth = 1.5;
+  ctx.lineCap = 'round';
+  for(let i = 14; i < w; i += 24) { ctx.beginPath(); ctx.moveTo(i, 14); ctx.lineTo(i, h-14); ctx.stroke(); }
+  for(let i = 14; i < h; i += 24) { ctx.beginPath(); ctx.moveTo(14, i); ctx.lineTo(w-14, i); ctx.stroke(); }
+
+  const startX = w * 0.15, startY = h * 0.75;
+  const endX = w * 0.85, endY = h * 0.35;
+  const cpX = w * 0.5, cpY = h * 0.1;
+
+  ctx.beginPath();
+  ctx.moveTo(startX, startY);
+  ctx.quadraticCurveTo(cpX, cpY, endX, endY);
+  ctx.strokeStyle = 'rgba(11,122,138,0.4)';
+  ctx.lineWidth = 3;
+  ctx.lineCap = 'round';
+  ctx.stroke();
+
+  const progress = (t * 0.4) % 2;
+  if (progress <= 1) {
+     const px = Math.pow(1-progress, 2)*startX + 2*(1-progress)*progress*cpX + Math.pow(progress, 2)*endX;
+     const py = Math.pow(1-progress, 2)*startY + 2*(1-progress)*progress*cpY + Math.pow(progress, 2)*endY;
+
+     ctx.beginPath(); ctx.arc(px, py, 8, 0, Math.PI*2);
+     ctx.fillStyle = 'rgba(11,122,138,0.4)'; ctx.fill();
+
+     ctx.beginPath(); ctx.arc(px, py, 3.5, 0, Math.PI*2);
+     ctx.fillStyle = '#10B9D1'; ctx.fill();
+  }
+
+  ctx.font = `600 ${Math.max(10, h * 0.085)}px system-ui, sans-serif`;
+  ctx.fillStyle = 'rgba(11,122,138,0.5)';
+  ctx.fillText('luminary', 12, h - 12);
+}
+
+function drawLuminaryModal(ctx, w, h, t) {
+  ctx.fillStyle = '#02080a';
+  ctx.fillRect(0, 0, w, h);
+
+  const cx = w / 2, cy = h * 0.75;
+
+  for(let i = 1; i <= 5; i++) {
+     ctx.beginPath();
+     ctx.arc(cx, cy, i * h * 0.22, Math.PI, 0);
+     ctx.strokeStyle = `rgba(11,122,138,${0.3 - i*0.04})`;
+     ctx.lineWidth = 2;
+     ctx.lineCap = 'round';
+     ctx.stroke();
+  }
+
+  const routes = [
+    { sx: w*0.1, sy: h*0.75, ex: w*0.8, ey: h*0.75, cpx: w*0.3, cpy: h*0.2, offset: 0, width: 3 },
+    { sx: w*0.2, sy: h*0.75, ex: w*0.9, ey: h*0.75, cpx: w*0.6, cpy: h*0.1, offset: 1.5, width: 2 },
+    { sx: w*0.05, sy: h*0.75, ex: w*0.6, ey: h*0.75, cpx: w*0.4, cpy: h*0.3, offset: 3, width: 2 },
+  ];
+
+  routes.forEach((rt, idx) => {
+     ctx.beginPath();
+     ctx.moveTo(rt.sx, rt.sy);
+     ctx.quadraticCurveTo(rt.cpx, rt.cpy, rt.ex, rt.ey);
+     ctx.strokeStyle = 'rgba(11,122,138,0.25)';
+     ctx.lineWidth = rt.width;
+     ctx.lineCap = 'round';
+     ctx.stroke();
+
+     const p = ((t * 0.3 + rt.offset) % 3) / 2;
+     if (p >= 0 && p <= 1) {
+        const px = Math.pow(1-p, 2)*rt.sx + 2*(1-p)*p*rt.cpx + Math.pow(p, 2)*rt.ex;
+        const py = Math.pow(1-p, 2)*rt.sy + 2*(1-p)*p*rt.cpy + Math.pow(p, 2)*rt.ey;
+        
+        ctx.beginPath(); ctx.arc(px, py, 10, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(11,122,138,0.4)'; ctx.fill();
+
+        ctx.beginPath(); ctx.arc(px, py, 4, 0, Math.PI*2);
+        ctx.fillStyle = '#10B9D1'; ctx.fill();
+
+        if(idx === 0) {
+           ctx.font = `600 ${h * 0.045}px 'DM Mono', 'Courier New', monospace`;
+           ctx.fillStyle = 'rgba(11,122,138,0.8)';
+           const alt = Math.floor(Math.sin(p * Math.PI) * 1250); 
+           ctx.fillText(`FL${alt}`, px + 16, py - 16);
+        }
+     }
+  });
+
+  ctx.fillStyle = 'rgba(4,15,18,0.85)';
+  ctx.fillRect(0, h*0.8, w, h*0.2);
+  ctx.beginPath(); ctx.moveTo(0, h*0.8); ctx.lineTo(w, h*0.8);
+  ctx.strokeStyle = 'rgba(11,122,138,0.3)'; ctx.lineWidth = 1.5; ctx.stroke();
+
+  ctx.font = `600 ${h * 0.065}px system-ui, sans-serif`;
+  ctx.fillStyle = 'rgba(11,122,138,0.6)';
+  ctx.fillText('LUMINARY ENGINE // ACTIVE_TRACKING', 24, h*0.9);
+}
+
 // ProjectCard logic moved to ChromaGrid.js
 
 const WorkShowcase = ({ active, onClose }) => {
@@ -352,7 +459,7 @@ const WorkShowcase = ({ active, onClose }) => {
                     onClick={() => setSelectedProject(item)}
                     style={idx === projects.length - 1 && projects.length % 2 !== 0 ? { gridColumn: 'span 2' } : {}}
                   >
-                    <div className="card-canvas-preview" style={{ background: item.num === '01' ? '#0c0a18' : item.num === '02' ? '#030d07' : item.num === '03' ? '#120818' : item.num === '04' ? '#04111f' : '#111114' }}>
+                    <div className="card-canvas-preview" style={{ background: item.num === '01' ? '#0c0a18' : item.num === '02' ? '#030d07' : item.num === '03' ? '#120818' : item.num === '04' ? '#04111f' : item.num === '05' ? '#111114' : '#040f12' }}>
                       {`[ ${item.name.split(' ')[0].toLowerCase()} ]`}
                     </div>
                     <div className="card-body">
@@ -429,12 +536,12 @@ const WorkShowcase = ({ active, onClose }) => {
             thickness={2}
             borderRadius={24}
             className="port-container"
-            style={{ borderRadius: 24, background: 'rgba(243, 246, 244, 0.2)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', width: '90vw', maxWidth: '1200px' }}
+            style={{ borderRadius: 24, background: 'rgba(243, 246, 244, 0.2)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', width: '90vw', maxWidth: '960px' }}
           >
             <div className="port" style={{ borderRadius: 24, background: 'transparent' }}>
               <div className="port-header">
                 <span className="port-title">AI EXPERIMENTS & PROJECTS</span>
-                <span className="port-count">05 deployments</span>
+                <span className="port-count">06 deployments</span>
               </div>
               <ChromaGrid items={projects} onSelect={setSelectedProject} />
             </div>
