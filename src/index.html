@@ -45,6 +45,23 @@
         var a = document.createElement('link'); a.rel = 'apple-touch-icon'; a.href = '/favicon.png'; document.head.appendChild(a);
         var b = document.createElement('link'); b.rel = 'icon'; b.type = 'image/png'; b.href = '/favicon.png'; document.head.appendChild(b);
         var c = document.createElement('link'); c.rel = 'shortcut icon'; c.type = 'image/x-icon'; c.href = '/favicon.ico'; document.head.appendChild(c);
+
+        // Universal Canvas roundRect Polyfill for legacy compatibility (devices pre-2022)
+        if (typeof CanvasRenderingContext2D !== 'undefined' && !CanvasRenderingContext2D.prototype.roundRect) {
+          CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
+            var radius = typeof r === 'number' ? r : (Array.isArray(r) ? r[0] : 0);
+            if (w < 2 * radius) radius = w / 2;
+            if (h < 2 * radius) radius = h / 2;
+            this.beginPath();
+            this.moveTo(x + radius, y);
+            this.arcTo(x + w, y,     x + w, y + h, radius);
+            this.arcTo(x + w, y + h, x,     y + h, radius);
+            this.arcTo(x,     y + h, x,     y,     radius);
+            this.arcTo(x,     y,     x + w, y,     radius);
+            this.closePath();
+            return this;
+          };
+        }
       })();
     </script>
     

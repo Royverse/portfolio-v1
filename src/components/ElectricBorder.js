@@ -255,12 +255,19 @@ const ElectricBorder = ({
     };
 
     // Handle resize
-    const resizeObserver = new ResizeObserver(() => {
+    let resizeObserver;
+    const handleResize = () => {
       const newSize = updateSize();
       width = newSize.width;
       height = newSize.height;
-    });
-    resizeObserver.observe(container);
+    };
+
+    if (typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver(handleResize);
+      resizeObserver.observe(container);
+    } else {
+      window.addEventListener('resize', handleResize);
+    }
 
     // Start animation
     animationRef.current = requestAnimationFrame(drawElectricBorder);
@@ -269,7 +276,11 @@ const ElectricBorder = ({
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
-      resizeObserver.disconnect();
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      } else {
+        window.removeEventListener('resize', handleResize);
+      }
     };
   }, [color, speed, chaos, thickness, borderRadius, octavedNoise, getRoundedRectPoint]);
 
