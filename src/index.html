@@ -40,8 +40,13 @@
     <meta name="twitter:image" content="https://roymootsana.art/src/Assets/Images/Portrait/portrait-2.jpg" />
     <link rel="manifest" href="./manifest.json" />
     <meta name="theme-color" content="#141f1a" />
-    <link rel="apple-touch-icon" href="./favicon.png" />
-    <link rel="icon" type="image/png" href="./favicon.png" />
+    <script>
+      (function() {
+        var a = document.createElement('link'); a.rel = 'apple-touch-icon'; a.href = '/favicon.png'; document.head.appendChild(a);
+        var b = document.createElement('link'); b.rel = 'icon'; b.type = 'image/png'; b.href = '/favicon.png'; document.head.appendChild(b);
+        var c = document.createElement('link'); c.rel = 'shortcut icon'; c.type = 'image/x-icon'; c.href = '/favicon.ico'; document.head.appendChild(c);
+      })();
+    </script>
     
     <!-- Structured Data (JSON-LD) - Upgraded to include Projects -->
     <script type="application/ld+json">

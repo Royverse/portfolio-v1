@@ -7,24 +7,24 @@ const projects = [
   {
     num: '01', name: 'Air Canvas AI', sub: 'Gesture-controlled drawing',
     tag: 'Creative · AI', tagBg: '#EEEDFE', tagColor: '#3C3489',
-    desc: 'Draw in mid-air using hand gestures tracked in real time via MediaPipe. Pinch to draw, open palm to pause — expressive browser art without touching a device.',
-    pills: ['MediaPipe', 'WebGL', 'Canvas API', 'Gesture Recognition'],
+    desc: 'A touchless painting engine built on MediaPipe\'s 21-point hand tracking. Pinch to draw, open palm to pause — Kalman filtering smooths out tremor and camera noise in real time, so every stroke feels deliberate.',
+    pills: ['MediaPipe Hands', 'Canvas 2D', 'Kalman Filter', 'Vite', 'Gesture Engine'],
     url: 'https://air-canvas-ai.netlify.app/',
     draw: drawAC, drawM: drawACM
   },
   {
     num: '02', name: 'not financial advice.', sub: 'Terminal stock dashboard',
     tag: 'Finance', tagBg: '#E1F5EE', tagColor: '#085041',
-    desc: 'A hacker-aesthetic market dashboard. Enter a ticker, get a vibe check — real-time scanning, portfolio tracking, and a live feed that feels ripped from a trading floor.',
-    pills: ['React', 'WebSockets', 'Financial API', 'CSS Animations'],
+    desc: 'A market terminal that merges live price data from Alpha Vantage with real-time social sentiment from X, feeding both into Gemini 2.0 to generate a single conviction score per ticker. Results are cached in Supabase. Three.js particle clouds respond to the market mood.',
+    pills: ['Next.js 15', 'Gemini 2.0', 'Alpha Vantage', 'Xpoz API', 'Supabase', 'Three.js'],
     url: 'https://notfinancialadvice.site/',
     draw: drawNFA, drawM: drawNFAM
   },
   {
-    num: '03', name: 'MoodLine', sub: 'Mood lifting interface',
+    num: '03', name: 'Mood Support', sub: 'Mood lifting interface',
     tag: 'AI · Wellness', tagBg: '#FBEAF0', tagColor: '#72243E',
-    desc: 'An AI-driven experiment focused on emotional well-being. It helps lift a user’s mood when they feel down through interactive, generative responses.',
-    pills: ['React', 'AI Model', 'Emotion API', 'Framer Motion'],
+    desc: 'An emotional support interface where the design responds to you. Select a mood state and the colour palette, animations, and tone all shift accordingly. Write about how you feel — Gemini AI analyses the entry and returns personalised, grounded guidance.',
+    pills: ['React', 'Gemini AI', 'Framer Motion', 'Serverless', 'CSS System'],
     url: 'https://mood-align.netlify.app/',
     draw: drawMA, drawM: drawMAM,
     note: 'Subject to token limits'
@@ -32,24 +32,24 @@ const projects = [
   {
     num: '04', name: 'AR Portal', sub: 'WebXR augmented reality portals',
     tag: 'AR · 3D', tagBg: '#E6F1FB', tagColor: '#0C447C',
-    desc: 'Step through augmented reality portals overlaid on the real world. A WebXR experiment rendering immersive 3D environments directly in the browser — no app required.',
-    pills: ['WebXR', 'Three.js', 'GLSL', 'AR'],
+    desc: 'Point a camera at a physical marker and a 3D portal appears, anchored in real space. AR.js handles marker tracking while A-Frame renders a metallic frame with stabilised tracking. Step through it and the viewport opens into a full 360° virtual environment — entirely browser-native.',
+    pills: ['A-Frame', 'AR.js', 'Three.js', 'WebXR', 'WebGL'],
     url: 'https://github.com/Royverse/AR-PORTAL',
     draw: drawAR, drawM: drawARM
   },
   {
     num: '05', name: 'Midnight OS', sub: 'Browser-based OS interface',
     tag: 'Interface', tagBg: '#F1EFE8', tagColor: '#444441',
-    desc: 'A complete OS-style experience in vanilla JS. Windowed applications, a taskbar, a desktop environment, and a dark system aesthetic — all running client-side.',
-    pills: ['Vanilla JS', 'CSS', 'UI System', 'OS UX'],
+    desc: 'A desktop OS experience built entirely in the browser using vanilla JavaScript. A custom DOM window manager handles multi-window layering, drag and resize. Inside: a Finder, a live browser widget, a Notes app persisted to LocalStorage, a calculator, and a clock.',
+    pills: ['Vanilla JS', 'HTML5', 'LocalStorage', 'DOM API', 'CSS System'],
     url: 'https://midnight-os-demo.netlify.app/',
     draw: drawOS, drawM: drawOSM
   },
   {
     num: '06', name: 'LUMINARY', sub: 'Superhero flight engine',
     tag: 'Game Engine', tagBg: '#E0F2F1', tagColor: '#0B7A8A',
-    desc: 'Master the skies with supersonic speed. A custom Three.js superhero flight engine and game mechanics experiment featuring energy wings, aerodynamic drag, shockwave impacts, and an expansive neon cityscape.',
-    pills: ['Three.js', 'WebGL', 'Physics', 'JS'],
+    desc: 'A 3D superhero flight engine built from first principles in Three.js. Aerodynamic lift and drag equations drive movement through a procedural neon city. A Verlet cloth solver animates the cape in real time, AABB partitioning handles building collisions at 60fps, and wind audio is synthesised live via the Web Audio API.',
+    pills: ['Three.js', 'WebGL', 'Verlet Physics', 'Web Audio API', 'AABB'],
     url: 'https://luminary-flight.netlify.app/',
     draw: drawLuminary, drawM: drawLuminaryModal
   }
