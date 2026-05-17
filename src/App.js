@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { render } from 'react-dom';
 import MenuScreen from './MenuScreen';
-import LegacyPortfolio from './LegacyPortfolio';
 import FallingLeaves from './components/FallingLeaves';
 import WinterWonderland from './components/WinterWonderland';
 import { ThemeProvider, useTheme } from './components/ThemeContext';
 import ThemePicker from './components/ThemePicker';
 import BackgroundMusic from './components/BackgroundMusic';
 import './Assets/Menu.css';
+
+const LegacyPortfolio = React.lazy(() => import('./LegacyPortfolio'));
 
 const AppContent = () => {
   const [view, setView] = useState('MENU'); // 'MENU' or 'PROFESSIONAL'
@@ -80,7 +81,9 @@ const AppContent = () => {
               <span className="back-bar"></span>
               <span className="back-label">← MENU</span>
             </button>
-            <LegacyPortfolio />
+            <Suspense fallback={null}>
+              <LegacyPortfolio />
+            </Suspense>
           </>
         ) : (
           <MenuScreen onProjectsClick={goToProfessional} />

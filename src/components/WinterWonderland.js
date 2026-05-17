@@ -29,9 +29,28 @@ const WinterWonderland = ({ isProfessional }) => {
     
     const ctx = canvas.getContext('2d');
     let W, H;
-    const FLAKE_COUNT = 220;
+    const FLAKE_COUNT = window.innerWidth < 768 ? 100 : 220;
     const flakes = [];
     let animationFrameId;
+
+    // Offscreen canvas texture cache to avoid allocating radial gradients every frame
+    const offscreenCanvas = document.createElement('canvas');
+    offscreenCanvas.width = 100;
+    offscreenCanvas.height = 20;
+    const octx = offscreenCanvas.getContext('2d');
+    for (let i = 0; i < 5; i++) {
+      const radius = 0.8 + (i / 4) * 3.4;
+      const cx = i * 20 + 10;
+      const cy = 10;
+      const g = octx.createRadialGradient(cx, cy, 0, cx, cy, radius);
+      g.addColorStop(0, 'rgba(255,255,255,1)');
+      g.addColorStop(0.5, 'rgba(220,240,255,0.8)');
+      g.addColorStop(1, 'rgba(180,220,255,0)');
+      octx.fillStyle = g;
+      octx.beginPath();
+      octx.arc(cx, cy, radius * 1.3, 0, Math.PI * 2);
+      octx.fill();
+    }
 
     function resize() {
       W = canvas.width = stage.offsetWidth;
@@ -51,6 +70,7 @@ const WinterWonderland = ({ isProfessional }) => {
         this.y = fromTop ? rand(-20, 0) : rand(0, H);
         this.r = rand(0.8, 4.2);
         this.opacity = rand(0.25, 0.92);
+        this.sizeIndex = Math.min(4, Math.max(0, Math.floor(((this.r - 0.8) / 3.4) * 5)));
         this.vx = rand(-0.3, 0.3);
         this.vy = rand(0.12, 0.65) * (0.4 + this.r * 0.18);
         this.swayAmp = rand(0.2, 0.9);
@@ -69,14 +89,8 @@ const WinterWonderland = ({ isProfessional }) => {
       draw() {
         ctx.save();
         ctx.globalAlpha = this.opacity;
-        const g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r);
-        g.addColorStop(0, 'rgba(255,255,255,1)');
-        g.addColorStop(0.5, 'rgba(220,240,255,0.8)');
-        g.addColorStop(1, 'rgba(180,220,255,0)');
-        ctx.fillStyle = g;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.r * 1.3, 0, Math.PI * 2);
-        ctx.fill();
+        const srcX = this.sizeIndex * 20;
+        ctx.drawImage(offscreenCanvas, srcX, 0, 20, 20, this.x - 10, this.y - 10, 20, 20);
         ctx.restore();
       }
     }

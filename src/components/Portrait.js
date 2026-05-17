@@ -97,13 +97,15 @@ const Portrait = () => {
     return () => cancelAnimationFrame(frame);
   }, [paused, isHovered, progress]);
 
-  // Preload images for smoother transitions
+  // Preload the next image in rotation dynamically for seamless transitions
   useEffect(() => {
-    IMAGES.forEach(({ src }) => {
-      const img = new Image();
-      img.src = src;
-    });
-    
+    const nextIdx = (current + 1) % IMAGES.length;
+    const img = new Image();
+    img.src = IMAGES[nextIdx].src;
+  }, [current]);
+
+  // Clean up touch animation frames
+  useEffect(() => {
     return () => {
       if (touchRaf.current) cancelAnimationFrame(touchRaf.current);
     };

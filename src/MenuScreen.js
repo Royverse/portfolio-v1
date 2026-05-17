@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Portrait from './components/Portrait';
-import SkillsAnimation from './components/SkillsAnimation';
-import WorkShowcase from './components/WorkShowcase';
 import DataAnalysis from './components/DataAnalysis';
 import Lightning from './components/Lightning';
 import { useTheme } from './components/ThemeContext';
+
+const SkillsAnimation = React.lazy(() => import('./components/SkillsAnimation'));
+const WorkShowcase = React.lazy(() => import('./components/WorkShowcase'));
 
 const MenuScreen = ({ onProjectsClick }) => {
   const [activeTab, setActiveTab] = useState('HOME');
@@ -159,10 +160,14 @@ const MenuScreen = ({ onProjectsClick }) => {
       </div>
 
       {/* Skills Blossom Overlay */}
-      <SkillsAnimation active={activeTab === 'SKILLS'} onClose={handleCloseOverlay} />
+      <Suspense fallback={null}>
+        <SkillsAnimation active={activeTab === 'SKILLS'} onClose={handleCloseOverlay} />
+      </Suspense>
 
       {/* Experience / Work Showcase Overlay */}
-      <WorkShowcase active={activeTab === 'AI LABS'} onClose={handleCloseOverlay} />
+      <Suspense fallback={null}>
+        <WorkShowcase active={activeTab === 'AI LABS'} onClose={handleCloseOverlay} />
+      </Suspense>
 
       {/* Lightning Strike Transition */}
       {showLightning && (
