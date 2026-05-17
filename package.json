@@ -10,7 +10,7 @@
     "dev": "parcel src/index.html --public-url /",
     "build": "parcel build src/index.html --public-url /",
     "build:gh-pages": "parcel build src/index.html --public-url /portfolio-v1/",
-    "postbuild": "copy src\\robots.txt dist\\robots.txt && copy src\\sitemap.xml dist\\sitemap.xml && copy src\\favicon.ico dist\\favicon.ico && copy src\\favicon.png dist\\favicon.png"
+    "postbuild": "copy src\\robots.txt dist\\robots.txt && copy src\\sitemap.xml dist\\sitemap.xml && copy src\\favicon.ico dist\\favicon.ico && copy src\\favicon.png dist\\favicon.png && copy src\\Assets\\Images\\Portrait\\portrait-2.jpg dist\\portrait-2.jpg"
   },
   "repository": {
     "type": "git",
