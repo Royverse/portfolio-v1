@@ -37,12 +37,13 @@
     <meta name="twitter:image" content="https://roymootsana.art/src/Assets/Images/Portrait/portrait-2.jpg" />
     <link rel="manifest" href="./manifest.json" />
     <meta name="theme-color" content="#141f1a" />
+    <!-- Favicon Configuration (Static for Search Engine Crawlers) -->
+    <link rel="icon" type="image/png" href="https://roymootsana.art/favicon.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="https://roymootsana.art/favicon.ico" />
+    <link rel="apple-touch-icon" href="https://roymootsana.art/favicon.png" />
+
     <script>
       (function() {
-        var a = document.createElement('link'); a.rel = 'apple-touch-icon'; a.href = '/favicon.png'; document.head.appendChild(a);
-        var b = document.createElement('link'); b.rel = 'icon'; b.type = 'image/png'; b.href = '/favicon.png'; document.head.appendChild(b);
-        var c = document.createElement('link'); c.rel = 'shortcut icon'; c.type = 'image/x-icon'; c.href = '/favicon.ico'; document.head.appendChild(c);
-
         // Universal Canvas roundRect Polyfill for legacy compatibility (devices pre-2022)
         if (typeof CanvasRenderingContext2D !== 'undefined' && !CanvasRenderingContext2D.prototype.roundRect) {
           CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
