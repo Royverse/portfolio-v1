@@ -4,6 +4,7 @@ import Portrait from './components/Portrait';
 import DataAnalysis from './components/DataAnalysis';
 import Lightning from './components/Lightning';
 import { useTheme } from './components/ThemeContext';
+import DesignInspiration from './components/DesignInspiration';
 
 const SkillsAnimation = React.lazy(() => import('./components/SkillsAnimation'));
 const WorkShowcase = React.lazy(() => import('./components/WorkShowcase'));
@@ -12,6 +13,7 @@ const MenuScreen = ({ onProjectsClick }) => {
   const [activeTab, setActiveTab] = useState('HOME');
   const [showLightning, setShowLightning] = useState(false);
   const [isFabOpen, setIsFabOpen] = useState(false);
+  const [showInspiration, setShowInspiration] = useState(false);
   const { activeTheme } = useTheme();
 
   useEffect(() => {
@@ -65,7 +67,18 @@ const MenuScreen = ({ onProjectsClick }) => {
 
       {/* Desktop Navigation Menu */}
       <div className="nav-panel desktop-only">
-        <p className="sys-label">PORTFOLIO.SYS // INIT</p>
+        <div className="sys-label-container">
+          <p className="sys-label">PORTFOLIO.SYS // INIT</p>
+          <button 
+            className="sys-insp-trigger"
+            onClick={() => setShowInspiration(true)}
+            aria-label="View Design Inspiration & Story"
+            title="Design Inspiration & Story"
+          >
+            <span className="sys-insp-dot"></span>
+            <span className="sys-insp-icon">i</span>
+          </button>
+        </div>
         <h1 className="name">ROY MOOTSANA</h1>
         <p className="title">SOFTWARE ENGINEER</p>
         <div className="divider"></div>
@@ -110,6 +123,18 @@ const MenuScreen = ({ onProjectsClick }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
+          <div className="sys-label-container mobile-sys-container">
+            <p className="sys-label">PORTFOLIO.SYS // INIT</p>
+            <button 
+              className="sys-insp-trigger"
+              onClick={() => setShowInspiration(true)}
+              aria-label="View Design Inspiration & Story"
+              title="Design Inspiration & Story"
+            >
+              <span className="sys-insp-dot"></span>
+              <span className="sys-insp-icon">i</span>
+            </button>
+          </div>
           <h1 className="mobile-name">ROY MOOTSANA</h1>
           <p className="mobile-title">SOFTWARE ENGINEER</p>
         </motion.div>
@@ -175,6 +200,9 @@ const MenuScreen = ({ onProjectsClick }) => {
           <Lightning hue={200} speed={3} intensity={0.2} size={0.5} />
         </div>
       )}
+
+      {/* Design Inspiration Modal */}
+      <DesignInspiration isOpen={showInspiration} onClose={() => setShowInspiration(false)} />
     </div>
   );
 };
