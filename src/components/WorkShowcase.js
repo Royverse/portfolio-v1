@@ -52,6 +52,30 @@ const projects = [
     pills: ['Three.js', 'WebGL', 'Verlet Physics', 'Web Audio API', 'AABB'],
     url: 'https://luminary-flight.netlify.app/',
     draw: drawLuminary, drawM: drawLuminaryModal
+  },
+  {
+    num: '07', name: 'Wonderwave', sub: 'Gesture-controlled WebAR spellcasting',
+    tag: '3D · CV', tagBg: '#E0F7FA', tagColor: '#006064',
+    desc: 'A browser-native WebAR spellcasting arena driven by MediaPipe hand tracking. Users cast real-time magical spells, including Leviosa (levitation), Accio (pulling), and Depulso (repelling), on interactive 3D elements inside a Three.js scene. A custom physics engine simulates velocity, gravity, and collision feedback at 60fps, managed by a glassmorphic HUD.',
+    pills: ['MediaPipe Hands', 'Three.js', 'WebXR', 'Physics Engine', 'Gesture Math', 'Vite'],
+    url: 'https://wand-wave.netlify.app/',
+    draw: drawWonderwave, drawM: drawWonderwaveM
+  },
+  {
+    num: '08', name: 'ECHO', sub: 'Voice-controlled 3D robot sandbox',
+    tag: 'AI · Speech', tagBg: '#F3E5F5', tagColor: '#4A148C',
+    desc: 'A voice-driven 3D robot playground built with Three.js. Processes natural spoken commands sequentially with local fuzzy regex parsing or Gemini 2.5 Flash NLU. Features continuous listening, speech synthesis (Polly API), and real-time procedural sound effects synthesized dynamically using the Web Audio API.',
+    pills: ['Three.js', 'Web Speech API', 'Gemini 2.5', 'Web Audio API', 'Procedural SFX'],
+    url: 'https://echo-voice-sandbox.netlify.app/',
+    draw: drawEcho, drawM: drawEchoModal
+  },
+  {
+    num: '09', name: 'milkyway.ai', sub: 'NVIDIA NIM developer galaxy',
+    tag: 'AI · Dev Tools', tagBg: '#EAF1FF', tagColor: '#1E3A6E',
+    desc: 'An immersive deep-space developer environment and interactive showcase of the NVIDIA NIM microservice galaxy. Explore, benchmark, and prototype conversational, reasoning, coding, and vision models.',
+    pills: ['React 18', 'Vite', 'NVIDIA NIM', 'SSE Streaming', 'Canvas 2D', 'Glassmorphism'],
+    url: 'https://milkyway-ai-galaxy.netlify.app/',
+    draw: drawIC, drawM: drawICM
   }
 ];
 
@@ -366,7 +390,7 @@ function drawLuminaryModal(ctx, w, h, t) {
      if (p >= 0 && p <= 1) {
         const px = Math.pow(1-p, 2)*rt.sx + 2*(1-p)*p*rt.cpx + Math.pow(p, 2)*rt.ex;
         const py = Math.pow(1-p, 2)*rt.sy + 2*(1-p)*p*rt.cpy + Math.pow(p, 2)*rt.ey;
-        
+
         ctx.beginPath(); ctx.arc(px, py, 10, 0, Math.PI*2);
         ctx.fillStyle = 'rgba(11,122,138,0.4)'; ctx.fill();
 
@@ -376,7 +400,7 @@ function drawLuminaryModal(ctx, w, h, t) {
         if(idx === 0) {
            ctx.font = `600 ${h * 0.045}px 'DM Mono', 'Courier New', monospace`;
            ctx.fillStyle = 'rgba(11,122,138,0.8)';
-           const alt = Math.floor(Math.sin(p * Math.PI) * 1250); 
+           const alt = Math.floor(Math.sin(p * Math.PI) * 1250);
            ctx.fillText(`FL${alt}`, px + 16, py - 16);
         }
      }
@@ -392,19 +416,641 @@ function drawLuminaryModal(ctx, w, h, t) {
   ctx.fillText('LUMINARY ENGINE // ACTIVE_TRACKING', 24, h*0.9);
 }
 
+function drawWonderwave(ctx, w, h, t) {
+  ctx.fillStyle = '#030b0d';
+  ctx.fillRect(0, 0, w, h);
+
+  ctx.strokeStyle = 'rgba(151, 254, 237, 0.05)';
+  ctx.lineWidth = 0.5;
+  for (let x = 0; x < w; x += 20) {
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+  }
+  for (let y = 0; y < h; y += 20) {
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+  }
+
+  const tx = w * 0.72 + Math.sin(t * 1.2) * 6;
+  const ty = h * 0.45 + Math.cos(t * 1.5) * 12;
+  const tr = h * 0.16 + Math.sin(t * 2) * 3;
+
+  const wx = w * 0.22 + Math.sin(t * 1.1) * 8;
+  const wy = h * 0.65 + Math.cos(t * 0.9) * 6;
+
+  const palmBaseX = wx + w * 0.06;
+  const palmBaseY = wy - h * 0.08;
+
+  const thumbBaseX = wx + w * 0.02;
+  const thumbBaseY = wy - h * 0.05;
+  const thumbMidX = thumbBaseX + w * 0.03;
+  const thumbMidY = thumbBaseY - h * 0.03;
+  const thumbTipX = thumbMidX + w * 0.02;
+  const thumbTipY = thumbMidY + h * 0.01;
+
+  const indexBaseX = palmBaseX + w * 0.02;
+  const indexBaseY = palmBaseY - h * 0.06;
+  const indexMidX = indexBaseX + w * 0.07;
+  const indexMidY = indexBaseY - h * 0.08;
+  const indexTipX = indexMidX + w * 0.08 + Math.sin(t * 5) * 2;
+  const indexTipY = indexMidY - h * 0.08 + Math.cos(t * 5) * 2;
+
+  const middleBaseX = palmBaseX + w * 0.005;
+  const middleBaseY = palmBaseY - h * 0.065;
+  const middleMidX = middleBaseX + w * 0.03;
+  const middleMidY = middleBaseY - h * 0.02;
+  const middleTipX = middleMidX + w * 0.02;
+  const middleTipY = middleMidY + h * 0.02;
+
+  const ringBaseX = palmBaseX - w * 0.01;
+  const ringBaseY = palmBaseY - h * 0.06;
+  const ringMidX = ringBaseX + w * 0.025;
+  const ringMidY = ringBaseY - h * 0.01;
+  const ringTipX = ringMidX + w * 0.015;
+  const ringTipY = ringMidY + h * 0.03;
+
+  const pinkyBaseX = palmBaseX - w * 0.022;
+  const pinkyBaseY = palmBaseY - h * 0.05;
+  const pinkyMidX = pinkyBaseX + w * 0.02;
+  const pinkyMidY = pinkyBaseY - h * 0.005;
+  const pinkyTipX = pinkyMidX + w * 0.01;
+  const pinkyTipY = pinkyMidY + h * 0.035;
+
+  ctx.strokeStyle = 'rgba(151, 254, 237, 0.4)';
+  ctx.lineWidth = 1.8;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+
+  ctx.beginPath();
+  ctx.moveTo(wx, wy);
+  ctx.lineTo(thumbBaseX, thumbBaseY);
+  ctx.moveTo(wx, wy);
+  ctx.lineTo(palmBaseX - w * 0.025, palmBaseY);
+  ctx.lineTo(palmBaseX + w * 0.02, palmBaseY);
+  ctx.lineTo(wx, wy);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(thumbBaseX, thumbBaseY);
+  ctx.lineTo(thumbMidX, thumbMidY);
+  ctx.lineTo(thumbTipX, thumbTipY);
+  ctx.stroke();
+
+  ctx.strokeStyle = 'rgba(151, 254, 237, 0.75)';
+  ctx.lineWidth = 2.2;
+  ctx.beginPath();
+  ctx.moveTo(indexBaseX, indexBaseY);
+  ctx.lineTo(indexMidX, indexMidY);
+  ctx.lineTo(indexTipX, indexTipY);
+  ctx.stroke();
+
+  ctx.strokeStyle = 'rgba(151, 254, 237, 0.3)';
+  ctx.lineWidth = 1.5;
+  [[middleBaseX, middleBaseY, middleMidX, middleMidY, middleTipX, middleTipY],
+   [ringBaseX, ringBaseY, ringMidX, ringMidY, ringTipX, ringTipY],
+   [pinkyBaseX, pinkyBaseY, pinkyMidX, pinkyMidY, pinkyTipX, pinkyTipY]].forEach(([bx, by, mx, my, tx, ty]) => {
+    ctx.beginPath();
+    ctx.moveTo(bx, by);
+    ctx.lineTo(mx, my);
+    ctx.lineTo(tx, ty);
+    ctx.stroke();
+  });
+
+  const joints = [
+    [wx, wy], [thumbBaseX, thumbBaseY], [thumbMidX, thumbMidY], [thumbTipX, thumbTipY],
+    [indexBaseX, indexBaseY], [indexMidX, indexMidY], [indexTipX, indexTipY],
+    [middleBaseX, middleBaseY], [middleMidX, middleMidY], [middleTipX, middleTipY],
+    [ringBaseX, ringBaseY], [ringMidX, ringMidY], [ringTipX, ringTipY],
+    [pinkyBaseX, pinkyBaseY], [pinkyMidX, pinkyMidY], [pinkyTipX, pinkyTipY]
+  ];
+  joints.forEach(([jx, jy], idx) => {
+    ctx.beginPath();
+    ctx.arc(jx, jy, idx === 6 ? 4 : 2.5, 0, Math.PI * 2);
+    ctx.fillStyle = idx === 6 ? '#ffffff' : '#97FEED';
+    ctx.shadowColor = '#97FEED';
+    ctx.shadowBlur = idx === 6 ? 10 : 0;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  });
+
+  ctx.strokeStyle = 'rgba(151, 254, 237, 0.4)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.arc(tx, ty, tr, 0, Math.PI * 2);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.arc(tx, ty, tr * (0.4 + Math.abs(Math.sin(t * 2.5)) * 0.25), 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(151, 254, 237, 0.08)';
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(151, 254, 237, 0.25)';
+  ctx.stroke();
+
+  ctx.strokeStyle = 'rgba(151, 254, 237, 0.2)';
+  ctx.beginPath();
+  ctx.moveTo(tx - tr * 1.3, ty); ctx.lineTo(tx - tr * 0.7, ty);
+  ctx.moveTo(tx + tr * 0.7, ty); ctx.lineTo(tx + tr * 1.3, ty);
+  ctx.moveTo(tx, ty - tr * 1.3); ctx.lineTo(tx, ty - tr * 0.7);
+  ctx.moveTo(tx, ty + tr * 0.7); ctx.lineTo(tx, ty + tr * 1.3);
+  ctx.stroke();
+
+  const dx = tx - indexTipX;
+  const dy = ty - indexTipY;
+
+  const waveColors = ['rgba(151, 254, 237, 0.85)', 'rgba(53, 162, 159, 0.6)', 'rgba(224, 64, 251, 0.45)'];
+  const waveWidths = [1.8, 3.2, 0.8];
+  const waveFreqs = [4.5, 3.0, 6.0];
+  const waveAmps = [15, 22, 10];
+
+  waveColors.forEach((color, idx) => {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = waveWidths[idx];
+    ctx.beginPath();
+    ctx.moveTo(indexTipX, indexTipY);
+
+    const steps = 60;
+    for (let i = 0; i <= steps; i++) {
+      const p = i / steps;
+      const cx = indexTipX + dx * p;
+      const cy = indexTipY + dy * p;
+
+      const angle = Math.atan2(dy, dx);
+      const px = -Math.sin(angle);
+      const py = Math.cos(angle);
+
+      const env = Math.sin(p * Math.PI);
+      const waveVal = Math.sin(p * Math.PI * waveFreqs[idx] - t * 12 + idx * 2) * waveAmps[idx] * env;
+
+      ctx.lineTo(cx + px * waveVal, cy + py * waveVal);
+    }
+    ctx.stroke();
+  });
+
+  ctx.fillStyle = 'rgba(151, 254, 237, 0.8)';
+  for (let i = 0; i < 4; i++) {
+    const angle = t * 3 + i * (Math.PI / 2);
+    const px = tx + Math.cos(angle) * (tr + Math.sin(t * 10 + i) * 6);
+    const py = ty + Math.sin(angle) * (tr + Math.sin(t * 10 + i) * 6);
+    ctx.beginPath();
+    ctx.arc(px, py, 2, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function drawWonderwaveM(ctx, w, h, t) {
+  ctx.fillStyle = '#03080a';
+  ctx.fillRect(0, 0, w, h);
+
+  ctx.strokeStyle = 'rgba(151, 254, 237, 0.04)';
+  ctx.lineWidth = 0.5;
+  for (let x = 0; x < w; x += 25) {
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+  }
+  for (let y = 0; y < h; y += 25) {
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+  }
+
+  const tx = w * 0.74 + Math.sin(t * 1.0) * 4;
+  const ty = h * 0.48 + Math.cos(t * 1.2) * 8;
+  const tr = h * 0.15 + Math.sin(t * 1.8) * 2;
+
+  const wx = w * 0.2 + Math.sin(t * 0.9) * 5;
+  const wy = h * 0.68 + Math.cos(t * 0.7) * 4;
+
+  const palmBaseX = wx + w * 0.08;
+  const palmBaseY = wy - h * 0.1;
+
+  const indexBaseX = palmBaseX + w * 0.02;
+  const indexBaseY = palmBaseY - h * 0.07;
+  const indexMidX = indexBaseX + w * 0.08;
+  const indexMidY = indexBaseY - h * 0.09;
+  const indexTipX = indexMidX + w * 0.09 + Math.sin(t * 6) * 1.5;
+  const indexTipY = indexMidY - h * 0.09 + Math.cos(t * 6) * 1.5;
+
+  const thumbTipX = wx + w * 0.06;
+  const thumbTipY = wy - h * 0.04;
+  const middleTipX = palmBaseX + w * 0.05;
+  const middleTipY = palmBaseY - h * 0.03;
+  const ringTipX = palmBaseX + w * 0.03;
+  const ringTipY = palmBaseY + h * 0.01;
+  const pinkyTipX = palmBaseX - w * 0.01;
+  const pinkyTipY = palmBaseY + h * 0.04;
+
+  ctx.strokeStyle = 'rgba(151, 254, 237, 0.35)';
+  ctx.lineWidth = 2.2;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+
+  ctx.beginPath();
+  ctx.moveTo(wx, wy);
+  ctx.lineTo(thumbTipX, thumbTipY);
+  ctx.moveTo(wx, wy);
+  ctx.lineTo(palmBaseX, palmBaseY);
+  ctx.stroke();
+
+  ctx.strokeStyle = 'rgba(151, 254, 237, 0.7)';
+  ctx.lineWidth = 2.8;
+  ctx.beginPath();
+  ctx.moveTo(indexBaseX, indexBaseY);
+  ctx.lineTo(indexMidX, indexMidY);
+  ctx.lineTo(indexTipX, indexTipY);
+  ctx.stroke();
+
+  const joints = [
+    [wx, wy], [thumbTipX, thumbTipY],
+    [indexBaseX, indexBaseY], [indexMidX, indexMidY], [indexTipX, indexTipY],
+    [middleTipX, middleTipY], [ringTipX, ringTipY], [pinkyTipX, pinkyTipY]
+  ];
+  joints.forEach(([jx, jy], idx) => {
+    ctx.beginPath();
+    ctx.arc(jx, jy, idx === 4 ? 4.5 : 3, 0, Math.PI * 2);
+    ctx.fillStyle = idx === 4 ? '#ffffff' : '#97FEED';
+    ctx.fill();
+  });
+
+  ctx.strokeStyle = 'rgba(151, 254, 237, 0.35)';
+  ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  ctx.arc(tx, ty, tr, 0, Math.PI * 2);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.arc(tx, ty, tr * 0.6, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(151, 254, 237, 0.2)';
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.arc(tx, ty, tr * (0.35 + Math.abs(Math.sin(t * 3)) * 0.15), 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(151, 254, 237, 0.12)';
+  ctx.fill();
+
+  const dx = tx - indexTipX;
+  const dy = ty - indexTipY;
+
+  [['rgba(151, 254, 237, 0.8)', 2.0, 3.5, 12],
+   ['rgba(224, 64, 251, 0.45)', 1.2, 5.0, 8]].forEach(([color, lw, freq, amp]) => {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = lw;
+    ctx.beginPath();
+    ctx.moveTo(indexTipX, indexTipY);
+
+    const steps = 40;
+    for (let i = 0; i <= steps; i++) {
+      const p = i / steps;
+      const cx = indexTipX + dx * p;
+      const cy = indexTipY + dy * p;
+
+      const angle = Math.atan2(dy, dx);
+      const px = -Math.sin(angle);
+      const py = Math.cos(angle);
+
+      const env = Math.sin(p * Math.PI);
+      const waveVal = Math.sin(p * Math.PI * freq - t * 10) * amp * env;
+
+      ctx.lineTo(cx + px * waveVal, cy + py * waveVal);
+    }
+    ctx.stroke();
+  });
+}
+
+/* ============================================================
+   ECHO — redesigned animation
+   Calmer, friendlier, fully responsive (single shared draw core
+   scaled by min(w,h) so the thumbnail and modal canvases stay
+   visually consistent instead of being two hand-tuned twins).
+   ============================================================ */
+function drawEchoCore(ctx, w, h, t, opts) {
+  const { bg, accentA, accentB, eyeColor, showHUD } = opts;
+  const scale = Math.min(w, h);
+
+  ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h);
+
+  // calm background grid, barely-there
+  ctx.strokeStyle = `${accentA}0F`; ctx.lineWidth = 0.5;
+  const gridStep = scale * 0.09;
+  for (let x = 0; x < w; x += gridStep) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
+  for (let y = 0; y < h; y += gridStep) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+
+  const rx = showHUD ? w * 0.27 : w / 2;
+  const ry = h * 0.46;
+  const robotW = scale * 0.46;
+  const robotH = scale * 0.56;
+
+  // soft presence glow behind the head — gentle, not neon
+  const glowR = robotW * 0.62;
+  const glow = ctx.createRadialGradient(rx, ry, 0, rx, ry, glowR);
+  glow.addColorStop(0, `${accentA}14`);
+  glow.addColorStop(1, `${accentA}00`);
+  ctx.fillStyle = glow;
+  ctx.beginPath(); ctx.arc(rx, ry, glowR, 0, Math.PI * 2); ctx.fill();
+
+  // head — slow, gentle bob
+  const bob = Math.sin(t * 0.9) * robotH * 0.015;
+  const headY = ry + bob;
+
+  ctx.strokeStyle = `${accentA}80`; ctx.lineWidth = 2;
+  ctx.beginPath();
+  const hx = rx - robotW / 2, hy = headY - robotH / 2;
+  if (ctx.roundRect) ctx.roundRect(hx, hy, robotW, robotH, robotW * 0.16);
+  else ctx.rect(hx, hy, robotW, robotH);
+  ctx.stroke();
+
+  // antenna — slow pulse, soft halo instead of a hard neon dot
+  const antTopY = headY - robotH / 2 - robotH * 0.2;
+  ctx.strokeStyle = `${accentA}60`; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(rx, headY - robotH / 2); ctx.lineTo(rx, antTopY); ctx.stroke();
+
+  const antPulse = 0.5 + Math.sin(t * 1.4) * 0.5;
+  ctx.beginPath(); ctx.arc(rx, antTopY, robotW * 0.05 * (1 + antPulse * 0.4), 0, Math.PI * 2);
+  ctx.fillStyle = `${accentB}26`; ctx.fill();
+  ctx.beginPath(); ctx.arc(rx, antTopY, robotW * 0.028, 0, Math.PI * 2);
+  ctx.fillStyle = accentB; ctx.fill();
+
+  // eyes — calm breathing pulse + occasional gentle, eased blink
+  const blinkCycle = t % 4.2;
+  let blinkFactor = 1;
+  if (blinkCycle > 3.9) {
+    const p = (blinkCycle - 3.9) / 0.3;
+    blinkFactor = Math.abs(Math.cos(p * Math.PI));
+  }
+  const breathe = 0.7 + Math.sin(t * 1.1) * 0.3;
+  const eyeH = Math.max(1.5, robotH * 0.05 * breathe * blinkFactor);
+  const eyeW = robotW * 0.16;
+  const eyeY = headY - robotH * 0.06;
+
+  ctx.fillStyle = eyeColor;
+  [-1, 1].forEach(side => {
+    const ex = rx + side * robotW * 0.22 - eyeW / 2;
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(ex, eyeY - eyeH / 2, eyeW, eyeH, eyeH / 2);
+    else ctx.rect(ex, eyeY - eyeH / 2, eyeW, eyeH);
+    ctx.fill();
+  });
+
+  // soft halo behind eyes for warmth (cheap alternative to shadowBlur)
+  ctx.globalAlpha = 0.12;
+  [-1, 1].forEach(side => {
+    const ex = rx + side * robotW * 0.22;
+    ctx.beginPath(); ctx.arc(ex, eyeY, eyeW * 0.9, 0, Math.PI * 2);
+    ctx.fillStyle = eyeColor; ctx.fill();
+  });
+  ctx.globalAlpha = 1;
+
+  // mouth — slow, rounded waveform reads as calm speech, not alarm
+  const mouthW = robotW * 0.42;
+  const mouthAmp = robotH * 0.025 * (0.5 + Math.sin(t * 1.5) * 0.5);
+  ctx.strokeStyle = `${accentB}B0`; ctx.lineWidth = 1.6;
+  ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  ctx.beginPath();
+  const steps = 14;
+  for (let i = 0; i <= steps; i++) {
+    const p = i / steps;
+    const px = rx - mouthW / 2 + p * mouthW;
+    const py = headY + robotH * 0.2 + Math.sin(p * Math.PI * 2.4 - t * 3) * mouthAmp;
+    i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+
+  return { rx, ry: headY, robotW, robotH };
+}
+
+function drawEcho(ctx, w, h, t) {
+  drawEchoCore(ctx, w, h, t, {
+    bg: '#08070d',
+    accentA: '#8B7CF6',
+    accentB: '#C792EA',
+    eyeColor: '#7DE0E8',
+    showHUD: false
+  });
+
+  ctx.font = `600 ${Math.max(10, h * 0.085)}px system-ui, sans-serif`;
+  ctx.fillStyle = 'rgba(139, 124, 246, 0.5)';
+  ctx.fillText('echo', 12, h - 12);
+
+  ctx.font = `500 ${Math.max(8, h * 0.05)}px 'JetBrains Mono', 'DM Mono', monospace`;
+  ctx.fillStyle = 'rgba(199, 146, 234, 0.65)';
+  ctx.fillText('listening', w - 78, 20);
+}
+
+function drawEchoModal(ctx, w, h, t) {
+  drawEchoCore(ctx, w, h, t, {
+    bg: '#06050a',
+    accentA: '#8B7CF6',
+    accentB: '#C792EA',
+    eyeColor: '#7DE0E8',
+    showHUD: true
+  });
+
+  // divider
+  ctx.strokeStyle = 'rgba(139,124,246,0.15)'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(w * 0.52, 0); ctx.lineTo(w * 0.52, h * 0.8); ctx.stroke();
+
+  ctx.font = `600 ${h * 0.055}px 'JetBrains Mono', 'DM Mono', monospace`;
+  ctx.fillStyle = 'rgba(125,224,232,0.85)';
+  ctx.fillText('ECHO // COMMAND QUEUE', w * 0.56, h * 0.12);
+
+  const commands = [
+    { text: 'walk forward 3 steps', status: 'done' },
+    { text: 'turn left 45°', status: 'active' },
+    { text: 'dance loop', status: 'queued' },
+    { text: 'voice feedback sync', status: 'standby' },
+  ];
+  const statusStyle = {
+    done: { label: 'DONE', color: 'rgba(255,255,255,0.25)' },
+    active: { label: 'RUNNING', color: '#7DE0E8' },
+    queued: { label: 'QUEUED', color: 'rgba(255,255,255,0.5)' },
+    standby: { label: 'STANDBY', color: '#C792EA' },
+  };
+  const activePulse = 0.55 + Math.sin(t * 2.4) * 0.45;
+
+  commands.forEach((cmd, idx) => {
+    const y = h * 0.25 + idx * (h * 0.12);
+    ctx.font = `400 ${h * 0.045}px 'JetBrains Mono', 'DM Mono', monospace`;
+    ctx.fillStyle = cmd.status === 'active' ? '#EAEAFB' : 'rgba(234,234,251,0.55)';
+    ctx.fillText(`› ${cmd.text}`, w * 0.56, y);
+
+    const st = statusStyle[cmd.status];
+    ctx.font = `600 ${h * 0.035}px 'JetBrains Mono', 'DM Mono', monospace`;
+    ctx.globalAlpha = cmd.status === 'active' ? activePulse : 1;
+    ctx.fillStyle = st.color;
+    ctx.fillText(`[${st.label}]`, w * 0.86, y);
+    ctx.globalAlpha = 1;
+  });
+
+  // footer
+  ctx.fillStyle = 'rgba(10,8,20,0.9)';
+  ctx.fillRect(0, h * 0.8, w, h * 0.2);
+  ctx.strokeStyle = 'rgba(139,124,246,0.22)'; ctx.lineWidth = 1.2;
+  ctx.beginPath(); ctx.moveTo(0, h * 0.8); ctx.lineTo(w, h * 0.8); ctx.stroke();
+
+  ctx.font = `600 ${h * 0.05}px 'JetBrains Mono', 'DM Mono', monospace`;
+  ctx.fillStyle = 'rgba(139,124,246,0.65)';
+  ctx.fillText('voice-driven 3d robot sandbox', 24, h * 0.9);
+}
+
+/* ============================================================
+   MILKYWAY.AI — constellation/gravity-map motif standing in
+   for the project's central hub feature: a physics-driven node
+   map clustered by model capability (chat / code / reasoning /
+   vision / embedding), with a soft telemetry HUD in the modal
+   view echoing the real Chat Arena's TTFT/TPS readout.
+   ============================================================ */
+function drawIC(ctx, w, h, t) {
+  ctx.fillStyle = '#070b14'; ctx.fillRect(0, 0, w, h);
+
+  ctx.strokeStyle = 'rgba(116,160,255,0.06)'; ctx.lineWidth = 0.5;
+  for (let x = 0; x < w; x += 20) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke() }
+  for (let y = 0; y < h; y += 20) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke() }
+
+  const cx = w / 2, cy = h / 2;
+
+  const clusters = [
+    { a: 0, r: 0.30, col: '#7AA0FF', n: 3 },
+    { a: Math.PI * 0.4, r: 0.34, col: '#5BD8C4', n: 3 },
+    { a: Math.PI * 0.85, r: 0.28, col: '#C792EA', n: 2 },
+    { a: Math.PI * 1.35, r: 0.33, col: '#F2A65A', n: 2 },
+    { a: Math.PI * 1.75, r: 0.29, col: '#7AA0FF', n: 3 },
+  ];
+
+  const nodePositions = [];
+
+  clusters.forEach((cl, ci) => {
+    const drift = Math.sin(t * 0.3 + ci * 1.7) * 0.025;
+    const baseA = cl.a + t * 0.06;
+    const bx = cx + Math.cos(baseA) * w * cl.r;
+    const by = cy + Math.sin(baseA) * h * cl.r * 0.62;
+
+    ctx.strokeStyle = `rgba(122,160,255,${0.10 + Math.sin(t * 0.6 + ci) * 0.03})`;
+    ctx.lineWidth = 0.8;
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(bx, by); ctx.stroke();
+
+    for (let n = 0; n < cl.n; n++) {
+      const na = baseA + (n - (cl.n - 1) / 2) * 0.5 + drift;
+      const nr = w * cl.r + n * 10;
+      const nx = cx + Math.cos(na) * nr;
+      const ny = cy + Math.sin(na) * nr * 0.62;
+      nodePositions.push([nx, ny, cl.col]);
+
+      const pulse = 2.2 + Math.sin(t * 1.8 + ci * 2 + n) * 0.9;
+      ctx.beginPath(); ctx.arc(nx, ny, pulse, 0, Math.PI * 2);
+      ctx.fillStyle = cl.col; ctx.globalAlpha = 0.85; ctx.fill(); ctx.globalAlpha = 1;
+    }
+  });
+
+  ctx.strokeStyle = 'rgba(122,160,255,0.07)'; ctx.lineWidth = 0.6;
+  for (let i = 0; i < nodePositions.length; i++) {
+    const [x1, y1] = nodePositions[i];
+    const [x2, y2] = nodePositions[(i + 1) % nodePositions.length];
+    const d = Math.hypot(x2 - x1, y2 - y1);
+    if (d < w * 0.4) { ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); }
+  }
+
+  const hubPulse = 4 + Math.sin(t * 2.2) * 1.2;
+  ctx.beginPath(); ctx.arc(cx, cy, hubPulse + 5, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(255,255,255,0.18)'; ctx.lineWidth = 1; ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx, cy, hubPulse, 0, Math.PI * 2);
+  ctx.fillStyle = '#ffffff'; ctx.fill();
+
+  ctx.font = `${h * 0.085}px 'DM Mono',monospace`;
+  ctx.fillStyle = 'rgba(122,160,255,0.55)';
+  ctx.fillText('NIM://galaxy', 7, h - 9);
+}
+
+function drawICM(ctx, w, h, t) {
+  ctx.fillStyle = '#05080f'; ctx.fillRect(0, 0, w, h);
+
+  ctx.strokeStyle = 'rgba(116,160,255,0.05)'; ctx.lineWidth = 0.5;
+  for (let x = 0; x < w; x += 26) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke() }
+  for (let y = 0; y < h; y += 26) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke() }
+
+  const cx = w * 0.42, cy = h / 2;
+
+  const clusters = [
+    { a: 0, r: 0.30, col: '#7AA0FF', n: 4, label: 'CHAT' },
+    { a: Math.PI * 0.4, r: 0.36, col: '#5BD8C4', n: 3, label: 'CODE' },
+    { a: Math.PI * 0.85, r: 0.27, col: '#C792EA', n: 3, label: 'REASON' },
+    { a: Math.PI * 1.35, r: 0.34, col: '#F2A65A', n: 3, label: 'VISION' },
+    { a: Math.PI * 1.75, r: 0.30, col: '#7AA0FF', n: 3, label: 'EMBED' },
+  ];
+
+  const nodePositions = [];
+
+  clusters.forEach((cl, ci) => {
+    const drift = Math.sin(t * 0.25 + ci * 1.7) * 0.02;
+    const baseA = cl.a + t * 0.045;
+    const bx = cx + Math.cos(baseA) * w * cl.r;
+    const by = cy + Math.sin(baseA) * h * cl.r * 0.7;
+
+    ctx.strokeStyle = `rgba(122,160,255,${0.12 + Math.sin(t * 0.5 + ci) * 0.03})`;
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(bx, by); ctx.stroke();
+
+    for (let n = 0; n < cl.n; n++) {
+      const na = baseA + (n - (cl.n - 1) / 2) * 0.45 + drift;
+      const nr = w * cl.r + n * 12;
+      const nx = cx + Math.cos(na) * nr;
+      const ny = cy + Math.sin(na) * nr * 0.7;
+      nodePositions.push([nx, ny, cl.col]);
+
+      const pulse = 3 + Math.sin(t * 1.6 + ci * 2 + n) * 1.1;
+      ctx.beginPath(); ctx.arc(nx, ny, pulse + 3, 0, Math.PI * 2);
+      ctx.fillStyle = cl.col; ctx.globalAlpha = 0.12; ctx.fill(); ctx.globalAlpha = 1;
+      ctx.beginPath(); ctx.arc(nx, ny, pulse, 0, Math.PI * 2);
+      ctx.fillStyle = cl.col; ctx.globalAlpha = 0.9; ctx.fill(); ctx.globalAlpha = 1;
+    }
+
+    ctx.font = `600 ${h * 0.04}px 'DM Mono',monospace`;
+    ctx.fillStyle = cl.col;
+    ctx.globalAlpha = 0.6;
+    const lx = cx + Math.cos(baseA) * (w * cl.r + 26);
+    const ly = cy + Math.sin(baseA) * (h * cl.r * 0.7 + 14);
+    ctx.fillText(cl.label, lx, ly);
+    ctx.globalAlpha = 1;
+  });
+
+  ctx.strokeStyle = 'rgba(122,160,255,0.08)'; ctx.lineWidth = 0.7;
+  for (let i = 0; i < nodePositions.length; i++) {
+    const [x1, y1] = nodePositions[i];
+    const [x2, y2] = nodePositions[(i + 3) % nodePositions.length];
+    const d = Math.hypot(x2 - x1, y2 - y1);
+    if (d < w * 0.35) { ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); }
+  }
+
+  const hubPulse = 5 + Math.sin(t * 2) * 1.4;
+  ctx.beginPath(); ctx.arc(cx, cy, hubPulse + 7, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(255,255,255,0.2)'; ctx.lineWidth = 1; ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx, cy, hubPulse, 0, Math.PI * 2);
+  ctx.fillStyle = '#ffffff'; ctx.fill();
+
+  // right-hand telemetry readout — echoes the real Chat Arena HUD
+  ctx.fillStyle = 'rgba(6,10,18,0.85)';
+  ctx.fillRect(w * 0.78, 0, w * 0.22, h);
+  ctx.strokeStyle = 'rgba(122,160,255,0.2)'; ctx.lineWidth = 0.5;
+  ctx.beginPath(); ctx.moveTo(w * 0.78, 0); ctx.lineTo(w * 0.78, h); ctx.stroke();
+
+  ctx.font = `${h * 0.045}px 'DM Mono',monospace`;
+  const ttft = (38 + Math.sin(t * 1.3) * 6).toFixed(0);
+  const tps = (61 + Math.cos(t * 1.1) * 8).toFixed(0);
+  [
+    ['TTFT', `${ttft}ms`],
+    ['TPS', `${tps}/s`],
+    ['NODES', `${nodePositions.length}`],
+  ].forEach(([label, val], i) => {
+    ctx.fillStyle = 'rgba(122,160,255,0.55)';
+    ctx.fillText(label, w * 0.81, h * 0.18 + i * (h * 0.1));
+    ctx.fillStyle = 'rgba(255,255,255,0.75)';
+    ctx.fillText(val, w * 0.81, h * 0.18 + i * (h * 0.1) + h * 0.045);
+  });
+
+  ctx.font = `${h * 0.05}px 'DM Mono',monospace`;
+  ctx.fillStyle = 'rgba(122,160,255,0.6)';
+  ctx.fillText('milkyway.ai', 12, h - 12);
+}
+
 // ProjectCard logic moved to ChromaGrid.js
 
 const WorkShowcase = ({ active, onClose }) => {
   const [selectedProject, setSelectedProject] = useState(null);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const modalCanvasRef = useRef(null);
   const modalRafRef = useRef(null);
-
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   useEffect(() => {
     if (!selectedProject || !modalCanvasRef.current) return;
@@ -436,172 +1082,80 @@ const WorkShowcase = ({ active, onClose }) => {
     <div className={`experience-overlay ${active ? 'active' : ''}`}>
       <button className="exp-close-btn" onClick={onClose}>× CLOSE</button>
 
-      {isMobile ? (
-        <>
-          <ElectricBorder
-            color="#7df9ff"
-            speed={1.5}
-            chaos={1.2}
-            thickness={2}
-            borderRadius={20}
-            className="mobile-port-wrap"
-          >
-            <div className="mobile-port-content">
-              <div className="port-header">
-                <span className="port-title">AI EXPERIMENTS & PROJECTS</span>
-                <span className="port-count">{projects.length} deployments</span>
-              </div>
-              <div className="mobile-grid">
-                {projects.map((item, idx) => (
-                  <div 
-                    key={item.num} 
-                    className="mobile-card" 
-                    onClick={() => setSelectedProject(item)}
-                    style={idx === projects.length - 1 && projects.length % 2 !== 0 ? { gridColumn: 'span 2' } : {}}
-                  >
-                    <div className="card-canvas-preview" style={{ background: item.num === '01' ? '#0c0a18' : item.num === '02' ? '#030d07' : item.num === '03' ? '#120818' : item.num === '04' ? '#04111f' : item.num === '05' ? '#111114' : '#040f12' }}>
-                      {`[ ${item.name.split(' ')[0].toLowerCase()} ]`}
-                    </div>
-                    <div className="card-body">
-                      <span className="card-tag" style={{ background: 'var(--glass-bg)', color: 'var(--ink)', border: '1px solid var(--border)' }}>{item.tag}</span>
-                      <div className="card-name">{item.name}</div>
-                      <div className="card-sub">{item.sub}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+      <div className="port-modal-wrap">
+        <ElectricBorder
+          color="#7df9ff"
+          speed={1.5}
+          chaos={1.2}
+          thickness={2}
+          borderRadius={24}
+          className="port-container"
+          style={{ borderRadius: 24, background: 'rgba(243, 246, 244, 0.2)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}
+        >
+          <div className="port" style={{ borderRadius: 24, background: 'transparent' }}>
+            <div className="port-header">
+              <span className="port-title">AI EXPERIMENTS & PROJECTS</span>
+              <span className="port-count">{projects.length < 10 ? '0' + projects.length : projects.length} deployments</span>
             </div>
-          </ElectricBorder>
-
-          <div className={`modal-sheet ${selectedProject ? 'open' : ''}`}>
-            <ElectricBorder
-              color="#7df9ff"
-              speed={1.5}
-              chaos={1.2}
-              thickness={2}
-              borderRadius={20}
-              className="modal-inner"
-            >
-              <div className="modal-inner-content">
-                <div className="modal-preview-strip">
-                  <div className="modal-drag"></div>
-                  <canvas ref={modalCanvasRef}></canvas>
-                </div>
-                <div className="modal-content">
-                  <div className="modal-top-row">
-                    <div>
-                      {selectedProject && (
-                        <>
-                          <span className="card-tag" style={{ background: 'var(--glass-bg)', color: 'var(--ink)', border: '1px solid var(--border)', fontSize: '8px', padding: '3px 8px', borderRadius: '99px', display: 'inline-block', marginBottom: '4px' }}>
-                            {selectedProject.tag}
-                          </span>
-                          <div className="modal-title">{selectedProject.name}</div>
-                        </>
-                      )}
-                    </div>
-                    <div className="modal-close-icon" onClick={closeModal}>✕</div>
-                  </div>
-                  {selectedProject && (
-                    <>
-                      <p className="modal-desc">{selectedProject.desc}</p>
-                      <div className="modal-foot">
-                        <div className="modal-pills">
-                          {selectedProject.pills.map((pill, i) => (
-                            <span key={i} className="pill">{pill}</span>
-                          ))}
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                          <a className="modal-visit" href={selectedProject.url} target="_blank" rel="noopener noreferrer">visit ↗</a>
-                          {selectedProject.note && (
-                            <div className="note-icon">
-                              i
-                              <div className="note-tooltip">{selectedProject.note}</div>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </>
-                  )}
-                </div>
-              </div>
-            </ElectricBorder>
+            <ChromaGrid items={projects} onSelect={setSelectedProject} />
           </div>
-        </>
-      ) : (
-        <div className="port-modal-wrap">
+        </ElectricBorder>
+
+        <div className={`work-modal-wrap ${selectedProject ? 'open' : ''}`}>
+          <div className="work-modal-backdrop" onClick={closeModal}></div>
           <ElectricBorder
             color="#7df9ff"
             speed={1.5}
             chaos={1.2}
             thickness={2}
             borderRadius={24}
-            className="port-container"
-            style={{ borderRadius: 24, background: 'rgba(243, 246, 244, 0.2)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', width: '90vw', maxWidth: '960px' }}
+            className="work-modal-eb"
+            style={{ borderRadius: 24, background: 'rgba(243, 246, 244, 0.2)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}
           >
-            <div className="port" style={{ borderRadius: 24, background: 'transparent' }}>
-              <div className="port-header">
-                <span className="port-title">AI EXPERIMENTS & PROJECTS</span>
-                <span className="port-count">06 deployments</span>
+            <div className="work-modal" style={{ borderRadius: 24, background: 'transparent' }}>
+              <div className="modal-preview">
+                <canvas ref={modalCanvasRef}></canvas>
               </div>
-              <ChromaGrid items={projects} onSelect={setSelectedProject} />
+              <div className="modal-body">
+                <div className="modal-top">
+                  <div>
+                    {selectedProject && (
+                      <>
+                        <span className="card-tag" style={{ background: selectedProject.tagBg, color: selectedProject.tagColor, display: 'inline-block', marginBottom: '4px' }}>
+                          {selectedProject.tag}
+                        </span>
+                        <div className="modal-name">{selectedProject.name}</div>
+                      </>
+                    )}
+                  </div>
+                  <button className="modal-x" onClick={closeModal}>✕</button>
+                </div>
+                {selectedProject && (
+                  <>
+                    <p className="modal-desc">{selectedProject.desc}</p>
+                    <div className="modal-foot">
+                      <div className="modal-pills">
+                        {selectedProject.pills.map((pill, i) => (
+                          <span key={i} className="m-pill">{pill}</span>
+                        ))}
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <a className="modal-link" href={selectedProject.url} target="_blank" rel="noopener noreferrer">visit ↗</a>
+                        {selectedProject.note && (
+                          <div className="note-icon">
+                            i
+                            <div className="note-tooltip">{selectedProject.note}</div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
           </ElectricBorder>
-
-          <div className={`work-modal-wrap ${selectedProject ? 'open' : ''}`}>
-            <div className="work-modal-backdrop" onClick={closeModal}></div>
-            <ElectricBorder
-              color="#7df9ff"
-              speed={1.5}
-              chaos={1.2}
-              thickness={2}
-              borderRadius={24}
-              style={{ borderRadius: 24, background: 'rgba(243, 246, 244, 0.2)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', width: '90vw', maxWidth: '520px' }}
-            >
-              <div className="work-modal" style={{ borderRadius: 24, background: 'transparent' }}>
-                <div className="modal-preview">
-                  <canvas ref={modalCanvasRef}></canvas>
-                </div>
-                <div className="modal-body">
-                  <div className="modal-top">
-                    <div>
-                      {selectedProject && (
-                        <>
-                          <span className="card-tag" style={{ background: selectedProject.tagBg, color: selectedProject.tagColor, display: 'inline-block', marginBottom: '4px' }}>
-                            {selectedProject.tag}
-                          </span>
-                          <div className="modal-name">{selectedProject.name}</div>
-                        </>
-                      )}
-                    </div>
-                    <button className="modal-x" onClick={closeModal}>✕</button>
-                  </div>
-                  {selectedProject && (
-                    <>
-                      <p className="modal-desc">{selectedProject.desc}</p>
-                      <div className="modal-foot">
-                        <div className="modal-pills">
-                          {selectedProject.pills.map((pill, i) => (
-                            <span key={i} className="m-pill">{pill}</span>
-                          ))}
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                          <a className="modal-link" href={selectedProject.url} target="_blank" rel="noopener noreferrer">visit ↗</a>
-                          {selectedProject.note && (
-                            <div className="note-icon">
-                              i
-                              <div className="note-tooltip">{selectedProject.note}</div>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </>
-                  )}
-                </div>
-              </div>
-            </ElectricBorder>
-          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };

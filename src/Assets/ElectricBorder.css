@@ -1,4 +1,5 @@
 .electric-border {
+  --electric-light-color: var(--electric-border-color); /* Fallback for legacy browsers */
   --electric-light-color: oklch(from var(--electric-border-color) l c h);
   position: relative;
   border-radius: inherit;
@@ -44,6 +45,7 @@
 }
 
 .eb-glow-1 {
+  border: 2px solid var(--electric-border-color); /* Fallback for legacy browsers */
   border: 2px solid oklch(from var(--electric-border-color) l c h / 0.6);
   filter: blur(1px);
 }

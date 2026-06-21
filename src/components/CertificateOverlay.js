@@ -29,6 +29,7 @@ const OverlayWrapper = styled.div`
   inset: 0;
   z-index: 1000000;
   background: rgba(241, 245, 249, 0.9);
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   display: flex;
   align-items: center;
@@ -99,6 +100,7 @@ const ListHeader = styled.div`
   position: sticky;
   top: 0;
   background: rgba(255, 255, 255, 0.8);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   z-index: 20;
   padding: 24px 32px;

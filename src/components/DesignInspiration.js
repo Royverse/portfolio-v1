@@ -80,13 +80,16 @@ const DesignInspiration = ({ isOpen, onClose }) => {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="insp-modal-portal">
+        <motion.div 
+          className="insp-modal-portal"
+          key="design-inspiration-portal"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
           {/* Overlay Dimmer */}
-          <motion.div
+          <div
             className="insp-modal-dim"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
             onClick={onClose}
           />
 
@@ -208,7 +211,7 @@ const DesignInspiration = ({ isOpen, onClose }) => {
 
             </div>
           </motion.div>
-        </div>
+        </motion.div>
       )}
     </AnimatePresence>
   );
