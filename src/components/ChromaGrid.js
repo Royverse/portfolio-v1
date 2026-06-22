@@ -2,16 +2,23 @@ import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import '../Assets/ChromaGrid.css';
 
-const ChromaCardItem = ({ project, index, onMouseMove, onClick }) => {
+const ChromaCardItem = ({ project, index, active = true, onMouseMove, onClick }) => {
   const canvasRef = useRef(null);
   const rafRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    // The grid lives inside an always-mounted overlay; only animate when it's open.
+    if (!active) return;
     const ctx = canvas.getContext('2d');
 
     const render = () => {
+      // Pause while the tab is backgrounded.
+      if (typeof document !== 'undefined' && document.hidden) {
+        rafRef.current = requestAnimationFrame(render);
+        return;
+      }
       const w = canvas.offsetWidth;
       const h = canvas.offsetHeight;
       if (w > 0 && h > 0) {
@@ -28,7 +35,7 @@ const ChromaCardItem = ({ project, index, onMouseMove, onClick }) => {
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [project]);
+  }, [project, active]);
 
   // Derive gradient and border color from project tag color
   // Dark deep gradient to match the cinematic vibe
@@ -64,6 +71,7 @@ const ChromaCardItem = ({ project, index, onMouseMove, onClick }) => {
 export const ChromaGrid = ({
   items = [],
   onSelect,
+  active = true,
   className = '',
   radius = 300,
   damping = 0.45,
@@ -136,12 +144,13 @@ export const ChromaGrid = ({
       onPointerLeave={handleLeave}
     >
       {items.map((project, i) => (
-        <ChromaCardItem 
-            key={i} 
+        <ChromaCardItem
+            key={i}
             index={i}
-            project={project} 
-            onMouseMove={handleCardMove} 
-            onClick={() => onSelect(project)} 
+            project={project}
+            active={active}
+            onMouseMove={handleCardMove}
+            onClick={() => onSelect(project)}
         />
       ))}
       <div className="chroma-overlay" />

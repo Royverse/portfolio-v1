@@ -712,104 +712,169 @@ function drawWonderwaveM(ctx, w, h, t) {
 }
 
 /* ============================================================
-   ECHO — redesigned animation
-   Calmer, friendlier, fully responsive (single shared draw core
-   scaled by min(w,h) so the thumbnail and modal canvases stay
-   visually consistent instead of being two hand-tuned twins).
+   ECHO — voice-controlled robot, told as a two-actor scene:
+   a person on the left speaks (mouth opens, sound waves roll
+   out toward the robot) and the robot on the right answers a
+   beat later (antenna flares, eyes brighten, mouth waveform
+   ripples). One shared core scaled to the scene keeps the
+   thumbnail and modal consistent; the modal just compresses
+   the scene to the left to make room for its HUD.
    ============================================================ */
 function drawEchoCore(ctx, w, h, t, opts) {
   const { bg, accentA, accentB, eyeColor, showHUD } = opts;
-  const scale = Math.min(w, h);
 
   ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h);
 
+  // Scene lives in the left portion when the HUD is shown, full width otherwise.
+  const sceneW = showHUD ? w * 0.52 : w;
+  const S = Math.min(sceneW, h);          // unifying scale for both actors
+
   // calm background grid, barely-there
   ctx.strokeStyle = `${accentA}0F`; ctx.lineWidth = 0.5;
-  const gridStep = scale * 0.09;
+  const gridStep = Math.min(w, h) * 0.09;
   for (let x = 0; x < w; x += gridStep) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
   for (let y = 0; y < h; y += gridStep) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
 
-  const rx = showHUD ? w * 0.27 : w / 2;
-  const ry = h * 0.46;
-  const robotW = scale * 0.46;
-  const robotH = scale * 0.56;
+  const midY = h * 0.5;
+  const humanX = sceneW * 0.2;
+  const robotX = sceneW * 0.74;
+  ctx.lineCap = 'round'; ctx.lineJoin = 'round';
 
-  // soft presence glow behind the head — gentle, not neon
-  const glowR = robotW * 0.62;
-  const glow = ctx.createRadialGradient(rx, ry, 0, rx, ry, glowR);
-  glow.addColorStop(0, `${accentA}14`);
-  glow.addColorStop(1, `${accentA}00`);
-  ctx.fillStyle = glow;
-  ctx.beginPath(); ctx.arc(rx, ry, glowR, 0, Math.PI * 2); ctx.fill();
+  // Speech envelope for the person, and a slightly delayed echo for the robot,
+  // so it reads as call-and-response: the human talks, the robot answers.
+  const speakFreq = 2.6;
+  const speech = Math.pow(0.5 + 0.5 * Math.sin(t * speakFreq), 1.5);
+  const react = Math.pow(0.5 + 0.5 * Math.sin(t * speakFreq - 1.2), 1.5);
 
-  // head — slow, gentle bob
-  const bob = Math.sin(t * 0.9) * robotH * 0.015;
-  const headY = ry + bob;
+  // ── HUMAN — head in profile facing the robot, mouth opens to speak ──
+  const hr = S * 0.16;
 
-  ctx.strokeStyle = `${accentA}80`; ctx.lineWidth = 2;
+  const hGlow = ctx.createRadialGradient(humanX, midY, 0, humanX, midY, hr * 2.2);
+  hGlow.addColorStop(0, `${accentA}12`); hGlow.addColorStop(1, `${accentA}00`);
+  ctx.fillStyle = hGlow;
+  ctx.beginPath(); ctx.arc(humanX, midY, hr * 2.2, 0, Math.PI * 2); ctx.fill();
+
+  // shoulders / bust silhouette so it clearly reads as a person
+  ctx.strokeStyle = `${accentA}55`; ctx.lineWidth = 2;
   ctx.beginPath();
-  const hx = rx - robotW / 2, hy = headY - robotH / 2;
-  if (ctx.roundRect) ctx.roundRect(hx, hy, robotW, robotH, robotW * 0.16);
-  else ctx.rect(hx, hy, robotW, robotH);
+  ctx.moveTo(humanX - hr * 1.5, midY + hr * 2.1);
+  ctx.quadraticCurveTo(humanX - hr * 1.25, midY + hr * 1.02, humanX, midY + hr);
+  ctx.quadraticCurveTo(humanX + hr * 1.3, midY + hr * 1.02, humanX + hr * 1.6, midY + hr * 2.1);
   ctx.stroke();
 
-  // antenna — slow pulse, soft halo instead of a hard neon dot
-  const antTopY = headY - robotH / 2 - robotH * 0.2;
+  // head
+  ctx.strokeStyle = `${accentA}90`; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.arc(humanX, midY, hr, 0, Math.PI * 2); ctx.stroke();
+
+  // nose bump on the right edge → the face points at the robot
+  ctx.beginPath();
+  ctx.moveTo(humanX + hr * 0.9, midY - hr * 0.05);
+  ctx.lineTo(humanX + hr * 1.16, midY + hr * 0.1);
+  ctx.lineTo(humanX + hr * 0.86, midY + hr * 0.2);
+  ctx.stroke();
+
+  // eye
+  ctx.fillStyle = `${accentA}D0`;
+  ctx.beginPath(); ctx.arc(humanX + hr * 0.28, midY - hr * 0.28, hr * 0.1, 0, Math.PI * 2); ctx.fill();
+
+  // speaking mouth — open ellipse that grows with the speech envelope
+  const hMouthX = humanX + hr * 0.46;
+  const hMouthY = midY + hr * 0.5;
+  ctx.fillStyle = accentB;
+  ctx.beginPath();
+  ctx.ellipse(hMouthX, hMouthY, hr * 0.2, hr * (0.05 + speech * 0.26), 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  // ── SOUND WAVES — concentric fronts rolling from mouth toward the robot ──
+  const swX = humanX + hr * 1.05;
+  const swY = hMouthY;
+  const reach = Math.max(S * 0.2, (robotX - swX) - S * 0.34);
+  const waveCount = 4;
+  for (let i = 0; i < waveCount; i++) {
+    const phase = ((t * 0.85) + i / waveCount) % 1;
+    const r = hr * 0.35 + phase * reach;
+    ctx.globalAlpha = (1 - phase) * 0.6 * (0.4 + speech * 0.6);
+    ctx.strokeStyle = accentB;
+    ctx.lineWidth = 1.8 * (1 - phase) + 0.4;
+    ctx.beginPath(); ctx.arc(swX, swY, r, -0.62, 0.62); ctx.stroke();
+  }
+  ctx.globalAlpha = 1;
+
+  // ── ROBOT — shorter head that lights up when it answers the voice ──
+  const robotW = S * 0.44;
+  const robotH = S * 0.38;                 // shorter & wider than the old tall head
+  const bob = Math.sin(t * 0.9) * robotH * 0.02 - react * robotH * 0.05;  // small nod on reply
+  const headCY = midY + bob;
+  const rhx = robotX - robotW / 2;
+  const rhy = headCY - robotH / 2;
+
+  // presence glow, brighter when responding
+  ctx.globalAlpha = 0.1 + react * 0.16;
+  const rGlow = ctx.createRadialGradient(robotX, headCY, 0, robotX, headCY, robotW * 0.75);
+  rGlow.addColorStop(0, accentA); rGlow.addColorStop(1, `${accentA}00`);
+  ctx.fillStyle = rGlow;
+  ctx.beginPath(); ctx.arc(robotX, headCY, robotW * 0.75, 0, Math.PI * 2); ctx.fill();
+  ctx.globalAlpha = 1;
+
+  // acknowledgement ring — soft pulse as the reply peaks
+  if (react > 0.12) {
+    ctx.globalAlpha = react * 0.22;
+    ctx.strokeStyle = accentB; ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.ellipse(robotX, headCY, robotW * (0.72 + react * 0.3), robotH * (0.82 + react * 0.3), 0, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+  }
+
+  // head
+  ctx.strokeStyle = `${accentA}85`; ctx.lineWidth = 2;
+  ctx.beginPath();
+  if (ctx.roundRect) ctx.roundRect(rhx, rhy, robotW, robotH, robotW * 0.18);
+  else ctx.rect(rhx, rhy, robotW, robotH);
+  ctx.stroke();
+
+  // antenna — flares with the reply
+  const antTopY = rhy - robotH * 0.24;
   ctx.strokeStyle = `${accentA}60`; ctx.lineWidth = 1.5;
-  ctx.beginPath(); ctx.moveTo(rx, headY - robotH / 2); ctx.lineTo(rx, antTopY); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(robotX, rhy); ctx.lineTo(robotX, antTopY); ctx.stroke();
+  ctx.globalAlpha = 0.3 + react * 0.5;
+  ctx.fillStyle = accentB;
+  ctx.beginPath(); ctx.arc(robotX, antTopY, robotW * 0.07 * (1 + react * 0.7), 0, Math.PI * 2); ctx.fill();
+  ctx.globalAlpha = 1;
+  ctx.beginPath(); ctx.arc(robotX, antTopY, robotW * 0.03, 0, Math.PI * 2); ctx.fill();
 
-  const antPulse = 0.5 + Math.sin(t * 1.4) * 0.5;
-  ctx.beginPath(); ctx.arc(rx, antTopY, robotW * 0.05 * (1 + antPulse * 0.4), 0, Math.PI * 2);
-  ctx.fillStyle = `${accentB}26`; ctx.fill();
-  ctx.beginPath(); ctx.arc(rx, antTopY, robotW * 0.028, 0, Math.PI * 2);
-  ctx.fillStyle = accentB; ctx.fill();
-
-  // eyes — calm breathing pulse + occasional gentle, eased blink
+  // eyes — breathe + occasional blink, brighten on reply
   const blinkCycle = t % 4.2;
   let blinkFactor = 1;
-  if (blinkCycle > 3.9) {
-    const p = (blinkCycle - 3.9) / 0.3;
-    blinkFactor = Math.abs(Math.cos(p * Math.PI));
-  }
+  if (blinkCycle > 3.9) { const p = (blinkCycle - 3.9) / 0.3; blinkFactor = Math.abs(Math.cos(p * Math.PI)); }
   const breathe = 0.7 + Math.sin(t * 1.1) * 0.3;
-  const eyeH = Math.max(1.5, robotH * 0.05 * breathe * blinkFactor);
-  const eyeW = robotW * 0.16;
-  const eyeY = headY - robotH * 0.06;
-
+  const eyeH = Math.max(1.5, robotH * 0.07 * breathe * blinkFactor);
+  const eyeW = robotW * 0.17;
+  const eyeY = headCY - robotH * 0.05;
+  ctx.globalAlpha = 0.55 + react * 0.45;
   ctx.fillStyle = eyeColor;
   [-1, 1].forEach(side => {
-    const ex = rx + side * robotW * 0.22 - eyeW / 2;
+    const ex = robotX + side * robotW * 0.22 - eyeW / 2;
     ctx.beginPath();
     if (ctx.roundRect) ctx.roundRect(ex, eyeY - eyeH / 2, eyeW, eyeH, eyeH / 2);
     else ctx.rect(ex, eyeY - eyeH / 2, eyeW, eyeH);
     ctx.fill();
   });
-
-  // soft halo behind eyes for warmth (cheap alternative to shadowBlur)
-  ctx.globalAlpha = 0.12;
-  [-1, 1].forEach(side => {
-    const ex = rx + side * robotW * 0.22;
-    ctx.beginPath(); ctx.arc(ex, eyeY, eyeW * 0.9, 0, Math.PI * 2);
-    ctx.fillStyle = eyeColor; ctx.fill();
-  });
   ctx.globalAlpha = 1;
 
-  // mouth — slow, rounded waveform reads as calm speech, not alarm
-  const mouthW = robotW * 0.42;
-  const mouthAmp = robotH * 0.025 * (0.5 + Math.sin(t * 1.5) * 0.5);
-  ctx.strokeStyle = `${accentB}B0`; ctx.lineWidth = 1.6;
-  ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  // mouth — waveform ripples as the robot responds
+  const rMouthW = robotW * 0.46;
+  const rMouthAmp = robotH * 0.05 * (0.22 + react * 0.95);
+  ctx.strokeStyle = `${accentB}C0`; ctx.lineWidth = 1.8;
   ctx.beginPath();
-  const steps = 14;
+  const steps = 16;
   for (let i = 0; i <= steps; i++) {
     const p = i / steps;
-    const px = rx - mouthW / 2 + p * mouthW;
-    const py = headY + robotH * 0.2 + Math.sin(p * Math.PI * 2.4 - t * 3) * mouthAmp;
+    const px = robotX - rMouthW / 2 + p * rMouthW;
+    const py = headCY + robotH * 0.22 + Math.sin(p * Math.PI * 3 - t * 6) * rMouthAmp;
     i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
   }
   ctx.stroke();
-
-  return { rx, ry: headY, robotW, robotH };
 }
 
 function drawEcho(ctx, w, h, t) {
@@ -1089,6 +1154,7 @@ const WorkShowcase = ({ active, onClose }) => {
           chaos={1.2}
           thickness={2}
           borderRadius={24}
+          active={active}
           className="port-container"
           style={{ borderRadius: 24, background: 'rgba(243, 246, 244, 0.2)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}
         >
@@ -1097,7 +1163,9 @@ const WorkShowcase = ({ active, onClose }) => {
               <span className="port-title">AI EXPERIMENTS & PROJECTS</span>
               <span className="port-count">{projects.length < 10 ? '0' + projects.length : projects.length} deployments</span>
             </div>
-            <ChromaGrid items={projects} onSelect={setSelectedProject} />
+            <div className="port-grid-scroll">
+              <ChromaGrid items={projects} onSelect={setSelectedProject} active={active} />
+            </div>
           </div>
         </ElectricBorder>
 
@@ -1109,6 +1177,7 @@ const WorkShowcase = ({ active, onClose }) => {
             chaos={1.2}
             thickness={2}
             borderRadius={24}
+            active={active && !!selectedProject}
             className="work-modal-eb"
             style={{ borderRadius: 24, background: 'rgba(243, 246, 244, 0.2)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}
           >
@@ -1134,19 +1203,22 @@ const WorkShowcase = ({ active, onClose }) => {
                   <>
                     <p className="modal-desc">{selectedProject.desc}</p>
                     <div className="modal-foot">
-                      <div className="modal-pills">
-                        {selectedProject.pills.map((pill, i) => (
-                          <span key={i} className="m-pill">{pill}</span>
-                        ))}
+                      <div className="modal-tech">
+                        <span className="modal-tech-label">Built with</span>
+                        <div className="modal-pills">
+                          {selectedProject.pills.map((pill, i) => (
+                            <span key={i} className="m-pill">{pill}</span>
+                          ))}
+                        </div>
                       </div>
-                      <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <a className="modal-link" href={selectedProject.url} target="_blank" rel="noopener noreferrer">visit ↗</a>
+                      <div className="modal-cta">
                         {selectedProject.note && (
                           <div className="note-icon">
                             i
                             <div className="note-tooltip">{selectedProject.note}</div>
                           </div>
                         )}
+                        <a className="modal-link" href={selectedProject.url} target="_blank" rel="noopener noreferrer">Visit project ↗</a>
                       </div>
                     </div>
                   </>

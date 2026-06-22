@@ -7,6 +7,7 @@ import { ThemeProvider, useTheme } from './components/ThemeContext';
 import ThemePicker from './components/ThemePicker';
 import BackgroundMusic from './components/BackgroundMusic';
 import './Assets/Menu.css';
+import './Assets/compatibility.css';
 
 const LegacyPortfolio = React.lazy(() => import('./LegacyPortfolio'));
 

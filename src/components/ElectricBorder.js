@@ -8,6 +8,7 @@ const ElectricBorder = ({
   chaos = 0.12,
   thickness = 2,
   borderRadius = 24,
+  active = true,
   className,
   style
 }) => {
@@ -141,6 +142,8 @@ const ElectricBorder = ({
     const canvas = canvasRef.current;
     const container = containerRef.current;
     if (!canvas || !container) return;
+    // Don't burn a 60fps RAF on an off-screen / closed panel.
+    if (!active) return;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -176,6 +179,13 @@ const ElectricBorder = ({
 
     const drawElectricBorder = currentTime => {
       if (!canvas || !ctx) return;
+
+      // Skip rendering while the tab is in the background (saves battery/CPU).
+      if (typeof document !== 'undefined' && document.hidden) {
+        lastFrameTimeRef.current = currentTime;
+        animationRef.current = requestAnimationFrame(drawElectricBorder);
+        return;
+      }
 
       const deltaTime = (currentTime - lastFrameTimeRef.current) / 1000;
       timeRef.current += deltaTime * speed;
@@ -282,7 +292,7 @@ const ElectricBorder = ({
         window.removeEventListener('resize', handleResize);
       }
     };
-  }, [color, speed, chaos, thickness, borderRadius, octavedNoise, getRoundedRectPoint]);
+  }, [color, speed, chaos, thickness, borderRadius, active, octavedNoise, getRoundedRectPoint]);
 
   const vars = {
     '--electric-border-color': color,

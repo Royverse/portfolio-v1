@@ -72,6 +72,9 @@ html, body {
   background: var(--bg);
   color: var(--ink);
   font-family: 'Syne', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   overflow: hidden;
   /* Prevent 'Caret Browsing' cursor in Edge and keep it feeling like an app */
   caret-color: transparent;
@@ -1226,15 +1229,21 @@ body.theme-winter .header-title {
 }
 
 .section-text {
-  font-size: 13.5px;
-  line-height: 1.6;
+  font-family: 'Barlow', sans-serif;   /* humanist, easy to read for long prose */
+  font-size: 14.5px;
+  line-height: 1.72;
+  letter-spacing: 0.003em;
   color: var(--ink);
-  opacity: 0.9;
+  opacity: 0.88;
 }
 
 .section-text strong {
   font-weight: 600;
   color: var(--accent);
+}
+
+.section-text em {
+  font-style: italic;
 }
 
 /* Carousel Panel */
@@ -1378,8 +1387,10 @@ body.theme-winter .slide-title {
 }
 
 .slide-caption {
-  font-size: 12px;
-  line-height: 1.55;
+  font-family: 'Barlow', sans-serif;
+  font-size: 12.5px;
+  line-height: 1.62;
+  letter-spacing: 0.003em;
   color: var(--ink-muted);
   margin: 0;
 }

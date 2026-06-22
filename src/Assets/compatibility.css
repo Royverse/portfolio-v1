@@ -1,0 +1,52 @@
+/* ============================================================
+   Older-device compatibility fallbacks (≈2016–2020 browsers).
+   The app uses several modern CSS features (aspect-ratio, dvh,
+   :has, flex gap, backdrop-filter). Where a feature is missing
+   we degrade gracefully so the layout never collapses or shows
+   the desktop view "zoomed out" — it just renders a simpler
+   version instead of breaking.
+   ============================================================ */
+
+/* Stop any stray horizontal overflow from making a phone render
+   the wide desktop layout shrunk to fit (the classic "it's just
+   a wide screen" symptom on older mobile browsers). */
+html {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* aspect-ratio is unsupported before Chrome 88 / Safari 15 (2021).
+   Without it the canvas thumbnails (absolutely-positioned children)
+   collapse to 0 height and the cards look broken. Fall back to the
+   classic padding-bottom ratio box. */
+@supports not (aspect-ratio: 1 / 1) {
+  .chroma-img-wrapper {
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 */
+  }
+  .modal-preview {
+    height: 0;
+    padding-bottom: 43.75%; /* 16:7 */
+  }
+}
+
+/* backdrop-filter is unsupported on older Android/Firefox. Without
+   it the "glass" panels are fully transparent and text floats over
+   busy backgrounds. Give them a solid-ish fallback fill. */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .experience-overlay { background: rgba(10, 15, 12, 0.92); }
+  .port-container,
+  .work-modal-eb { background: rgba(18, 22, 30, 0.92) !important; }
+  .insp-modal-dim { background: rgba(243, 246, 244, 0.92); }
+  body.theme-winter .insp-modal-dim { background: rgba(10, 15, 30, 0.94); }
+}
+
+/* Honour an explicit reduced-motion preference (and give weak
+   hardware a big break): drop the perpetual ambient animations. */
+@media (prefers-reduced-motion: reduce) {
+  #leaves,
+  #snow-canvas,
+  .lightning-container {
+    display: none !important;
+  }
+}

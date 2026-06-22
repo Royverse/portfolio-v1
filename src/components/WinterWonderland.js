@@ -99,6 +99,12 @@ const WinterWonderland = ({ isProfessional }) => {
     for (let i = 0; i < FLAKE_COUNT; i++) flakes.push(new Flake(false));
 
     function loop() {
+      // Pause the snow while the tab is backgrounded — no point animating
+      // pixels nobody can see (saves battery/CPU on phones especially).
+      if (typeof document !== 'undefined' && document.hidden) {
+        animationFrameId = requestAnimationFrame(loop);
+        return;
+      }
       ctx.clearRect(0, 0, W, H);
       for (const f of flakes) {
         f.update();

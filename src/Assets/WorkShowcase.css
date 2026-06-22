@@ -41,8 +41,8 @@
   font-family: 'DM Mono', monospace;
   font-size: 10px;
   letter-spacing: 0.22em;
-  color: var(--ink);
-  background: rgba(255, 255, 255, 0.6);
+  color: var(--ink);              /* themed: dark on light, light on dark */
+  background: var(--bg);          /* themed background keeps the label legible in both modes */
   border: 1px solid var(--border);
   padding: 8px 20px;
   border-radius: 20px;
@@ -53,41 +53,54 @@
   transition: background 0.2s, color 0.2s, border-color 0.2s;
   white-space: nowrap;
 }
-.exp-close-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
+.exp-close-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
 
 /* ── Desktop layout ──────────────────────────────────────── */
+/* Centers the bordered panel; the panel handles its own inner scroll,
+   so the electric frame stays fixed instead of scrolling off-screen. */
 .port-modal-wrap {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   width: 100%;
-  /* scrollable region fills the overlay minus the close button row */
   height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;               /* scroll lives inside the panel, not here */
   padding: 64px 20px 24px;        /* top gap clears the close button */
   box-sizing: border-box;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(125, 249, 255, 0.25) transparent;
 }
-.port-modal-wrap::-webkit-scrollbar       { width: 4px; }
-.port-modal-wrap::-webkit-scrollbar-track { background: transparent; }
-.port-modal-wrap::-webkit-scrollbar-thumb { background: rgba(125, 249, 255, 0.2); border-radius: 99px; }
 
-/* ElectricBorder wrapper for the grid panel */
+/* ElectricBorder wrapper for the grid panel.
+   Capped to the available height and laid out as a column so the inner
+   grid scrolls while the glowing border stays put. */
 .port-container {
   box-shadow: none;
   width: min(92vw, 1040px);       /* fluid: shrinks on narrow viewports */
-  flex-shrink: 0;                 /* don't let flex crush it */
+  flex-shrink: 0;                 /* don't let flex crush it horizontally */
+  max-height: 100%;               /* never taller than the viewport region */
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 .port-container .eb-glow-1,
 .port-container .eb-glow-2 { border: none; }
 
-/* Inner panel */
+/* Let the electric-border content area fill and shrink with the panel */
+.port-container > .eb-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Inner panel — column with a fixed header and a scrollable grid region */
 .port {
   font-family: 'Epilogue', sans-serif;
   padding: 20px;
   box-sizing: border-box;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .port-header {
@@ -97,7 +110,26 @@
   margin-bottom: 20px;
   flex-wrap: wrap;
   gap: 8px;
+  flex-shrink: 0;                 /* header stays pinned above the scroll */
 }
+
+/* Only the grid scrolls — keeps the electric frame and header fixed */
+.port-grid-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* a touch of right padding so the scrollbar clears the cards */
+  padding-right: 4px;
+  /* breathing room so the last row isn't flush with the rounded corner */
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(125, 249, 255, 0.25) transparent;
+  overscroll-behavior: contain;
+}
+.port-grid-scroll::-webkit-scrollbar       { width: 4px; }
+.port-grid-scroll::-webkit-scrollbar-track { background: transparent; }
+.port-grid-scroll::-webkit-scrollbar-thumb { background: rgba(125, 249, 255, 0.2); border-radius: 99px; }
 
 .port-title {
   font-family: 'Epilogue', sans-serif;
@@ -150,6 +182,7 @@
   position: relative;
   z-index: 1;
   width: min(92vw, 520px);
+  max-height: calc(100vh - 40px);    /* fallback for browsers without dvh */
   max-height: calc(100dvh - 40px);
   display: flex;
   flex-direction: column;
@@ -232,16 +265,39 @@
 
 .modal-foot {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+}
+
+/* "Built with" tech section */
+.modal-tech {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.modal-tech-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(20, 31, 26, 0.42);
 }
 
 .modal-pills {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
+}
+
+/* CTA row — divider above, action aligned to the right */
+.modal-cta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
 }
 .m-pill {
   font-size: 10px;
@@ -351,6 +407,7 @@
   }
   .work-modal-eb {
     width: 100%;
+    max-height: calc(100vh - 20px);    /* fallback for browsers without dvh */
     max-height: calc(100dvh - 20px);
   }
   .modal-body {
