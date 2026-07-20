@@ -142,7 +142,7 @@ const DesignInspiration = ({ isOpen, onClose }) => {
                 <section className="narrative-section">
                   <h3 className="section-subtitle">03 / REAL-TIME SEASONS</h3>
                   <p className="section-text">
-                    An application should feel like a living, breathing ecosystem. By integrating the local time clock with custom rendering contexts, the site seamlessly transitions between seasonal cycles (such as <strong>Autumn Leaves</strong> and <strong>Winter Snow</strong>). 
+                    An application should feel like a living, breathing ecosystem. By integrating the local time clock with custom rendering contexts, the site seamlessly transitions between seasonal cycles (such as <strong>Autumn Leaves</strong>, <strong>Winter Snow</strong>, and a golden-hour <strong>Summer Solstice</strong>).
                   </p>
                   <p className="section-text">
                     This interactive layer bridges the sterile space of digital engineering with the organic changes of our physical world—creating a premium user experience that is always dynamic, fresh, and engaging.

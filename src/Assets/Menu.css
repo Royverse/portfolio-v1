@@ -28,6 +28,19 @@ body.theme-winter {
   --aura-glow: 0 0 15px rgba(255, 255, 255, 0.15);
 }
 
+body.theme-summer {
+  --bg: #fdf8ec;
+  --ink: #33230e;
+  --ink-muted: #987245;
+  --ink-faint: #dcc79e;
+  --accent: #b96608;
+  --border: #e6d4ab;
+  --rule: #f0e3c4;
+  --glass-bg: rgba(255, 250, 238, 0.5);
+  --silver-gradient: linear-gradient(180deg, #a8804a 0%, #6b4d1f 100%);
+  --aura-glow: 0 0 14px rgba(214, 148, 32, 0.2);
+}
+
 body.force-light-theme {
   --bg: #f3f6f4 !important;
   --ink: #141f1a !important;
@@ -1430,3 +1443,49 @@ body.theme-winter .slide-title {
   box-shadow: 0 2px 8px rgba(29, 158, 117, 0.3);
 }
 
+
+/* ── SUMMER SOLSTICE OVERRIDES ──
+   Selectors that hardcode the autumn light tint or the green accent get a
+   warm golden-hour variant, mirroring the body.theme-winter special cases. */
+
+body.theme-summer .skills-overlay {
+  background: rgba(253, 248, 236, 0.9);
+}
+
+body.theme-summer .fab-dim {
+  background: rgba(253, 248, 236, 0.45);
+}
+
+body.theme-summer .theme-option.selected {
+  background: rgba(185, 102, 8, 0.08);
+}
+
+body.theme-summer .sys-insp-trigger:hover .sys-insp-icon {
+  background: rgba(185, 102, 8, 0.08);
+}
+
+body.theme-summer .pagination-tab.active {
+  box-shadow: 0 2px 8px rgba(185, 102, 8, 0.3);
+}
+
+body.theme-summer .insp-modal-dim {
+  background: rgba(253, 246, 230, 0.55);
+}
+
+body.theme-summer .insp-modal-container {
+  background: rgba(253, 248, 236, 0.92);
+  box-shadow:
+    0 24px 64px rgba(105, 72, 22, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+body.theme-summer .header-title,
+body.theme-summer .slide-title {
+  background: linear-gradient(180deg, #3d2c14 30%, #8a6f4a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body.theme-summer .dropdown-footer {
+  background: rgba(185, 102, 8, 0.04);
+}

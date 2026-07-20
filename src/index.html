@@ -63,22 +63,27 @@
         }
       })();
 
-      /* Live "bridge" favicon — the span lights up green when this tab is
-         active and dims to a dashed gap when it's in the background.
-         Progressive enhancement: the static <link> above stays put for
-         search crawlers, which don't run this script. */
+      /* Live "bridge" favicon — the span lights up in the active season's
+         accent color when this tab is active, and dims to a dashed gap
+         when it's in the background. Progressive enhancement: the static
+         <link> above stays put for search crawlers, which don't run this
+         script. */
       (function () {
         var fav = document.getElementById('rm-favicon');
         if (!fav) return;
         function bridgeSVG(on) {
+          var isSummer = document.documentElement.getAttribute('data-theme') === 'summer';
           var struct = on ? '#e8f0ee' : '#9fb0bd';
           var base = on ? '#0a0f1e' : '#0c1322';
           var g0 = on ? '#10182c' : '#0f1727';
           var g1 = on ? '#0a0f1e' : '#0a1120';
+          var spanGlow = isSummer ? '#e8920d' : '#1d9e75';
+          var spanCore = isSummer ? '#ffcf6b' : '#3fe0a6';
+          var spanTip = isSummer ? '#fff6df' : '#eafff6';
           var span = on
-            ? "<path d='M11.5 16 Q16 9 20.2 16' fill='none' stroke='#1d9e75' stroke-opacity='.35' stroke-width='4.6' stroke-linecap='round'/>"
-              + "<path d='M11.5 16 Q16 9 20.2 16' fill='none' stroke='#3fe0a6' stroke-width='1.8' stroke-linecap='round'/>"
-              + "<circle cx='16' cy='10.55' r='1.55' fill='#eafff6'/>"
+            ? "<path d='M11.5 16 Q16 9 20.2 16' fill='none' stroke='" + spanGlow + "' stroke-opacity='.35' stroke-width='4.6' stroke-linecap='round'/>"
+              + "<path d='M11.5 16 Q16 9 20.2 16' fill='none' stroke='" + spanCore + "' stroke-width='1.8' stroke-linecap='round'/>"
+              + "<circle cx='16' cy='10.55' r='1.55' fill='" + spanTip + "'/>"
             : "<path d='M11.5 16 Q16 12 20.2 16' fill='none' stroke='#8492a0' stroke-width='1.6' stroke-linecap='round' stroke-dasharray='1.5 2.3'/>";
           return "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>"
             + "<defs><linearGradient id='t' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='" + g0 + "'/><stop offset='1' stop-color='" + g1 + "'/></linearGradient></defs>"
@@ -94,6 +99,7 @@
         document.addEventListener('visibilitychange', paint);
         window.addEventListener('focus', paint);
         window.addEventListener('blur', paint);
+        window.addEventListener('rm-theme-change', paint);
       })();
     </script>
     

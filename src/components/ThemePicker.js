@@ -11,8 +11,8 @@ const ThemePicker = () => {
     { id: 'auto', label: 'SYSTEM SYNC', status: 'active', desc: 'Syncs with your clock' },
     { id: 'autumn', label: 'AUTUMN LEAVES', status: 'active', desc: 'Light Mode / Seasonal' },
     { id: 'winter', label: 'WINTER SNOW', status: 'active', desc: 'Dark Mode / Particles' },
+    { id: 'summer', label: 'SUMMER SOLSTICE', status: 'active', desc: 'Golden Hour / Warm' },
     { id: 'spring', label: 'SPRING BLOOM', status: 'pending', desc: 'Coming Soon' },
-    { id: 'summer', label: 'SUMMER SOLSTICE', status: 'pending', desc: 'Coming Soon' },
   ];
 
   const currentThemeObj = themes.find(t => t.id === (theme || 'auto'));

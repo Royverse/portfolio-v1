@@ -171,19 +171,97 @@ const BulbasaurLeaves = () => {
   );
 };
 
+const SunSparkles = () => {
+  const sparkCount = 8;
+  return (
+    <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: -1 }}>
+      {/* Golden-hour Core Glow */}
+      <motion.div
+        style={{
+          position: 'absolute',
+          top: '10px',
+          left: '-28px',
+          bottom: '10px',
+          right: '20px',
+          borderRadius: '9999px',
+          backgroundColor: 'rgba(255, 178, 66, 0.5)',
+          filter: 'blur(38px)',
+          mixBlendMode: 'screen',
+        }}
+        animate={{ opacity: [0.25, 0.65, 0.3], scale: [0.9, 1.08, 0.9] }}
+        transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      {/* Rising amber sparkles trailing behind */}
+      {Array.from({ length: sparkCount }).map((_, i) => (
+        <motion.div
+          key={i}
+          style={{
+            position: 'absolute',
+            top: `${15 + Math.random() * 65}%`,
+            left: '26px',
+            width: `${4 + Math.random() * 5}px`,
+            height: `${4 + Math.random() * 5}px`,
+            borderRadius: '50%',
+            background: i % 2 === 0
+              ? 'radial-gradient(circle, #fff3d6 0%, #ffc25e 70%, transparent 100%)'
+              : 'radial-gradient(circle, #ffe4a3 0%, #f5a623 70%, transparent 100%)',
+            opacity: 0.9,
+          }}
+          animate={{
+            x: [0, -130 - Math.random() * 110],
+            y: [0, -20 - Math.random() * 40],
+            opacity: [0.9, 1, 0],
+            scale: [1, 0.6],
+          }}
+          transition={{
+            duration: 0.8 + Math.random() * 0.6,
+            repeat: Infinity,
+            ease: "easeOut",
+            delay: Math.random() * 1.5,
+          }}
+        />
+      ))}
+
+      {/* Warm speed streak */}
+      <motion.div
+        style={{
+          position: 'absolute',
+          top: '48%',
+          left: '-100px',
+          height: '3px',
+          backgroundColor: '#ffd98a',
+          borderRadius: '9999px',
+          filter: 'blur(1px)',
+          originX: 1,
+        }}
+        animate={{
+          width: ["0px", "95px", "0px"],
+          opacity: [0, 0.85, 0],
+          x: [0, -85, -155]
+        }}
+        transition={{ duration: 0.65, repeat: Infinity, ease: "linear", delay: 0.25 }}
+      />
+    </div>
+  );
+};
+
 const PokemonRunner = ({ theme, onComplete }) => {
   const isWinter = theme === 'winter';
+  const isSummer = theme === 'summer';
   const animationData = isWinter ? bulbasaurData : pikachuData;
+
+  const Aura = isWinter ? BulbasaurLeaves : (isSummer ? SunSparkles : LightningSparks);
 
   return (
     <motion.div
       initial={{ x: -100, opacity: 0 }}
-      animate={{ 
+      animate={{
         x: [ -100, 250 ],
         opacity: [0, 1, 1, 0]
       }}
-      transition={{ 
-        duration: 3.5, 
+      transition={{
+        duration: 3.5,
         times: [0, 0.1, 0.9, 1],
         ease: "linear"
       }}
@@ -199,7 +277,7 @@ const PokemonRunner = ({ theme, onComplete }) => {
       }}
     >
       {/* Dynamic Aura effects based on theme */}
-      {isWinter ? <BulbasaurLeaves /> : <LightningSparks />}
+      <Aura />
 
       <Lottie 
         animationData={animationData} 

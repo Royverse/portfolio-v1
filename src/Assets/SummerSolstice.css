@@ -1,0 +1,161 @@
+#solstice-stage {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Golden-hour sky: warm ivory zenith deepening to honey at the horizon,
+   with an amber bloom centred where the sun sits. */
+.summer-bg-layer {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 90% 55% at 48% 92%, rgba(255, 186, 92, 0.42) 0%, rgba(255, 205, 130, 0.16) 45%, transparent 72%),
+    linear-gradient(180deg, #fdf6e3 0%, #fdf3d9 48%, #fbecc6 78%, #f7e3b2 100%);
+  z-index: -1;
+}
+
+/* Heat shimmer: two ultra-soft warm bands drifting near the horizon. */
+.heat-haze {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  height: 22vh;
+  bottom: 6vh;
+  background: linear-gradient(180deg, transparent 0%, rgba(255, 196, 112, 0.10) 35%, rgba(255, 214, 150, 0.16) 65%, transparent 100%);
+  animation: haze-drift 14s ease-in-out infinite alternate;
+  z-index: -1;
+}
+
+.heat-haze.h2 {
+  bottom: 13vh;
+  height: 14vh;
+  opacity: 0.7;
+  animation-duration: 19s;
+  animation-delay: -6s;
+}
+
+@keyframes haze-drift {
+  0%   { transform: translateX(-2.2%) scaleY(1);    opacity: 0.6; }
+  100% { transform: translateX(2.2%)  scaleY(1.12); opacity: 1; }
+}
+
+/* The solstice sun: a near-white core blooming into gold, half-set
+   behind the meadow, breathing on a slow 9s cycle. */
+.sun-cluster {
+  position: absolute;
+  left: 48%;
+  bottom: 7vh;
+  width: 0;
+  height: 0;
+  z-index: -1;
+}
+
+.sun-halo {
+  position: absolute;
+  width: 480px;
+  height: 480px;
+  left: -240px;
+  bottom: -190px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 202, 110, 0.34) 0%, rgba(255, 196, 100, 0.14) 42%, rgba(255, 190, 90, 0) 70%);
+  animation: halo-breathe 9s ease-in-out infinite;
+}
+
+.solstice-sun {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  width: clamp(150px, 16vw, 210px);
+  height: clamp(150px, 16vw, 210px);
+  left: 0;
+  bottom: 0;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 44%, #fffdf3 0%, #ffefbc 32%, #ffd97e 56%, rgba(255, 190, 84, 0.55) 74%, rgba(255, 180, 70, 0) 98%);
+  animation: sun-breathe 9s ease-in-out infinite;
+}
+
+@keyframes sun-breathe {
+  0%, 100% { transform: translateX(-50%) scale(1);    opacity: 0.94; }
+  50%      { transform: translateX(-50%) scale(1.045); opacity: 1; }
+}
+
+@keyframes halo-breathe {
+  0%, 100% { transform: scale(1);    opacity: 0.85; }
+  50%      { transform: scale(1.06); opacity: 1; }
+}
+
+/* Rolling wheat-field hills — the summer counterpart to winter's mountains. */
+.meadow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 200px;
+  height: clamp(150px, 20vh, 300px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Wheat stalks sway gently from the roots. Older browsers that lack
+   transform-box simply render them static. */
+.meadow .wheat {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: wheat-sway 5.2s ease-in-out infinite alternate;
+}
+
+.meadow .wheat.w2 { animation-duration: 6.4s; animation-delay: -2.1s; }
+.meadow .wheat.w3 { animation-duration: 4.6s; animation-delay: -3.4s; }
+
+.meadow.hidden-in-professional {
+  display: none;
+}
+
+@keyframes wheat-sway {
+  0%   { transform: rotate(-2.4deg); }
+  100% { transform: rotate(2.6deg); }
+}
+
+/* Rising golden dust motes render above the UI plane, like the snow. */
+#solstice-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* On phones the portrait fills the lower half of the screen, so the
+   horizon set-dressing would be hidden behind it. Lift the sun to peek
+   over the portrait's top edge and let the haze hug that line instead. */
+@media (max-width: 768px) {
+  .meadow { display: none; }
+
+  .sun-cluster {
+    left: 72%;
+    bottom: 48vh;
+  }
+
+  .solstice-sun {
+    width: 130px;
+    height: 130px;
+  }
+
+  .sun-halo {
+    width: 340px;
+    height: 340px;
+    left: -170px;
+    bottom: -135px;
+  }
+
+  .heat-haze     { bottom: 44vh; height: 16vh; }
+  .heat-haze.h2  { bottom: 50vh; height: 10vh; }
+}

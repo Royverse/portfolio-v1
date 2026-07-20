@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import MenuScreen from './MenuScreen';
 import FallingLeaves from './components/FallingLeaves';
 import WinterWonderland from './components/WinterWonderland';
+import SummerSolstice from './components/SummerSolstice';
 import { ThemeProvider, useTheme } from './components/ThemeContext';
 import ThemePicker from './components/ThemePicker';
 import BackgroundMusic from './components/BackgroundMusic';
@@ -67,7 +68,9 @@ const AppContent = () => {
 
   return (
     <>
-      {activeTheme === 'autumn' ? <FallingLeaves /> : <WinterWonderland isProfessional={view === 'PROFESSIONAL'} />}
+      {activeTheme === 'autumn' && <FallingLeaves />}
+      {activeTheme === 'summer' && <SummerSolstice isProfessional={view === 'PROFESSIONAL'} />}
+      {activeTheme !== 'autumn' && activeTheme !== 'summer' && <WinterWonderland isProfessional={view === 'PROFESSIONAL'} />}
       
       <div className="bg-switcher-wrap">
         <ThemePicker />

@@ -39,6 +39,7 @@ html {
   .work-modal-eb { background: rgba(18, 22, 30, 0.92) !important; }
   .insp-modal-dim { background: rgba(243, 246, 244, 0.92); }
   body.theme-winter .insp-modal-dim { background: rgba(10, 15, 30, 0.94); }
+  body.theme-summer .insp-modal-dim { background: rgba(253, 246, 230, 0.94); }
 }
 
 /* Honour an explicit reduced-motion preference (and give weak
@@ -46,6 +47,18 @@ html {
 @media (prefers-reduced-motion: reduce) {
   #leaves,
   #snow-canvas,
+  #solstice-canvas,
+  .lightning-container,
+  .sun-halo,
+  .solstice-sun,
+  .heat-haze,
+  .meadow .wheat {
+    animation: none !important;
+  }
+
+  #leaves,
+  #snow-canvas,
+  #solstice-canvas,
   .lightning-container {
     display: none !important;
   }
