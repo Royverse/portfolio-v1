@@ -1,0 +1,16 @@
+# Netlify response headers (copied into dist/ by the postbuild script).
+#
+# Parcel puts a content hash in these filenames, so a changed file always gets
+# a new URL and browsers can keep the old one for a year without re-checking.
+# Images are left out on purpose: the favicons and portrait-2.jpg are copied
+# without a hash and must stay revalidated.
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+/*.ttf
+  Cache-Control: public, max-age=31536000, immutable
+/*.webp
+  Cache-Control: public, max-age=31536000, immutable
+/*.mp3
+  Cache-Control: public, max-age=31536000, immutable

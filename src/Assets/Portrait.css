@@ -1,5 +1,4 @@
-/* 3D Floating Work Card Styles */
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:wght@400;500&display=swap');
+/* 3D Floating Work Card Styles (Playfair Display comes from the font link in index.html) */
 
 .portrait-wrap {
   position: absolute;

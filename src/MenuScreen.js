@@ -1,25 +1,49 @@
 import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Portrait from './components/Portrait';
-import DataAnalysis from './components/DataAnalysis';
 import Lightning from './components/Lightning';
 import { useTheme } from './components/ThemeContext';
 import DesignInspiration from './components/DesignInspiration';
 
 const SkillsAnimation = React.lazy(() => import('./components/SkillsAnimation'));
 const WorkShowcase = React.lazy(() => import('./components/WorkShowcase'));
+// Carries lottie-web and the runner animations — most of the old main bundle.
+const DataAnalysis = React.lazy(() => import('./components/DataAnalysis'));
+
+// Same breakpoint that hides `.desktop-only` in Menu.css.
+const DESKTOP_QUERY = '(min-width: 769px)';
+
+// Same box DataAnalysis renders (class margin + its 200×130 wrapper).
+const runnerPlaceholder = <div className="data-analysis-wrap" style={{ width: '200px', height: '130px' }} />;
+
+const useIsDesktop = () => {
+  const [isDesktop, setIsDesktop] = useState(() => window.matchMedia(DESKTOP_QUERY).matches);
+  useEffect(() => {
+    const mq = window.matchMedia(DESKTOP_QUERY);
+    const update = () => setIsDesktop(mq.matches);
+    // Safari < 14 only has the older addListener API.
+    if (mq.addEventListener) mq.addEventListener('change', update);
+    else mq.addListener(update);
+    return () => {
+      if (mq.removeEventListener) mq.removeEventListener('change', update);
+      else mq.removeListener(update);
+    };
+  }, []);
+  return isDesktop;
+};
 
 const MenuScreen = ({ onProjectsClick }) => {
   const [activeTab, setActiveTab] = useState('HOME');
   const [showLightning, setShowLightning] = useState(false);
   const [isFabOpen, setIsFabOpen] = useState(false);
   const [showInspiration, setShowInspiration] = useState(false);
-  // The Skills and Projects overlays are big and hidden on arrival, so their
-  // chunks load after the page has finished loading — or as soon as someone
+  // Heavy, non-critical UI (the Skills/Projects overlays and the desktop Lottie
+  // runner) loads after the page has finished loading — or as soon as someone
   // reaches for the nav — instead of competing with the first paint.
-  const [overlaysReady, setOverlaysReady] = useState(false);
+  const [deferredReady, setDeferredReady] = useState(false);
   const returnFocusRef = useRef(null);
   const fabRef = useRef(null);
+  const isDesktop = useIsDesktop();
   const { activeTheme } = useTheme();
 
   const overlayOpen = activeTab === 'SKILLS' || activeTab === 'AI LABS';
@@ -27,10 +51,10 @@ const MenuScreen = ({ onProjectsClick }) => {
   const coveredAttr = overlayOpen ? '' : undefined;
 
   useEffect(() => {
-    if (overlaysReady) return undefined;
+    if (deferredReady) return undefined;
     let idleId;
     let timerId;
-    const ready = () => setOverlaysReady(true);
+    const ready = () => setDeferredReady(true);
     const schedule = () => {
       if (window.requestIdleCallback) idleId = window.requestIdleCallback(ready, { timeout: 2000 });
       else timerId = setTimeout(ready, 1000);
@@ -42,9 +66,9 @@ const MenuScreen = ({ onProjectsClick }) => {
       if (idleId && window.cancelIdleCallback) window.cancelIdleCallback(idleId);
       clearTimeout(timerId);
     };
-  }, [overlaysReady]);
+  }, [deferredReady]);
 
-  const warmOverlays = () => setOverlaysReady(true);
+  const loadDeferred = () => setDeferredReady(true);
 
   // Hand focus back to whatever opened an overlay once it closes. Mobile menu
   // pills unmount when the menu closes, so fall back to the menu button.
@@ -78,7 +102,7 @@ const MenuScreen = ({ onProjectsClick }) => {
     }
 
     returnFocusRef.current = document.activeElement;
-    setOverlaysReady(true);
+    setDeferredReady(true);
 
     if (tab === 'AI LABS') {
       setShowLightning(true);
@@ -97,7 +121,7 @@ const MenuScreen = ({ onProjectsClick }) => {
   };
 
   const toggleFab = () => {
-    setOverlaysReady(true);
+    setDeferredReady(true);
     setIsFabOpen(!isFabOpen);
   };
 
@@ -130,7 +154,7 @@ const MenuScreen = ({ onProjectsClick }) => {
         <p className="title">SOFTWARE ENGINEER</p>
         <div className="divider"></div>
 
-        <nav className="main-nav" onMouseEnter={warmOverlays} onFocus={warmOverlays}>
+        <nav className="main-nav" onMouseEnter={loadDeferred} onFocus={loadDeferred}>
           <button
             className={`nav-item ${activeTab === 'SKILLS' ? 'active' : ''}`}
             onClick={() => handleNavClick('SKILLS')}
@@ -159,7 +183,14 @@ const MenuScreen = ({ onProjectsClick }) => {
           <span className="status-label">EMPLOYED // OPEN TO OFFERS</span>
         </div>
 
-        <DataAnalysis visible={activeTab === 'HOME'} theme={activeTheme} />
+        {/* Phones never see this panel, so they skip the Lottie download. The
+            placeholder holds the runner's space so the centred nav doesn't jump
+            when it lands. */}
+        {isDesktop && (deferredReady ? (
+          <Suspense fallback={runnerPlaceholder}>
+            <DataAnalysis visible={activeTab === 'HOME'} theme={activeTheme} />
+          </Suspense>
+        ) : runnerPlaceholder)}
       </div>
 
       {/* Mobile FAB Menu */}
@@ -233,14 +264,14 @@ const MenuScreen = ({ onProjectsClick }) => {
       </div>
 
       {/* Skills Blossom Overlay */}
-      {overlaysReady && (
+      {deferredReady && (
         <Suspense fallback={null}>
           <SkillsAnimation active={activeTab === 'SKILLS'} onClose={handleCloseOverlay} />
         </Suspense>
       )}
 
       {/* Experience / Work Showcase Overlay */}
-      {overlaysReady && (
+      {deferredReady && (
         <Suspense fallback={null}>
           <WorkShowcase active={activeTab === 'AI LABS'} onClose={handleCloseOverlay} />
         </Suspense>
