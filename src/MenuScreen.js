@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Portrait from './components/Portrait';
 import DataAnalysis from './components/DataAnalysis';
@@ -14,7 +14,48 @@ const MenuScreen = ({ onProjectsClick }) => {
   const [showLightning, setShowLightning] = useState(false);
   const [isFabOpen, setIsFabOpen] = useState(false);
   const [showInspiration, setShowInspiration] = useState(false);
+  // The Skills and Projects overlays are big and hidden on arrival, so their
+  // chunks load after the page has finished loading — or as soon as someone
+  // reaches for the nav — instead of competing with the first paint.
+  const [overlaysReady, setOverlaysReady] = useState(false);
+  const returnFocusRef = useRef(null);
+  const fabRef = useRef(null);
   const { activeTheme } = useTheme();
+
+  const overlayOpen = activeTab === 'SKILLS' || activeTab === 'AI LABS';
+  // React 16 only forwards `inert` as a string, hence '' rather than true.
+  const coveredAttr = overlayOpen ? '' : undefined;
+
+  useEffect(() => {
+    if (overlaysReady) return undefined;
+    let idleId;
+    let timerId;
+    const ready = () => setOverlaysReady(true);
+    const schedule = () => {
+      if (window.requestIdleCallback) idleId = window.requestIdleCallback(ready, { timeout: 2000 });
+      else timerId = setTimeout(ready, 1000);
+    };
+    if (document.readyState === 'complete') schedule();
+    else window.addEventListener('load', schedule);
+    return () => {
+      window.removeEventListener('load', schedule);
+      if (idleId && window.cancelIdleCallback) window.cancelIdleCallback(idleId);
+      clearTimeout(timerId);
+    };
+  }, [overlaysReady]);
+
+  const warmOverlays = () => setOverlaysReady(true);
+
+  // Hand focus back to whatever opened an overlay once it closes. Mobile menu
+  // pills unmount when the menu closes, so fall back to the menu button.
+  useEffect(() => {
+    if (overlayOpen) return;
+    const opener = returnFocusRef.current;
+    returnFocusRef.current = null;
+    if (!opener) return;
+    if (document.body.contains(opener)) opener.focus();
+    else if (fabRef.current) fabRef.current.focus();
+  }, [overlayOpen]);
 
   useEffect(() => {
     if (activeTab === 'SKILLS') {
@@ -36,6 +77,9 @@ const MenuScreen = ({ onProjectsClick }) => {
       return;
     }
 
+    returnFocusRef.current = document.activeElement;
+    setOverlaysReady(true);
+
     if (tab === 'AI LABS') {
       setShowLightning(true);
       setTimeout(() => {
@@ -52,7 +96,10 @@ const MenuScreen = ({ onProjectsClick }) => {
     setActiveTab('HOME');
   };
 
-  const toggleFab = () => setIsFabOpen(!isFabOpen);
+  const toggleFab = () => {
+    setOverlaysReady(true);
+    setIsFabOpen(!isFabOpen);
+  };
 
   const menuItems = [
     { id: 'PROFESSIONAL', label: 'EXPERIENCE' },
@@ -63,10 +110,10 @@ const MenuScreen = ({ onProjectsClick }) => {
   return (
     <div className="scene">
       {/* Portrait */}
-      <Portrait />
+      <Portrait covered={overlayOpen} />
 
       {/* Desktop Navigation Menu */}
-      <div className="nav-panel desktop-only">
+      <div className="nav-panel desktop-only" inert={coveredAttr}>
         <div className="sys-label-container">
           <p className="sys-label">PORTFOLIO.SYS // INIT</p>
           <button 
@@ -83,7 +130,7 @@ const MenuScreen = ({ onProjectsClick }) => {
         <p className="title">SOFTWARE ENGINEER</p>
         <div className="divider"></div>
 
-        <nav className="main-nav">
+        <nav className="main-nav" onMouseEnter={warmOverlays} onFocus={warmOverlays}>
           <button
             className={`nav-item ${activeTab === 'SKILLS' ? 'active' : ''}`}
             onClick={() => handleNavClick('SKILLS')}
@@ -116,7 +163,7 @@ const MenuScreen = ({ onProjectsClick }) => {
       </div>
 
       {/* Mobile FAB Menu */}
-      <div className="mobile-only">
+      <div className="mobile-only" inert={coveredAttr}>
         <motion.div 
           className="mobile-hero-info"
           initial={{ opacity: 0, y: 15 }}
@@ -170,8 +217,9 @@ const MenuScreen = ({ onProjectsClick }) => {
           )}
         </AnimatePresence>
 
-        <button 
-          className={`fab-main ${isFabOpen ? 'open' : ''}`} 
+        <button
+          ref={fabRef}
+          className={`fab-main ${isFabOpen ? 'open' : ''}`}
           onClick={toggleFab}
           aria-label="Toggle menu"
           aria-expanded={isFabOpen}
@@ -185,14 +233,18 @@ const MenuScreen = ({ onProjectsClick }) => {
       </div>
 
       {/* Skills Blossom Overlay */}
-      <Suspense fallback={null}>
-        <SkillsAnimation active={activeTab === 'SKILLS'} onClose={handleCloseOverlay} />
-      </Suspense>
+      {overlaysReady && (
+        <Suspense fallback={null}>
+          <SkillsAnimation active={activeTab === 'SKILLS'} onClose={handleCloseOverlay} />
+        </Suspense>
+      )}
 
       {/* Experience / Work Showcase Overlay */}
-      <Suspense fallback={null}>
-        <WorkShowcase active={activeTab === 'AI LABS'} onClose={handleCloseOverlay} />
-      </Suspense>
+      {overlaysReady && (
+        <Suspense fallback={null}>
+          <WorkShowcase active={activeTab === 'AI LABS'} onClose={handleCloseOverlay} />
+        </Suspense>
+      )}
 
       {/* Lightning Strike Transition */}
       {showLightning && (

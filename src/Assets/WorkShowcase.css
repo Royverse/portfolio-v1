@@ -329,11 +329,14 @@
   text-transform: uppercase;
 }
 .modal-link:hover { background: rgba(0, 0, 0, 0.08); }
+/* Secondary link: muted via colour rather than opacity so the label stays
+   ≥4.5:1 on the (always light) modal body in every theme. */
 .modal-link--ghost {
-  opacity: 0.55;
   border-style: dashed;
+  background: transparent;
+  color: #4f7064;
 }
-.modal-link--ghost:hover { opacity: 1; }
+.modal-link--ghost:hover { color: #141f1a; }
 
 /* Note icon + tooltip */
 .note-icon {

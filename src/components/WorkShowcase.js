@@ -10,6 +10,7 @@ const projects = [
     desc: 'A touchless painting engine built on MediaPipe\'s 21-point hand tracking. Pinch to draw, open palm to pause — Kalman filtering smooths out tremor and camera noise in real time, so every stroke feels deliberate.',
     pills: ['MediaPipe Hands', 'Canvas 2D', 'Kalman Filter', 'Vite', 'Gesture Engine'],
     url: 'https://air-canvas-ai.netlify.app/',
+    sourceUrl: 'https://github.com/Royverse/air-canvas',
     draw: drawAC, drawM: drawACM
   },
   {
@@ -51,6 +52,7 @@ const projects = [
     desc: 'A 3D superhero flight engine built from first principles in Three.js. Aerodynamic lift and drag equations drive movement through a procedural neon city. A Verlet cloth solver animates the cape in real time, AABB partitioning handles building collisions at 60fps, and wind audio is synthesised live via the Web Audio API.',
     pills: ['Three.js', 'WebGL', 'Verlet Physics', 'Web Audio API', 'AABB'],
     url: 'https://luminary-flight.netlify.app/',
+    sourceUrl: 'https://github.com/Royverse/luminary',
     draw: drawLuminary, drawM: drawLuminaryModal
   },
   {
@@ -59,6 +61,7 @@ const projects = [
     desc: 'A browser-native WebAR spellcasting arena driven by MediaPipe hand tracking. Users cast real-time magical spells, including Leviosa (levitation), Accio (pulling), and Depulso (repelling), on interactive 3D elements inside a Three.js scene. A custom physics engine simulates velocity, gravity, and collision feedback at 60fps, managed by a glassmorphic HUD.',
     pills: ['MediaPipe Hands', 'Three.js', 'WebXR', 'Physics Engine', 'Gesture Math', 'Vite'],
     url: 'https://wand-wave.netlify.app/',
+    sourceUrl: 'https://github.com/Royverse/wand-wave',
     draw: drawWonderwave, drawM: drawWonderwaveM
   },
   {
@@ -67,6 +70,7 @@ const projects = [
     desc: 'A voice-driven 3D robot playground built with Three.js. Processes natural spoken commands sequentially with local fuzzy regex parsing or Gemini 2.5 Flash NLU. Features continuous listening, speech synthesis (Polly API), and real-time procedural sound effects synthesized dynamically using the Web Audio API.',
     pills: ['Three.js', 'Web Speech API', 'Gemini 2.5', 'Web Audio API', 'Procedural SFX'],
     url: 'https://echo-voice-sandbox.netlify.app/',
+    sourceUrl: 'https://github.com/Royverse/echo',
     draw: drawEcho, drawM: drawEchoModal
   },
   {
@@ -1319,6 +1323,9 @@ const WorkShowcase = ({ active, onClose }) => {
   const [selectedProject, setSelectedProject] = useState(null);
   const modalCanvasRef = useRef(null);
   const modalRafRef = useRef(null);
+  const closeBtnRef = useRef(null);
+  const modalCloseRef = useRef(null);
+  const lastCardRef = useRef(null);
 
   useEffect(() => {
     if (!selectedProject || !modalCanvasRef.current) return;
@@ -1344,11 +1351,50 @@ const WorkShowcase = ({ active, onClose }) => {
     };
   }, [selectedProject]);
 
+  const openProject = (project) => {
+    lastCardRef.current = document.activeElement;
+    setSelectedProject(project);
+  };
   const closeModal = () => setSelectedProject(null);
 
+  // Land keyboard focus inside the overlay when it opens.
+  useEffect(() => {
+    if (active && closeBtnRef.current) closeBtnRef.current.focus();
+  }, [active]);
+
+  // Focus the dialog's close button on open; hand focus back to the card on close.
+  useEffect(() => {
+    if (selectedProject) {
+      if (modalCloseRef.current) modalCloseRef.current.focus();
+    } else if (lastCardRef.current) {
+      lastCardRef.current.focus();
+      lastCardRef.current = null;
+    }
+  }, [selectedProject]);
+
+  // Escape closes the project dialog first, then the overlay.
+  useEffect(() => {
+    if (!active) return undefined;
+    const handleKeyDown = (e) => {
+      if (e.key !== 'Escape') return;
+      if (selectedProject) closeModal();
+      else onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [active, selectedProject, onClose]);
+
   return (
-    <div className={`experience-overlay ${active ? 'active' : ''}`}>
-      <button className="exp-close-btn" onClick={onClose}>× CLOSE</button>
+    // inert (not just opacity) keeps the hidden overlay out of the tab order.
+    // React 16 only forwards it as a string, hence '' rather than true.
+    <div
+      className={`experience-overlay ${active ? 'active' : ''}`}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="port-title"
+      inert={active ? undefined : ''}
+    >
+      <button ref={closeBtnRef} className="exp-close-btn" onClick={onClose} aria-label="Close projects">× CLOSE</button>
 
       <div className="port-modal-wrap">
         <ElectricBorder
@@ -1363,16 +1409,16 @@ const WorkShowcase = ({ active, onClose }) => {
         >
           <div className="port" style={{ borderRadius: 24, background: 'transparent' }}>
             <div className="port-header">
-              <span className="port-title">AI EXPERIMENTS & PROJECTS</span>
+              <span className="port-title" id="port-title">AI EXPERIMENTS & PROJECTS</span>
               <span className="port-count">{projects.length < 10 ? '0' + projects.length : projects.length} deployments</span>
             </div>
             <div className="port-grid-scroll">
-              <ChromaGrid items={projects} onSelect={setSelectedProject} active={active} />
+              <ChromaGrid items={projects} onSelect={openProject} active={active} />
             </div>
           </div>
         </ElectricBorder>
 
-        <div className={`work-modal-wrap ${selectedProject ? 'open' : ''}`}>
+        <div className={`work-modal-wrap ${selectedProject ? 'open' : ''}`} inert={selectedProject ? undefined : ''}>
           <div className="work-modal-backdrop" onClick={closeModal}></div>
           <ElectricBorder
             color="#7df9ff"
@@ -1384,7 +1430,7 @@ const WorkShowcase = ({ active, onClose }) => {
             className="work-modal-eb"
             style={{ borderRadius: 24, background: 'rgba(243, 246, 244, 0.2)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}
           >
-            <div className="work-modal" style={{ borderRadius: 24, background: 'transparent' }}>
+            <div className="work-modal" role="dialog" aria-modal="true" aria-labelledby="work-modal-name" style={{ borderRadius: 24, background: 'transparent' }}>
               <div className="modal-preview">
                 <canvas ref={modalCanvasRef}></canvas>
               </div>
@@ -1396,11 +1442,11 @@ const WorkShowcase = ({ active, onClose }) => {
                         <span className="card-tag" style={{ background: selectedProject.tagBg, color: selectedProject.tagColor, display: 'inline-block', marginBottom: '4px' }}>
                           {selectedProject.tag}
                         </span>
-                        <div className="modal-name">{selectedProject.name}</div>
+                        <div className="modal-name" id="work-modal-name">{selectedProject.name}</div>
                       </>
                     )}
                   </div>
-                  <button className="modal-x" onClick={closeModal}>✕</button>
+                  <button ref={modalCloseRef} className="modal-x" onClick={closeModal} aria-label="Close project details">✕</button>
                 </div>
                 {selectedProject && (
                   <>

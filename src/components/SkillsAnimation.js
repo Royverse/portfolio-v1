@@ -303,6 +303,12 @@ const SkillsAnimation = ({ active, onClose }) => {
     const [certOverlayVisible, setCertOverlayVisible] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
     const exitTimerRef = useRef(null);
+    const closeBtnRef = useRef(null);
+
+    // Land keyboard focus inside the overlay when it opens.
+    useEffect(() => {
+        if (active && closeBtnRef.current) closeBtnRef.current.focus();
+    }, [active]);
 
     useEffect(() => {
         if (!active) return;
@@ -753,7 +759,7 @@ const SkillsAnimation = ({ active, onClose }) => {
     };
 
     return (
-        <div className={`skills-tree-overlay ${active ? 'active' : ''} ${isExiting ? 'exiting' : ''}`}>
+        <div className={`skills-tree-overlay ${active ? 'active' : ''} ${isExiting ? 'exiting' : ''}`} inert={active ? undefined : ''}>
             <style>{`
                 .skills-tree-overlay { position: fixed; inset: 0; background: ${CONFIG.colors.background}; z-index: 100; transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1); font-family: ${CONFIG.typography.family}; overflow: hidden; opacity: 0; pointer-events: none; }
                 .skills-tree-overlay.active { opacity: 1; pointer-events: auto; }
@@ -820,15 +826,14 @@ const SkillsAnimation = ({ active, onClose }) => {
                     color: var(--ink);
                     font-weight: 400;
                 }
-                    backdrop-filter: blur(12px);
-                    -webkit-backdrop-filter: blur(12px);
-                    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-                    outline: none;
-                }
-                .skills-close-btn:hover { 
-                    border-color: var(--accent); 
-                    transform: scale(1.05); 
+                .skills-close-btn:hover {
+                    border-color: var(--accent);
+                    transform: scale(1.05);
                     box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+                }
+                .skills-close-btn:focus-visible {
+                    outline: 2px solid var(--accent);
+                    outline-offset: 3px;
                 }
                 
                 .skills-modal-overlay { position: fixed; inset: 0; background: rgba(10, 15, 12, 0.9); z-index: 200; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
@@ -969,7 +974,7 @@ const SkillsAnimation = ({ active, onClose }) => {
                 {tooltip.text}
             </div>
 
-            <button className="skills-close-btn" onClick={onClose} aria-label="Close skills">
+            <button ref={closeBtnRef} className="skills-close-btn" onClick={onClose} aria-label="Close skills">
                 <span className="skills-bar"></span>
                 <span className="skills-label">CLOSE</span>
             </button>

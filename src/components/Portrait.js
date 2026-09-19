@@ -38,7 +38,8 @@ const INTERVAL = 8000;
 
 const springConfig = { damping: 30, stiffness: 100, mass: 2 };
 
-const Portrait = () => {
+// `covered`: an overlay is on top, so drop out of the tab order and ignore keys.
+const Portrait = ({ covered = false }) => {
   const [current, setCurrent] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [paused, setPaused] = useState(false);
@@ -160,6 +161,7 @@ const Portrait = () => {
   };
 
   useEffect(() => {
+    if (covered) return undefined;
     const handleKeyDown = (e) => {
       if (e.key === 'ArrowLeft') goTo(current - 1);
       if (e.key === 'ArrowRight') goTo(current + 1);
@@ -167,10 +169,10 @@ const Portrait = () => {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [current, paused]);
+  }, [current, paused, covered]);
 
   return (
-    <div className="portrait-wrap">
+    <div className="portrait-wrap" inert={covered ? '' : undefined}>
       <div className="hover-hint desktop-hint">Hover to interact</div>
       <div className="hover-hint mobile-hint">Click to interact</div>
       <div className="card-wrapper">

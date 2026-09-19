@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import '../Assets/ChromaGrid.css';
 
-const ChromaCardItem = ({ project, index, active = true, onMouseMove, onClick }) => {
+const ChromaCardItem = ({ project, index, active = true, onMouseMove, onClick, onFocus, onBlur }) => {
   const canvasRef = useRef(null);
   const rafRef = useRef(null);
 
@@ -42,11 +42,25 @@ const ChromaCardItem = ({ project, index, active = true, onMouseMove, onClick })
   const baseColor = project.tagColor || 'rgba(255, 255, 255, 0.4)';
   const gradient = `linear-gradient(145deg, #13141a, #0b0c10)`;
 
+  const handleKeyDown = e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onClick();
+    }
+  };
+
   return (
     <article
       className="chroma-card"
+      role="button"
+      tabIndex={active ? 0 : -1}
+      aria-label={`${project.name}: ${project.sub}`}
+      aria-haspopup="dialog"
       onMouseMove={onMouseMove}
       onClick={onClick}
+      onKeyDown={handleKeyDown}
+      onFocus={onFocus}
+      onBlur={onBlur}
       style={{
         '--card-border': baseColor,
         '--card-gradient': gradient
@@ -127,6 +141,16 @@ export const ChromaGrid = ({
     });
   };
 
+  // Keyboard focus gets the same spotlight the pointer does; otherwise the
+  // focused card sits under the greyscale fade.
+  const handleCardFocus = e => {
+    if (!rootRef.current) return;
+    const r = rootRef.current.getBoundingClientRect();
+    const c = e.currentTarget.getBoundingClientRect();
+    moveTo(c.left + c.width / 2 - r.left, c.top + c.height / 2 - r.top);
+    gsap.to(fadeRef.current, { opacity: 0, duration: 0.25, overwrite: true });
+  };
+
   const handleCardMove = e => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
@@ -154,6 +178,8 @@ export const ChromaGrid = ({
             active={active}
             onMouseMove={handleCardMove}
             onClick={() => onSelect(project)}
+            onFocus={handleCardFocus}
+            onBlur={handleLeave}
         />
       ))}
       <div className="chroma-overlay" />

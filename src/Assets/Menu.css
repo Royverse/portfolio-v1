@@ -7,8 +7,8 @@
 :root {
   --bg: #f3f6f4;
   --ink: #141f1a;
-  --ink-muted: #6a9080;
-  --ink-faint: #b0c8bc;
+  --ink-muted: #4f7064; /* ≥4.5:1 (WCAG AA) on --bg, white and the skills panel */
+  --ink-faint: #b0c8bc; /* decorative rules and bars only — too faint for text */
   --accent: #1d9e75;
   --border: #c8dcd2;
   --rule: #dde8e2;
@@ -31,7 +31,7 @@ body.theme-winter {
 body.force-light-theme {
   --bg: #f3f6f4 !important;
   --ink: #141f1a !important;
-  --ink-muted: #6a9080 !important;
+  --ink-muted: #4f7064 !important;
   --border: #c8dcd2 !important;
 }
 
@@ -248,7 +248,7 @@ html, body {
   font-size: 22px;
   font-weight: 400;
   letter-spacing: 0.22em;
-  color: var(--ink-faint);
+  color: var(--ink-muted);
   transition: color 0.18s, font-weight 0.18s;
   font-family: 'Syne', sans-serif;
 }
@@ -258,8 +258,10 @@ html, body {
   font-weight: 500;
 }
 
-.nav-item:hover .nav-label { color: var(--ink-muted); }
-.nav-item:hover .nav-bar { background: var(--accent); opacity: 0.5; }
+.nav-item:hover .nav-label,
+.nav-item:focus-visible .nav-label { color: var(--ink); }
+.nav-item:hover .nav-bar,
+.nav-item:focus-visible .nav-bar { background: var(--accent); opacity: 0.5; }
 
 /* ── STATUS ── */
 .status {
@@ -947,6 +949,18 @@ body {
   outline: none;
   position: relative;
   transition: opacity 0.2s ease;
+}
+
+/* These buttons clear the default outline; give keyboard users a ring back. */
+.fab-main:focus-visible,
+.back-to-menu-btn:focus-visible,
+.theme-picker-trigger:focus-visible,
+.sys-insp-trigger:focus-visible,
+.insp-close-btn:focus-visible,
+.carousel-nav-btn:focus-visible,
+.pagination-tab:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .sys-insp-dot {

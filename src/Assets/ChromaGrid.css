@@ -56,6 +56,28 @@
 }
 .chroma-card:hover::before { opacity: 1; }
 
+/* Keyboard focus: an inset ring, because the grid's scroll container would
+   clip an outline on the outer cards. Kept apart from the :hover rules so
+   browsers without :focus-visible still get those. */
+.chroma-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 2px #7df9ff;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  z-index: 5;
+}
+.chroma-card:focus-visible {
+  outline: none;
+  border-color: var(--card-border);
+  transform: translateY(-4px);
+}
+.chroma-card:focus-visible::after { opacity: 1; }
+.chroma-card:focus-visible .thumb-arrow { color: rgba(255, 255, 255, 0.7); }
+
 /* ── Thumbnail canvas ────────────────────────────────────── */
 .chroma-img-wrapper {
   position: relative;
