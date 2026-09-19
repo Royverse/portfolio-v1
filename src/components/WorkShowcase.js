@@ -76,6 +76,16 @@ const projects = [
     pills: ['React 18', 'Vite', 'NVIDIA NIM', 'SSE Streaming', 'Canvas 2D', 'Glassmorphism'],
     url: 'https://milkyway-ai-galaxy.netlify.app/',
     draw: drawIC, drawM: drawICM
+  },
+  {
+    num: '10', name: 'Cold Wake', sub: 'Zero-asset WebGL2 survival game',
+    tag: 'Game · WebGL2', tagBg: '#E4F4FB', tagColor: '#0B4F6C',
+    desc: 'A WebGL2 survival game built from absolute zero — no sprites, no models, no audio files. Every visual is procedurally generated on the GPU each frame; every sound is synthesised live via the Web Audio API. Escape a frozen lake by swimming toward a fracturing ice ceiling while a real-time physics engine simulates buoyancy, drag, and ice-shard collisions.',
+    pills: ['WebGL2 (raw)', 'GLSL Shaders', 'Web Audio API', 'Physics Sim', 'Procedural Gen'],
+    url: 'https://cold-wake-game-1.netlify.app/',
+    sourceUrl: 'https://github.com/Royverse/cold-wake',
+    draw: drawColdWake, drawM: drawColdWakeM,
+    isNew: true
   }
 ];
 
@@ -1110,6 +1120,199 @@ function drawICM(ctx, w, h, t) {
   ctx.fillText('milkyway.ai', 12, h - 12);
 }
 
+/* ============================================================
+   COLD WAKE — zero-asset WebGL2 survival game
+   Thumbnail: dark arctic underwater view — animated caustic
+   ceiling-light, drifting ice shards, sonar ping from the
+   player, depth gauge strip on the right.
+   Modal: wider frame with physics / audio HUD panel on the
+   right showing buoyancy, drag, depth, and a live waveform
+   strip at the bottom. Same core scene on the left.
+   ============================================================ */
+function drawColdWakeCore(ctx, w, h, t, sceneW) {
+  // deep frigid water — near-black with a teal undercurrent
+  const bg = ctx.createLinearGradient(0, 0, 0, h);
+  bg.addColorStop(0, '#010e14');
+  bg.addColorStop(1, '#02161e');
+  ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h);
+
+  // ── ICE CEILING — distorted caustic band across the top ──
+  const ceilH = h * 0.18;
+  const iceGrad = ctx.createLinearGradient(0, 0, 0, ceilH);
+  iceGrad.addColorStop(0, 'rgba(200,240,255,0.55)');
+  iceGrad.addColorStop(1, 'rgba(160,220,240,0.08)');
+  ctx.fillStyle = iceGrad;
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  const pts = 60;
+  for (let i = 0; i <= pts; i++) {
+    const px = (i / pts) * sceneW;
+    const py = ceilH * 0.7 + Math.sin(i * 0.38 + t * 0.7) * ceilH * 0.18
+                            + Math.cos(i * 0.75 + t * 0.45) * ceilH * 0.08;
+    ctx.lineTo(px, py);
+  }
+  ctx.lineTo(sceneW, 0); ctx.closePath(); ctx.fill();
+
+  // caustic shimmer — bright dancing rings on the ceiling underside
+  ctx.strokeStyle = 'rgba(140,220,255,0.35)'; ctx.lineWidth = 0.8;
+  for (let ci = 0; ci < 8; ci++) {
+    const cx2 = sceneW * (0.08 + ci * 0.12) + Math.sin(t * 0.6 + ci) * sceneW * 0.04;
+    const cy2 = ceilH * (0.5 + Math.cos(t * 0.9 + ci * 0.7) * 0.25);
+    const cr = 10 + Math.abs(Math.sin(t * 1.1 + ci)) * 18;
+    ctx.globalAlpha = 0.3 + Math.sin(t * 2 + ci) * 0.2;
+    ctx.beginPath(); ctx.arc(cx2, cy2, cr, 0, Math.PI * 2); ctx.stroke();
+  }
+  ctx.globalAlpha = 1;
+
+  // ── ICE CRACK LINES ──
+  ctx.strokeStyle = 'rgba(190,235,255,0.22)'; ctx.lineWidth = 0.7;
+  [[0.18, 0.02, 0.32, 0.15], [0.45, 0.0, 0.55, 0.18], [0.7, 0.03, 0.62, 0.14]].forEach(([x1r, y1r, x2r, y2r]) => {
+    ctx.beginPath();
+    ctx.moveTo(sceneW * x1r, h * y1r);
+    ctx.lineTo(sceneW * x2r, h * y2r);
+    ctx.stroke();
+  });
+
+  // ── DRIFTING ICE SHARDS ──
+  const shards = [
+    { bx: 0.12, by: 0.32, dx: 0.04, dy: 0.05, size: 0.035, speed: 0.18 },
+    { bx: 0.38, by: 0.48, dx: -0.03, dy: 0.04, size: 0.025, speed: 0.23 },
+    { bx: 0.62, by: 0.38, dx: 0.05, dy: -0.03, size: 0.03, speed: 0.15 },
+    { bx: 0.78, by: 0.55, dx: -0.04, dy: 0.06, size: 0.022, speed: 0.27 },
+    { bx: 0.25, by: 0.65, dx: 0.03, dy: -0.04, size: 0.018, speed: 0.31 },
+  ];
+  shards.forEach((s, si) => {
+    const sx = (s.bx + Math.sin(t * s.speed + si * 1.4) * s.dx) * sceneW;
+    const sy = (s.by + Math.cos(t * s.speed * 0.8 + si * 2.1) * s.dy) * h;
+    const sr = s.size * Math.min(sceneW, h);
+    const rot = t * s.speed * 0.6 + si;
+    ctx.save(); ctx.translate(sx, sy); ctx.rotate(rot);
+    ctx.beginPath();
+    const verts = 5 + (si % 2);
+    for (let v = 0; v < verts; v++) {
+      const a = (v / verts) * Math.PI * 2;
+      const r2 = sr * (v % 2 === 0 ? 1 : 0.55);
+      v === 0 ? ctx.moveTo(Math.cos(a) * r2, Math.sin(a) * r2) : ctx.lineTo(Math.cos(a) * r2, Math.sin(a) * r2);
+    }
+    ctx.closePath();
+    ctx.fillStyle = `rgba(180,230,250,${0.10 + si * 0.02})`; ctx.fill();
+    ctx.strokeStyle = `rgba(200,245,255,${0.35 + si * 0.05})`; ctx.lineWidth = 0.8; ctx.stroke();
+    ctx.restore();
+  });
+
+  // ── PLAYER — glowing dot with sonar ping ──
+  const playerX = sceneW * 0.5 + Math.sin(t * 0.55) * sceneW * 0.06;
+  const playerY = h * 0.7 + Math.cos(t * 0.45) * h * 0.05;
+
+  // expanding sonar ring
+  const sonarPhase = (t * 0.55) % (Math.PI * 2);
+  const sonarR = (sonarPhase / (Math.PI * 2)) * h * 0.28;
+  const sonarA = 1 - sonarPhase / (Math.PI * 2);
+  ctx.beginPath(); ctx.arc(playerX, playerY, sonarR, 0, Math.PI * 2);
+  ctx.strokeStyle = `rgba(80,210,240,${sonarA * 0.5})`; ctx.lineWidth = 1.2; ctx.stroke();
+
+  // player glow
+  const pGlow = ctx.createRadialGradient(playerX, playerY, 0, playerX, playerY, 16);
+  pGlow.addColorStop(0, 'rgba(100,220,255,0.45)'); pGlow.addColorStop(1, 'rgba(0,160,200,0)');
+  ctx.fillStyle = pGlow; ctx.beginPath(); ctx.arc(playerX, playerY, 16, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(playerX, playerY, 4, 0, Math.PI * 2); ctx.fillStyle = '#8EEEFF'; ctx.fill();
+
+  // bubbles rising from player
+  for (let b = 0; b < 4; b++) {
+    const bPhase = ((t * 0.6 + b * 0.7) % 1);
+    const bx2 = playerX + Math.sin(b * 2.3 + t) * 8;
+    const by2 = playerY - bPhase * h * 0.55;
+    if (by2 > ceilH) {
+      ctx.beginPath(); ctx.arc(bx2, by2, 2.5 - bPhase * 1.5, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(140,220,255,${(1 - bPhase) * 0.6})`; ctx.lineWidth = 0.8; ctx.stroke();
+    }
+  }
+
+  // ── DEPTH GAUGE on right edge of scene ──
+  const gx = sceneW - 12;
+  const gy1 = ceilH;
+  const gy2 = h - 8;
+  ctx.strokeStyle = 'rgba(80,200,230,0.2)'; ctx.lineWidth = 0.8;
+  ctx.beginPath(); ctx.moveTo(gx, gy1); ctx.lineTo(gx, gy2); ctx.stroke();
+  const depthPct = 0.35 + 0.15 * Math.abs(Math.sin(t * 0.5));
+  const gMarker = gy1 + (gy2 - gy1) * depthPct;
+  ctx.fillStyle = 'rgba(80,210,240,0.75)';
+  ctx.beginPath(); ctx.moveTo(gx - 5, gMarker); ctx.lineTo(gx + 2, gMarker - 3); ctx.lineTo(gx + 2, gMarker + 3); ctx.closePath(); ctx.fill();
+  ctx.font = `${Math.max(7, h * 0.055)}px 'DM Mono',monospace`;
+  ctx.fillStyle = 'rgba(80,200,230,0.6)';
+  ctx.fillText(`${(4.2 + depthPct * 8).toFixed(1)}m`, gx - 34, gMarker - 5);
+}
+
+function drawColdWake(ctx, w, h, t) {
+  drawColdWakeCore(ctx, w, h, t, w);
+  ctx.font = `600 ${Math.max(10, h * 0.085)}px system-ui, sans-serif`;
+  ctx.fillStyle = 'rgba(80,200,240,0.55)';
+  ctx.fillText('cold wake', 12, h - 12);
+  ctx.font = `500 ${Math.max(8, h * 0.05)}px 'DM Mono',monospace`;
+  ctx.fillStyle = 'rgba(140,220,255,0.55)';
+  ctx.fillText('SURVIVE', w - 62, h * 0.28);
+}
+
+function drawColdWakeM(ctx, w, h, t) {
+  const sceneW = w * 0.55;
+  drawColdWakeCore(ctx, w, h, t, sceneW);
+
+  // divider
+  ctx.strokeStyle = 'rgba(80,200,230,0.18)'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(sceneW, 0); ctx.lineTo(sceneW, h * 0.82); ctx.stroke();
+
+  // HUD panel background
+  ctx.fillStyle = 'rgba(0,12,18,0.88)';
+  ctx.fillRect(sceneW, 0, w - sceneW, h);
+
+  // HUD title
+  ctx.font = `600 ${h * 0.055}px 'DM Mono',monospace`;
+  ctx.fillStyle = 'rgba(100,220,255,0.85)';
+  ctx.fillText('COLD WAKE // HUD', sceneW + 14, h * 0.10);
+
+  // Physics readouts
+  const buoyancy = (1.8 + Math.sin(t * 0.7) * 0.4).toFixed(2);
+  const drag = (0.94 + Math.cos(t * 0.5) * 0.03).toFixed(2);
+  const depth = (4.2 + 0.15 * Math.abs(Math.sin(t * 0.5)) * 8).toFixed(1);
+  const oxygen = Math.max(0, 100 - ((t * 4.5) % 100)).toFixed(0);
+  [['BUOYANCY', `${buoyancy} N`], ['DRAG COEF', `${drag}`], ['DEPTH', `${depth} m`], ['O\u2082', `${oxygen}%`]].forEach(([label, val], i) => {
+    const ry = h * 0.22 + i * (h * 0.115);
+    ctx.font = `400 ${h * 0.042}px 'DM Mono',monospace`;
+    ctx.fillStyle = 'rgba(80,200,230,0.55)';
+    ctx.fillText(label, sceneW + 14, ry);
+    ctx.font = `600 ${h * 0.052}px 'DM Mono',monospace`;
+    const isLow = label === 'O\u2082' && Number(oxygen) < 30;
+    const pulse = isLow ? (0.5 + Math.abs(Math.sin(t * 4)) * 0.5) : 1;
+    ctx.fillStyle = isLow ? `rgba(255,120,100,${pulse})` : 'rgba(200,245,255,0.85)';
+    ctx.fillText(val, sceneW + 14, ry + h * 0.055);
+  });
+
+  // mini waveform representing procedural audio
+  const waveY = h * 0.78;
+  const waveX0 = sceneW + 12;
+  const waveW2 = (w - sceneW) - 24;
+  ctx.font = `400 ${h * 0.038}px 'DM Mono',monospace`;
+  ctx.fillStyle = 'rgba(80,200,230,0.45)';
+  ctx.fillText('AUDIO SYN', waveX0, waveY - 8);
+  ctx.beginPath(); ctx.strokeStyle = 'rgba(80,210,250,0.7)'; ctx.lineWidth = 1.4;
+  for (let i = 0; i <= 40; i++) {
+    const p = i / 40;
+    const ax = waveX0 + p * waveW2;
+    const amp = h * 0.045 * (Math.sin(p * Math.PI * 6 - t * 8) * 0.6 + Math.sin(p * Math.PI * 2.5 - t * 3) * 0.4);
+    i === 0 ? ctx.moveTo(ax, waveY + amp) : ctx.lineTo(ax, waveY + amp);
+  }
+  ctx.stroke();
+
+  // footer
+  ctx.fillStyle = 'rgba(0,10,16,0.92)';
+  ctx.fillRect(0, h * 0.82, w, h * 0.18);
+  ctx.strokeStyle = 'rgba(80,200,230,0.22)'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(0, h * 0.82); ctx.lineTo(w, h * 0.82); ctx.stroke();
+  ctx.font = `600 ${h * 0.05}px 'DM Mono',monospace`;
+  ctx.fillStyle = 'rgba(80,200,240,0.65)';
+  ctx.fillText('zero-asset webgl2 survival engine', 16, h * 0.91);
+}
+
 // ProjectCard logic moved to ChromaGrid.js
 
 const WorkShowcase = ({ active, onClose }) => {
@@ -1217,6 +1420,9 @@ const WorkShowcase = ({ active, onClose }) => {
                             i
                             <div className="note-tooltip">{selectedProject.note}</div>
                           </div>
+                        )}
+                        {selectedProject.sourceUrl && (
+                          <a className="modal-link modal-link--ghost" href={selectedProject.sourceUrl} target="_blank" rel="noopener noreferrer">Source ↗</a>
                         )}
                         <a className="modal-link" href={selectedProject.url} target="_blank" rel="noopener noreferrer">Visit project ↗</a>
                       </div>

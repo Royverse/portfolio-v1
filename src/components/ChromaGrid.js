@@ -55,6 +55,9 @@ const ChromaCardItem = ({ project, index, active = true, onMouseMove, onClick })
       <div className="chroma-img-wrapper">
         <canvas ref={canvasRef} id={`cv${index}`}></canvas>
         <span className="thumb-num">{project.num}</span>
+        {project.isNew && (
+          <span className="thumb-new">NEW</span>
+        )}
         <span className="thumb-arrow">↗</span>
       </div>
       <footer className="chroma-info">

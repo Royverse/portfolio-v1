@@ -329,6 +329,11 @@
   text-transform: uppercase;
 }
 .modal-link:hover { background: rgba(0, 0, 0, 0.08); }
+.modal-link--ghost {
+  opacity: 0.55;
+  border-style: dashed;
+}
+.modal-link--ghost:hover { opacity: 1; }
 
 /* Note icon + tooltip */
 .note-icon {
