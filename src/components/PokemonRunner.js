@@ -6,7 +6,7 @@ import bulbasaurData from '../Assets/Images/Portrait/Bulbasaur.json';
 
 const LightningSparks = () => {
   return (
-    <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: -1 }}>
+    <div style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, pointerEvents: 'none', zIndex: -1 }}>
       {/* Intense Electric Core Glow */}
       <motion.div
         style={{
@@ -98,7 +98,7 @@ const LightningSparks = () => {
 const BulbasaurLeaves = () => {
   const leafCount = 10;
   return (
-    <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: -1 }}>
+    <div style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, pointerEvents: 'none', zIndex: -1 }}>
       {/* Nature Core Glow */}
       <motion.div
         style={{

@@ -7,7 +7,6 @@
   align-items: center;
   background: var(--bg);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border);
   border-radius: 99px;
   padding: 6px;

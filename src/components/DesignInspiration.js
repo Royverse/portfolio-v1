@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// Two-digit counter; String#padStart is missing from the oldest browserslist targets.
+const pad2 = (n) => (n < 10 ? `0${n}` : `${n}`);
+
 // Resolve inspiration images dynamically using standard URL resolver syntax
 const imgWarframeMenu = new URL('../warframe-menu-1920x1080.jpg', import.meta.url).href;
 const imgWarframeRailjack = new URL('../L5L1VCu.jpg', import.meta.url).href;
@@ -156,7 +159,8 @@ const DesignInspiration = ({ isOpen, onClose }) => {
                   
                   {/* Slider Images */}
                   <div className="carousel-slider-track">
-                    <AnimatePresence mode="wait">
+                    {/* framer-motion 4 calls "wait" mode exitBeforeEnter */}
+                    <AnimatePresence exitBeforeEnter>
                       <motion.div
                         key={activeIdx}
                         className="carousel-slide"
@@ -187,7 +191,7 @@ const DesignInspiration = ({ isOpen, onClose }) => {
                 {/* Carousel Details & Pagination */}
                 <div className="carousel-details">
                   <div className="details-header">
-                    <span className="slide-num">[{String(activeIdx + 1).padStart(2, '0')} // 06]</span>
+                    <span className="slide-num">[{pad2(activeIdx + 1)} // 06]</span>
                     <h4 className="slide-title">{inspirationSlides[activeIdx].title}</h4>
                   </div>
                   <p className="slide-caption">{inspirationSlides[activeIdx].caption}</p>
@@ -201,7 +205,7 @@ const DesignInspiration = ({ isOpen, onClose }) => {
                         onClick={() => setActiveIdx(idx)}
                         aria-label={`Go to slide ${idx + 1}`}
                       >
-                        {String(idx + 1).padStart(2, '0')}
+                        {pad2(idx + 1)}
                       </button>
                     ))}
                   </div>

@@ -761,10 +761,10 @@ const SkillsAnimation = ({ active, onClose }) => {
     return (
         <div className={`skills-tree-overlay ${active ? 'active' : ''} ${isExiting ? 'exiting' : ''}`} inert={active ? undefined : ''}>
             <style>{`
-                .skills-tree-overlay { position: fixed; inset: 0; background: ${CONFIG.colors.background}; z-index: 100; transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1); font-family: ${CONFIG.typography.family}; overflow: hidden; opacity: 0; pointer-events: none; }
+                .skills-tree-overlay { position: fixed; top: 0; right: 0; bottom: 0; left: 0; background: ${CONFIG.colors.background}; z-index: 100; transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1); font-family: ${CONFIG.typography.family}; overflow: hidden; opacity: 0; pointer-events: none; }
                 .skills-tree-overlay.active { opacity: 1; pointer-events: auto; }
                 .skills-tree-overlay.exiting { opacity: 0; pointer-events: none; }
-                .skills-tree-canvas { position: absolute; inset: 0; touch-action: none; cursor: default; }
+                .skills-tree-canvas { position: absolute; top: 0; right: 0; bottom: 0; left: 0; touch-action: none; cursor: default; }
                 
                 .koala-container { 
                     position: fixed; 
@@ -836,7 +836,7 @@ const SkillsAnimation = ({ active, onClose }) => {
                     outline-offset: 3px;
                 }
                 
-                .skills-modal-overlay { position: fixed; inset: 0; background: rgba(10, 15, 12, 0.9); z-index: 200; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+                .skills-modal-overlay { position: fixed; top: 0; right: 0; bottom: 0; left: 0; background: rgba(10, 15, 12, 0.9); z-index: 200; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
                 .skills-modal-overlay.active { opacity: 1; pointer-events: auto; }
                 
                 .skills-modal-content { 

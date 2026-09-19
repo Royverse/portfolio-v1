@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styled, { keyframes } from 'styled-components';
 
+// Two-digit counter; String#padStart is missing from the oldest browserslist targets.
+const pad2 = (n) => (n < 10 ? `0${n}` : `${n}`);
+
 const certificates = [
     { id: "UC-8a228f64", label: "Fast-start Usability Testing and UX Research", year: "2022", img: "https://i.ibb.co/SyG2L4M/UC-8a228f64-b1ef-4af9-91b4-45c6d95f344f.jpg" },
     { id: "UC-1e292c0e", label: "UI Design Bootcamp: Typography, Colour & Grids", year: "2022", img: "https://i.ibb.co/4PScnYX/UC-1e292c0e-9a15-4ce4-83e9-fceaab5d7cd4.jpg" },
@@ -26,7 +29,7 @@ const fadeIn = keyframes`
 
 const OverlayWrapper = styled.div`
   position: fixed;
-  inset: 0;
+  top: 0; right: 0; bottom: 0; left: 0;
   z-index: 1000000;
   background: rgba(241, 245, 249, 0.9);
   -webkit-backdrop-filter: blur(20px);
@@ -67,7 +70,7 @@ const MainFrame = styled.div`
 
 const HUDScanline = styled.div`
   position: absolute;
-  inset: 0;
+  top: 0; right: 0; bottom: 0; left: 0;
   background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.01) 50%);
   background-size: 100% 4px;
   pointer-events: none;
@@ -204,7 +207,7 @@ const IframeContainer = styled.div`
   &::after {
     content: '';
     position: absolute;
-    inset: 0;
+    top: 0; right: 0; bottom: 0; left: 0;
     box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
     pointer-events: none;
   }
@@ -395,7 +398,7 @@ const CertificateOverlay = ({ active, onClose }) => {
                                         spacing="0" 
                                         color={i === activeIndex ? '#1e293b' : '#cbd5e1'}
                                     >
-                                        {String(i + 1).padStart(2, '0')}
+                                        {pad2(i + 1)}
                                     </MonoText>
                                     
                                     <BarlowText 
