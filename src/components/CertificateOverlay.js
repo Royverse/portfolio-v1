@@ -185,7 +185,7 @@ const ImageArea = styled.div`
 const CertImage = styled.img`
   max-width: 100%;
   max-height: 60vh;
-  object-contain;
+  object-fit: contain;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: ${props => props.loaded ? 1 : 0};

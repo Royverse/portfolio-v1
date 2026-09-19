@@ -2,7 +2,7 @@
   "name": "roy-mootsana-portfolio",
   "version": "1.0.0",
   "description": "Roy Mootsana — Software Engineer & UX Architect Portfolio",
-  "homepage": "https://roy-mootsana.github.io/portfolio-v1/",
+  "homepage": "https://roymootsana.art",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
@@ -18,12 +18,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/roy-mootsana/portfolio-v1.git"
+    "url": "git+https://github.com/Royverse/portfolio-v1.git"
   },
   "author": "Roy Mootsana",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sureshmurali/My-Portfolio/issues"
+    "url": "https://github.com/Royverse/portfolio-v1/issues"
   },
   "devDependencies": {
     "@parcel/packager-raw-url": "^2.16.4",

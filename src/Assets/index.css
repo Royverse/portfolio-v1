@@ -27,21 +27,3 @@ font-family: 'AvenirHeavy';
 src: url('./Fonts/Avenir/Avenir-Heavy-05.ttf');
 font-display: swap;
 }
-
-@font-face {
-font-family: 'Valencia';
-src: url('./Fonts/Valencia/Valencia.ttf');
-font-display: swap;
-}
-
-@font-face {
-    font-family: 'Bauhaus93';
-    src: url('./Fonts/Avenir/Bauhaus93.ttf');
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Algerian';
-    src: url('./Fonts/Avenir/Algerian.ttf');
-    font-display: swap;
-}
