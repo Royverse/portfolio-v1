@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import styled, { StyleSheetManager } from 'styled-components';
 import TextContent from './TextContent';
 import ImageContent from './ImageContent';
+import ImdPanel from './ImdPanel';
 
 const Container = styled.div`
   display: flex;
@@ -15,10 +16,13 @@ const Container = styled.div`
 
 const Button = styled.button`
   background: transparent;
-  color: #0000ff;
+  color: var(--accent);
   border: none;
-  border-radius: 5px;
-  padding: 4px 8px;
+  padding: 10px 0;
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   cursor: pointer;
 `;
 
@@ -35,17 +39,28 @@ const Overlay = styled.div`
   justify-content: center;
 `;
 
-const Dialog = styled.div`   background-color: #ffffff;
-color: #333;
-padding: 20px;
-border-radius: 10px;
+const Dialog = styled.div`
+background-color: var(--bg);
+color: var(--ink);
+border: 1px solid var(--border);
+padding: 28px 32px;
+border-radius: 12px;
 width: 80%;
-font-family: Arial, sans-serif;
-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+max-width: 880px;
+max-height: 85vh;
+overflow-y: auto;
+font-family: 'Epilogue', sans-serif;
+box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
 
 h3 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
   font-size: 18px;
-  margin-bottom: 10px;
+  margin: 20px 0 8px;
+}
+
+h3:first-child {
+  margin-top: 0;
 }
 
 p {
@@ -55,19 +70,46 @@ p {
 
 ul {
   list-style-type: disc;
-  margin-left: 20px;
-  margin-bottom: 15px;
-  white-space: pre-wrap; /* Preserve line breaks */
+  margin: 0 0 15px 20px;
+  padding: 0;
+}
+
+li {
+  font-size: 14px;
+  line-height: 1.55;
+  margin-bottom: 6px;
+}
+
+blockquote {
+  margin: 20px 0;
+  padding: 14px 18px;
+  border-left: 3px solid var(--accent);
+  font-size: 15px;
+  font-style: italic;
+  line-height: 1.55;
+}
+
+cite {
+  display: block;
+  margin-top: 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  font-style: normal;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
 }
 
 button {
-  background-color: #0000ff;
+  background-color: var(--accent);
   color: #ffffff;
   border: none;
   border-radius: 5px;
   padding: 8px 16px;
   cursor: pointer;
-  font-size: 14px;
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 `;
 
@@ -94,85 +136,76 @@ class Work extends Component {
       },
       {
         number: '01',
-        projectName: 'BluePrint',
+        projectName: 'IMD Business School',
         projectDesc:
-          'Collaboratively built a comprehensive design system, showcased in Storybook.',
-        projectType: 'DESIGN SYSTEM',
-        roles: ['UI Designer', 'Creative Technonogist'],
+          'Internal products for executive education, built and run end to end: assessment platforms, leadership diagnostics, a live multiplayer simulation and data tools.',
+        projectType: 'FULL-STACK',
+        roles: ['Learning Innovation & STS Developer', '2023 – present'],
         problem:
-          'The client needed a consistent and efficient design system to streamline their product development process.',
-
+          'IMD runs executive programmes for multinational companies and needed products it could own: assessments, diagnostics, simulations and research tooling, several of them replacing tools the teams had outgrown.',
         indicators:
-          'Inconsistency in design across different products.\nDuplication of effort in designing similar components.\nLack of a centralized repository for design assets.',
+          'A Qualtrics 360 tool that could not run repeat feedback rounds across a programme.\nA Power Apps front end the World Competitiveness Center had outgrown.\nLive sessions where one admin edit or a stalled team affects a room of executives.\nIdentity and secrets spread across many repositories.',
         solution:
-          'Developed a comprehensive design system called BluePrint that provided a library of reusable components, typography guidelines, color palettes, and UI patterns. Created a Storybook documentation to showcase and maintain the design system.',
-        QA:
-          'Storybook QA: Validated controls, tested responsiveness, and ensured visual alignment.\nComponent and Code Reviews: Conducted usability sessions, reviewed formatting and naming, and performed peer code reviews.\nChromatic QA: Utilized automated visual testing, collaborated for accelerated reviews, and integrated with continuous integration.\nNexus Testing: Ensured stable and up-to-date package versions through testing on Nexus.\nApplication Testing: Assessed component behavior within page templates.\nDevice Testing: Tested cross-platform compatibility, user experience, performance, and security.',  
+          'Started in QA in July 2023; Learning Innovation Developer since February 2024 and Strategic Talent Solutions Developer since October 2025.\nPart of the team that rewrote Leader’s Question Mix, then built LQM 360 on top.\nBuilt the Strategic Execution Simulation from an existing paper-based board simulation, with live-session safeguards.\nBuilt the reviewer journey on the Accelerator platform (Angular, Flask).\nBuilt a Next.js and FastAPI replacement for the World Competitiveness Center’s Power Apps tool.\nAdded tenant configuration and data cleaning to a multi-tenant talent dashboard.\nAudited all 52 of the organisation’s code repositories for exposed secrets and security risks, and wrote and presented the remediation plan.',
+        QA: '',
       },
       {
         number: '02',
-        projectName: 'BluePrint Apps',
-        projectDesc:
-          'Built apps utilizing the design system we created for our client, resulting in consistent design and functionality across all apps.',
-        projectType: 'ANGULAR APPS',
-        roles: ['UI Designer', 'Front-end Developer'],
-        problem:
-          'The client needed a set of applications that adhere to the design system we developed (BluePrint) to ensure a consistent user experience.',
-        indicators:
-          'Inconsistency in the design language across different applications.\nDifficulty in maintaining consistent UI components and patterns.\nLack of a seamless user experience across different apps.',
-        solution:
-          'Utilized the BluePrint design system to create a suite of Angular applications. Ensured consistent use of design elements, UI components, and interaction patterns across all apps. Conducted usability testing to validate the user experience.',
-          QA:
-          'N/A'  
-       },
+        projectName: 'BluePrint',
+        projectDesc: 'BluePrint 3.0, the design-system pilot for Standard Bank\'s Corporate & Investment Banking division: reusable Angular components, documented in Storybook.',
+        projectType: 'DESIGN SYSTEM',
+        roles: ['User Interface Designer', '2022 – 2023'],
+        problem: 'Standard Bank\'s Corporate & Investment Banking division was introducing a new visual language, BluePrint 3.0, and its product teams needed components they could adopt instead of each building their own.',
+        indicators: 'Different teams designing and building the same components separately.\nAn inconsistent look and behaviour from one product to the next.\nNo single, documented home for the components.',
+        solution: 'Built and maintained reusable Angular library components for BluePrint 3.0, placed at Standard Bank by iqbusiness.\nTurned Figma designs into accessible, documented Storybook components.\nMoved button variants from appearance to semantic intent, and made components work at narrow widths.\nKept the Storybook docs, accessibility add-on and changelog current for product teams.',
+        QA: 'Storybook: checked controls, responsiveness and visual alignment.\nReviews: ran usability sessions, reviewed naming and formatting, and did peer code reviews.\nChromatic: automated visual testing as part of continuous integration.\nNexus: tested published package versions before teams upgraded.\nApplications: checked components inside real page templates.\nDevices: tested across browsers, platforms and screen sizes.',
+        quote: 'Roy is a rare find, and has shown great maturity and skill, far beyond expectation.',
+        quoteAuthor: 'Mel M. Saayman, Design Lead, Standard Bank',
+      },
       {
         number: '03',
-        projectName: 'Admin Portal',
-        projectDesc:
-          'Created an admin portal for a nail boutique, streamlining operations by managing stock, client data, and generating reports.',
-        projectType: 'WEB APP',
-        roles: ['MEAN Stack Developer', 'UI Designer'],
-        problem:
-          'The nail boutique needed an efficient system to manage their inventory, client information, and generate reports for business insights.',
-        indicators:
-          'Manual inventory management causing errors and inefficiencies.\nLack of a centralized system to store client information.\nDifficulty in generating accurate and timely reports.',
-        solution:
-          'Developed a web-based admin portal using the MEAN stack (MongoDB, Express.js, Angular, Node.js) that provided features for inventory management, client information storage, and report generation. Streamlined business operations and provided valuable insights for data-driven decision making.',
-          QA:
-          'Storybook QA: Validated controls, tested responsiveness, and ensured visual alignment.\nComponent and Code Reviews: Conducted usability sessions, reviewed formatting and naming, and performed peer code reviews.\nChromatic QA: Utilized automated visual testing, collaborated for accelerated reviews, and integrated with continuous integration.\nNexus Testing: Ensured stable and up-to-date package versions through testing on Nexus.\nApplication Testing: Assessed component behavior within page templates.\nDevice Testing: Tested cross-platform compatibility, user experience, performance, and security.',  
-       },
+        projectName: 'BluePrint Apps',
+        projectDesc: 'Angular apps built on the BluePrint components, so the bank\'s products shared one look and behaviour.',
+        projectType: 'ANGULAR APPS',
+        roles: ['User Interface Designer', '2022 – 2023'],
+        problem: 'Product teams needed applications that followed BluePrint, so users got the same experience from one app to the next.',
+        indicators: 'Each app had drifted into its own design language.\nComponents and patterns were hard to keep consistent.\nMoving between apps felt like moving between different products.',
+        solution: 'Built Angular applications on the BluePrint component library.\nUsed the same components, patterns and interactions across every app.\nRan usability tests to check the experience held up.',
+        QA: '',
+      },
       {
         number: '04',
-        projectName: 'Nail Boutique',
-        projectDesc:
-          'Collaborated on a website for a nail boutique with a customizer feature enabling customers to design their own nail art. Included service details, pricing, and booking options.',
-        projectType: 'WEBSITE',
-        roles: ['Web Developer'],
-        problem:
-          'The nail boutique needed an online presence to showcase their services and allow customers to customize and book nail art designs.',
-        indicators:
-          'Limited online visibility and reach.\nLack of a platform for customers to customize and book nail art designs.\nInability to showcase services, pricing, and contact information effectively.',
-        solution:
-          'Developed a responsive website using HTML, CSS, and JavaScript that provided information about the nail boutique, showcased services, pricing, and contact details. Implemented a customizer feature to allow customers to design their own nail art and integrated a booking system for convenient appointment scheduling.',
-          QA:
-          'Storybook QA: Validated controls, tested responsiveness, and ensured visual alignment.\nComponent and Code Reviews: Conducted usability sessions, reviewed formatting and naming, and performed peer code reviews.\nChromatic QA: Utilized automated visual testing, collaborated for accelerated reviews, and integrated with continuous integration.\nNexus Testing: Ensured stable and up-to-date package versions through testing on Nexus.\nApplication Testing: Assessed component behavior within page templates.\nDevice Testing: Tested cross-platform compatibility, user experience, performance, and security.',  
-       },
+        projectName: 'Admin Portal',
+        projectDesc: 'An admin portal for a nail boutique: stock, client records and reports in one place.',
+        projectType: 'WEB APP',
+        roles: ['Lead UX/UI Developer', '2021'],
+        problem: 'The boutique managed its stock and client details by hand and couldn\'t get reliable reports on the business.',
+        indicators: 'Stock counted by hand, which led to errors.\nClient details not kept in one system.\nReports that were slow to produce and hard to trust.',
+        solution: 'Led a team of four that designed and built the boutique\'s systems.\nBuilt the admin portal: stock control, client records and report generation.',
+        QA: '',
+      },
       {
         number: '05',
+        projectName: 'Nail Boutique',
+        projectDesc: 'The boutique\'s website: services, prices and online booking, plus a designer where customers create their own nail art.',
+        projectType: 'WEBSITE',
+        roles: ['Lead UX/UI Developer', '2021'],
+        problem: 'The boutique had little online presence and no way for customers to plan a design or book online.',
+        indicators: 'Hard to find online.\nNo way to design nail art or book an appointment online.\nServices, prices and contact details weren\'t easy to see.',
+        solution: 'Built a responsive website in HTML, CSS and JavaScript with services, prices and contact details.\nBuilt a nail-art designer so customers could try designs before booking.\nAdded online booking for appointments.',
+        QA: '',
+      },
+      {
+        number: '06',
         projectName: 'Readpoint',
-        projectDesc:
-          'Developed an e-commerce website for selling books with a MongoDB database and a payment system. The website allows customers to browse and purchase books.',
+        projectDesc: 'An online bookshop with a MongoDB database and payments, where customers browse and buy books.',
         projectType: 'WEB APP',
-        roles: ['Full Stack Developer'],
-        problem:
-          'The client wanted to establish an online presence to sell books and provide a seamless user experience for browsing and purchasing books.',
-        indicators:
-          'Inability to reach a wider customer base without an online platform.\nLack of a convenient and secure way for customers to browse and purchase books.\nManual book inventory management leading to inaccuracies and inefficiencies.',
-        solution:
-          'Developed a web application using the MERN stack (MongoDB, Express.js, React, Node.js) that provided features for browsing and purchasing books. Integrated a secure payment system and implemented an efficient book inventory management system with real-time updates.',
-          QA:
-          'Storybook QA: Validated controls, tested responsiveness, and ensured visual alignment.\nComponent and Code Reviews: Conducted usability sessions, reviewed formatting and naming, and performed peer code reviews.\nChromatic QA: Utilized automated visual testing, collaborated for accelerated reviews, and integrated with continuous integration.\nNexus Testing: Ensured stable and up-to-date package versions through testing on Nexus.\nApplication Testing: Assessed component behavior within page templates.\nDevice Testing: Tested cross-platform compatibility, user experience, performance, and security.',  
-        },
+        roles: ['Full-Stack Developer', 'Freelance'],
+        problem: 'A book seller wanted to sell online and make browsing and buying books easy.',
+        indicators: 'No way to reach customers beyond the shop.\nNo convenient, secure way to buy books online.\nStock tracked by hand, with mistakes.',
+        solution: 'Built the shop on Node.js, Express and MongoDB, with browsing and checkout.\nIntegrated a secure payment system.\nBuilt stock management that updates as books sell.',
+        QA: '',
+      },
       {
         number: '',
         projectName: '',
@@ -252,7 +285,7 @@ class Work extends Component {
           <p>{project.projectDesc}</p>
           {project.projectType !== 'UI Designer' && (
             <Button type="button" onClick={() => this.handleButtonClick(slideNumber)}>
-              More Info...
+              More info →
             </Button>
           )}
         </div>
@@ -272,67 +305,39 @@ class Work extends Component {
   }
 
   render() {
-    const { showDialog, dialogProject } = this.state;
-
-    const renderDialog = showDialog && dialogProject && (
-      <Overlay>
-        <Dialog>
-          <h3>Problem:</h3>
-          <p>{dialogProject.problem}</p>
-          <h3>Indicators:</h3>
-          <ul>
-            {dialogProject.indicators.split('\n').map((indicator, index) => (
-              <li key={index}>{indicator}</li>   
-              
-            ))}
-          </ul>
-          <h3>Solution:</h3>
-          <p>{dialogProject.solution}</p>
-          {/* Conditionally render the QA section */}
-          {dialogProject.projectName === 'BluePrint' && (
-            <>
-              <h3>QA:</h3>
-              <ul>
-                {dialogProject.QA.split('\n').map((QA, index) => (
-                  <li key={index}>{QA}</li>
-                ))}
-              </ul>
-            </>
-          )}
-          <Button onClick={this.handleCloseDialog}>Close</Button>
-        </Dialog>
-      </Overlay>
+    const { showDialog, dialogProject, slideNumber } = this.state;
+    const list = text => (
+      <ul>
+        {text.split('\n').map(line => <li key={line}>{line}</li>)}
+      </ul>
     );
-    
 
     return (
       <Container>
         {this.changeTextContentBasedOnScroll()}
+        {slideNumber === 1 && <ImdPanel />}
         <ImageContent pageSplitTimes={this.pageSplitTimes} />
         {showDialog && (
-          <Overlay>
-            <Dialog>
-              <h3>Problem:</h3>
+          <Overlay onClick={e => e.target === e.currentTarget && this.handleCloseDialog()}>
+            <Dialog role="dialog" aria-modal="true" aria-label={dialogProject.projectName}>
+              <h3>The problem</h3>
               <p>{dialogProject.problem}</p>
-              <h3>Indicators:</h3>
-              <ul>
-                {dialogProject.indicators.split('\n').map((indicator, index) => (
-                  <li key={index}>{indicator}</li>
-                ))}
-              </ul>
-              <h3>Solution:</h3>
-              <p>{dialogProject.solution}</p>
-          {/* Conditionally render the QA section */}
-          {dialogProject.projectName === 'BluePrint' && (
-            <>
-              <h3>QA:</h3>
-              <ul>
-                {dialogProject.QA.split('\n').map((QA, index) => (
-                  <li key={index}>{QA}</li>
-                ))}
-              </ul>
-            </>
-          )}
+              <h3>What wasn’t working</h3>
+              {list(dialogProject.indicators)}
+              <h3>What I did</h3>
+              {list(dialogProject.solution)}
+              {dialogProject.QA && (
+                <>
+                  <h3>Quality checks</h3>
+                  {list(dialogProject.QA)}
+                </>
+              )}
+              {dialogProject.quote && (
+                <blockquote>
+                  “{dialogProject.quote}”
+                  <cite>— {dialogProject.quoteAuthor}</cite>
+                </blockquote>
+              )}
               <Button onClick={this.handleCloseDialog}>Close</Button>
             </Dialog>
           </Overlay>

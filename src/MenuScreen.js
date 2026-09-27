@@ -126,9 +126,9 @@ const MenuScreen = ({ onProjectsClick }) => {
   };
 
   const menuItems = [
-    { id: 'PROFESSIONAL', label: 'EXPERIENCE' },
-    { id: 'AI LABS', label: 'AI EXPERIMENTS' },
-    { id: 'SKILLS', label: 'COMPETENCIES' },
+    { id: 'PROFESSIONAL', label: 'PROFESSIONAL EXPERIENCE' },
+    { id: 'AI LABS', label: 'AI EXPERIMENTS & PROJECTS' },
+    { id: 'SKILLS', label: 'CORE COMPETENCIES' },
   ];
 
   return (
@@ -151,31 +151,20 @@ const MenuScreen = ({ onProjectsClick }) => {
           </button>
         </div>
         <h1 className="name">ROY MOOTSANA</h1>
-        <p className="title">SOFTWARE ENGINEER</p>
+        <p className="title">FULL-STACK SOFTWARE ENGINEER</p>
         <div className="divider"></div>
 
         <nav className="main-nav" onMouseEnter={loadDeferred} onFocus={loadDeferred}>
-          <button
-            className={`nav-item ${activeTab === 'SKILLS' ? 'active' : ''}`}
-            onClick={() => handleNavClick('SKILLS')}
-          >
-            <span className="nav-bar"></span>
-            <span className="nav-label">CORE COMPETENCIES</span>
-          </button>
-          <button
-            className={`nav-item ${activeTab === 'AI LABS' ? 'active' : ''}`}
-            onClick={() => handleNavClick('AI LABS')}
-          >
-            <span className="nav-bar"></span>
-            <span className="nav-label">AI EXPERIMENTS & PROJECTS</span>
-          </button>
-          <button
-            className={`nav-item ${activeTab === 'PROFESSIONAL' ? 'active' : ''}`}
-            onClick={() => handleNavClick('PROFESSIONAL')}
-          >
-            <span className="nav-bar"></span>
-            <span className="nav-label">PROFESSIONAL EXPERIENCE</span>
-          </button>
+          {menuItems.map((item) => (
+            <button
+              key={item.id}
+              className={`nav-item ${activeTab === item.id ? 'active' : ''}`}
+              onClick={() => handleNavClick(item.id)}
+            >
+              <span className="nav-bar"></span>
+              <span className="nav-label">{item.label}</span>
+            </button>
+          ))}
         </nav>
 
         <div className="status">
@@ -214,7 +203,7 @@ const MenuScreen = ({ onProjectsClick }) => {
             </button>
           </div>
           <h1 className="mobile-name">ROY MOOTSANA</h1>
-          <p className="mobile-title">SOFTWARE ENGINEER</p>
+          <p className="mobile-title">FULL-STACK SOFTWARE ENGINEER</p>
         </motion.div>
 
         <AnimatePresence>

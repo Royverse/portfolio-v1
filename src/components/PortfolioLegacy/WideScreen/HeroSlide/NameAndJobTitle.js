@@ -28,19 +28,18 @@ class NameAndJobTitle extends Component {
   render() {
     return (
         <Container>
-          {/* Cinzel brings that sharp, dramatic edge */}
+          {/* Same display and label faces as the menu: Syne over DM Mono */}
           <NameReveal 
             text="Roy Mootsana" 
-            fontFam="'Cinzel', serif" 
+            fontFam="'Syne', sans-serif" 
             timeDelay={500} 
           />
           
           <div style={{ marginTop: '10px' }} />
 
-          {/* Rajdhani adds a strict, technical contrast */}
           <TitleReveal 
-            text="Design and Development" 
-            fontFam="'Rajdhani', sans-serif" 
+            text="Engineering and Design" 
+            fontFam="'DM Mono', monospace" 
             timeDelay={1300} 
           />
 
@@ -48,7 +47,7 @@ class NameAndJobTitle extends Component {
             {/* Swapped the emoji arrow for a cleaner text character, but you can swap it back! */}
             <TitleReveal 
               text="↓" 
-              fontFam="'Rajdhani', sans-serif" 
+              fontFam="'DM Mono', monospace" 
               timeDelay={1500} 
             />
           </ArrowWrapper>

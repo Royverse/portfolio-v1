@@ -23,12 +23,12 @@ const Stage = styled.div`
 `;
 
 const Name = styled(motion.div)`
-  font-family: 'Cinzel', serif;
+  font-family: 'Syne', sans-serif;
   text-align: center;
   color: var(--ink);
   line-height: 1;
   letter-spacing: -0.02em;
-  font-weight: 700;
+  font-weight: 600;
   white-space: nowrap;
   @media ${device.mobileS} { font-size: 32px; }
   @media ${device.mobileM} { font-size: 38px; }
@@ -37,13 +37,13 @@ const Name = styled(motion.div)`
 `;
 
 const Title = styled(motion.div)`
-  font-family: 'Rajdhani', sans-serif;
+  font-family: 'DM Mono', monospace;
   text-align: center;
   margin-top: 15px;
   color: var(--ink);
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 500;
   @media ${device.mobileS} { font-size: 12px; }
   @media ${device.mobileM} { font-size: 14px; }
   @media ${device.mobileL} { font-size: 16px; }
@@ -82,7 +82,7 @@ class NameAndJobTitle extends Component {
             animate={{ y: 0 }}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 1.3 }}
           >
-            Design and Development
+            Engineering and Design
           </Title>
         </Stage>
 

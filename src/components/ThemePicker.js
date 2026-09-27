@@ -8,11 +8,9 @@ const ThemePicker = () => {
   const dropdownRef = useRef(null);
 
   const themes = [
-    { id: 'auto', label: 'SYSTEM SYNC', status: 'active', desc: 'Syncs with your clock' },
-    { id: 'autumn', label: 'AUTUMN LEAVES', status: 'active', desc: 'Light Mode / Seasonal' },
-    { id: 'winter', label: 'WINTER SNOW', status: 'active', desc: 'Dark Mode / Particles' },
-    { id: 'spring', label: 'SPRING BLOOM', status: 'pending', desc: 'Coming Soon' },
-    { id: 'summer', label: 'SUMMER SOLSTICE', status: 'pending', desc: 'Coming Soon' },
+    { id: 'auto', label: 'AUTO', status: 'active', desc: 'Light by day, dark at night' },
+    { id: 'autumn', label: 'AUTUMN LEAVES', status: 'active', desc: 'Light mode' },
+    { id: 'winter', label: 'WINTER SNOW', status: 'active', desc: 'Dark mode' },
   ];
 
   const currentThemeObj = themes.find(t => t.id === (theme || 'auto'));
@@ -58,7 +56,7 @@ const ThemePicker = () => {
             role="listbox"
           >
             <div className="dropdown-header">
-              SELECT SEASON
+              SELECT THEME
               <span className="info-icon-hint">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="12" cy="12" r="10"></circle>
@@ -89,7 +87,7 @@ const ThemePicker = () => {
             <div className="dropdown-footer">
               <div className="sync-info">
                 <span className="sync-dot"></span>
-                <p>Seasons sync with your local machine time and day/night cycle.</p>
+                <p>Auto follows your clock: light from 6 am to 6 pm, dark after that.</p>
               </div>
             </div>
           </motion.div>

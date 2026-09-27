@@ -16,7 +16,7 @@ const Container = styled.section`
 `;
 
 const AboutMeDescription = styled(motion.span)`
-  font-family: 'AvenirRoman';
+  font-family: 'Epilogue', sans-serif;
   text-align: center;
   color: var(--ink);
   line-height: 1.5;
@@ -36,8 +36,7 @@ class AboutMe extends Component {
           animate={{ opacity: 1 }}
           transition={{ duration: 1.2, delay: 0.5 }}
         >
-          Software Engineer and UX Architect bridging the gap between rigorous engineering and human-centred design.
-          A systems thinker with a designer's eye, a chess strategist's patience, and a builder's bias for action.
+          Full-stack software engineer in Cape Town, currently building products for IMD Business School. I came to engineering through design systems, and I build web products end to end in TypeScript and Python, from the interface down to the API and its security.
         </AboutMeDescription>
       </Container>
     );

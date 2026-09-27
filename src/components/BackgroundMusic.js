@@ -46,8 +46,8 @@ const BackgroundMusic = () => {
 
       <div className="music-info-panel">
         <div className="music-text-group">
-          <span className="music-title">Experience (Piano Cover)</span>
-          <span className="music-subtitle">Played by Roy Mootsana</span>
+          <span className="music-title">Experience · Ludovico Einaudi</span>
+          <span className="music-subtitle">Piano cover by Roy Mootsana</span>
         </div>
         <a 
           href="https://youtu.be/eHVTFIRLfzE?si=-9rVQJUgXYJnjr4A" 

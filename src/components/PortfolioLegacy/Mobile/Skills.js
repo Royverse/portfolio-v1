@@ -1,36 +1,36 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import device from '../../../Assets/Responsive/breakpoints';
+import skillGroups from '../skillGroups';
 
+// Same left inset and title sizes as the Contact slide below it.
 const Container = styled.section`
-    height: 100vh;
-    width:100%;
-    /* border: 1px solid blue; */
+    min-height: 100vh;
+    width: 100%;
     display: flex;
-    flex-flow: column wrap;
+    flex-direction: column;
     justify-content: center;
-    align-content: flex-start;
+    padding-top: 15vh;
+    padding-right: 24px;
     background: var(--bg);
     transition: background 0.5s ease;
     @media ${device.mobileS} {
-    padding-left:60px;
-    }
-    @media ${device.mobileM} {
-    padding-left:60px;
-    }
-    @media ${device.mobileL} {
-    padding-left:60px;
+    padding-left: 60px;
     }
     @media ${device.tablet} {
-    padding-left:90px;
+    padding-left: 90px;
+    padding-right: 90px;
     }
     @media ${device.laptop} {
-    padding-left:120px;
+    padding-left: 120px;
+    padding-right: 120px;
     }
 `;
 
-const SkillsTitle = styled.div`
-  font-family: 'AvenirHeavy';
+const SkillsTitle = styled.h2`
+  margin: 0;
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
   color: var(--ink);
   @media ${device.mobileS} {
     font-size: 40px;
@@ -49,40 +49,52 @@ const SkillsTitle = styled.div`
   }
 `;
 
-const SkillsList = styled.div`
-  font-family: 'AvenirRoman';
-  z-index: 1;
-  
-  @media ${device.mobileS} {
-    margin-top: 30px;
-    font-size: 20px;
-  }
-  @media ${device.mobileM} {
-    margin-top: 35px;
-    font-size: 23px;
-  }
-  @media ${device.mobileL} {
-    margin-top: 35px;
-    font-size: 25px;
-  }
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 28px 40px;
+  margin-top: 32px;
+`;
+
+const GroupTitle = styled.h3`
+  margin: 0 0 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--rule);
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+`;
+
+const Items = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: 'Epilogue', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink);
   @media ${device.tablet} {
-    margin-top: 45px;
-    font-size: 35px;
-  }
-  @media ${device.laptop} {
-    margin-top: 60px;
-    font-size: 45px;
+    font-size: 18px;
   }
 `;
 
-class Skills extends Component {
-  render() {
-    return (
-      <Container>
-       
-      </Container>
-    );
-  }
-}
+const Skills = () => (
+  <Container>
+    <SkillsTitle>SKILLS</SkillsTitle>
+    <Grid>
+      {skillGroups.map(({ title, items }) => (
+        <div key={title}>
+          <GroupTitle>{title}</GroupTitle>
+          <Items>
+            {items.map(item => <li key={item}>{item}</li>)}
+          </Items>
+        </div>
+      ))}
+    </Grid>
+  </Container>
+);
 
 export default Skills;

@@ -12,7 +12,6 @@ import MobileWork from './components/PortfolioLegacy/Mobile/WorkSlide/Work';
 import MobileSkills from './components/PortfolioLegacy/Mobile/Skills';
 import MobileContact from './components/PortfolioLegacy/Mobile/ContactSlide/Contact';
 
-import './Assets/index.css';
 
 const GlobalStyle = createGlobalStyle`
 html, body { margin: 0;}

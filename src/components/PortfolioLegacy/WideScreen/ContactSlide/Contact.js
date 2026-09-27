@@ -20,10 +20,11 @@ const ContactTitle = styled.div.attrs({
   }),
 })`
   transition: transform 0.5s ease-out;
-  font-family: 'AvenirHeavy';
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
   font-size: 200px;
   position: absolute;
-  color:#cfd7ff;
+  color: var(--border);
   top:12%;
   left:-70%;
   @media ${device.laptop} {
@@ -46,6 +47,26 @@ const SocialMediaIcons = styled.div`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
+`;
+
+// Plain-text details, so the email is readable and copyable without the icons.
+const ContactDetails = styled.p`
+  position: absolute;
+  left: 20%;
+  right: 3%;
+  bottom: 14%;
+  margin: 0;
+  text-align: center; /* centred under the icon row, which spans the same 20%–97% */
+  font-family: 'DM Mono', monospace;
+  font-size: clamp(14px, 1.1vw, 22px);
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+
+  a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+  }
 `;
 
 class Contact extends Component {
@@ -73,7 +94,7 @@ class Contact extends Component {
     const { body, documentElement } = window.document;
     const sd = Math.max(body.scrollTop, documentElement.scrollTop);
     let sp = (sd / (documentElement.scrollHeight - documentElement.clientHeight) * 100);
-    const minlimit = (documentElement.clientHeight * 1040) / documentElement.scrollHeight;
+    const minlimit = (documentElement.clientHeight * 1090) / documentElement.scrollHeight;
     if (sp >= minlimit && sp <= 100) {
       sp -= minlimit;
       this.setState({ scrollPercent: sp });
@@ -87,10 +108,14 @@ class Contact extends Component {
         <ContactTitle scrollPercent={scrollPercent}>CONTACT</ContactTitle>
         <SocialMediaIcons>
 
-          <SocialLogo imgURL={githubImg} alternate="Github" redirectURL="https://github.com/Royverse" />
-          <SocialLogo imgURL={mailImg} alternate="Mail" redirectURL="mailto:roymootsana@gmail.com" />
-          <SocialLogo imgURL={linkedInImg} alternate="Linkedin" redirectURL="https://www.linkedin.com/in/roy-mootsana-77818a14a/" />
+          <SocialLogo imgURL={githubImg} alternate="GitHub" redirectURL="https://github.com/Royverse" />
+          <SocialLogo imgURL={mailImg} alternate="Email" redirectURL="mailto:roymootsana@gmail.com" />
+          <SocialLogo imgURL={linkedInImg} alternate="LinkedIn" redirectURL="https://www.linkedin.com/in/roy-mootsana-77818a14a/" />
         </SocialMediaIcons>
+        <ContactDetails>
+          <a href="mailto:roymootsana@gmail.com">roymootsana@gmail.com</a>
+          &nbsp;·&nbsp; Cape Town, South Africa
+        </ContactDetails>
       </Container>
     );
   }

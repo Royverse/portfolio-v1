@@ -12,42 +12,44 @@ const imgHoloArch = new URL('../original-6ada7ba3d6854580ed7b865635b34fea.webp',
 const imgWireframe = new URL('../original-c7627ceb4cd5d66864ab5893238a0220.webp', import.meta.url).href;
 const imgConsole = new URL('../original-c81536be180e8081ff37939f01166501.webp', import.meta.url).href;
 
+// All six are other people's work (game menus and fan-made concepts), shown
+// as references. Each caption says what the site borrowed from it.
 const inspirationSlides = [
   {
     image: imgWarframeMenu,
-    title: 'THE WARFRAME MUSE',
-    caption: 'The definitive gaming inspiration. Holographic navigation panels floating in a 3D physical workspace, shifting dynamically with mouse movements.',
-    tag: 'WARFRAME MENU UI'
+    title: 'WARFRAME MENU',
+    caption: 'The main reference. The menu floats inside the ship, tilted into the scene, with the character framed on the right. The homepage copies that split: menu on the left, portrait on the right.',
+    tag: 'REFERENCE · WARFRAME'
   },
   {
     image: imgWarframeRailjack,
-    title: 'DIEGETIC DESIGN LOGIC',
-    caption: 'Sleek, transparent heads-up displays, glowing monospaced indicators, and a highly structured modular layout for high-density information.',
-    tag: 'RAILJACK CONSOLE'
+    title: 'WARFRAME, LATER VERSION',
+    caption: 'A later version of the same menu. Each item sits on its own translucent plate, which is where the glass panels on this site come from.',
+    tag: 'REFERENCE · WARFRAME'
   },
   {
     image: imgCyberpunkCore,
-    title: 'CYBERNETIC INTERFACE',
-    caption: 'A masterclass in terminal-style tech UI, featuring bright warning elements, structural crosshairs, and data-grid micro-detailing.',
-    tag: 'CYBERPUNK HUD'
+    title: 'HALO: REACH ARMORY',
+    caption: 'A plain vertical list, a thin bar marking the selected item, and the character on the right. The accent bars beside the menu items here come from this screen.',
+    tag: 'REFERENCE · HALO: REACH'
   },
   {
     image: imgHoloArch,
-    title: 'HOLOGRAPHIC ARCHITECTURE',
-    caption: 'Early interface mockup showing glowing vertical rules, status dots, and adaptive contrast settings for maximum readability.',
-    tag: 'WIDGET BLUEPRINT'
+    title: 'THOR MENU CONCEPT',
+    caption: 'A fan-made game menu, not my work. Widely spaced capitals on the left, a lit figure on the right, and almost nothing else on screen.',
+    tag: 'REFERENCE · FAN CONCEPT'
   },
   {
     image: imgWireframe,
-    title: 'INTERACTIVE WIREFRAME',
-    caption: 'Exploring core layouts where dynamic graphs, status widgets, and modular columns live harmoniously together.',
-    tag: 'UI COMPOSITION'
+    title: 'GAME HUB CONCEPT',
+    caption: 'A fan-made concept, not my work. A frosted panel over a blurred scene, with a list, a character card and a stats panel side by side. The model for the frosted overlays.',
+    tag: 'REFERENCE · FAN CONCEPT'
   },
   {
     image: imgConsole,
-    title: 'MINIMAL HIERARCHY',
-    caption: 'Refining the minimal typography hierarchy: combining heavy futuristic headings with light, clean monospaced subheadings.',
-    tag: 'CONSOLE SPEC'
+    title: 'ZENITH MENU CONCEPT',
+    caption: 'A fan-made concept, not my work. Small, widely spaced capitals and very little else. The reason the labels here are small, spaced-out monospace.',
+    tag: 'REFERENCE · FAN CONCEPT'
   }
 ];
 
@@ -107,12 +109,12 @@ const DesignInspiration = ({ isOpen, onClose }) => {
             {/* Holographic Header */}
             <div className="insp-modal-header">
               <div className="header-meta">
-                <span className="meta-tag">SYS.INSP // REF_ID: 104</span>
+                <span className="meta-tag">DESIGN NOTES</span>
                 <span className="meta-pulse"></span>
               </div>
               <h2 className="header-title">DESIGN STORY & INSPIRATION</h2>
-              <button className="insp-close-btn" onClick={onClose} aria-label="Close Inspiration Dialog">
-                <span className="btn-close-lbl">CLOSE // SYS.RET</span>
+              <button className="insp-close-btn" onClick={onClose} aria-label="Close design story">
+                <span className="btn-close-lbl">CLOSE</span>
                 <span className="btn-close-bar"></span>
               </button>
             </div>
@@ -123,32 +125,26 @@ const DesignInspiration = ({ isOpen, onClose }) => {
               {/* Narrative Panel (Left Column) */}
               <div className="insp-narrative-panel selectable-text">
                 <section className="narrative-section">
-                  <h3 className="section-subtitle">01 / THE DIEGETIC HUD</h3>
+                  <h3 className="section-subtitle">01 / WHY IT LOOKS LIKE A GAME MENU</h3>
                   <p className="section-text">
-                    This portfolio's homepage represents a deliberate departure from standard flat 2D portfolios. The design is heavily modeled after <strong>in-universe gaming menus</strong>—specifically the iconic spacecraft cockpit HUDs in <em>Warframe</em>. 
+                    I have always liked game menus that live inside the world, like the ones in <em>Warframe</em>. They catch the light, shift as the camera moves and frame the character, instead of sitting flat on the screen.
                   </p>
                   <p className="section-text">
-                    In these interfaces, the menu exists physically in the game world, reflecting ambient light, reacting with a subtle parallax hover to camera angles, and framing the central figure. We translated this experience into the web medium by utilizing full-bleed coordinate systems and high-density, structural information hierarchies.
-                  </p>
-                </section>
-
-                <section className="narrative-section">
-                  <h3 className="section-subtitle">02 / CYBERNETIC UTILITY</h3>
-                  <p className="section-text">
-                    The visual language is characterized by raw engineering and cybernetic aesthetics: thin structural grids, glowing status indices, monospaced metrics, and custom theme dynamics. 
-                  </p>
-                  <p className="section-text">
-                    Every section, from the "PORTFOLIO.SYS // INIT" console logs to the electric border frames, bridges standard user interface standards with visual assets reminiscent of scientific systems, complex telemetry boards, and custom hardware setups.
+                    I wanted this homepage to feel the same, hence the glass panels, thin rules, small monospaced labels and a portrait that tilts under your cursor. The images alongside are the references I worked from. None of them are mine.
                   </p>
                 </section>
 
                 <section className="narrative-section">
-                  <h3 className="section-subtitle">03 / REAL-TIME SEASONS</h3>
+                  <h3 className="section-subtitle">02 / DAY AND NIGHT</h3>
                   <p className="section-text">
-                    An application should feel like a living, breathing ecosystem. By integrating the local time clock with custom rendering contexts, the site seamlessly transitions between seasonal cycles (such as <strong>Autumn Leaves</strong> and <strong>Winter Snow</strong>). 
+                    The site follows your clock: falling leaves in daylight, snow at night. You can pin either one from the picker in the corner.
                   </p>
+                </section>
+
+                <section className="narrative-section">
+                  <h3 className="section-subtitle">03 / KEEPING IT FAST</h3>
                   <p className="section-text">
-                    This interactive layer bridges the sterile space of digital engineering with the organic changes of our physical world—creating a premium user experience that is always dynamic, fresh, and engaging.
+                    All this motion has a cost, so the heavy parts (the skills tree, the projects grid and the animations) load after the first screen is up. That cut the first download by about two-thirds.
                   </p>
                 </section>
               </div>

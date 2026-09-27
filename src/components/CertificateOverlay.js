@@ -18,8 +18,12 @@ const certificates = [
     { id: "UC-da50dcfe", label: "UX Design College Class", year: "2022", img: "https://i.ibb.co/9p0MQSh/UC-da50dcfe-96f0-4100-97cb-60fadd0dc4ac.jpg" },
     { id: "UC-ead34a9d", label: "UX Design & User Experience Design", year: "2022", img: "https://i.ibb.co/9ZKjTmf/UC-ead34a9d-415f-4594-a3d0-809e1c2e4845-1.jpg" },
     { id: "UC-f03d711a", label: "Modern Copywriting: Writing that Sells", year: "2022", img: "https://i.ibb.co/c8zwQ6R/UC-f03d711a-a59b-4351-b0c2-0c910327e86f.jpg" },
-    { id: "LGC-PORTFOLIO", label: "Portfolio Version 2 2024", year: "2024", isIframe: true, url: "https://october-review.github.io/Roy/index.html", isLegacy: true },
-    { id: "LGC-V01", label: "Portfolio Version 1 2020", year: "2020", isIframe: true, url: "https://roy-mootsana.github.io/portfoliov.01/works.html", isLegacy: true },
+];
+
+// Earlier portfolios aren't certificates, so they're linked from the footer instead of the list.
+const previousPortfolios = [
+    { label: "2024", url: "https://october-review.github.io/Roy/index.html" },
+    { label: "2020", url: "https://roy-mootsana.github.io/portfoliov.01/works.html" },
 ];
 
 const fadeIn = keyframes`
@@ -141,13 +145,6 @@ const IndexItem = styled.div`
       background: #1e293b;
     }
   `}
-
-  ${props => props.isLegacy && !props.active && `
-    background: rgba(79, 70, 229, 0.04);
-    &:hover {
-      background: rgba(79, 70, 229, 0.08);
-    }
-  `}
 `;
 
 const PreviewPane = styled.div`
@@ -192,36 +189,6 @@ const CertImage = styled.img`
   transform: ${props => props.loaded ? 'translateY(0)' : 'translateY(16px)'};
 `;
 
-const IframeContainer = styled.div`
-  width: 100%;
-  height: 60vh;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-  opacity: ${props => props.loaded ? 1 : 0};
-  transform: ${props => props.loaded ? 'translateY(0)' : 'translateY(16px)'};
-  background: #fff;
-  border: 1px solid #e2e8f0;
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0; right: 0; bottom: 0; left: 0;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
-    pointer-events: none;
-  }
-`;
-
-const StyledIframe = styled.iframe`
-  width: 200%;
-  height: 200%;
-  transform: scale(0.5);
-  transform-origin: 0 0;
-  border: none;
-  background: white;
-`;
-
 const MetadataFooter = styled.div`
   padding: 24px 40px;
   border-top: 1px solid #f1f5f9;
@@ -246,7 +213,7 @@ const ViewButton = styled.a`
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'DM Mono', monospace;
   font-size: 12px;
   letter-spacing: .2em;
   color: #1e293b;
@@ -254,7 +221,7 @@ const ViewButton = styled.a`
   padding: 12px 28px;
   transition: all 0.2s;
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 500;
   text-transform: uppercase;
   white-space: nowrap;
   flex-shrink: 0;
@@ -272,10 +239,10 @@ const ViewButton = styled.a`
 `;
 
 const LegacyLink = styled.a`
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'DM Mono', monospace;
   font-size: 11px;
   letter-spacing: .2em;
-  color: #94a3b8;
+  color: #475569;
   text-decoration: none;
   border-bottom: 1px solid transparent;
   transition: all 0.2s;
@@ -296,7 +263,7 @@ const HUDFooter = styled.div`
 `;
 
 const KeyCap = styled.span`
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'DM Mono', monospace;
   font-size: 11px;
   padding: 4px 10px;
   border: 1px solid #cbd5e1;
@@ -306,15 +273,15 @@ const KeyCap = styled.span`
 `;
 
 const MonoText = styled.span`
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'DM Mono', monospace;
   font-size: ${props => props.size || '11px'};
   letter-spacing: ${props => props.spacing || '.4em'};
-  color: ${props => props.color || '#94a3b8'};
+  color: ${props => props.color || '#64748b'};
   text-transform: uppercase;
 `;
 
-const BarlowText = styled.span`
-  font-family: 'Barlow', sans-serif;
+const BodyText = styled.span`
+  font-family: 'Epilogue', sans-serif;
   font-weight: ${props => props.weight || 400};
   font-size: ${props => props.size || '14px'};
   letter-spacing: ${props => props.spacing || 'normal'};
@@ -374,14 +341,14 @@ const CertificateOverlay = ({ active, onClose }) => {
                     <ListPane>
                         <ListHeader>
                             <div>
-                                <MonoText size="10px" spacing=".4em">Archive Data</MonoText>
+                                <MonoText size="10px" spacing=".3em">Continuous learning</MonoText>
                                 <div style={{ marginTop: '4px' }}>
-                                    <BarlowText weight="700" size="24px" spacing="0.05em">INDEX</BarlowText>
+                                    <BodyText weight="500" size="24px" spacing="0.05em">UDEMY</BodyText>
                                 </div>
                             </div>
                             <div style={{ textAlign: 'right' }}>
-                                <MonoText size="12px" spacing="0" color="#94a3b8" style={{ display: 'block', lineHeight: 1 }}>{certificates.length}</MonoText>
-                                <MonoText size="8px" spacing=".2em" color="#cbd5e1">Entries</MonoText>
+                                <MonoText size="12px" spacing="0" style={{ display: 'block', lineHeight: 1 }}>{certificates.length}</MonoText>
+                                <MonoText size="9px" spacing=".2em">Courses</MonoText>
                             </div>
                         </ListHeader>
                         
@@ -390,32 +357,31 @@ const CertificateOverlay = ({ active, onClose }) => {
                                 <IndexItem 
                                     key={cert.id}
                                     active={i === activeIndex}
-                                    isLegacy={cert.isLegacy}
                                     onClick={() => setActiveIndex(i)}
                                 >
                                     <MonoText 
                                         size="11px" 
                                         spacing="0" 
-                                        color={i === activeIndex ? '#1e293b' : '#cbd5e1'}
+                                        color={i === activeIndex ? '#1e293b' : '#64748b'}
                                     >
                                         {pad2(i + 1)}
                                     </MonoText>
                                     
-                                    <BarlowText 
+                                    <BodyText 
                                         size="14px" 
                                         spacing="0.05em" 
                                         weight={i === activeIndex ? '500' : '400'}
-                                        color={i === activeIndex ? '#0f172a' : (cert.isLegacy ? '#4f46e5' : '#94a3b8')}
+                                        color={i === activeIndex ? '#0f172a' : '#475569'}
                                         transform="uppercase"
                                         style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
                                     >
                                         {cert.label}
-                                    </BarlowText>
+                                    </BodyText>
                                     
                                     <MonoText 
                                         size="10px" 
                                         spacing="0" 
-                                        color={i === activeIndex ? '#64748b' : '#cbd5e1'}
+                                        color="#64748b"
                                         style={{ textAlign: 'right' }}
                                     >
                                         {cert.year}
@@ -430,39 +396,28 @@ const CertificateOverlay = ({ active, onClose }) => {
                         <PreviewHeader>
                             <StatusDot />
                             <div style={{ flex: 1 }}>
-                                <MonoText size="11px" spacing=".5em" color="#94a3b8">Registry // File_Preview</MonoText>
+                                <MonoText size="11px" spacing=".3em">Certificate preview</MonoText>
                             </div>
                             <div style={{ background: '#f8fafc', padding: '4px 12px', borderRadius: '4px' }}>
-                                <MonoText size="11px" spacing=".1em" color="#cbd5e1">{currentCert.id}</MonoText>
+                                <MonoText size="11px" spacing=".1em">{currentCert.id}</MonoText>
                             </div>
                         </PreviewHeader>
 
                         <ImageArea>
                             <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                {currentCert.isIframe ? (
-                                    <IframeContainer loaded={imgLoaded}>
-                                        <StyledIframe 
-                                            src={currentCert.url} 
-                                            title={currentCert.label}
-                                            onLoad={() => setImgLoaded(true)}
-                                            scrolling="no"
-                                        />
-                                    </IframeContainer>
-                                ) : (
-                                    <CertImage 
-                                        src={currentCert.img}
-                                        alt={currentCert.label}
-                                        loaded={imgLoaded}
-                                        onLoad={() => setImgLoaded(true)}
-                                    />
-                                )}
+                                <CertImage
+                                    src={currentCert.img}
+                                    alt={currentCert.label}
+                                    loaded={imgLoaded}
+                                    onLoad={() => setImgLoaded(true)}
+                                />
                             </div>
                         </ImageArea>
 
                         <MetadataFooter>
                             <div style={{ display: 'flex', flexDirection: 'column', flex: '1', minWidth: '0' }}>
-                                <MonoText size="10px" spacing=".3em" color="#cbd5e1" style={{ marginBottom: '4px' }}>Course Title</MonoText>
-                                <BarlowText weight="600" size="18px" transform="uppercase" spacing="-0.02em" style={{ lineHeight: '1.2' }}>{currentCert.label}</BarlowText>
+                                <MonoText size="10px" spacing=".3em" style={{ marginBottom: '4px' }}>Course</MonoText>
+                                <BodyText weight="500" size="18px" transform="uppercase" spacing="-0.02em" style={{ lineHeight: '1.2' }}>{currentCert.label}</BodyText>
                             </div>
                             
                             <div style={{ display: 'none' }} className="desktop-meta"> 
@@ -470,19 +425,19 @@ const CertificateOverlay = ({ active, onClose }) => {
                             </div>
 
                             <div style={{ display: 'flex', flexDirection: 'column', flexShrink: 0 }} className="cert-meta-item">
-                                <MonoText size="10px" spacing=".3em" color="#cbd5e1" style={{ marginBottom: '4px' }}>Source</MonoText>
-                                <BarlowText size="14px" color="#64748b" transform="uppercase" spacing=".1em">
-                                    {currentCert.id.startsWith('LGC') ? 'ARCHIVE' : 'UDEMY'}
-                                </BarlowText>
+                                <MonoText size="10px" spacing=".3em" style={{ marginBottom: '4px' }}>Issuer</MonoText>
+                                <BodyText size="14px" color="#64748b" transform="uppercase" spacing=".1em">
+                                    Udemy
+                                </BodyText>
                             </div>
 
                             <div style={{ display: 'flex', flexDirection: 'column', flexShrink: 0 }} className="cert-meta-item">
-                                <MonoText size="10px" spacing=".3em" color="#cbd5e1" style={{ marginBottom: '4px' }}>Date</MonoText>
-                                <BarlowText size="14px" color="#64748b" transform="uppercase" spacing=".1em">{currentCert.year}</BarlowText>
+                                <MonoText size="10px" spacing=".3em" style={{ marginBottom: '4px' }}>Year</MonoText>
+                                <BodyText size="14px" color="#64748b" transform="uppercase" spacing=".1em">{currentCert.year}</BodyText>
                             </div>
 
-                            <ViewButton href={currentCert.url || currentCert.img} target="_blank">
-                                {currentCert.url ? 'Open Site ↗' : 'Open File ↗'}
+                            <ViewButton href={currentCert.img} target="_blank" rel="noopener noreferrer">
+                                View certificate ↗
                             </ViewButton>
                         </MetadataFooter>
                     </PreviewPane>
@@ -493,11 +448,11 @@ const CertificateOverlay = ({ active, onClose }) => {
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                             <KeyCap>UP</KeyCap>
                             <KeyCap>DOWN</KeyCap>
-                            <MonoText size="11px" spacing=".2em" color="#94a3b8" weight="500">Navigate Archive</MonoText>
+                            <MonoText size="11px" spacing=".2em">Browse</MonoText>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                             <KeyCap>ESC</KeyCap>
-                            <MonoText size="11px" spacing=".2em" color="#94a3b8" weight="500">Exit</MonoText>
+                            <MonoText size="11px" spacing=".2em">Close</MonoText>
                         </div>
                     </div>
                     
@@ -505,11 +460,12 @@ const CertificateOverlay = ({ active, onClose }) => {
                         {/* Hidden on small screens in original, mimicking with styled components or inline logic if needed */}
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }} className="hud-footer-right">
-                        <LegacyLink href="https://october-review.github.io/Roy/index.html" target="_blank">
-                            Legacy System Access ↗
-                        </LegacyLink>
-                        <div style={{ height: '1px', width: '40px', background: '#e2e8f0' }} />
-                        <MonoText size="11px" spacing=".1em" color="#94a3b8">ROY_MOOTSANA // CORE_SYSTEM_ACTIVE</MonoText>
+                        <MonoText size="11px" spacing=".2em">Previous portfolios</MonoText>
+                        {previousPortfolios.map(({ label, url }) => (
+                            <LegacyLink key={label} href={url} target="_blank" rel="noopener noreferrer">
+                                {label} ↗
+                            </LegacyLink>
+                        ))}
                     </div>
                 </HUDFooter>
             </HUDContainer>

@@ -19,17 +19,17 @@ import '../Assets/Portrait.css'; // Refreshed import path
 const IMAGES = [
   { 
     src: new URL('../Assets/Images/Portrait/portrait-1.jpg', import.meta.url).href, 
-    caption: "Software Engineer", 
+    caption: "Full-Stack Software Engineer", 
     badge: "01 — Core" 
   },
   { 
     src: new URL('../Assets/Images/Portrait/portrait-2.jpg', import.meta.url).href, 
-    caption: "UX Architect", 
-    badge: "02 — Strategy" 
+    caption: "Design Systems",
+    badge: "02 — Craft"
   },
   { 
     src: new URL('../Assets/Images/Portrait/portrait-3.jpg', import.meta.url).href, 
-    caption: "Creative Technologist", 
+    caption: "Creative Coding", 
     badge: "03 — Innovation" 
   }
 ];
@@ -174,7 +174,7 @@ const Portrait = ({ covered = false }) => {
   return (
     <div className="portrait-wrap" inert={covered ? '' : undefined}>
       <div className="hover-hint desktop-hint">Hover to interact</div>
-      <div className="hover-hint mobile-hint">Click to interact</div>
+      <div className="hover-hint mobile-hint">Tap to interact</div>
       <div className="card-wrapper">
         <motion.div 
           className="shadow-blob"

@@ -47,83 +47,80 @@ const CONFIG = {
 };
 
 const SKILLS = [
-    { 
-        name: 'ANGULAR & TYPESCRIPT', 
-        level: 95,
-        role: 'Enterprise Front-End Engineer',
-        details: [
-            "Architected enterprise-grade applications at top-ranked global institutions.",
-            "Built sophisticated data-driven learning dashboards at IMD Business School, integrating complex Angular interfaces with Python backend services.",
-            "Engineered robust, reusable Angular components for Standard Bank's CIB BluePrint Design System, enforcing strict WCAG 100% accessibility standards."
-        ]
-    },
-    { 
-        name: 'UX ARCHITECTURE', 
+    {
+        name: 'REACT & NEXT.JS',
         level: 92,
-        role: 'Bridging Engineering & Human-Centered Design',
+        role: 'Production Front Ends',
         details: [
-            "Enforced strict UI/UX fidelity standards, achieving 100% visual parity between Figma design specifications and final staged builds during IMD's global migration.",
-            "Led full-stack UX/UI development for SME deployments (Tres Chic), resulting in a 40% measurable increase in booking efficiency.",
-            "A rare archetype: combining a builder's bias for action with a designer's eye for intuitive aesthetics."
+            "Part of the team that rewrote Leader's Question Mix, IMD's diagnostic of how leaders use questions, then built LQM 360 on top to add colleague feedback.",
+            "Built the Strategic Execution Simulation (Next.js, Prisma, PostgreSQL), a live multiplayer app based on an existing paper-based board simulation for executive teams.",
+            "Replaced a Power Apps tool with a Next.js and FastAPI app for IMD's World Competitiveness Center."
         ]
     },
-    { 
-        name: 'WEBAR & THREE.JS', 
-        level: 88,
-        role: 'Creative Technologist & R&D',
-        details: [
-            "Pioneered emerging educational technologies by prototyping next-generation interactive tools at the IMD Business School Innovation Hub in Cape Town, South Africa.",
-            "Brought browser-native Augmented Reality capabilities to the innovation pipeline using Three.js and A-Frame.",
-            "Delivered immersive experiences that completely bypass traditional native app dependencies, increasing cohort engagement metrics."
-        ]
-    },
-    { 
-        name: 'SYSTEMS THINKING', 
-        level: 90,
-        role: 'Strategic Cognition & Pattern Recognition',
-        details: [
-            "Leveraging 20 years of competitive chess play (Provincial & National level, Senior Team Captain) to apply strategic foresight to software architecture.",
-            "Excel at patience under pressure, identifying edge cases, and anticipating architectural bottlenecks before they manifest.",
-            "Approaches cross-functional engineering challenges with a chess strategist's multi-step planning and optimization."
-        ]
-    },
-    { 
-        name: 'FULL-STACK ENG.', 
+    {
+        name: 'PYTHON & APIS',
         level: 85,
-        role: 'End-to-End Infrastructure',
+        role: 'FastAPI, Flask and Django REST',
         details: [
-            "Extensive background spanning enterprise banking systems, global EdTech platforms, and e-commerce infrastructure.",
-            "Re-engineered complex learning simulations ('Strategic Execution Simulation'), optimizing backend performance and UX.",
-            "Independently built and deployed fully functional e-commerce websites with live databases (MongoDB/Node.js) and integrated payment systems."
+            "Built the external-reviewer journey on IMD's Accelerator assessment platform (Flask API, Angular client): single-use invitations, response tracking and generated PDF reports.",
+            "Added a data-cleaning pipeline with a preview step to a multi-tenant Django REST talent dashboard, so bad imports are caught before they reach the dashboard."
         ]
     },
-    { 
-        name: 'DESIGNOPS', 
-        level: 88,
-        role: 'Systems Scalability Architect',
+    {
+        name: 'ANGULAR & TYPESCRIPT',
+        level: 90,
+        role: 'Enterprise Front-End Engineering',
         details: [
-            "Served as a key architect of the 3.0 visual language MVP for Standard Bank's Corporate & Investment Banking division.",
-            "Acted as the crucial bridge between Design and Engineering—defining design tokens, standardizing UI, and reducing code duplication at an enterprise scale."
+            "Built and shipped Angular library components for Standard Bank CIB's BluePrint 3.0 design system, documented in Storybook.",
+            "Building features on the Angular client of IMD's Accelerator platform, used in leadership programmes for multinational companies."
+        ]
+    },
+    {
+        name: 'AUTH & SECURITY',
+        level: 84,
+        role: 'Identity, Access and Application Security',
+        details: [
+            "Audited all 52 of the organisation's code repositories, including their full history, for exposed secrets and security risks, then wrote and presented the executive summary and remediation plan.",
+            "Built Azure AD sign-in for the World Competitiveness Center's data tool.",
+            "Tightened sign-in and admin access checks across IMD products."
+        ]
+    },
+    {
+        name: 'QUALITY & DELIVERY',
+        level: 86,
+        role: 'From QA to Production Code',
+        details: [
+            "Started at IMD in QA, testing the global move to WordPress with colleagues in Switzerland, Spain, Romania and Algeria.",
+            "Automated programme emails as a scheduled Azure Container Apps Job, so no participant is ever emailed twice."
+        ]
+    },
+    {
+        name: 'DESIGN SYSTEMS',
+        level: 88,
+        role: 'Components, Tokens and Storybook',
+        details: [
+            "Core contributor to the BluePrint 3.0 design-system pilot for Standard Bank's Corporate & Investment Banking division.",
+            "Moved button variants from appearance to semantic intent, made components work at narrow widths, and kept the Storybook docs, accessibility add-on and changelog current for product teams."
         ],
         testimonial: {
-            quote: "Roy has been an invaluable asset to our team. He has a unique perspective on things, and his ability to approach problems from different angles has helped us find creative solutions. Roy is a rare find, and has shown great maturity and skill.",
+            quote: "Roy has been an invaluable asset to our team … He has a unique perspective on things, and his ability to approach problems from different angles has helped us to find creative solutions to some of our most challenging issues. Roy is a rare find, and has shown great maturity and skill, far beyond expectation.",
             author: "Mel M. Saayman, Design Lead, Standard Bank"
         }
     },
-    { 
-        name: 'RELEASE MGT & QA', 
-        level: 82,
-        role: 'Zero-Downtime Execution',
+    {
+        name: 'CREATIVE TECH & AI',
+        level: 85,
+        role: 'Browser Experiments',
         details: [
-            "Assumed sole custodianship of the STS team release cycle (Dev → Pre-Prod → Prod) at IMD, achieving flawless, zero-downtime updates.",
-            "Spearheaded QA strategy during a global enterprise WordPress migration across teams in Switzerland, Spain, Romania, and Algeria.",
-            "Established automated testing workflows that reduced critical regression bugs by 30%."
+            "Gemini-powered apps: a market terminal that scores sentiment against live prices, and a voice-command 3D sandbox.",
+            "MediaPipe hand tracking, smoothed with Kalman and One Euro filters, for touchless drawing and spellcasting in the browser.",
+            "WebGL2 and Three.js games with hand-written physics and live Web Audio synthesis. All of them are live under AI Experiments & Projects."
         ]
     },
-    { 
-        name: 'UDEMY CERTIFICATES', 
-        level: 99,
-        role: 'Continuous Rapid-Learning Orientation',
+    {
+        name: 'CERTIFICATES',
+        level: 80,
+        role: 'Udemy Courses in UX, UI and Product Design',
         details: [] // Handled uniquely in CertificateOverlay
     }
 ];
@@ -450,7 +447,7 @@ const SkillsAnimation = ({ active, onClose }) => {
                 if (p > 0.85) {
                     const label = state.labels[idx];
                     const fontSize = (mobileMode ? CONFIG.typography.mobileBase : CONFIG.typography.desktopBase) * pixelRatio;
-                    ctx.font = `600 ${fontSize}px ${CONFIG.typography.family}`;
+                    ctx.font = `500 ${fontSize}px ${CONFIG.typography.family}`;
                     const textWidth = ctx.measureText(skill.name).width;
                     
                     label.width = textWidth + (mobileMode ? CONFIG.layout.labelPaddingX.mobile : CONFIG.layout.labelPaddingX.desktop) * pixelRatio;
@@ -562,7 +559,7 @@ const SkillsAnimation = ({ active, onClose }) => {
                     
                     ctx.fillStyle = isHovered ? CONFIG.colors.textLight : (window.document.body.classList.contains('theme-winter') ? `rgba(20, 31, 26, ${alpha})` : `rgba(85, 100, 95, ${alpha})`);
                     const fontSize = (mobileMode ? CONFIG.typography.mobileBase : CONFIG.typography.desktopBase) * pixelRatio;
-                    ctx.font = `600 ${fontSize}px ${CONFIG.typography.family}`;
+                    ctx.font = `500 ${fontSize}px ${CONFIG.typography.family}`;
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
                     ctx.fillText(skill.name, label.cx, label.cy + (1 * pixelRatio));
@@ -685,7 +682,7 @@ const SkillsAnimation = ({ active, onClose }) => {
             state.currentHit = hit;
             
             if (hit) {
-                setTooltip({ visible: true, text: `${hit.skill.name} • ${hit.skill.level}%`, x: mx + 15, y: my - 40 });
+                setTooltip({ visible: true, text: hit.skill.name, x: mx + 15, y: my - 40 });
                 canvas.style.cursor = 'pointer';
             } else {
                 setTooltip(t => ({ ...t, visible: false }));
@@ -699,7 +696,7 @@ const SkillsAnimation = ({ active, onClose }) => {
             
             const hit = processHit(mx, my);
             if (hit) {
-                if (hit.skill.name === 'UDEMY CERTIFICATES') {
+                if (hit.skill.name === 'CERTIFICATES') {
                     setCertOverlayVisible(true);
                 } else {
                     setModal({ visible: true, skill: hit.skill });
@@ -789,7 +786,7 @@ const SkillsAnimation = ({ active, onClose }) => {
                     }
                 }
                 
-                .skills-tooltip { position: fixed; top: 0; left: 0; background: rgba(255, 255, 255, 0.95); padding: 8px 16px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); font-weight: bold; color: ${CONFIG.colors.textDark}; pointer-events: none; z-index: 150; transition: opacity 0.2s; white-space: nowrap; }
+                .skills-tooltip { position: fixed; top: 0; left: 0; background: rgba(255, 255, 255, 0.95); padding: 8px 16px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); font-weight: 500; color: ${CONFIG.colors.textDark}; pointer-events: none; z-index: 150; transition: opacity 0.2s; white-space: nowrap; }
                 
                 .skills-close-btn { 
                     position: fixed; 
@@ -884,7 +881,7 @@ const SkillsAnimation = ({ active, onClose }) => {
                     font-size: 2rem; 
                     color: ${CONFIG.colors.textDark}; 
                     font-family: 'Syne', sans-serif; 
-                    font-weight: 800;
+                    font-weight: 600;
                     letter-spacing: -0.02em;
                 }
                 .skills-modal-role {
@@ -893,21 +890,9 @@ const SkillsAnimation = ({ active, onClose }) => {
                     color: ${CONFIG.colors.primary};
                     text-transform: uppercase;
                     letter-spacing: 0.1em;
-                    margin-bottom: 24px;
-                    font-weight: 600;
+                    margin-bottom: 32px;
+                    font-weight: 500;
                 }
-                .skills-modal-level-row {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    margin-bottom: 12px;
-                }
-                .skills-modal-level-label { font-family: ${CONFIG.typography.family}; font-size: 0.8rem; color: #667870; font-weight: 600; }
-                .skills-modal-level-val { font-family: ${CONFIG.typography.family}; color: ${CONFIG.colors.textDark}; font-weight: 700; font-size: 0.9rem; }
-                
-                .skills-modal-bar-wrap { width: 100%; height: 6px; background: #eef3f0; border-radius: 3px; overflow: hidden; margin-bottom: 40px; }
-                .skills-modal-bar { height: 100%; background: ${CONFIG.colors.primary}; border-radius: 3px; transition: width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
-
                 .skills-details-list { list-style: none; padding: 0; margin: 0 0 40px 0; text-align: left; }
                 .skills-details-item { 
                     position: relative; 
@@ -944,7 +929,7 @@ const SkillsAnimation = ({ active, onClose }) => {
                     margin-bottom: 16px;
                 }
                 .testimonial-author {
-                    font-weight: 700;
+                    font-weight: 500;
                     font-size: 0.85rem;
                     color: ${CONFIG.colors.primary};
                     text-transform: uppercase;
@@ -961,7 +946,7 @@ const SkillsAnimation = ({ active, onClose }) => {
 
             <canvas ref={canvasRef} className="skills-tree-canvas" />
 
-            {koalaVisible && createPortal(
+            {koalaVisible && !certOverlayVisible && createPortal(
                 <div className={`koala-container ${koalaVisible ? 'visible' : ''}`}>
                     <Lottie animationData={koalaData} loop={true} />
                 </div>,
@@ -987,14 +972,6 @@ const SkillsAnimation = ({ active, onClose }) => {
                             <h2 className="skills-modal-title">{modal.skill.name}</h2>
                             <p className="skills-modal-role">{modal.skill.role}</p>
                             
-                            <div className="skills-modal-level-row">
-                                <span className="skills-modal-level-label">ENGINEERING PROFICIENCY</span>
-                                <span className="skills-modal-level-val">{modal.skill.level}%</span>
-                            </div>
-                            <div className="skills-modal-bar-wrap">
-                                <div className="skills-modal-bar" style={{ width: `${modal.skill.level}%` }} />
-                            </div>
-
                             <ul className="skills-details-list">
                                 {modal.skill.details.map((detail, idx) => (
                                     <li key={idx} className="skills-details-item">{detail}</li>

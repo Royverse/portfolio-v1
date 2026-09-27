@@ -107,6 +107,6 @@ TitleReveal.propTypes = {
 };
 
 TitleReveal.defaultProps = {
-  fontFam: 'Avenir Helvetica Ariel',
+  fontFam: "'Syne', sans-serif",
 };
 export default TitleReveal;

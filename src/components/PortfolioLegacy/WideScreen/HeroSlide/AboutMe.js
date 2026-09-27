@@ -16,7 +16,8 @@ const AboutMeTitle = styled.div.attrs({
   }),
 })`
   transition: transform 0.5s ease-out;
-  font-family: 'AvenirHeavy';
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
   position: absolute;
   color: var(--ink);
   opacity: 0.07;
@@ -35,7 +36,8 @@ const AboutMeTitle = styled.div.attrs({
 
 const AboutMeDescription = styled.div`
   align-items: center;
-  font-family: 'AvenirLight';
+  font-family: 'Epilogue', sans-serif;
+  font-weight: 300;
   text-align: left;
   margin-left: 30%;
   margin-right: 5%;
@@ -89,8 +91,7 @@ class AboutMe extends Component {
         <AboutMeTitle scrollPercent={scrollPercent}>ABOUT ME</AboutMeTitle>
 
         <AboutMeDescription>
-        Software Engineer and UX Architect bridging the gap between rigorous engineering and human-centred design.
-        A systems thinker with a designer's eye, a chess strategist's patience, and a builder's bias for action.
+        Full-stack software engineer in Cape Town, currently building products for IMD Business School. I came to engineering through design systems, and I build web products end to end in TypeScript and Python, from the interface down to the API and its security.
         </AboutMeDescription>
       </Container>
     );

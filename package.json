@@ -1,7 +1,7 @@
 {
   "name": "roy-mootsana-portfolio",
   "version": "1.0.0",
-  "description": "Roy Mootsana — Software Engineer & UX Architect Portfolio",
+  "description": "Roy Mootsana — Full-Stack Software Engineer Portfolio",
   "homepage": "https://roymootsana.art",
   "scripts": {
     "predeploy": "npm run build",

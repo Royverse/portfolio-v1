@@ -6,86 +6,87 @@ import ChromaGrid from './ChromaGrid';
 const projects = [
   {
     num: '01', name: 'Air Canvas AI', sub: 'Gesture-controlled drawing',
-    tag: 'Creative · AI', tagBg: '#EEEDFE', tagColor: '#3C3489',
-    desc: 'A touchless painting engine built on MediaPipe\'s 21-point hand tracking. Pinch to draw, open palm to pause — Kalman filtering smooths out tremor and camera noise in real time, so every stroke feels deliberate.',
-    pills: ['MediaPipe Hands', 'Canvas 2D', 'Kalman Filter', 'Vite', 'Gesture Engine'],
+    tag: 'AI · Vision', tagBg: '#EEEDFE', tagColor: '#3C3489',
+    desc: 'Draw in the air in front of your webcam: pinch to draw, open your palm to pause. MediaPipe finds 21 points on your hand. The hard part was jitter, so a Kalman filter smooths out shaky hands and camera noise before anything reaches the canvas.',
+    pills: ['MediaPipe Hands', 'Canvas 2D', 'Kalman Filter', 'Vite'],
     url: 'https://air-canvas-ai.netlify.app/',
     sourceUrl: 'https://github.com/Royverse/air-canvas',
     draw: drawAC, drawM: drawACM
   },
   {
     num: '02', name: 'not financial advice.', sub: 'Terminal stock dashboard',
-    tag: 'Finance', tagBg: '#E1F5EE', tagColor: '#085041',
-    desc: 'A market terminal that merges live price data from Alpha Vantage with real-time social sentiment from X, feeding both into Gemini 2.0 to generate a single conviction score per ticker. Results are cached in Supabase. Three.js particle clouds respond to the market mood.',
+    tag: 'AI · Finance', tagBg: '#E1F5EE', tagColor: '#085041',
+    desc: 'Type a ticker and get one conviction score. It combines live prices from Alpha Vantage with what people are posting about the stock on X (through the Xpoz API), and Gemini weighs the two. Scores are cached in Supabase, and the Three.js background shifts with the market\'s mood.',
     pills: ['Next.js 15', 'Gemini 2.0', 'Alpha Vantage', 'Xpoz API', 'Supabase', 'Three.js'],
     url: 'https://notfinancialadvice.site/',
     draw: drawNFA, drawM: drawNFAM
   },
   {
-    num: '03', name: 'Mood Support', sub: 'Mood lifting interface',
+    num: '03', name: 'Mood Support', sub: 'Mood-lifting interface',
     tag: 'AI · Wellness', tagBg: '#FBEAF0', tagColor: '#72243E',
-    desc: 'An emotional support interface where the design responds to you. Select a mood state and the colour palette, animations, and tone all shift accordingly. Write about how you feel — Gemini AI analyses the entry and returns personalised, grounded guidance.',
-    pills: ['React', 'Gemini AI', 'Framer Motion', 'Serverless', 'CSS System'],
+    desc: 'Pick how you\'re feeling and the whole interface changes to match: colours, motion and tone. Write a few lines about your day and Gemini replies with a gentle, practical suggestion. A wellbeing experiment, not a substitute for professional support.',
+    pills: ['React', 'Gemini', 'Framer Motion', 'Serverless Functions'],
     url: 'https://mood-align.netlify.app/',
     draw: drawMA, drawM: drawMAM,
-    note: 'Subject to token limits'
+    note: 'Runs on a free API tier, so replies can pause when it\'s busy.'
   },
   {
-    num: '04', name: 'AR Portal', sub: 'WebXR augmented reality portals',
+    num: '04', name: 'AR Portal', sub: 'Marker-based AR in the browser',
     tag: 'AR · 3D', tagBg: '#E6F1FB', tagColor: '#0C447C',
-    desc: 'Point a camera at a physical marker and a 3D portal appears, anchored in real space. AR.js handles marker tracking while A-Frame renders a metallic frame with stabilised tracking. Step through it and the viewport opens into a full 360° virtual environment — entirely browser-native.',
-    pills: ['A-Frame', 'AR.js', 'Three.js', 'WebXR', 'WebGL'],
+    desc: 'Point your phone at a printed marker and a doorway appears on it, anchored in place. Step through and you\'re inside a 360° scene. It runs in the mobile browser with no app to install: AR.js tracks the marker and A-Frame draws the portal.',
+    pills: ['A-Frame', 'AR.js', 'Three.js', 'WebGL'],
     url: 'https://github.com/Royverse/AR-PORTAL',
+    urlLabel: 'View code ↗',
     draw: drawAR, drawM: drawARM
   },
   {
     num: '05', name: 'Midnight OS', sub: 'Browser-based OS interface',
     tag: 'Interface', tagBg: '#F1EFE8', tagColor: '#444441',
-    desc: 'A desktop OS experience built entirely in the browser using vanilla JavaScript. A custom DOM window manager handles multi-window layering, drag and resize. Inside: a Finder, a live browser widget, a Notes app persisted to LocalStorage, a calculator, and a clock.',
-    pills: ['Vanilla JS', 'HTML5', 'LocalStorage', 'DOM API', 'CSS System'],
+    desc: 'A desktop you can use in the browser: open, drag, resize and stack windows. Inside are a Finder, a small web browser, a Notes app that keeps your notes between visits, a calculator and a clock. Built with Next.js and React, with a hand-written window manager.',
+    pills: ['Next.js 16', 'React 19', 'LocalStorage'],
     url: 'https://midnight-os-demo.netlify.app/',
     draw: drawOS, drawM: drawOSM
   },
   {
     num: '06', name: 'LUMINARY', sub: 'Superhero flight engine',
-    tag: 'Game Engine', tagBg: '#E0F2F1', tagColor: '#0B7A8A',
-    desc: 'A 3D superhero flight engine built from first principles in Three.js. Aerodynamic lift and drag equations drive movement through a procedural neon city. A Verlet cloth solver animates the cape in real time, AABB partitioning handles building collisions at 60fps, and wind audio is synthesised live via the Web Audio API.',
-    pills: ['Three.js', 'WebGL', 'Verlet Physics', 'Web Audio API', 'AABB'],
+    tag: 'Game · 3D', tagBg: '#E0F2F1', tagColor: '#0B7A8A',
+    desc: 'Fly a superhero through a generated neon city. Flight runs on lift and drag physics rather than canned animation, the cape is a Verlet cloth simulation, and bounding boxes stop you flying through buildings. The wind you hear is generated live, not a recording.',
+    pills: ['Three.js', 'WebGL', 'Verlet Physics', 'Web Audio API'],
     url: 'https://luminary-flight.netlify.app/',
     sourceUrl: 'https://github.com/Royverse/luminary',
     draw: drawLuminary, drawM: drawLuminaryModal
   },
   {
-    num: '07', name: 'Wonderwave', sub: 'Gesture-controlled WebAR spellcasting',
-    tag: '3D · CV', tagBg: '#E0F7FA', tagColor: '#006064',
-    desc: 'A browser-native WebAR spellcasting arena driven by MediaPipe hand tracking. Users cast real-time magical spells, including Leviosa (levitation), Accio (pulling), and Depulso (repelling), on interactive 3D elements inside a Three.js scene. A custom physics engine simulates velocity, gravity, and collision feedback at 60fps, managed by a glassmorphic HUD.',
-    pills: ['MediaPipe Hands', 'Three.js', 'WebXR', 'Physics Engine', 'Gesture Math', 'Vite'],
+    num: '07', name: 'Wonderwave', sub: 'Gesture-controlled spellcasting',
+    tag: 'AI · Vision', tagBg: '#E0F7FA', tagColor: '#006064',
+    desc: 'Cast spells with your hand. Gestures in front of the webcam trigger Leviosa (lift), Accio (pull) and Depulso (push) on objects in a Three.js scene. MediaPipe tracks the hand, a One Euro filter steadies it, and the physics (velocity, gravity, collisions) is written from scratch.',
+    pills: ['MediaPipe Tasks', 'Three.js', 'TypeScript', 'Vite'],
     url: 'https://wand-wave.netlify.app/',
     sourceUrl: 'https://github.com/Royverse/wand-wave',
     draw: drawWonderwave, drawM: drawWonderwaveM
   },
   {
     num: '08', name: 'ECHO', sub: 'Voice-controlled 3D robot sandbox',
-    tag: 'AI · Speech', tagBg: '#F3E5F5', tagColor: '#4A148C',
-    desc: 'A voice-driven 3D robot playground built with Three.js. Processes natural spoken commands sequentially with local fuzzy regex parsing or Gemini 2.5 Flash NLU. Features continuous listening, speech synthesis (Polly API), and real-time procedural sound effects synthesized dynamically using the Web Audio API.',
-    pills: ['Three.js', 'Web Speech API', 'Gemini 2.5', 'Web Audio API', 'Procedural SFX'],
+    tag: 'AI · Voice', tagBg: '#F3E5F5', tagColor: '#4A148C',
+    desc: 'Tell a 3D robot what to do ("walk forward three steps, then turn left") and it works through the list. Simple commands are parsed in the browser; looser phrasing goes to Gemini 2.5 Flash. It answers out loud in a Gemini voice, falling back to Polly and then the browser, and its sound effects are generated live.',
+    pills: ['Three.js', 'Web Speech API', 'Gemini 2.5 Flash', 'Web Audio API'],
     url: 'https://echo-voice-sandbox.netlify.app/',
     sourceUrl: 'https://github.com/Royverse/echo',
     draw: drawEcho, drawM: drawEchoModal
   },
   {
-    num: '09', name: 'milkyway.ai', sub: 'NVIDIA NIM developer galaxy',
+    num: '09', name: 'milkyway.ai', sub: 'A star map of NVIDIA\'s AI models',
     tag: 'AI · Dev Tools', tagBg: '#EAF1FF', tagColor: '#1E3A6E',
-    desc: 'An immersive deep-space developer environment and interactive showcase of the NVIDIA NIM microservice galaxy. Explore, benchmark, and prototype conversational, reasoning, coding, and vision models.',
-    pills: ['React 18', 'Vite', 'NVIDIA NIM', 'SSE Streaming', 'Canvas 2D', 'Glassmorphism'],
+    desc: 'A space-themed workspace for the AI models hosted on NVIDIA NIM. A star map groups the models by provider. From there you can put two models side by side in a chat arena, or try them in code, reasoning, embedding and vision labs, with replies streaming in as they\'re generated.',
+    pills: ['React 18', 'Vite', 'NVIDIA NIM', 'SSE Streaming', 'Canvas 2D'],
     url: 'https://milkyway-ai-galaxy.netlify.app/',
     draw: drawIC, drawM: drawICM
   },
   {
     num: '10', name: 'Cold Wake', sub: 'Zero-asset WebGL2 survival game',
     tag: 'Game · WebGL2', tagBg: '#E4F4FB', tagColor: '#0B4F6C',
-    desc: 'A WebGL2 survival game built from absolute zero — no sprites, no models, no audio files. Every visual is procedurally generated on the GPU each frame; every sound is synthesised live via the Web Audio API. Escape a frozen lake by swimming toward a fracturing ice ceiling while a real-time physics engine simulates buoyancy, drag, and ice-shard collisions.',
-    pills: ['WebGL2 (raw)', 'GLSL Shaders', 'Web Audio API', 'Physics Sim', 'Procedural Gen'],
+    desc: 'You\'ve gone through the ice on a frozen lake. Swim for the cracking ceiling and break out, with buoyancy, drag and ice-shard collisions all simulated. There isn\'t a single image, model or sound file in it: shaders draw every frame and every sound is generated in code.',
+    pills: ['WebGL2', 'GLSL Shaders', 'Web Audio API'],
     url: 'https://cold-wake-game-1.netlify.app/',
     sourceUrl: 'https://github.com/Royverse/cold-wake',
     draw: drawColdWake, drawM: drawColdWakeM,
@@ -1410,7 +1411,7 @@ const WorkShowcase = ({ active, onClose }) => {
           <div className="port" style={{ borderRadius: 24, background: 'transparent' }}>
             <div className="port-header">
               <span className="port-title" id="port-title">AI EXPERIMENTS & PROJECTS</span>
-              <span className="port-count">{projects.length < 10 ? '0' + projects.length : projects.length} deployments</span>
+              <span className="port-count">{projects.length < 10 ? '0' + projects.length : projects.length} projects</span>
             </div>
             <div className="port-grid-scroll">
               <ChromaGrid items={projects} onSelect={openProject} active={active} />
@@ -1470,7 +1471,7 @@ const WorkShowcase = ({ active, onClose }) => {
                         {selectedProject.sourceUrl && (
                           <a className="modal-link modal-link--ghost" href={selectedProject.sourceUrl} target="_blank" rel="noopener noreferrer">Source ↗</a>
                         )}
-                        <a className="modal-link" href={selectedProject.url} target="_blank" rel="noopener noreferrer">Visit project ↗</a>
+                        <a className="modal-link" href={selectedProject.url} target="_blank" rel="noopener noreferrer">{selectedProject.urlLabel || 'Visit project ↗'}</a>
                       </div>
                     </div>
                   </>

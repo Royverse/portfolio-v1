@@ -15,7 +15,8 @@ width: 50%;
 `;
 
 const ProjectName = styled.div`
-  font-family: 'AvenirHeavy';
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
   @media ${device.laptop} {
     font-size: 70px;
   }
@@ -31,7 +32,8 @@ const ProjectName = styled.div`
 
 const ProjectDesc = styled.div`
   padding-top:2%;
-  font-family: 'AvenirBook';
+  line-height: 1.35;
+  font-family: 'Epilogue', sans-serif;
   @media ${device.laptop} {
     font-size: 25px;
   }
@@ -46,7 +48,7 @@ const ProjectDesc = styled.div`
 
 const MyRole = styled.div`
   padding-top:5%;
-  font-family: 'AvenirMedium';
+  font-family: 'DM Mono', monospace;
   @media ${device.laptop} {
     font-size: 25px;
   }
@@ -60,7 +62,8 @@ const MyRole = styled.div`
 `;
 
 const ProjectID = styled.div`
-  font-family: 'AvenirHeavy';
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
   @media ${device.laptop} {
     font-size: 25px;
   }
@@ -76,7 +79,8 @@ const ProjectID = styled.div`
 `;
 
 const ProjectType = styled.div`
-  font-family: 'AvenirHeavy';
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
   @media ${device.laptop} {
     font-size: 25px;
   }
@@ -88,6 +92,7 @@ const ProjectType = styled.div`
   }
   /* border: 1px dashed black; */
   padding: 5%;
+  padding-bottom: 96px; /* clears the round menu button in the corner */
 `;
 
 const ProjectDetails = styled.div`
@@ -142,7 +147,7 @@ display:${props => (props.inline ? 'inline-block' : 'block')};
 color: var(--ink);
 text-shadow: var(--aura-glow);
 letter-spacing: 0.01em;
-font-weight: 700;
+font-weight: inherit;
 position: relative;
 
 &::after{

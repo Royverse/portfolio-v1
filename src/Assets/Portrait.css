@@ -1,4 +1,4 @@
-/* 3D Floating Work Card Styles (Playfair Display comes from the font link in index.html) */
+/* 3D Floating Work Card Styles */
 
 .portrait-wrap {
   position: absolute;
@@ -183,9 +183,9 @@
 }
 
 .caption {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.4rem;
-  font-weight: 400;
+  font-family: 'Syne', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 500;
   color: #fffcf5;
   line-height: 1.2;
   letter-spacing: -0.01em;

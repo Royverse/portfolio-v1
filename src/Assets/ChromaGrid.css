@@ -124,7 +124,7 @@
   right: 12px;
   font-family: 'DM Mono', monospace;
   font-size: 7px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(80, 215, 250, 0.95);
@@ -167,6 +167,7 @@
 }
 
 .card-name {
+  font-family: 'Syne', sans-serif;
   font-size: 12px;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.95);

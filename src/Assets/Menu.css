@@ -836,7 +836,7 @@ body {
 .sys-insp-icon {
   font-family: 'DM Mono', monospace;
   font-size: 8px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0;
   color: var(--ink-muted);
   border: 0.5px solid var(--border);
@@ -951,9 +951,9 @@ body.theme-winter .insp-modal-container {
 }
 
 .header-title {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: 26px;
-  font-weight: 700;
+  font-family: 'Syne', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
   letter-spacing: 0.08em;
   margin: 0;
   text-transform: uppercase;
@@ -1088,7 +1088,7 @@ body.theme-winter .header-title {
 }
 
 .section-subtitle {
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'DM Mono', monospace;
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.15em;
@@ -1097,7 +1097,7 @@ body.theme-winter .header-title {
 }
 
 .section-text {
-  font-family: 'Barlow', sans-serif;   /* humanist, easy to read for long prose */
+  font-family: 'Epilogue', sans-serif;
   font-size: 14.5px;
   line-height: 1.72;
   letter-spacing: 0.003em;
@@ -1106,7 +1106,7 @@ body.theme-winter .header-title {
 }
 
 .section-text strong {
-  font-weight: 600;
+  font-weight: 500;
   color: var(--accent);
 }
 
@@ -1235,9 +1235,9 @@ body.theme-winter .carousel-view-wrapper {
 }
 
 .slide-title {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
   letter-spacing: 0.06em;
   margin: 0;
   text-transform: uppercase;
@@ -1253,7 +1253,7 @@ body.theme-winter .slide-title {
 }
 
 .slide-caption {
-  font-family: 'Barlow', sans-serif;
+  font-family: 'Epilogue', sans-serif;
   font-size: 12.5px;
   line-height: 1.62;
   letter-spacing: 0.003em;

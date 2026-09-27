@@ -132,7 +132,7 @@
 .port-title {
   font-family: 'Epilogue', sans-serif;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: rgba(20, 31, 26, 0.6);
@@ -147,7 +147,7 @@
 .port-count {
   font-family: 'DM Mono', monospace;
   font-size: 11px;
-  color: var(--ink-faint);
+  color: var(--ink-muted);
   letter-spacing: 0.08em;
 }
 
@@ -229,8 +229,9 @@
   margin-bottom: 8px;
 }
 .modal-name {
+  font-family: 'Syne', sans-serif;
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 600;
   color: #141f1a;
   line-height: 1.2;
 }
@@ -297,7 +298,7 @@
 }
 .m-pill {
   font-size: 10px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.05em;
   padding: 4px 10px;
   border-radius: 99px;
@@ -309,7 +310,7 @@
 
 .modal-link {
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.05em;
   padding: 8px 16px;
   border-radius: 99px;

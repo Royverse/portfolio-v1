@@ -10,7 +10,7 @@ import ReadpointImages from './ParallaxImages/ReadpointImages';
 const ImageContainer = styled.div`
   margin-left: 50%;
   width: 50%;
-  height: 750vh;
+  height: 890vh;
   display: flex;
   flex-flow: column nowrap;
 `;
@@ -49,7 +49,7 @@ class ImageContent extends Component {
     const sd = Math.max(body.scrollTop, documentElement.scrollTop);
     const sp = (sd / (documentElement.scrollHeight - documentElement.clientHeight) * 100);
     const minlimit = (documentElement.clientHeight * 100) / documentElement.scrollHeight;
-    const maxlimit = (documentElement.clientHeight * 1040) / documentElement.scrollHeight;
+    const maxlimit = (documentElement.clientHeight * 1180) / documentElement.scrollHeight;
     if (sp >= minlimit && sp <= maxlimit) {
       this.setState({ scrollPercent: sp });
     }
@@ -61,17 +61,10 @@ class ImageContent extends Component {
     const boxHeight = pageSplitTimes * 100;
     return (
       <ImageContainer>
+        {/* IMD: its panel is pinned by Work while the slide is active */}
+        <ImageBox height={boxHeight} />
         <ImageBox height={boxHeight}>
           <BluePrintImages
-            boxHeight={boxHeight}
-            index={1}
-            scrollPercent={scrollPercent}
-            screenHeight={screenHeight}
-            scrollHeight={scrollHeight}
-          />
-        </ImageBox>
-        <ImageBox height={boxHeight}>
-          <BluePrintAppsImages
             boxHeight={boxHeight}
             index={2}
             scrollPercent={scrollPercent}
@@ -80,7 +73,7 @@ class ImageContent extends Component {
           />
         </ImageBox>
         <ImageBox height={boxHeight}>
-          <AdminPortalImages
+          <BluePrintAppsImages
             boxHeight={boxHeight}
             index={3}
             scrollPercent={scrollPercent}
@@ -89,7 +82,7 @@ class ImageContent extends Component {
           />
         </ImageBox>
         <ImageBox height={boxHeight}>
-          <NailBoutiqueImages
+          <AdminPortalImages
             boxHeight={boxHeight}
             index={4}
             scrollPercent={scrollPercent}
@@ -98,9 +91,18 @@ class ImageContent extends Component {
           />
         </ImageBox>
         <ImageBox height={boxHeight}>
-          <ReadpointImages
+          <NailBoutiqueImages
             boxHeight={boxHeight}
             index={5}
+            scrollPercent={scrollPercent}
+            screenHeight={screenHeight}
+            scrollHeight={scrollHeight}
+          />
+        </ImageBox>
+        <ImageBox height={boxHeight}>
+          <ReadpointImages
+            boxHeight={boxHeight}
+            index={6}
             scrollPercent={scrollPercent}
             screenHeight={screenHeight}
             scrollHeight={scrollHeight}

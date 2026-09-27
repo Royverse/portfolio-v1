@@ -18,7 +18,8 @@ const TextContainer = styled.section`
 `;
 
 const ProjectID = styled(motion.div)`
-  font-family: 'AvenirHeavy', sans-serif;
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
   font-size: 14px;
   letter-spacing: 0.3em;
   color: var(--accent);
@@ -31,7 +32,8 @@ const ProjectNameStage = styled.div`
 `;
 
 const ProjectName = styled(motion.h2)`
-  font-family: 'AvenirHeavy', sans-serif;
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
   color: var(--ink);
   line-height: 1;
   margin-bottom: 0;
@@ -47,7 +49,7 @@ const MyRoleStage = styled.div`
 `;
 
 const MyRole = styled(motion.div)`
-  font-family: 'AvenirMedium', sans-serif;
+  font-family: 'DM Mono', monospace;
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -56,7 +58,7 @@ const MyRole = styled(motion.div)`
 `;
 
 const ProjectDesc = styled(motion.p)`
-  font-family: 'AvenirRoman', sans-serif;
+  font-family: 'Epilogue', sans-serif;
   color: var(--ink);
   line-height: 1.6;
   max-width: 90%;
@@ -69,7 +71,8 @@ const ProjectType = styled(motion.div)`
   position: absolute;
   bottom: 40px;
   right: 24px;
-  font-family: 'AvenirHeavy', sans-serif;
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
   font-size: 10px;
   letter-spacing: 0.3em;
   color: var(--ink-faint);
