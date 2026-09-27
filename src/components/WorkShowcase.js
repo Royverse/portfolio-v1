@@ -91,6 +91,16 @@ const projects = [
     sourceUrl: 'https://github.com/Royverse/cold-wake',
     draw: drawColdWake, drawM: drawColdWakeM,
     isNew: true
+  },
+  {
+    num: '11', name: 'Overtone', sub: 'Piano and hand-conducted orchestra',
+    tag: 'AI · Music', tagBg: '#F6EEDD', tagColor: '#6B4A14',
+    desc: 'A piano you can see inside. As you play, the strings under the lid ring, and every note, interval and chord is named and written on a staff. Then pick up the baton: conduct in front of your webcam and a string orchestra follows your beat. Raise your hand for louder, pinch for pizzicato, make a fist to stop. No samples: even the applause is synthesised.',
+    pills: ['Web Audio API', 'Web Workers', 'MediaPipe Tasks', 'Web MIDI', 'Vanilla JS'],
+    url: 'https://royverse.github.io/piano/',
+    sourceUrl: 'https://github.com/Royverse/piano',
+    draw: drawOvertone, drawM: drawOvertoneM,
+    isNew: true
   }
 ];
 
@@ -1316,6 +1326,384 @@ function drawColdWakeM(ctx, w, h, t) {
   ctx.font = `600 ${h * 0.05}px 'DM Mono',monospace`;
   ctx.fillStyle = 'rgba(80,200,240,0.65)';
   ctx.fillText('zero-asset webgl2 survival engine', 16, h * 0.91);
+}
+
+/* ============================================================
+   OVERTONE — a piano you can see inside, and a string
+   orchestra you conduct with your hands.
+   Both canvases borrow the app's own layout: strings under the
+   lid on black lacquer, the brass OVERTONE rail, then the keys.
+   Thumbnail: a chord is struck every few seconds. Its strings
+   ring gold, the octave strings answer in sympathy (the loops
+   show which overtone they're answering) and the readout names
+   the chord.
+   Modal: conduct mode. A gold baton trail beats time over the
+   strings, every ictus re-bows the current chord of the Canon,
+   and the readout on the right gives chord, function, tempo
+   and dynamic.
+   ============================================================ */
+const OT_LO = 48;   // C3, the lowest string and key drawn
+const OT_HI = 83;   // B5
+const OT_SERIF = '"Bodoni 72", Didot, "Bodoni MT", Georgia, "Times New Roman", serif';
+const OT_BEAT = 60 / 72;   // Adagio, 72 beats a minute
+
+const OT_PIANO = [
+  { root: 'C', q: 'maj7', notes: [48, 60, 64, 67, 71] },
+  { root: 'A', q: 'm7', notes: [57, 60, 64, 67] },
+  { root: 'F', q: 'maj7', notes: [53, 57, 60, 64] },
+  { root: 'G', q: '7', notes: [55, 59, 62, 65] }
+];
+
+// Pachelbel's progression in D, two beats to a chord.
+const OT_CANON = [
+  { root: 'D', q: '', fn: 'I', notes: [50, 62, 66, 69] },
+  { root: 'A', q: '', fn: 'V', notes: [57, 61, 64, 69] },
+  { root: 'B', q: 'm', fn: 'vi', notes: [59, 62, 66, 71] },
+  { root: 'F♯', q: 'm', fn: 'iii', notes: [54, 61, 66, 69] },
+  { root: 'G', q: '', fn: 'IV', notes: [55, 62, 67, 71] },
+  { root: 'D', q: '', fn: 'I', notes: [50, 62, 66, 69] },
+  { root: 'G', q: '', fn: 'IV', notes: [55, 59, 62, 67] },
+  { root: 'A', q: '', fn: 'V', notes: [57, 61, 64, 69] }
+];
+
+function otIsBlack(n) { return [1, 3, 6, 8, 10].indexOf(n % 12) !== -1; }
+
+// Letter-spaced text drawn glyph by glyph (canvas letterSpacing isn't in every browser we support).
+function otSpaced(ctx, text, x, y, gap, measureOnly) {
+  let cx = x;
+  text.split('').forEach((ch, i) => {
+    if (!measureOnly) ctx.fillText(ch, cx, y);
+    cx += ctx.measureText(ch).width + (i < text.length - 1 ? gap : 0);
+  });
+  return cx - x;
+}
+
+// Chord symbol as the app sets it: an upright root with the quality in raised italics.
+function otChordName(ctx, root, q, x, baseline, size, alignRight) {
+  const qSize = size * 0.55;
+  ctx.font = `400 ${size}px ${OT_SERIF}`;
+  const rw = ctx.measureText(root).width;
+  ctx.font = `italic 400 ${qSize}px ${OT_SERIF}`;
+  const qw = q ? ctx.measureText(q).width + size * 0.05 : 0;
+  const left = alignRight ? x - rw - qw : x;
+  ctx.font = `400 ${size}px ${OT_SERIF}`;
+  ctx.fillText(root, left, baseline);
+  if (q) {
+    ctx.font = `italic 400 ${qSize}px ${OT_SERIF}`;
+    ctx.fillText(q, left + rw + size * 0.05, baseline - size * 0.34);
+  }
+}
+
+function otBackdrop(ctx, w, h, glowX, glowY) {
+  const bg = ctx.createLinearGradient(0, 0, 0, h);
+  bg.addColorStop(0, '#0f0c0a');
+  bg.addColorStop(1, '#1a130d');
+  ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h);
+  // warm soundboard glow down on the bass side
+  const glow = ctx.createRadialGradient(glowX, glowY, 0, glowX, glowY, w * 0.6);
+  glow.addColorStop(0, 'rgba(122,72,30,0.34)');
+  glow.addColorStop(1, 'rgba(122,72,30,0)');
+  ctx.fillStyle = glow; ctx.fillRect(0, 0, w, h);
+}
+
+// One string per key from OT_LO to OT_HI, long in the bass and short in the treble.
+// ring maps a note to { amp: 0..1, loops: which mode it vibrates in, lifted: damper raised }.
+function otStrings(ctx, x0, x1, topL, topR, base, ring, t) {
+  const count = OT_HI - OT_LO + 1;
+  const step = (x1 - x0) / (count - 1);
+  const maxA = Math.max(1.5, Math.min(step * 0.85, 7));
+  const segs = 20;
+  const damperH = Math.max(3, Math.min(6, step * 0.8));
+  const damperW = Math.max(2, Math.min(5, step * 0.55));
+
+  for (let i = 0; i < count; i++) {
+    const note = OT_LO + i;
+    const x = x0 + i * step;
+    const top = topL + (topR - topL) * (i / (count - 1));
+    const len = base - top;
+    const r = ring[note];
+
+    if (r && r.amp > 0.02) {
+      const a = maxA * r.amp;
+      const loops = r.loops || 1;
+      // the blur of a ringing string: a lens around it, one per loop
+      ctx.beginPath();
+      for (let k = 0; k <= segs; k++) {
+        const s = k / segs;
+        const d = a * Math.abs(Math.sin(Math.PI * loops * s));
+        if (k === 0) ctx.moveTo(x + d, top); else ctx.lineTo(x + d, top + s * len);
+      }
+      for (let k = segs; k >= 0; k--) {
+        const s = k / segs;
+        ctx.lineTo(x - a * Math.abs(Math.sin(Math.PI * loops * s)), top + s * len);
+      }
+      ctx.closePath();
+      ctx.fillStyle = `rgba(201,163,91,${0.08 + r.amp * 0.22})`;
+      ctx.fill();
+      // and the string itself, caught mid-swing
+      const swing = Math.sin(t * (26 + i * 0.9) + i);
+      ctx.beginPath();
+      for (let k = 0; k <= segs; k++) {
+        const s = k / segs;
+        const d = a * Math.sin(Math.PI * loops * s) * swing;
+        if (k === 0) ctx.moveTo(x + d, top); else ctx.lineTo(x + d, top + s * len);
+      }
+      ctx.strokeStyle = `rgba(237,210,154,${0.4 + r.amp * 0.55})`;
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+    } else {
+      // copper-wound strings in the bass, steel above
+      ctx.beginPath(); ctx.moveTo(x, top); ctx.lineTo(x, base);
+      ctx.strokeStyle = i < 8 ? 'rgba(181,111,62,0.5)' : 'rgba(239,231,214,0.17)';
+      ctx.lineWidth = i < 8 ? 1.4 : 1;
+      ctx.stroke();
+    }
+
+    // felt damper, lifted off any string that's allowed to ring
+    const dy = base - damperH * 2.2 - (r && r.lifted ? damperH * 0.7 : 0);
+    ctx.fillStyle = '#0a0806';
+    ctx.fillRect(x - damperW / 2, dy, damperW, damperH);
+    ctx.fillStyle = 'rgba(210,66,79,0.75)';
+    ctx.fillRect(x - damperW / 2, dy + damperH - 1, damperW, 1);
+  }
+
+  // the plate line the strings hang from
+  ctx.strokeStyle = 'rgba(201,163,91,0.3)'; ctx.lineWidth = 0.8;
+  ctx.beginPath(); ctx.moveTo(x0 - step, topL); ctx.lineTo(x1 + step, topR); ctx.stroke();
+}
+
+// The brass name rail between the strings and the keys, with the felt strip under it.
+function otRail(ctx, w, y, railH, left, right) {
+  ctx.fillStyle = '#120e0b'; ctx.fillRect(0, y, w, railH);
+  ctx.fillStyle = 'rgba(201,163,91,0.18)'; ctx.fillRect(0, y, w, 1);
+
+  const size = Math.max(7, railH * 0.46);
+  const ly = y + railH / 2 + size * 0.34;
+  ctx.font = `500 ${size}px ${OT_SERIF}`;
+  ctx.fillStyle = 'rgba(201,163,91,0.92)';
+  const gap = size * 0.62;
+  otSpaced(ctx, 'OVERTONE', (w - otSpaced(ctx, 'OVERTONE', 0, 0, gap, true)) / 2, ly, gap);
+
+  if (left || right) {
+    const small = Math.max(7, railH * 0.3);
+    ctx.font = `400 ${small}px 'DM Mono',monospace`;
+    ctx.fillStyle = 'rgba(179,165,142,0.7)';
+    if (left) ctx.fillText(left, railH * 0.7, ly - (size - small) * 0.34);
+    if (right) ctx.fillText(right, w - railH * 0.7 - ctx.measureText(right).width, ly - (size - small) * 0.34);
+  }
+
+  ctx.fillStyle = '#7a2331'; ctx.fillRect(0, y + railH - 2, w, 2);
+}
+
+// Ivory and ebony keys from OT_LO to OT_HI; held notes take on the brass glow.
+function otKeys(ctx, x0, x1, y0, y1, held) {
+  let whites = 0;
+  for (let n = OT_LO; n <= OT_HI; n++) if (!otIsBlack(n)) whites++;
+  const ww = (x1 - x0) / whites;
+  const kh = y1 - y0;
+  const whiteX = {};
+
+  let wi = 0;
+  for (let n = OT_LO; n <= OT_HI; n++) {
+    if (!otIsBlack(n)) {
+      const x = x0 + wi * ww;
+      whiteX[n] = x;
+      ctx.fillStyle = held.indexOf(n) !== -1 ? '#e6c98f' : '#efe7d6';
+      ctx.fillRect(x + 0.5, y0, ww - 1, kh);
+      ctx.fillStyle = 'rgba(60,40,20,0.14)';
+      ctx.fillRect(x + 0.5, y1 - Math.max(2, kh * 0.06), ww - 1, Math.max(2, kh * 0.06));
+      wi++;
+    }
+  }
+
+  const bw = ww * 0.58;
+  const bh = kh * 0.6;
+  for (let n = OT_LO; n <= OT_HI; n++) {
+    if (otIsBlack(n)) {
+      const x = whiteX[n - 1] + ww - bw / 2;
+      ctx.fillStyle = held.indexOf(n) !== -1 ? '#7a5a26' : '#14100d';
+      ctx.fillRect(x, y0, bw, bh);
+      ctx.fillStyle = 'rgba(255,255,255,0.07)';
+      ctx.fillRect(x + bw * 0.18, y0 + bh - Math.max(2, bh * 0.1), bw * 0.64, Math.max(1, bh * 0.05));
+    }
+  }
+
+  // shadow cast by the rail onto the top of the keys
+  const shade = ctx.createLinearGradient(0, y0, 0, y0 + kh * 0.22);
+  shade.addColorStop(0, 'rgba(0,0,0,0.4)');
+  shade.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = shade; ctx.fillRect(x0, y0, x1 - x0, kh * 0.22);
+}
+
+function drawOvertone(ctx, w, h, t) {
+  ctx.save();
+  const railY = h * 0.62;
+  const railH = Math.max(11, h * 0.1);
+  otBackdrop(ctx, w, h, w * 0.1, railY);
+
+  // a chord every 2.6 s: struck, held for 2 s, then the dampers drop
+  const period = 2.6;
+  const hold = 2;
+  const idx = Math.floor(t / period);
+  const chord = OT_PIANO[((idx % 4) + 4) % 4];
+  const dt = t - idx * period;
+  const held = dt < hold;
+  const env = held ? Math.exp(-dt * 0.8) : Math.exp(-hold * 0.8) * Math.exp(-(dt - hold) * 9);
+
+  const ring = {};
+  chord.notes.forEach(n => {
+    // octave strings answer: the one above rings whole, the one below in two loops
+    [[n + 12, 1], [n - 12, 2]].forEach(([m, loops]) => {
+      if (m >= OT_LO && m <= OT_HI && chord.notes.indexOf(m) === -1) ring[m] = { amp: env * 0.35, loops, lifted: held };
+    });
+  });
+  chord.notes.forEach(n => { ring[n] = { amp: env, loops: 1, lifted: held }; });
+
+  otStrings(ctx, w * 0.05, w * 0.95, h * 0.15, h * 0.45, railY, ring, t);
+
+  // the readout names what you're holding; on small cards it drops to clear the NEW badge
+  const size = h * 0.17;
+  const fadeIn = Math.min(1, dt * 5);
+  const fadeOut = dt > period - 0.3 ? (period - dt) / 0.3 : 1;
+  ctx.globalAlpha = fadeIn * fadeOut;
+  ctx.fillStyle = '#efe7d6';
+  otChordName(ctx, chord.root, chord.q, w - 12, Math.max(h * 0.33, 28 + size * 0.8), size, true);
+  ctx.globalAlpha = 1;
+
+  otRail(ctx, w, railY, railH);
+  otKeys(ctx, 0, w, railY + railH, h, held ? chord.notes : []);
+  ctx.restore();
+}
+
+// Where the baton tip is at time t. Four beats to the bar (down, left, right, up):
+// a quick rebound off each ictus, then an accelerating fall into the next one.
+function otBaton(t, cx, ictusY, spread, lift) {
+  const pattern = [[0, 0], [-0.9, 0.12], [0.9, 0.12], [0.3, 0.3]];
+  const b = t / OT_BEAT;
+  const k = Math.floor(b);
+  const f = b - k;
+  const from = pattern[((k % 4) + 4) % 4];
+  const to = pattern[(((k + 1) % 4) + 4) % 4];
+  const energy = 0.5 + 0.5 * Math.sin(t * 0.3);   // bigger gestures, louder strings
+  const e = f * f * (3 - 2 * f);
+  const floorY = ictusY - lift * (from[1] + (to[1] - from[1]) * e);
+  return {
+    x: cx + spread * (from[0] + (to[0] - from[0]) * e),
+    y: floorY - lift * (0.55 + 0.45 * energy) * Math.sin(Math.PI * Math.pow(f, 0.75)),
+    ictusX: cx + spread * from[0],
+    ictusY: ictusY - lift * from[1],
+    beat: k,
+    f,
+    energy
+  };
+}
+
+function drawOvertoneM(ctx, w, h, t) {
+  ctx.save();
+  const sceneW = w * 0.58;
+  const railY = h * 0.7;
+  const railH = Math.max(14, h * 0.075);
+  otBackdrop(ctx, w, h, w * 0.08, railY);
+
+  const x0 = w * 0.06;
+  const x1 = sceneW - w * 0.03;
+  const bat = otBaton(t, (x0 + x1) / 2, h * 0.5, (x1 - x0) * 0.2, h * 0.3);
+  const c = ((Math.floor(bat.beat / 2) % 8) + 8) % 8;
+  const chord = OT_CANON[c];
+  const prev = OT_CANON[(c + 7) % 8];
+  const firstBeat = ((bat.beat % 2) + 2) % 2 === 0;
+
+  // every beat re-bows the chord, and the size of the gesture sets how hard
+  const bow = (0.45 + 0.55 * Math.exp(-bat.f * OT_BEAT * 3.5)) * (0.55 + 0.45 * bat.energy);
+  const ring = {};
+  if (firstBeat && bat.f < 0.15) {
+    prev.notes.forEach(n => { ring[n] = { amp: (1 - bat.f / 0.15) * 0.5, loops: 1, lifted: true }; });
+  }
+  chord.notes.forEach(n => { ring[n] = { amp: bow, loops: 1, lifted: true }; });
+  otStrings(ctx, x0, x1, h * 0.1, h * 0.3, railY, ring, t);
+
+  // dynamics gauge down the left edge, as in the app
+  const gx = w * 0.022;
+  const gTop = h * 0.12;
+  const gBot = railY - h * 0.1;
+  ctx.fillStyle = 'rgba(201,163,91,0.25)'; ctx.fillRect(gx, gTop, 1, gBot - gTop);
+  const gy = gBot - (gBot - gTop) * bat.energy;
+  ctx.fillStyle = 'rgba(201,163,91,0.6)'; ctx.fillRect(gx, gy, 1, gBot - gy);
+  ctx.beginPath(); ctx.arc(gx + 0.5, gy, 2.5, 0, Math.PI * 2); ctx.fillStyle = '#edd29a'; ctx.fill();
+  ctx.font = `italic 600 ${Math.max(8, h * 0.045)}px ${OT_SERIF}`;
+  ctx.fillStyle = 'rgba(179,165,142,0.7)';
+  ctx.fillText('ff', gx + 5, gTop + h * 0.02);
+  ctx.fillText('p', gx + 5, gBot);
+
+  // beat ripple where the baton just landed
+  const rip = 1 - bat.f;
+  ctx.beginPath(); ctx.arc(bat.ictusX, bat.ictusY, 3 + bat.f * h * 0.1, 0, Math.PI * 2);
+  ctx.strokeStyle = `rgba(237,210,154,${rip * rip * 0.7})`; ctx.lineWidth = 1.2; ctx.stroke();
+
+  // baton trail, fading back over the last two thirds of a second
+  ctx.lineCap = 'round';
+  const trail = 30;
+  let last = bat;
+  for (let j = 1; j <= trail; j++) {
+    const p = otBaton(t - j * 0.022, (x0 + x1) / 2, h * 0.5, (x1 - x0) * 0.2, h * 0.3);
+    const fade = 1 - j / trail;
+    ctx.strokeStyle = `rgba(237,210,154,${fade * 0.85})`;
+    ctx.lineWidth = 0.6 + fade * 2.2;
+    ctx.beginPath(); ctx.moveTo(last.x, last.y); ctx.lineTo(p.x, p.y); ctx.stroke();
+    last = p;
+  }
+  const tip = ctx.createRadialGradient(bat.x, bat.y, 0, bat.x, bat.y, 14);
+  tip.addColorStop(0, 'rgba(237,210,154,0.55)');
+  tip.addColorStop(1, 'rgba(237,210,154,0)');
+  ctx.fillStyle = tip; ctx.beginPath(); ctx.arc(bat.x, bat.y, 14, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(bat.x, bat.y, 3.2, 0, Math.PI * 2); ctx.fillStyle = '#fff6e0'; ctx.fill();
+
+  // readout panel
+  ctx.fillStyle = 'rgba(12,9,7,0.9)'; ctx.fillRect(sceneW, 0, w - sceneW, railY);
+  ctx.fillStyle = 'rgba(201,163,91,0.2)'; ctx.fillRect(sceneW, 0, 1, railY);
+  const pad = Math.max(12, w * 0.03);
+  const hx = sceneW + pad;
+  const small = Math.max(7, h * 0.036);
+
+  ctx.font = `500 ${small}px 'DM Mono',monospace`;
+  ctx.fillStyle = 'rgba(201,163,91,0.95)';
+  otSpaced(ctx, 'CANON', hx, h * 0.12, small * 0.3);
+  const bar = ((Math.floor(bat.beat / 4) % 8) + 8) % 8;
+  const beatInBar = ((bat.beat % 4) + 4) % 4;
+  const where = `bar ${bar + 1} · beat ${beatInBar + 1}`;
+  ctx.fillStyle = 'rgba(179,165,142,0.75)';
+  ctx.fillText(where, w - pad - ctx.measureText(where).width, h * 0.12);
+
+  ctx.globalAlpha = firstBeat ? Math.min(1, bat.f * 6) : 1;
+  ctx.fillStyle = '#efe7d6';
+  otChordName(ctx, chord.root, chord.q, hx, h * 0.35, h * 0.19, false);
+  ctx.globalAlpha = 1;
+
+  const dynamic = ['p', 'mp', 'mf', 'f', 'ff'][Math.min(4, Math.floor(bat.energy * 5))];
+  // [label, value, shorter value for narrow screens, weight]
+  const rows = [
+    ['IN D MAJOR', chord.fn, chord.fn, '400'],
+    ['TEMPO', 'Adagio · 72 bpm', '72 bpm', 'italic 400'],
+    ['DYNAMIC', dynamic, dynamic, 'italic 600']
+  ];
+  ctx.font = `500 ${small}px 'DM Mono',monospace`;
+  const labelW = rows.reduce((m, [label]) => Math.max(m, otSpaced(ctx, label, 0, 0, small * 0.22, true)), 0);
+  const valueX = Math.max(sceneW + (w - sceneW) * 0.5, hx + labelW + small);
+  rows.forEach(([label, value, short, weight], i) => {
+    const ry = h * (0.47 + i * 0.085);
+    ctx.fillStyle = 'rgba(239,231,214,0.1)';
+    ctx.fillRect(hx, ry - h * 0.055, w - hx - pad, 1);
+    ctx.font = `500 ${small}px 'DM Mono',monospace`;
+    ctx.fillStyle = 'rgba(125,112,94,0.95)';
+    otSpaced(ctx, label, hx, ry, small * 0.22);
+    ctx.font = `${weight} ${Math.max(9, h * 0.055)}px ${OT_SERIF}`;
+    ctx.fillStyle = '#efe7d6';
+    ctx.fillText(valueX + ctx.measureText(value).width > w - pad ? short : value, valueX, ry + h * 0.004);
+  });
+
+  otRail(ctx, w, railY, railH, w > 480 ? 'C3 – B5' : '', w > 480 ? 'conducting' : '');
+  otKeys(ctx, 0, w, railY + railH, h, chord.notes);
+  ctx.restore();
 }
 
 // ProjectCard logic moved to ChromaGrid.js

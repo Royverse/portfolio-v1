@@ -380,6 +380,8 @@
 @media (max-width: 900px) {
   .port-modal-wrap { padding: 56px 12px 16px; }
   .port-container  { width: min(96vw, 720px); }
+  /* the fixed music button sits over the bottom-left card; let the last row scroll clear of it */
+  .port-grid-scroll { padding-bottom: 56px; }
 }
 
 /* ── Breakpoint: mobile (≤ 768px) ───────────────────────── */
