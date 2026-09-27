@@ -56,10 +56,12 @@ const inspirationSlides = [
 const DesignInspiration = ({ isOpen, onClose }) => {
   const [activeIdx, setActiveIdx] = useState(0);
 
-  // Reset slide index when modal is opened
+  // Reset slide index when modal is opened, and warm the cache for every slide
+  // so paging never shows an empty frame while an image downloads.
   useEffect(() => {
     if (isOpen) {
       setActiveIdx(0);
+      inspirationSlides.forEach(({ image }) => { new Image().src = image; });
     }
   }, [isOpen]);
 
@@ -155,24 +157,23 @@ const DesignInspiration = ({ isOpen, onClose }) => {
                   
                   {/* Slider Images */}
                   <div className="carousel-slider-track">
-                    {/* framer-motion 4 calls "wait" mode exitBeforeEnter */}
-                    <AnimatePresence exitBeforeEnter>
-                      <motion.div
-                        key={activeIdx}
-                        className="carousel-slide"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        transition={{ duration: 0.25, ease: 'easeInOut' }}
-                      >
-                        <img 
-                          src={inspirationSlides[activeIdx].image} 
-                          alt={inspirationSlides[activeIdx].caption} 
-                          className="carousel-img"
-                        />
-                        <div className="slide-tag">{inspirationSlides[activeIdx].tag}</div>
-                      </motion.div>
-                    </AnimatePresence>
+                    {/* Enter-only fade. framer-motion 4's exitBeforeEnter left the frame
+                        empty when slides were changed mid-exit (the new slide never
+                        mounted), so the old slide now just unmounts. */}
+                    <motion.div
+                      key={activeIdx}
+                      className="carousel-slide"
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.25, ease: 'easeOut' }}
+                    >
+                      <img
+                        src={inspirationSlides[activeIdx].image}
+                        alt={`${inspirationSlides[activeIdx].title}: ${inspirationSlides[activeIdx].caption}`}
+                        className="carousel-img"
+                      />
+                      <div className="slide-tag">{inspirationSlides[activeIdx].tag}</div>
+                    </motion.div>
                   </div>
 
                   {/* Navigation Arrows */}
