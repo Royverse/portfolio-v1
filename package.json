@@ -5,13 +5,13 @@
   "homepage": "https://roymootsana.art",
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d dist",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "parcel src/index.html --public-url /",
     "prebuild": "node -e \"const fs=require('fs'),p=require('path');if(fs.existsSync('dist'))for(const n of fs.readdirSync('dist'))if(n!=='.netlify')fs.rmSync(p.join('dist',n),{recursive:true,force:true})\"",
     "build": "parcel build src/index.html --public-url /",
     "build:gh-pages": "parcel build src/index.html --public-url /portfolio-v1/",
-    "postbuild": "copy src\\robots.txt dist\\robots.txt && copy src\\sitemap.xml dist\\sitemap.xml && copy src\\favicon.ico dist\\favicon.ico && copy src\\favicon.png dist\\favicon.png && copy src\\favicon.svg dist\\favicon.svg && copy src\\Assets\\Images\\Portrait\\portrait-2.jpg dist\\portrait-2.jpg && copy src\\_headers dist\\_headers"
+    "postbuild": "node scripts/copy-static.js"
   },
   "alias": {
     "lottie-web": "lottie-web/build/player/lottie_light.js"
