@@ -89,8 +89,7 @@ const projects = [
     pills: ['WebGL2', 'GLSL Shaders', 'Web Audio API'],
     url: 'https://cold-wake-game-1.netlify.app/',
     sourceUrl: 'https://github.com/Royverse/cold-wake',
-    draw: drawColdWake, drawM: drawColdWakeM,
-    isNew: true
+    draw: drawColdWake, drawM: drawColdWakeM
   },
   {
     num: '11', name: 'Overtone', sub: 'Piano and hand-conducted orchestra',
@@ -100,6 +99,16 @@ const projects = [
     url: 'https://royverse.github.io/piano/',
     sourceUrl: 'https://github.com/Royverse/piano',
     draw: drawOvertone, drawM: drawOvertoneM,
+    isNew: true
+  },
+  {
+    num: '12', name: "Roy's Theremin", sub: '3D WebGL acoustic field synthesizer',
+    tag: 'AI · Vision & Audio', tagBg: '#FEF3C7', tagColor: '#92400E',
+    desc: 'Play an authentic Moog Etherwave theremin in 3D through your webcam. Pitch responds to your right hand—arm distance shifts octaves while fingertip aperture articulates microtonal vibrato—while your left hand commands volume and staccato muting over the loop antenna. Features procedural walnut and bakelite shaders, a glowing 12AX7 vacuum tube, and capacitive corona particle fields.',
+    pills: ['Three.js', 'MediaPipe Hands', 'Web Audio API', 'WebGL', 'Vite'],
+    url: 'https://roys-theremin.netlify.app/',
+    sourceUrl: 'https://github.com/Royverse/roys-theremin',
+    draw: drawTheremin, drawM: drawThereminM,
     isNew: true
   }
 ];
@@ -1703,6 +1712,446 @@ function drawOvertoneM(ctx, w, h, t) {
 
   otRail(ctx, w, railY, railH, w > 480 ? 'C3 – B5' : '', w > 480 ? 'conducting' : '');
   otKeys(ctx, 0, w, railY + railH, h, chord.notes);
+  ctx.restore();
+}
+
+/* ============================================================
+   12. Roy's Theremin — 3D Moog Etherwave with Vacuum Tube & Field VFX
+   ============================================================ */
+function drawThereminCore(ctx, w, h, t, isModal) {
+  ctx.save();
+  const sceneW = isModal ? w * 0.54 : w;
+
+  // Background: dark acoustic studio gradient
+  const bg = ctx.createLinearGradient(0, 0, 0, h);
+  bg.addColorStop(0, '#0c0a08');
+  bg.addColorStop(1, '#17110c');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, sceneW, h);
+
+  const cx = sceneW * 0.48;
+  const cy = h * 0.65;
+  const tubeY = cy - h * 0.17;
+
+  // Audio cycle: pitch shifts smoothly between ~330Hz and ~587Hz (E4 to D5)
+  const pitchPhase = Math.sin(t * 1.8);
+  const vibrato = Math.sin(t * 8.5) * 0.08;
+  const currentFreq = Math.round(440 + pitchPhase * 80 + vibrato * 30);
+  const noteName = pitchPhase > 0.4 ? 'E5' : (pitchPhase < -0.4 ? 'C4' : 'A4');
+
+  // 12AX7 Vacuum tube pulsing with audio amplitude
+  const pulse = 0.7 + 0.3 * Math.sin(t * 7.5 + vibrato);
+  const tubeGlow = ctx.createRadialGradient(cx, tubeY, 0, cx, tubeY, Math.min(sceneW, h) * 0.42);
+  tubeGlow.addColorStop(0, `rgba(245, 158, 11, ${0.28 * pulse})`);
+  tubeGlow.addColorStop(0.5, `rgba(217, 119, 6, ${0.1 * pulse})`);
+  tubeGlow.addColorStop(1, 'rgba(12, 10, 8, 0)');
+  ctx.fillStyle = tubeGlow;
+  ctx.beginPath();
+  ctx.arc(cx, tubeY, Math.min(sceneW, h) * 0.42, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Subtle grid lines in the background
+  ctx.strokeStyle = 'rgba(245, 158, 11, 0.04)';
+  ctx.lineWidth = 0.5;
+  const gStep = Math.min(sceneW, h) * 0.1;
+  for (let x = 0; x < sceneW; x += gStep) {
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+  }
+  for (let y = 0; y < h; y += gStep) {
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(sceneW, y); ctx.stroke();
+  }
+
+  // Dimensions of Moog Etherwave Cabinet
+  const cabW = sceneW * 0.48;
+  const cabH = h * 0.22;
+  const cabLeft = cx - cabW * 0.5;
+  const cabTop = cy - cabH * 0.3;
+
+  // Stand (Telescopic mic stand below cabinet)
+  ctx.strokeStyle = '#333742';
+  ctx.lineWidth = Math.max(3, h * 0.018);
+  ctx.beginPath();
+  ctx.moveTo(cx, cabTop + cabH);
+  ctx.lineTo(cx, h);
+  ctx.stroke();
+
+  // Walnut Cabinet body (beveled trapezoid)
+  const bevel = cabW * 0.05;
+  const cGrad = ctx.createLinearGradient(cabLeft, cabTop, cabLeft, cabTop + cabH);
+  cGrad.addColorStop(0, '#3a2218');
+  cGrad.addColorStop(0.4, '#24140e');
+  cGrad.addColorStop(1, '#150b07');
+  ctx.fillStyle = cGrad;
+  ctx.beginPath();
+  ctx.moveTo(cabLeft + bevel, cabTop);
+  ctx.lineTo(cabLeft + cabW - bevel, cabTop);
+  ctx.lineTo(cabLeft + cabW, cabTop + cabH);
+  ctx.lineTo(cabLeft, cabTop + cabH);
+  ctx.closePath();
+  ctx.fill();
+
+  // Cabinet top highlight line
+  ctx.strokeStyle = 'rgba(245, 158, 11, 0.5)';
+  ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  ctx.moveTo(cabLeft + bevel, cabTop);
+  ctx.lineTo(cabLeft + cabW - bevel, cabTop);
+  ctx.stroke();
+
+  // Brushed aluminum/dark faceplate inset
+  const fpLeft = cabLeft + cabW * 0.12;
+  const fpW = cabW * 0.76;
+  const fpTop = cabTop + cabH * 0.22;
+  const fpH = cabH * 0.62;
+  ctx.fillStyle = '#14171d';
+  ctx.fillRect(fpLeft, fpTop, fpW, fpH);
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+  ctx.lineWidth = 0.8;
+  ctx.strokeRect(fpLeft, fpTop, fpW, fpH);
+
+  // 4 Bakelite rotary control knobs
+  const knobCount = 4;
+  const knobSpacing = fpW / (knobCount + 1);
+  for (let k = 1; k <= knobCount; k++) {
+    const kx = fpLeft + k * knobSpacing;
+    const ky = fpTop + fpH * 0.52;
+    const kr = Math.max(3, cabH * 0.12);
+
+    ctx.beginPath();
+    ctx.arc(kx, ky, kr, 0, Math.PI * 2);
+    ctx.fillStyle = '#0a0a0c';
+    ctx.fill();
+    ctx.strokeStyle = '#475569';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    const kAngle = -Math.PI * 0.6 + k * 0.7 + Math.sin(t * 0.5 + k) * 0.3;
+    ctx.beginPath();
+    ctx.moveTo(kx, ky);
+    ctx.lineTo(kx + Math.cos(kAngle) * (kr - 1), ky + Math.sin(kAngle) * (kr - 1));
+    ctx.strokeStyle = '#f59e0b';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  // 12AX7 Vacuum Tube atop chassis
+  const tw = Math.max(12, cabW * 0.11);
+  const th = Math.max(26, h * 0.22);
+  const tx = cx - tw / 2;
+  const ty = cabTop - th;
+
+  // Tube glass body
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.04)';
+  ctx.strokeStyle = 'rgba(203, 213, 225, 0.35)';
+  ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  ctx.moveTo(tx, ty + th);
+  ctx.lineTo(tx, ty + tw * 0.6);
+  ctx.quadraticCurveTo(tx, ty, tx + tw / 2, ty);
+  ctx.quadraticCurveTo(tx + tw, ty, tx + tw, ty + tw * 0.6);
+  ctx.lineTo(tx + tw, ty + th);
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+
+  // Specular reflection on glass
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+  ctx.lineWidth = 0.8;
+  ctx.beginPath();
+  ctx.moveTo(tx + 2.5, ty + th * 0.7);
+  ctx.lineTo(tx + 2.5, ty + tw * 0.7);
+  ctx.stroke();
+
+  // Internal anode plates
+  ctx.fillStyle = '#334155';
+  ctx.fillRect(tx + tw * 0.25, ty + th * 0.35, tw * 0.5, th * 0.45);
+
+  // Tungsten filament incandescent core
+  const filPulse = 0.85 + 0.15 * Math.sin(t * 12);
+  ctx.save();
+  ctx.shadowColor = '#f59e0b';
+  ctx.shadowBlur = 10 * filPulse;
+  ctx.strokeStyle = `rgba(255, 230, 150, ${filPulse})`;
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(tx + tw * 0.42, ty + th * 0.75);
+  ctx.lineTo(tx + tw * 0.42, ty + th * 0.42);
+  ctx.lineTo(tx + tw * 0.58, ty + th * 0.42);
+  ctx.lineTo(tx + tw * 0.58, ty + th * 0.75);
+  ctx.stroke();
+  ctx.restore();
+
+  // Left Antenna: Horizontal Volume Loop
+  const loopBaseX = cabLeft + cabW * 0.08;
+  const loopBaseY = cabTop + cabH * 0.45;
+  const loopExt = sceneW * 0.18;
+  const loopX = loopBaseX - loopExt;
+  const loopR = Math.max(10, h * 0.09);
+
+  // Chrome stem to loop
+  ctx.strokeStyle = '#cbd5e1';
+  ctx.lineWidth = Math.max(2, h * 0.015);
+  ctx.beginPath();
+  ctx.moveTo(loopBaseX, loopBaseY);
+  ctx.lineTo(loopX + loopR, loopBaseY);
+  ctx.stroke();
+
+  // Rounded loop end
+  ctx.beginPath();
+  ctx.arc(loopX, loopBaseY, loopR, -Math.PI * 0.7, Math.PI * 0.7, false);
+  ctx.stroke();
+
+  // Hovering Left Hand tracking (Volume control)
+  const leftHandLift = 0.5 + 0.35 * Math.sin(t * 1.5);
+  const leftHandY = loopBaseY - loopR * (1.2 + leftHandLift * 1.3);
+  const leftHandX = loopX + Math.cos(t * 0.8) * (loopR * 0.3);
+
+  // Volume Capacitive Field Rings
+  for (let f = 0; f < 3; f++) {
+    const fPhase = ((t * 0.9 + f / 3) % 1);
+    const fy = leftHandY + (loopBaseY - leftHandY) * fPhase;
+    const fAlpha = (1 - fPhase) * 0.45;
+    ctx.strokeStyle = `rgba(125, 249, 255, ${fAlpha})`;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.ellipse(loopX, fy, loopR * (0.8 + fPhase * 0.6), loopR * 0.35 * (0.8 + fPhase * 0.6), 0, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+
+  // Left hand starlight outline
+  ctx.fillStyle = '#ffffff';
+  ctx.beginPath();
+  ctx.arc(leftHandX, leftHandY, 2.5, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(125, 249, 255, 0.7)';
+  ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  ctx.moveTo(leftHandX - 8, leftHandY + 2);
+  ctx.lineTo(leftHandX, leftHandY - 4);
+  ctx.lineTo(leftHandX + 10, leftHandY + 1);
+  ctx.stroke();
+
+  // Right Antenna: Vertical Pitch Rod
+  const rodX = cabLeft + cabW * 0.92;
+  const rodBaseY = cabTop;
+  const rodTopY = Math.max(16, h * 0.15);
+
+  ctx.strokeStyle = '#e2e8f0';
+  ctx.lineWidth = Math.max(2, h * 0.016);
+  ctx.beginPath();
+  ctx.moveTo(rodX, rodBaseY);
+  ctx.lineTo(rodX, rodTopY);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.arc(rodX, rodTopY, Math.max(3, h * 0.02), 0, Math.PI * 2);
+  ctx.fillStyle = '#f8fafc';
+  ctx.fill();
+
+  // Right Hand: Tracked position for pitch & Clara Rockmore aerial vibrato
+  const handDist = 0.16 + (pitchPhase * 0.5 + 0.5) * 0.14;
+  const hx = rodX + handDist * sceneW;
+  const hy = rodTopY + h * 0.18 + Math.sin(t * 3.5) * (h * 0.04);
+
+  // Starlight Hand Skeleton (MediaPipe style)
+  const pinch = 0.5 + 0.5 * Math.sin(t * 8.5);
+  const thumbTipX = hx - 12 - pinch * 4;
+  const thumbTipY = hy - 6 + pinch * 3;
+  const indexTipX = hx - 18 - (1 - pinch) * 3;
+  const indexTipY = hy + 8;
+  const wristX = hx + 18;
+  const wristY = hy + 22;
+
+  ctx.strokeStyle = 'rgba(254, 243, 199, 0.85)';
+  ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  ctx.moveTo(wristX, wristY);
+  ctx.lineTo(hx, hy);
+  ctx.lineTo(thumbTipX, thumbTipY);
+  ctx.moveTo(hx, hy);
+  ctx.lineTo(indexTipX, indexTipY);
+  ctx.stroke();
+
+  [[wristX, wristY], [hx, hy], [thumbTipX, thumbTipY], [indexTipX, indexTipY]].forEach(([px, py]) => {
+    ctx.beginPath();
+    ctx.arc(px, py, 2.5, 0, Math.PI * 2);
+    ctx.fillStyle = '#ffffff';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(245, 158, 11, 0.8)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  });
+
+  // Capacitive Corona Filaments (bridging rod tip to index fingertip)
+  const arcPoints = 6;
+  ctx.strokeStyle = 'rgba(125, 249, 255, 0.85)';
+  ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  ctx.moveTo(rodX, rodTopY + (rodBaseY - rodTopY) * 0.25);
+  for (let a = 1; a < arcPoints; a++) {
+    const ap = a / arcPoints;
+    const ax = rodX + (indexTipX - rodX) * ap + (Math.sin(t * 28 + a * 2.3)) * 6;
+    const ay = (rodTopY + (rodBaseY - rodTopY) * 0.25) * (1 - ap) + indexTipY * ap + (Math.cos(t * 32 + a * 1.8)) * 6;
+    ctx.lineTo(ax, ay);
+  }
+  ctx.lineTo(indexTipX, indexTipY);
+  ctx.stroke();
+
+  // Electromagnetic field particles orbiting antenna
+  const particleCount = 14;
+  for (let p = 0; p < particleCount; p++) {
+    const pPhase = (t * 0.6 + p / particleCount) % 1;
+    const pAngle = pPhase * Math.PI * 2;
+    const pDist = 18 + Math.sin(p * 1.5 + t) * 14;
+    const px = rodX + Math.cos(pAngle) * pDist + (indexTipX - rodX) * pPhase * 0.5;
+    const py = rodTopY + h * 0.25 + Math.sin(pAngle) * (h * 0.22);
+    const pAlpha = Math.sin(pPhase * Math.PI) * 0.6;
+    ctx.beginPath();
+    ctx.arc(px, py, 1.2, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(245, 158, 11, ${pAlpha})`;
+    ctx.fill();
+  }
+
+  ctx.restore();
+  return { currentFreq, noteName, vibrato, pitchPhase, sceneW };
+}
+
+function drawTheremin(ctx, w, h, t) {
+  const telemetry = drawThereminCore(ctx, w, h, t, false);
+
+  // Frequency badge in top right
+  ctx.save();
+  const badgeX = w - 10;
+  const badgeY = 22;
+  ctx.font = `600 ${Math.max(9, h * 0.08)}px 'DM Mono', monospace`;
+  ctx.fillStyle = '#fef3c7';
+  ctx.textAlign = 'right';
+  ctx.fillText(`${telemetry.currentFreq} Hz`, badgeX, badgeY);
+
+  ctx.font = `500 ${Math.max(7, h * 0.055)}px 'DM Mono', monospace`;
+  ctx.fillStyle = '#d97706';
+  ctx.fillText(`${telemetry.noteName} • FIELD ACTIVE`, badgeX, badgeY + h * 0.08);
+  ctx.restore();
+}
+
+function drawThereminM(ctx, w, h, t) {
+  const telemetry = drawThereminCore(ctx, w, h, t, true);
+  const sceneW = telemetry.sceneW;
+
+  ctx.save();
+
+  // Divider line
+  ctx.strokeStyle = 'rgba(245, 158, 11, 0.22)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(sceneW, 0);
+  ctx.lineTo(sceneW, h);
+  ctx.stroke();
+
+  // Neumorphic Luxury HUD Background
+  ctx.fillStyle = 'rgba(15, 12, 10, 0.92)';
+  ctx.fillRect(sceneW, 0, w - sceneW, h);
+
+  const hudX = sceneW + 16;
+  const hudW = (w - sceneW) - 32;
+
+  // HUD Title & Subtitle
+  ctx.font = `600 ${Math.max(10, h * 0.055)}px 'DM Mono', monospace`;
+  ctx.fillStyle = '#fef3c7';
+  ctx.fillText("ROY'S THEREMIN // FIELD HUD", hudX, h * 0.10);
+
+  ctx.font = `400 ${Math.max(7, h * 0.038)}px system-ui, sans-serif`;
+  ctx.fillStyle = 'rgba(217, 119, 6, 0.85)';
+  ctx.fillText('Acoustic Field Synthesizer • 12AX7 Tube', hudX, h * 0.145);
+
+  // Swiss-Precision Cent Deviation Ruler
+  const rulerY = h * 0.28;
+  ctx.font = `500 ${Math.max(7, h * 0.038)}px 'DM Mono', monospace`;
+  ctx.fillStyle = 'rgba(254, 243, 199, 0.6)';
+  ctx.fillText('PITCH DEVIATION (CENTS)', hudX, rulerY - h * 0.04);
+
+  // Baseline ruler
+  ctx.strokeStyle = 'rgba(245, 158, 11, 0.3)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(hudX, rulerY);
+  ctx.lineTo(hudX + hudW, rulerY);
+  ctx.stroke();
+
+  // Micro-ticks: -50, -25, 0, +25, +50
+  const ticks = [-50, -25, 0, 25, 50];
+  ticks.forEach(cent => {
+    const tx = hudX + ((cent + 50) / 100) * hudW;
+    const isCenter = cent === 0;
+    const tickH = isCenter ? 8 : 4;
+    ctx.strokeStyle = isCenter ? '#10b981' : 'rgba(245, 158, 11, 0.5)';
+    ctx.beginPath();
+    ctx.moveTo(tx, rulerY - tickH);
+    ctx.lineTo(tx, rulerY + tickH);
+    ctx.stroke();
+
+    ctx.font = `400 ${Math.max(6, h * 0.03)}px 'DM Mono', monospace`;
+    ctx.fillStyle = isCenter ? '#10b981' : 'rgba(245, 158, 11, 0.6)';
+    ctx.fillText(`${cent > 0 ? '+' : ''}${cent}`, tx - 6, rulerY + 16);
+  });
+
+  // Animated Indicator Needle
+  const centOffset = telemetry.vibrato * 350;
+  const needleX = Math.max(hudX + 2, Math.min(hudX + hudW - 2, hudX + ((centOffset + 50) / 100) * hudW));
+  const isLocked = Math.abs(centOffset) < 5;
+  const needleColor = isLocked ? '#10b981' : '#f59e0b';
+
+  ctx.strokeStyle = needleColor;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(needleX, rulerY - 12);
+  ctx.lineTo(needleX, rulerY + 12);
+  ctx.stroke();
+
+  // Needle status badge
+  ctx.font = `600 ${Math.max(7, h * 0.036)}px 'DM Mono', monospace`;
+  ctx.fillStyle = needleColor;
+  ctx.fillText(isLocked ? '• TEMPERED LOCK' : `DEV: ${centOffset > 0 ? '+' : ''}${Math.round(centOffset)}¢`, hudX + hudW - 75, rulerY - h * 0.04);
+
+  // Acoustic & Vacuum Tube Telemetry Rows
+  const teleY = h * 0.44;
+  const rows = [
+    ['PITCH FREQ', `${telemetry.currentFreq} Hz (${telemetry.noteName})`],
+    ['TUBE CORE', '12AX7 • 6.3V FILAMENT'],
+    ['SCALE MODE', 'ANALOG / GAUSSIAN'],
+    ['VOLUME', `${Math.round((0.5 + 0.35 * Math.sin(t * 1.5)) * 100)}% (MUTED ON FIST)`]
+  ];
+
+  rows.forEach(([label, val], i) => {
+    const ry = teleY + i * (h * 0.088);
+    ctx.font = `400 ${Math.max(7, h * 0.034)}px 'DM Mono', monospace`;
+    ctx.fillStyle = 'rgba(217, 119, 6, 0.7)';
+    ctx.fillText(label, hudX, ry);
+
+    ctx.font = `600 ${Math.max(8, h * 0.042)}px 'DM Mono', monospace`;
+    ctx.fillStyle = label === 'TUBE CORE' ? '#fbbf24' : '#fef3c7';
+    ctx.fillText(val, hudX, ry + h * 0.042);
+  });
+
+  // Live Oscilloscope Waveform (Audio heterodyne beat frequency)
+  const waveY = h * 0.86;
+  ctx.font = `400 ${Math.max(6, h * 0.032)}px 'DM Mono', monospace`;
+  ctx.fillStyle = 'rgba(245, 158, 11, 0.6)';
+  ctx.fillText('HETERODYNE WAVEFORM', hudX, waveY - 8);
+
+  ctx.strokeStyle = 'rgba(245, 158, 11, 0.8)';
+  ctx.lineWidth = 1.4;
+  ctx.beginPath();
+  const wavePoints = 40;
+  for (let i = 0; i <= wavePoints; i++) {
+    const p = i / wavePoints;
+    const wx = hudX + p * hudW;
+    const waveAmp = h * 0.035 * Math.sin(p * Math.PI * 8 - t * 14) * (0.6 + 0.4 * Math.sin(p * Math.PI * 2));
+    if (i === 0) ctx.moveTo(wx, waveY + waveAmp);
+    else ctx.lineTo(wx, waveY + waveAmp);
+  }
+  ctx.stroke();
+
   ctx.restore();
 }
 

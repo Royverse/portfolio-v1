@@ -19,7 +19,7 @@ import '../Assets/Portrait.css'; // Refreshed import path
 const IMAGES = [
   { 
     src: new URL('../Assets/Images/Portrait/portrait-1.jpg', import.meta.url).href, 
-    caption: "Full-Stack Software Engineer", 
+    caption: "Software Engineer", 
     badge: "01 — Core" 
   },
   { 

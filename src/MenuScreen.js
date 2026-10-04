@@ -151,7 +151,7 @@ const MenuScreen = ({ onProjectsClick }) => {
           </button>
         </div>
         <h1 className="name">ROY MOOTSANA</h1>
-        <p className="title">FULL-STACK SOFTWARE ENGINEER</p>
+        <p className="title">SOFTWARE ENGINEER</p>
         <div className="divider"></div>
 
         <nav className="main-nav" onMouseEnter={loadDeferred} onFocus={loadDeferred}>
@@ -203,7 +203,7 @@ const MenuScreen = ({ onProjectsClick }) => {
             </button>
           </div>
           <h1 className="mobile-name">ROY MOOTSANA</h1>
-          <p className="mobile-title">FULL-STACK SOFTWARE ENGINEER</p>
+          <p className="mobile-title">SOFTWARE ENGINEER</p>
         </motion.div>
 
         <AnimatePresence>
