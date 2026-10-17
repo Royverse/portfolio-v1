@@ -137,41 +137,32 @@ class Work extends Component {
       {
         number: '01',
         projectName: 'IMD Business School',
-        projectDesc:
-          'Internal products for executive education, built and run end to end: assessment platforms, leadership diagnostics, a live multiplayer simulation and data tools.',
-        projectType: 'FULL-STACK',
+        projectDesc: 'Internal products for executive education: assessments, leadership diagnostics, a live simulation and data tools.',
+        projectType: 'WEB PLATFORMS',
         roles: ['Learning Innovation & STS Developer', '2023 – present'],
-        problem:
-          'IMD runs executive programmes for multinational companies and needed products it could own: assessments, diagnostics, simulations and research tooling, several of them replacing tools the teams had outgrown.',
-        indicators:
-          'A Qualtrics 360 tool that could not run repeat feedback rounds across a programme.\nA Power Apps front end the World Competitiveness Center had outgrown.\nLive sessions where one admin edit or a stalled team affects a room of executives.\nIdentity and secrets spread across many repositories.',
-        solution:
-          'Started in QA in July 2023; Learning Innovation Developer since February 2024 and Strategic Talent Solutions Developer since October 2025.\nPart of the team that rewrote Leader’s Question Mix, then built LQM 360 on top.\nBuilt the Strategic Execution Simulation from an existing paper-based board simulation, with live-session safeguards.\nBuilt the reviewer journey on the Accelerator platform (Angular, Flask).\nBuilt a Next.js and FastAPI replacement for the World Competitiveness Center’s Power Apps tool.\nAdded tenant configuration and data cleaning to a multi-tenant talent dashboard.\nAudited all 52 of the organisation’s code repositories for exposed secrets and security risks, and wrote and presented the remediation plan.',
-        QA: '',
+        problem: 'Internal products for IMD’s executive programmes, several replacing tools the teams had outgrown.',
+        solution: 'Joined in QA in July 2023; Learning Innovation Developer since February 2024 and Strategic Talent Solutions Developer since October 2025.\nPart of the team that rebuilt Leader’s Question Mix, then built LQM 360 on top.\nBuilt a live multiplayer version of an existing board simulation, with safeguards for running it in sessions.\nBuilt the reviewer journey on the Accelerator assessment platform.\nBuilt a replacement for the World Competitiveness Center’s data tool.\nAdded tenant configuration and data cleaning to a talent dashboard.\nReviewed the organisation’s repositories for security risks and presented a remediation plan.',
       },
       {
         number: '02',
         projectName: 'BluePrint',
-        projectDesc: 'BluePrint 3.0, the design-system pilot for Standard Bank\'s Corporate & Investment Banking division: reusable Angular components, documented in Storybook.',
+        projectDesc: 'The design-system pilot for Standard Bank’s Corporate & Investment Banking division: reusable Angular components, documented in Storybook.',
         projectType: 'DESIGN SYSTEM',
         roles: ['User Interface Designer', '2022 – 2023'],
-        problem: 'Standard Bank\'s Corporate & Investment Banking division was introducing a new visual language, BluePrint 3.0, and its product teams needed components they could adopt instead of each building their own.',
-        indicators: 'Different teams designing and building the same components separately.\nAn inconsistent look and behaviour from one product to the next.\nNo single, documented home for the components.',
-        solution: 'Built and maintained reusable Angular library components for BluePrint 3.0, placed at Standard Bank by iqbusiness.\nTurned Figma designs into accessible, documented Storybook components.\nMoved button variants from appearance to semantic intent, and made components work at narrow widths.\nKept the Storybook docs, accessibility add-on and changelog current for product teams.',
-        QA: 'Storybook: checked controls, responsiveness and visual alignment.\nReviews: ran usability sessions, reviewed naming and formatting, and did peer code reviews.\nChromatic: automated visual testing as part of continuous integration.\nNexus: tested published package versions before teams upgraded.\nApplications: checked components inside real page templates.\nDevices: tested across browsers, platforms and screen sizes.',
+        problem: 'Product teams in the division needed shared components instead of each building their own.',
+        solution: 'Built and maintained reusable Angular components for BluePrint 3.0, placed at Standard Bank by iqbusiness.\nTurned Figma designs into accessible, documented Storybook components.\nMade components work at narrow widths and moved button variants from appearance to semantic intent.\nKept documentation, accessibility checks and the changelog current for product teams.',
+        QA: 'Storybook and Chromatic for visual and responsive checks.\nUsability sessions and peer code reviews.\nPublished package versions tested before teams upgraded.\nComponents tested in real page templates, across browsers and devices.',
         quote: 'Roy is a rare find, and has shown great maturity and skill, far beyond expectation.',
-        quoteAuthor: 'Mel M. Saayman, Design Lead, Standard Bank',
+        quoteAuthor: 'Design Lead, Standard Bank',
       },
       {
         number: '03',
         projectName: 'BluePrint Apps',
-        projectDesc: 'Angular apps built on the BluePrint components, so the bank\'s products shared one look and behaviour.',
+        projectDesc: 'Angular applications built on the BluePrint components, giving the bank’s products one look and behaviour.',
         projectType: 'ANGULAR APPS',
         roles: ['User Interface Designer', '2022 – 2023'],
-        problem: 'Product teams needed applications that followed BluePrint, so users got the same experience from one app to the next.',
-        indicators: 'Each app had drifted into its own design language.\nComponents and patterns were hard to keep consistent.\nMoving between apps felt like moving between different products.',
-        solution: 'Built Angular applications on the BluePrint component library.\nUsed the same components, patterns and interactions across every app.\nRan usability tests to check the experience held up.',
-        QA: '',
+        problem: 'Product teams needed applications that followed BluePrint, so users had a consistent experience.',
+        solution: 'Built Angular applications on the BluePrint component library.\nApplied the same components and patterns across every app.\nRan usability tests to check the experience held up.',
       },
       {
         number: '04',
@@ -179,32 +170,26 @@ class Work extends Component {
         projectDesc: 'An admin portal for a nail boutique: stock, client records and reports in one place.',
         projectType: 'WEB APP',
         roles: ['Lead UX/UI Developer', '2021'],
-        problem: 'The boutique managed its stock and client details by hand and couldn\'t get reliable reports on the business.',
-        indicators: 'Stock counted by hand, which led to errors.\nClient details not kept in one system.\nReports that were slow to produce and hard to trust.',
-        solution: 'Led a team of four that designed and built the boutique\'s systems.\nBuilt the admin portal: stock control, client records and report generation.',
-        QA: '',
+        problem: 'The boutique managed stock and client details by hand and had no reliable reporting.',
+        solution: 'Led a team of four that designed and built the boutique’s systems.\nBuilt the admin portal: stock control, client records and reports.',
       },
       {
         number: '05',
         projectName: 'Nail Boutique',
-        projectDesc: 'The boutique\'s website: services, prices and online booking, plus a designer where customers create their own nail art.',
+        projectDesc: 'The boutique’s website: services, prices and online booking, plus a designer where customers create their own nail art.',
         projectType: 'WEBSITE',
         roles: ['Lead UX/UI Developer', '2021'],
-        problem: 'The boutique had little online presence and no way for customers to plan a design or book online.',
-        indicators: 'Hard to find online.\nNo way to design nail art or book an appointment online.\nServices, prices and contact details weren\'t easy to see.',
-        solution: 'Built a responsive website in HTML, CSS and JavaScript with services, prices and contact details.\nBuilt a nail-art designer so customers could try designs before booking.\nAdded online booking for appointments.',
-        QA: '',
+        problem: 'The boutique had little online presence and no online booking.',
+        solution: 'Built a responsive website with services, prices and contact details.\nBuilt a nail-art designer for customers to try designs.\nAdded online booking.',
       },
       {
         number: '06',
         projectName: 'Readpoint',
         projectDesc: 'An online bookshop with a MongoDB database and payments, where customers browse and buy books.',
         projectType: 'WEB APP',
-        roles: ['Full-Stack Developer', 'Freelance'],
-        problem: 'A book seller wanted to sell online and make browsing and buying books easy.',
-        indicators: 'No way to reach customers beyond the shop.\nNo convenient, secure way to buy books online.\nStock tracked by hand, with mistakes.',
+        roles: ['Software Engineer', 'Freelance'],
+        problem: 'A bookseller wanted to sell online.',
         solution: 'Built the shop on Node.js, Express and MongoDB, with browsing and checkout.\nIntegrated a secure payment system.\nBuilt stock management that updates as books sell.',
-        QA: '',
       },
       {
         number: '',
@@ -320,15 +305,13 @@ class Work extends Component {
         {showDialog && (
           <Overlay onClick={e => e.target === e.currentTarget && this.handleCloseDialog()}>
             <Dialog role="dialog" aria-modal="true" aria-label={dialogProject.projectName}>
-              <h3>The problem</h3>
+              <h3>Context</h3>
               <p>{dialogProject.problem}</p>
-              <h3>What wasn’t working</h3>
-              {list(dialogProject.indicators)}
               <h3>What I did</h3>
               {list(dialogProject.solution)}
               {dialogProject.QA && (
                 <>
-                  <h3>Quality checks</h3>
+                  <h3>Quality</h3>
                   {list(dialogProject.QA)}
                 </>
               )}

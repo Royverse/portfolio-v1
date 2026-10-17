@@ -5,12 +5,12 @@ import styled, { keyframes } from 'styled-components';
 // showing screenshots of them. Pinned like the text column, because a slide
 // scrolls for 1.4 screens and a static panel would leave before its text.
 const PRODUCTS = [
-  ['Strategic Execution Simulation', 'Next.js · Prisma · PostgreSQL'],
-  ['Accelerator assessment platform', 'Angular · Flask · Azure'],
-  ["Leader's Question Mix & LQM 360", 'Next.js · Azure AD B2C'],
-  ['World Competitiveness Center data app', 'Next.js · FastAPI · MSAL'],
-  ['Talent Dashboard', 'Django REST · Next.js'],
-  ['Organisation-wide security audit', '52 repositories'],
+  ['Strategic Execution Simulation', 'Next.js'],
+  ['Accelerator assessment platform', 'Angular · Flask'],
+  ["Leader's Question Mix & LQM 360", 'Next.js'],
+  ['World Competitiveness Center data app', 'Next.js · FastAPI'],
+  ['Talent Dashboard', 'Django · Next.js'],
+  ['Repository security review', 'Remediation plan'],
 ];
 
 const fadeIn = keyframes`

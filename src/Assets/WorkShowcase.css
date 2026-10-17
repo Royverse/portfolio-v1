@@ -421,3 +421,12 @@
     padding: 16px 16px 20px;
   }
 }
+
+.port-note {
+  margin: 10px 0 0;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  opacity: 0.8;
+}

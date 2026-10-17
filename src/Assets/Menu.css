@@ -1296,3 +1296,17 @@ body.theme-winter .slide-title {
   box-shadow: 0 2px 8px rgba(29, 158, 117, 0.3);
 }
 
+
+.legal-note {
+  position: fixed;
+  left: 16px;
+  bottom: 6px;
+  margin: 0;
+  z-index: 2;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  opacity: 0.55;
+  pointer-events: none;
+}

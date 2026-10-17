@@ -7,7 +7,7 @@ const projects = [
   {
     num: '01', name: 'Air Canvas AI', sub: 'Gesture-controlled drawing',
     tag: 'AI · Vision', tagBg: '#EEEDFE', tagColor: '#3C3489',
-    desc: 'Draw in the air in front of your webcam: pinch to draw, open your palm to pause. MediaPipe finds 21 points on your hand. The hard part was jitter, so a Kalman filter smooths out shaky hands and camera noise before anything reaches the canvas.',
+    desc: 'Draw in the air with your webcam. Hand tracking with a Kalman filter keeps the line steady.',
     pills: ['MediaPipe Hands', 'Canvas 2D', 'Kalman Filter', 'Vite'],
     url: 'https://air-canvas-ai.netlify.app/',
     sourceUrl: 'https://github.com/Royverse/air-canvas',
@@ -16,7 +16,7 @@ const projects = [
   {
     num: '02', name: 'not financial advice.', sub: 'Terminal stock dashboard',
     tag: 'AI · Finance', tagBg: '#E1F5EE', tagColor: '#085041',
-    desc: 'Type a ticker and get one conviction score. It combines live prices from Alpha Vantage with what people are posting about the stock on X (through the Xpoz API), and Gemini weighs the two. Scores are cached in Supabase, and the Three.js background shifts with the market\'s mood.',
+    desc: 'Enter a ticker for a single sentiment score, combining live prices with social posts, weighed by Gemini. For entertainment only, not financial advice.',
     pills: ['Next.js 15', 'Gemini 2.0', 'Alpha Vantage', 'Xpoz API', 'Supabase', 'Three.js'],
     url: 'https://notfinancialadvice.site/',
     draw: drawNFA, drawM: drawNFAM
@@ -24,7 +24,7 @@ const projects = [
   {
     num: '03', name: 'Mood Support', sub: 'Mood-lifting interface',
     tag: 'AI · Wellness', tagBg: '#FBEAF0', tagColor: '#72243E',
-    desc: 'Pick how you\'re feeling and the whole interface changes to match: colours, motion and tone. Write a few lines about your day and Gemini replies with a gentle, practical suggestion. A wellbeing experiment, not a substitute for professional support.',
+    desc: 'Choose a mood and the interface changes to match. Write a few lines about your day and get a gentle suggestion from Gemini. An experiment, not a substitute for professional support.',
     pills: ['React', 'Gemini', 'Framer Motion', 'Serverless Functions'],
     url: 'https://mood-align.netlify.app/',
     draw: drawMA, drawM: drawMAM,
@@ -33,7 +33,7 @@ const projects = [
   {
     num: '04', name: 'AR Portal', sub: 'Marker-based AR in the browser',
     tag: 'AR · 3D', tagBg: '#E6F1FB', tagColor: '#0C447C',
-    desc: 'Point your phone at a printed marker and a doorway appears on it, anchored in place. Step through and you\'re inside a 360° scene. It runs in the mobile browser with no app to install: AR.js tracks the marker and A-Frame draws the portal.',
+    desc: 'Point your phone at a printed marker and step through a doorway into a 360° scene. Runs in the mobile browser, with nothing to install.',
     pills: ['A-Frame', 'AR.js', 'Three.js', 'WebGL'],
     url: 'https://github.com/Royverse/AR-PORTAL',
     urlLabel: 'View code ↗',
@@ -42,7 +42,7 @@ const projects = [
   {
     num: '05', name: 'Midnight OS', sub: 'Browser-based OS interface',
     tag: 'Interface', tagBg: '#F1EFE8', tagColor: '#444441',
-    desc: 'A desktop you can use in the browser: open, drag, resize and stack windows. Inside are a Finder, a small web browser, a Notes app that keeps your notes between visits, a calculator and a clock. Built with Next.js and React, with a hand-written window manager.',
+    desc: 'A desktop in the browser, with draggable windows, a file browser, notes and a calculator. The window manager is hand-written.',
     pills: ['Next.js 16', 'React 19', 'LocalStorage'],
     url: 'https://midnight-os-demo.netlify.app/',
     draw: drawOS, drawM: drawOSM
@@ -50,7 +50,7 @@ const projects = [
   {
     num: '06', name: 'LUMINARY', sub: 'Superhero flight engine',
     tag: 'Game · 3D', tagBg: '#E0F2F1', tagColor: '#0B7A8A',
-    desc: 'Fly a superhero through a generated neon city. Flight runs on lift and drag physics rather than canned animation, the cape is a Verlet cloth simulation, and bounding boxes stop you flying through buildings. The wind you hear is generated live, not a recording.',
+    desc: 'Fly a superhero through a generated neon city. Flight, cape and wind are simulated and synthesised in real time.',
     pills: ['Three.js', 'WebGL', 'Verlet Physics', 'Web Audio API'],
     url: 'https://luminary-flight.netlify.app/',
     sourceUrl: 'https://github.com/Royverse/luminary',
@@ -59,7 +59,7 @@ const projects = [
   {
     num: '07', name: 'Wonderwave', sub: 'Gesture-controlled spellcasting',
     tag: 'AI · Vision', tagBg: '#E0F7FA', tagColor: '#006064',
-    desc: 'Cast spells with your hand. Gestures in front of the webcam trigger Leviosa (lift), Accio (pull) and Depulso (push) on objects in a Three.js scene. MediaPipe tracks the hand, a One Euro filter steadies it, and the physics (velocity, gravity, collisions) is written from scratch.',
+    desc: 'Cast spells with your hand. Webcam gestures move objects in a Three.js scene, with physics written from scratch.',
     pills: ['MediaPipe Tasks', 'Three.js', 'TypeScript', 'Vite'],
     url: 'https://wand-wave.netlify.app/',
     sourceUrl: 'https://github.com/Royverse/wand-wave',
@@ -68,7 +68,7 @@ const projects = [
   {
     num: '08', name: 'ECHO', sub: 'Voice-controlled 3D robot sandbox',
     tag: 'AI · Voice', tagBg: '#F3E5F5', tagColor: '#4A148C',
-    desc: 'Tell a 3D robot what to do ("walk forward three steps, then turn left") and it works through the list. Simple commands are parsed in the browser; looser phrasing goes to Gemini 2.5 Flash. It answers out loud in a Gemini voice, falling back to Polly and then the browser, and its sound effects are generated live.',
+    desc: 'Give a 3D robot spoken commands and it carries them out. Simple commands are parsed in the browser; looser phrasing goes to Gemini.',
     pills: ['Three.js', 'Web Speech API', 'Gemini 2.5 Flash', 'Web Audio API'],
     url: 'https://echo-voice-sandbox.netlify.app/',
     sourceUrl: 'https://github.com/Royverse/echo',
@@ -77,7 +77,7 @@ const projects = [
   {
     num: '09', name: 'milkyway.ai', sub: 'A star map of NVIDIA\'s AI models',
     tag: 'AI · Dev Tools', tagBg: '#EAF1FF', tagColor: '#1E3A6E',
-    desc: 'A space-themed workspace for the AI models hosted on NVIDIA NIM. A star map groups the models by provider. From there you can put two models side by side in a chat arena, or try them in code, reasoning, embedding and vision labs, with replies streaming in as they\'re generated.',
+    desc: 'A star map of the AI models on NVIDIA NIM, with a side-by-side chat arena and testing labs. An independent project, not affiliated with NVIDIA.',
     pills: ['React 18', 'Vite', 'NVIDIA NIM', 'SSE Streaming', 'Canvas 2D'],
     url: 'https://milkyway-ai-galaxy.netlify.app/',
     draw: drawIC, drawM: drawICM
@@ -85,7 +85,7 @@ const projects = [
   {
     num: '10', name: 'Cold Wake', sub: 'Zero-asset WebGL2 survival game',
     tag: 'Game · WebGL2', tagBg: '#E4F4FB', tagColor: '#0B4F6C',
-    desc: 'You\'ve gone through the ice on a frozen lake. Swim for the cracking ceiling and break out, with buoyancy, drag and ice-shard collisions all simulated. There isn\'t a single image, model or sound file in it: shaders draw every frame and every sound is generated in code.',
+    desc: 'Break through the ice of a frozen lake. Every frame is drawn by shaders and every sound is generated in code.',
     pills: ['WebGL2', 'GLSL Shaders', 'Web Audio API'],
     url: 'https://cold-wake-game-1.netlify.app/',
     sourceUrl: 'https://github.com/Royverse/cold-wake',
@@ -94,7 +94,7 @@ const projects = [
   {
     num: '11', name: 'Overtone', sub: 'Piano and hand-conducted orchestra',
     tag: 'AI · Music', tagBg: '#F6EEDD', tagColor: '#6B4A14',
-    desc: 'A piano you can see inside. As you play, the strings under the lid ring, and every note, interval and chord is named and written on a staff. Then pick up the baton: conduct in front of your webcam and a string orchestra follows your beat. Raise your hand for louder, pinch for pizzicato, make a fist to stop. No samples: even the applause is synthesised.',
+    desc: 'A piano you can see inside, and an orchestra you conduct with your hand. Every sound is synthesised.',
     pills: ['Web Audio API', 'Web Workers', 'MediaPipe Tasks', 'Web MIDI', 'Vanilla JS'],
     url: 'https://royverse.github.io/piano/',
     sourceUrl: 'https://github.com/Royverse/piano',
@@ -104,7 +104,7 @@ const projects = [
   {
     num: '12', name: "Roy's Theremin", sub: '3D WebGL acoustic field synthesizer',
     tag: 'AI · Vision & Audio', tagBg: '#FEF3C7', tagColor: '#92400E',
-    desc: 'Play an authentic Moog Etherwave theremin in 3D through your webcam. Pitch responds to your right hand—arm distance shifts octaves while fingertip aperture articulates microtonal vibrato—while your left hand commands volume and staccato muting over the loop antenna. Features procedural walnut and bakelite shaders, a glowing 12AX7 vacuum tube, and capacitive corona particle fields.',
+    desc: 'A playable 3D theremin, controlled by your hands through the webcam.',
     pills: ['Three.js', 'MediaPipe Hands', 'Web Audio API', 'WebGL', 'Vite'],
     url: 'https://roys-theremin.netlify.app/',
     sourceUrl: 'https://github.com/Royverse/roys-theremin',
@@ -2247,12 +2247,13 @@ const WorkShowcase = ({ active, onClose }) => {
         >
           <div className="port" style={{ borderRadius: 24, background: 'transparent' }}>
             <div className="port-header">
-              <span className="port-title" id="port-title">AI EXPERIMENTS & PROJECTS</span>
+              <span className="port-title" id="port-title">EXPERIMENTS</span>
               <span className="port-count">{projects.length < 10 ? '0' + projects.length : projects.length} projects</span>
             </div>
             <div className="port-grid-scroll">
               <ChromaGrid items={projects} onSelect={openProject} active={active} />
             </div>
+            <p className="port-note">Some experiments ask to use your camera or microphone, only with your permission. Hand tracking runs in your browser. Voice input may be handled by your browser's speech service.</p>
           </div>
         </ElectricBorder>
 

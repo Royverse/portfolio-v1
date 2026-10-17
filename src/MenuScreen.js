@@ -126,8 +126,8 @@ const MenuScreen = ({ onProjectsClick }) => {
   };
 
   const menuItems = [
-    { id: 'PROFESSIONAL', label: 'PROFESSIONAL EXPERIENCE' },
-    { id: 'AI LABS', label: 'AI EXPERIMENTS & PROJECTS' },
+    { id: 'PROFESSIONAL', label: 'EXPERIENCE' },
+    { id: 'AI LABS', label: 'EXPERIMENTS' },
     { id: 'SKILLS', label: 'CORE COMPETENCIES' },
   ];
 
@@ -265,6 +265,8 @@ const MenuScreen = ({ onProjectsClick }) => {
           <WorkShowcase active={activeTab === 'AI LABS'} onClose={handleCloseOverlay} />
         </Suspense>
       )}
+
+      <p className="legal-note">© 2026 Roy Mootsana. All trademarks belong to their owners.</p>
 
       {/* Lightning Strike Transition */}
       {showLightning && (

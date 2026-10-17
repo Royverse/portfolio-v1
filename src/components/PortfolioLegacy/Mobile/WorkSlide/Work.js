@@ -28,21 +28,21 @@ class Work extends Component {
       {
         number: '01',
         projectName: 'IMD Business School',
-        projectDesc: 'Internal products for executive education, built and run end to end: assessment platforms, leadership diagnostics, a live multiplayer simulation and data tools.',
-        projectType: 'FULL-STACK',
+        projectDesc: 'Internal products for executive education: assessments, leadership diagnostics, a live simulation and data tools.',
+        projectType: 'WEB PLATFORMS',
         roles: ['Learning Innovation & STS Developer', '2023 – present'],
       },
       {
         number: '02',
         projectName: 'BluePrint',
-        projectDesc: 'BluePrint 3.0, the design-system pilot for Standard Bank\'s Corporate & Investment Banking division: reusable Angular components, documented in Storybook.',
+        projectDesc: 'The design-system pilot for Standard Bank’s Corporate & Investment Banking division: reusable Angular components, documented in Storybook.',
         projectType: 'DESIGN SYSTEM',
         roles: ['User Interface Designer', '2022 – 2023'],
       },
       {
         number: '03',
         projectName: 'BluePrint Apps',
-        projectDesc: 'Angular apps built on the BluePrint components, so the bank\'s products shared one look and behaviour.',
+        projectDesc: 'Angular applications built on the BluePrint components, giving the bank’s products one look and behaviour.',
         projectType: 'ANGULAR APPS',
         roles: ['User Interface Designer', '2022 – 2023'],
       },
@@ -56,7 +56,7 @@ class Work extends Component {
       {
         number: '05',
         projectName: 'Nail Boutique',
-        projectDesc: 'The boutique\'s website: services, prices and online booking, plus a designer where customers create their own nail art.',
+        projectDesc: 'The boutique’s website: services, prices and online booking, plus a designer where customers create their own nail art.',
         projectType: 'WEBSITE',
         roles: ['Lead UX/UI Developer', '2021'],
       },
@@ -65,7 +65,7 @@ class Work extends Component {
         projectName: 'Readpoint',
         projectDesc: 'An online bookshop with a MongoDB database and payments, where customers browse and buy books.',
         projectType: 'WEB APP',
-        roles: ['Full-Stack Developer', 'Freelance'],
+        roles: ['Software Engineer', 'Freelance'],
       },
       { number: '', projectName: '', projectDesc: '', projectType: '', roles: [''] },
     ];

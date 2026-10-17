@@ -4,49 +4,35 @@ import { motion, AnimatePresence } from 'framer-motion';
 // Two-digit counter; String#padStart is missing from the oldest browserslist targets.
 const pad2 = (n) => (n < 10 ? `0${n}` : `${n}`);
 
-// Resolve inspiration images dynamically using standard URL resolver syntax
-const imgWarframeMenu = new URL('../warframe-menu-1920x1080.jpg', import.meta.url).href;
-const imgWarframeRailjack = new URL('../L5L1VCu.jpg', import.meta.url).href;
-const imgCyberpunkCore = new URL('../9v0cuznz03281.png', import.meta.url).href;
-const imgHoloArch = new URL('../original-6ada7ba3d6854580ed7b865635b34fea.webp', import.meta.url).href;
-const imgWireframe = new URL('../original-c7627ceb4cd5d66864ab5893238a0220.webp', import.meta.url).href;
-const imgConsole = new URL('../original-c81536be180e8081ff37939f01166501.webp', import.meta.url).href;
-
-// All six are other people's work (game menus and fan-made concepts), shown
-// as references. Each caption says what the site borrowed from it.
+// All six are other people's work (game menus and fan-made concepts). They are
+// named as references and not reproduced; each caption says what the site borrowed.
 const inspirationSlides = [
   {
-    image: imgWarframeMenu,
     title: 'WARFRAME MENU',
     caption: 'The main reference. The menu floats inside the ship, tilted into the scene, with the character framed on the right. The homepage copies that split: menu on the left, portrait on the right.',
     tag: 'REFERENCE · WARFRAME'
   },
   {
-    image: imgWarframeRailjack,
     title: 'WARFRAME, LATER VERSION',
     caption: 'A later version of the same menu. Each item sits on its own translucent plate, which is where the glass panels on this site come from.',
     tag: 'REFERENCE · WARFRAME'
   },
   {
-    image: imgCyberpunkCore,
     title: 'HALO: REACH ARMORY',
     caption: 'A plain vertical list, a thin bar marking the selected item, and the character on the right. The accent bars beside the menu items here come from this screen.',
     tag: 'REFERENCE · HALO: REACH'
   },
   {
-    image: imgHoloArch,
     title: 'THOR MENU CONCEPT',
     caption: 'A fan-made game menu, not my work. Widely spaced capitals on the left, a lit figure on the right, and almost nothing else on screen.',
     tag: 'REFERENCE · FAN CONCEPT'
   },
   {
-    image: imgWireframe,
     title: 'GAME HUB CONCEPT',
     caption: 'A fan-made concept, not my work. A frosted panel over a blurred scene, with a list, a character card and a stats panel side by side. The model for the frosted overlays.',
     tag: 'REFERENCE · FAN CONCEPT'
   },
   {
-    image: imgConsole,
     title: 'ZENITH MENU CONCEPT',
     caption: 'A fan-made concept, not my work. Small, widely spaced capitals and very little else. The reason the labels here are small, spaced-out monospace.',
     tag: 'REFERENCE · FAN CONCEPT'
@@ -56,13 +42,9 @@ const inspirationSlides = [
 const DesignInspiration = ({ isOpen, onClose }) => {
   const [activeIdx, setActiveIdx] = useState(0);
 
-  // Reset slide index when modal is opened, and warm the cache for every slide
-  // so paging never shows an empty frame while an image downloads.
+  // Reset slide index when modal is opened.
   useEffect(() => {
-    if (isOpen) {
-      setActiveIdx(0);
-      inspirationSlides.forEach(({ image }) => { new Image().src = image; });
-    }
+    if (isOpen) setActiveIdx(0);
   }, [isOpen]);
 
   const handleNext = () => {
@@ -132,7 +114,7 @@ const DesignInspiration = ({ isOpen, onClose }) => {
                     I have always liked game menus that live inside the world, like the ones in <em>Warframe</em>. They catch the light, shift as the camera moves and frame the character, instead of sitting flat on the screen.
                   </p>
                   <p className="section-text">
-                    I wanted this homepage to feel the same, hence the glass panels, thin rules, small monospaced labels and a portrait that tilts under your cursor. The images alongside are the references I worked from. None of them are mine.
+                    I wanted this homepage to feel the same, hence the glass panels, thin rules, small monospaced labels and a portrait that tilts under your cursor. The references alongside are named rather than shown. None of them are mine.
                   </p>
                 </section>
 
@@ -167,11 +149,14 @@ const DesignInspiration = ({ isOpen, onClose }) => {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.25, ease: 'easeOut' }}
                     >
-                      <img
-                        src={inspirationSlides[activeIdx].image}
-                        alt={`${inspirationSlides[activeIdx].title}: ${inspirationSlides[activeIdx].caption}`}
+                      <div
                         className="carousel-img"
-                      />
+                        role="img"
+                        aria-label={inspirationSlides[activeIdx].title}
+                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '24px', fontFamily: "'Syne', sans-serif", fontSize: 'clamp(20px, 2.4vw, 34px)', letterSpacing: '0.08em', opacity: 0.85 }}
+                      >
+                        {inspirationSlides[activeIdx].title}
+                      </div>
                       <div className="slide-tag">{inspirationSlides[activeIdx].tag}</div>
                     </motion.div>
                   </div>
