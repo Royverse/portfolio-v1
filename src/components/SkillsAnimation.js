@@ -71,7 +71,7 @@ const SKILLS = [
         level: 90,
         role: 'Enterprise Front-End Architecture',
         details: [
-            "Shipped accessible, reusable Angular components for Standard Bank CIB's BluePrint 3.0 design system, adopted across product teams.",
+            "Shipped accessible, reusable Angular components for the BluePrint 3.0 design system of The Standard Bank of South Africa Limited's CIB division, adopted across product teams.",
             "Building core client features on IMD's Accelerator assessment platform for global leadership programmes."
         ]
     },
@@ -98,12 +98,12 @@ const SKILLS = [
         level: 88,
         role: 'Components, Tokens and Adoption',
         details: [
-            "Core contributor to the BluePrint 3.0 design-system pilot for Standard Bank's Corporate & Investment Banking division.",
+            "Core contributor to the BluePrint 3.0 design-system pilot for the Corporate & Investment Banking division of The Standard Bank of South Africa Limited.",
             "Shifted component APIs from visual styling to semantic intent and kept Storybook documentation and visual tests trustworthy for adopting teams."
         ],
         testimonial: {
             quote: "Roy has been an invaluable asset to our team … He has a unique perspective on things, and his ability to approach problems from different angles has helped us to find creative solutions to some of our most challenging issues. Roy is a rare find, and has shown great maturity and skill, far beyond expectation.",
-            author: "Design Lead, Standard Bank"
+            author: "Design Lead, The Standard Bank of South Africa Limited"
         }
     },
     {
@@ -113,7 +113,7 @@ const SKILLS = [
         details: [
             "Applied AI where it adds real utility: a market terminal weighing price action against social sentiment, and a natural-language 3D robot sandbox.",
             "Computer-vision instruments and canvases that turn webcam hand tracking into steady, expressive control.",
-            "Zero-asset WebGL shaders, custom physics and live Web Audio synthesis—all playable under Experiments."
+            "AI-assisted builds in WebGL, physics and live Web Audio synthesis, all playable under Experiments."
         ]
     },
     {

@@ -42,7 +42,7 @@ const projects = [
   {
     num: '05', name: 'Midnight OS', sub: 'Browser-based OS interface',
     tag: 'Interface', tagBg: '#F1EFE8', tagColor: '#444441',
-    desc: 'My tribute to desktop interfaces—a browser OS with a window manager I wrote from scratch, complete with a file system, persistent notes and a working browser.',
+    desc: 'A tribute to desktop interfaces: a browser-based OS with draggable windows, a file browser, persistent notes and a working browser.',
     pills: ['Next.js 16', 'React 19', 'LocalStorage'],
     url: 'https://midnight-os-demo.netlify.app/',
     draw: drawOS, drawM: drawOSM
@@ -59,7 +59,7 @@ const projects = [
   {
     num: '07', name: 'Wonderwave', sub: 'Gesture-controlled spellcasting',
     tag: 'AI · Vision', tagBg: '#E0F7FA', tagColor: '#006064',
-    desc: 'Telekinesis in the browser. Use your hand on webcam to lift, pull and throw objects in 3D, backed by custom physics so every gesture carries weight.',
+    desc: 'Telekinesis in the browser. Use your hand on webcam to lift, pull and throw objects in 3D, with physics that give every gesture weight.',
     pills: ['MediaPipe Tasks', 'Three.js', 'TypeScript', 'Vite'],
     url: 'https://wand-wave.netlify.app/',
     sourceUrl: 'https://github.com/Royverse/wand-wave',
@@ -2253,7 +2253,7 @@ const WorkShowcase = ({ active, onClose }) => {
             <div className="port-grid-scroll">
               <ChromaGrid items={projects} onSelect={openProject} active={active} />
             </div>
-            <p className="port-note">Some experiments ask to use your camera or microphone, only with your permission. Hand tracking runs in your browser. Voice input may be handled by your browser's speech service.</p>
+            <p className="port-note">These experiments were built with AI-assisted coding tools. Some ask to use your camera or microphone, only with your permission. Hand tracking runs in your browser. Voice input may be handled by your browser's speech service.</p>
           </div>
         </ElectricBorder>
 

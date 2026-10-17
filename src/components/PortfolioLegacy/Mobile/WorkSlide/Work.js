@@ -27,15 +27,15 @@ class Work extends Component {
       { number: '', projectName: '', projectDesc: '', projectType: '', roles: [''] },
       {
         number: '01',
-        projectName: 'IMD Business School',
-        projectDesc: 'Digital products for global executive programmes—turning leadership diagnostics, live simulations and research data into software that holds up in the room.',
+        projectName: 'IMD',
+        projectDesc: 'At the International Institute for Management Development: digital products for global executive programmes—turning leadership diagnostics, live simulations and research data into software that holds up in the room.',
         projectType: 'WEB PLATFORMS',
         roles: ['Learning Innovation & STS Developer', '2023 – present'],
       },
       {
         number: '02',
         projectName: 'BluePrint',
-        projectDesc: 'The design-system pilot for Standard Bank’s Corporate & Investment Banking division—giving product teams one shared language in code.',
+        projectDesc: 'The design-system pilot for the Corporate & Investment Banking division of The Standard Bank of South Africa Limited—giving product teams one shared language in code.',
         projectType: 'DESIGN SYSTEM',
         roles: ['User Interface Designer', '2022 – 2023'],
       },

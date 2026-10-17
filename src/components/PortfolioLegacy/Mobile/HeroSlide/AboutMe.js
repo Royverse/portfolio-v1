@@ -36,7 +36,7 @@ class AboutMe extends Component {
           animate={{ opacity: 1 }}
           transition={{ duration: 1.2, delay: 0.5 }}
         >
-          I’m a software engineer in Cape Town, building digital products for IMD Business School. Starting in design systems shaped how I write software: clear, considered interfaces on the surface, and dependable architecture underneath.
+          I’m a software engineer in Cape Town, building digital products at the International Institute for Management Development (IMD). Starting in design systems shaped how I write software: clear, considered interfaces on the surface, and dependable architecture underneath.
         </AboutMeDescription>
       </Container>
     );

@@ -73,7 +73,7 @@ const Stack = styled.span`
 
 const ImdPanel = () => (
   <Panel>
-    <Label>Selected work at IMD</Label>
+    <Label>Selected work · International Institute for Management Development</Label>
     <List>
       {PRODUCTS.map(([name, stack]) => (
         <Row key={name}>
