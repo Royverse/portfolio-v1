@@ -5,8 +5,7 @@ import FallingLeaves from './components/FallingLeaves';
 import WinterWonderland from './components/WinterWonderland';
 import { ThemeProvider, useTheme } from './components/ThemeContext';
 import ThemePicker from './components/ThemePicker';
-// Background piano cover is paused until its rights are confirmed.
-// import BackgroundMusic from './components/BackgroundMusic';
+import BackgroundMusic from './components/BackgroundMusic';
 import './Assets/Menu.css';
 import './Assets/compatibility.css';
 
@@ -73,6 +72,8 @@ const AppContent = () => {
       <div className="bg-switcher-wrap">
         <ThemePicker />
       </div>
+
+      <BackgroundMusic />
 
       <div className={`view-wrap ${transitioning ? 'view-exit' : (entering ? 'view-enter' : '')}`}>
         {view === 'PROFESSIONAL' ? (
