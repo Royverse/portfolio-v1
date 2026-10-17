@@ -50,77 +50,76 @@ const SKILLS = [
     {
         name: 'REACT & NEXT.JS',
         level: 92,
-        role: 'Production Front Ends',
+        role: 'Production Web Platforms',
         details: [
-            "Part of the team that rewrote Leader's Question Mix, IMD's diagnostic of how leaders use questions, then built LQM 360 on top to add colleague feedback.",
-            "Built the Strategic Execution Simulation (Next.js, Prisma, PostgreSQL), a live multiplayer app based on an existing paper-based board simulation for executive teams.",
-            "Replaced a Power Apps tool with a Next.js and FastAPI app for IMD's World Competitiveness Center."
+            "Co-built the new Leader's Question Mix at IMD and extended it into a 360° feedback platform used across executive cohorts.",
+            "Turned a paper-based board exercise into the Strategic Execution Simulation, a live multiplayer app engineered for high-stakes classroom sessions.",
+            "Replaced legacy research tooling for IMD's World Competitiveness Center with a fast Next.js and FastAPI platform."
         ]
     },
     {
         name: 'PYTHON & APIS',
         level: 85,
-        role: 'FastAPI, Flask and Django REST',
+        role: 'FastAPI, Flask and Django',
         details: [
-            "Built the external-reviewer journey on IMD's Accelerator assessment platform (Flask API, Angular client): single-use invitations, response tracking and generated PDF reports.",
-            "Added a data-cleaning pipeline with a preview step to a multi-tenant Django REST talent dashboard, so bad imports are caught before they reach the dashboard."
+            "Designed the external-reviewer flow on IMD's Accelerator platform so feedback arrives smoothly and compiles into clear participant reports.",
+            "Built a data-validation pipeline with a live preview step for a multi-tenant talent dashboard, catching bad imports before they reach clients."
         ]
     },
     {
         name: 'ANGULAR & TYPESCRIPT',
         level: 90,
-        role: 'Enterprise Front-End Engineering',
+        role: 'Enterprise Front-End Architecture',
         details: [
-            "Built and shipped Angular library components for Standard Bank CIB's BluePrint 3.0 design system, documented in Storybook.",
-            "Building features on the Angular client of IMD's Accelerator platform, used in leadership programmes for multinational companies."
+            "Shipped accessible, reusable Angular components for Standard Bank CIB's BluePrint 3.0 design system, adopted across product teams.",
+            "Building core client features on IMD's Accelerator assessment platform for global leadership programmes."
         ]
     },
     {
         name: 'AUTH & SECURITY',
         level: 84,
-        role: 'Identity, Access and Application Security',
+        role: 'Identity, Access and Codebase Security',
         details: [
-            "Audited all 52 of the organisation's code repositories, including their full history, for exposed secrets and security risks, then wrote and presented the executive summary and remediation plan.",
-            "Built Azure AD sign-in for the World Competitiveness Center's data tool.",
-            "Tightened sign-in and admin access checks across IMD products."
+            "Led an organisation-wide security review across the codebase and presented the remediation plan to engineering leadership.",
+            "Unified enterprise sign-in and tightened role-based access across internal executive education tools."
         ]
     },
     {
         name: 'QUALITY & DELIVERY',
         level: 86,
-        role: 'From QA to Production Code',
+        role: 'From QA Roots to Production Ownership',
         details: [
-            "Started at IMD in QA, testing the global move to WordPress with colleagues in Switzerland, Spain, Romania and Algeria.",
-            "Automated programme emails as a scheduled Azure Container Apps Job, so no participant is ever emailed twice."
+            "Started at IMD in QA, coordinating testing across Switzerland, Spain, Romania and Algeria during a global platform migration.",
+            "Engineered idempotent background jobs for programme communications so participants never receive duplicate emails."
         ]
     },
     {
         name: 'DESIGN SYSTEMS',
         level: 88,
-        role: 'Components, Tokens and Storybook',
+        role: 'Components, Tokens and Adoption',
         details: [
             "Core contributor to the BluePrint 3.0 design-system pilot for Standard Bank's Corporate & Investment Banking division.",
-            "Moved button variants from appearance to semantic intent, made components work at narrow widths, and kept the Storybook docs, accessibility add-on and changelog current for product teams."
+            "Shifted component APIs from visual styling to semantic intent and kept Storybook documentation and visual tests trustworthy for adopting teams."
         ],
         testimonial: {
             quote: "Roy has been an invaluable asset to our team … He has a unique perspective on things, and his ability to approach problems from different angles has helped us to find creative solutions to some of our most challenging issues. Roy is a rare find, and has shown great maturity and skill, far beyond expectation.",
-            author: "Mel M. Saayman, Design Lead, Standard Bank"
+            author: "Design Lead, Standard Bank"
         }
     },
     {
         name: 'CREATIVE TECH & AI',
         level: 85,
-        role: 'Browser Experiments',
+        role: 'Interactive Browser Experiments',
         details: [
-            "Gemini-powered apps: a market terminal that scores sentiment against live prices, and a voice-command 3D sandbox.",
-            "MediaPipe hand tracking, smoothed with Kalman and One Euro filters, for touchless drawing and spellcasting in the browser.",
-            "WebGL2 and Three.js games with hand-written physics and live Web Audio synthesis. All of them are live under AI Experiments & Projects."
+            "Applied AI where it adds real utility: a market terminal weighing price action against social sentiment, and a natural-language 3D robot sandbox.",
+            "Computer-vision instruments and canvases that turn webcam hand tracking into steady, expressive control.",
+            "Zero-asset WebGL shaders, custom physics and live Web Audio synthesis—all playable under Experiments."
         ]
     },
     {
         name: 'CERTIFICATES',
         level: 80,
-        role: 'Udemy Courses in UX, UI and Product Design',
+        role: 'Continuous Learning in UX, UI and Cloud',
         details: [] // Handled uniquely in CertificateOverlay
     }
 ];

@@ -36,7 +36,7 @@ class AboutMe extends Component {
           animate={{ opacity: 1 }}
           transition={{ duration: 1.2, delay: 0.5 }}
         >
-          Software engineer in Cape Town, currently building products for IMD Business School. I came to engineering through design systems, and I build web products end to end in TypeScript and Python, from the interface down to the API and its security.
+          I’m a software engineer in Cape Town, building digital products for IMD Business School. Starting in design systems shaped how I write software: clear, considered interfaces on the surface, and dependable architecture underneath.
         </AboutMeDescription>
       </Container>
     );

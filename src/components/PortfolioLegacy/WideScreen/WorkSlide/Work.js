@@ -137,59 +137,59 @@ class Work extends Component {
       {
         number: '01',
         projectName: 'IMD Business School',
-        projectDesc: 'Internal products for executive education: assessments, leadership diagnostics, a live simulation and data tools.',
+        projectDesc: 'Digital products for global executive programmes—turning leadership diagnostics, live simulations and research data into software that holds up in the room.',
         projectType: 'WEB PLATFORMS',
         roles: ['Learning Innovation & STS Developer', '2023 – present'],
-        problem: 'Internal products for IMD’s executive programmes, several replacing tools the teams had outgrown.',
-        solution: 'Joined in QA in July 2023; Learning Innovation Developer since February 2024 and Strategic Talent Solutions Developer since October 2025.\nPart of the team that rebuilt Leader’s Question Mix, then built LQM 360 on top.\nBuilt a live multiplayer version of an existing board simulation, with safeguards for running it in sessions.\nBuilt the reviewer journey on the Accelerator assessment platform.\nBuilt a replacement for the World Competitiveness Center’s data tool.\nAdded tenant configuration and data cleaning to a talent dashboard.\nReviewed the organisation’s repositories for security risks and presented a remediation plan.',
+        problem: 'IMD runs executive programmes for global organisations. When off-the-shelf tools started limiting how faculty taught and how leaders received feedback, we brought those platforms in-house.',
+        solution: 'Turned a paper-based board exercise into a live multiplayer simulation engineered to stay stable with a room full of executives.\nCo-built the new Leader’s Question Mix and extended it into a 360° feedback platform so cohorts can track growth over time.\nShaped the external reviewer experience on the Accelerator platform so feedback arrives on time and turns into clear reports.\nReplaced legacy research tooling for the World Competitiveness Center and added safeguards so bad data is caught before reaching client dashboards.\nLed an organisation-wide security review across the codebase and drove the remediation plan with engineering leadership.',
       },
       {
         number: '02',
         projectName: 'BluePrint',
-        projectDesc: 'The design-system pilot for Standard Bank’s Corporate & Investment Banking division: reusable Angular components, documented in Storybook.',
+        projectDesc: 'The design-system pilot for Standard Bank’s Corporate & Investment Banking division—giving product teams one shared language in code.',
         projectType: 'DESIGN SYSTEM',
         roles: ['User Interface Designer', '2022 – 2023'],
-        problem: 'Product teams in the division needed shared components instead of each building their own.',
-        solution: 'Built and maintained reusable Angular components for BluePrint 3.0, placed at Standard Bank by iqbusiness.\nTurned Figma designs into accessible, documented Storybook components.\nMade components work at narrow widths and moved button variants from appearance to semantic intent.\nKept documentation, accessibility checks and the changelog current for product teams.',
-        QA: 'Storybook and Chromatic for visual and responsive checks.\nUsability sessions and peer code reviews.\nPublished package versions tested before teams upgraded.\nComponents tested in real page templates, across browsers and devices.',
+        problem: 'Every product team in the division was rebuilding the same UI from scratch. BluePrint 3.0 set out to give designers and engineers a single, trusted component library.',
+        solution: 'Translated Figma designs into accessible, production-ready Angular components that teams could drop straight into their products.\nShifted component APIs from visual appearance to semantic intent, making it naturally harder for teams to ship inconsistent UI.\nKept documentation, accessibility checks and releases tight enough that product teams trusted every upgrade.',
+        QA: 'Automated visual regression and responsive checks in Storybook and Chromatic.\nUsability sessions and peer reviews before publishing.\nVerified package upgrades inside real banking page templates across browsers and devices.',
         quote: 'Roy is a rare find, and has shown great maturity and skill, far beyond expectation.',
         quoteAuthor: 'Design Lead, Standard Bank',
       },
       {
         number: '03',
         projectName: 'BluePrint Apps',
-        projectDesc: 'Angular applications built on the BluePrint components, giving the bank’s products one look and behaviour.',
+        projectDesc: 'Enterprise banking applications built on BluePrint—proving the design system worked in real products, not just in Storybook.',
         projectType: 'ANGULAR APPS',
         roles: ['User Interface Designer', '2022 – 2023'],
-        problem: 'Product teams needed applications that followed BluePrint, so users had a consistent experience.',
-        solution: 'Built Angular applications on the BluePrint component library.\nApplied the same components and patterns across every app.\nRan usability tests to check the experience held up.',
+        problem: 'A design system only matters if it holds up in production. The real test was shipping everyday banking applications on top of BluePrint.',
+        solution: 'Built production Angular interfaces on the shared component library, cutting duplicate UI work across teams.\nValidated flows through usability testing so moving from one bank tool to another felt like a single, coherent product.',
       },
       {
         number: '04',
         projectName: 'Admin Portal',
-        projectDesc: 'An admin portal for a nail boutique: stock, client records and reports in one place.',
+        projectDesc: 'An operations portal that took a growing boutique off paper—bringing stock, client history and business reporting into one place.',
         projectType: 'WEB APP',
         roles: ['Lead UX/UI Developer', '2021'],
-        problem: 'The boutique managed stock and client details by hand and had no reliable reporting.',
-        solution: 'Led a team of four that designed and built the boutique’s systems.\nBuilt the admin portal: stock control, client records and reports.',
+        problem: 'The business was losing time and stock to manual counts and scattered notes, with no clear view of how the shop was performing.',
+        solution: 'Led a team of four to take the business digital from the ground up.\nReplaced manual stocktaking and paper records with a single portal that gave the owner reliable numbers.',
       },
       {
         number: '05',
         projectName: 'Nail Boutique',
-        projectDesc: 'The boutique’s website: services, prices and online booking, plus a designer where customers create their own nail art.',
+        projectDesc: 'A booking site and interactive nail-art studio that turned walk-in enquiries into prepared online appointments.',
         projectType: 'WEBSITE',
         roles: ['Lead UX/UI Developer', '2021'],
-        problem: 'The boutique had little online presence and no online booking.',
-        solution: 'Built a responsive website with services, prices and contact details.\nBuilt a nail-art designer for customers to try designs.\nAdded online booking.',
+        problem: 'Clients couldn’t see pricing, test ideas or book an appointment without calling the shop, leaving staff fielding the same questions all day.',
+        solution: 'Built an interactive nail-art designer so clients could experiment with custom looks before walking through the door.\nPaired it with self-service online booking, cutting back-and-forth for staff and lifting booking efficiency.',
       },
       {
         number: '06',
         projectName: 'Readpoint',
-        projectDesc: 'An online bookshop with a MongoDB database and payments, where customers browse and buy books.',
+        projectDesc: 'An e-commerce bookstore that took an independent bookseller online, with live inventory and checkout.',
         projectType: 'WEB APP',
         roles: ['Software Engineer', 'Freelance'],
-        problem: 'A bookseller wanted to sell online.',
-        solution: 'Built the shop on Node.js, Express and MongoDB, with browsing and checkout.\nIntegrated a secure payment system.\nBuilt stock management that updates as books sell.',
+        problem: 'An independent bookseller wanted to reach readers beyond foot traffic without overselling stock that was still tracked by hand.',
+        solution: 'Built the online shop and checkout so readers could browse and buy from anywhere.\nTied payments directly to live inventory so stock stayed accurate automatically.',
       },
       {
         number: '',
@@ -307,7 +307,7 @@ class Work extends Component {
             <Dialog role="dialog" aria-modal="true" aria-label={dialogProject.projectName}>
               <h3>Context</h3>
               <p>{dialogProject.problem}</p>
-              <h3>What I did</h3>
+              <h3>Impact & work</h3>
               {list(dialogProject.solution)}
               {dialogProject.QA && (
                 <>

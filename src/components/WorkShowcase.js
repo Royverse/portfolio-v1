@@ -7,7 +7,7 @@ const projects = [
   {
     num: '01', name: 'Air Canvas AI', sub: 'Gesture-controlled drawing',
     tag: 'AI · Vision', tagBg: '#EEEDFE', tagColor: '#3C3489',
-    desc: 'Draw in the air with your webcam. Hand tracking with a Kalman filter keeps the line steady.',
+    desc: 'An experiment in touchless creativity. Draw in mid-air through your webcam, with signal smoothing that turns a jittery sensor into a steady brush.',
     pills: ['MediaPipe Hands', 'Canvas 2D', 'Kalman Filter', 'Vite'],
     url: 'https://air-canvas-ai.netlify.app/',
     sourceUrl: 'https://github.com/Royverse/air-canvas',
@@ -16,7 +16,7 @@ const projects = [
   {
     num: '02', name: 'not financial advice.', sub: 'Terminal stock dashboard',
     tag: 'AI · Finance', tagBg: '#E1F5EE', tagColor: '#085041',
-    desc: 'Enter a ticker for a single sentiment score, combining live prices with social posts, weighed by Gemini. For entertainment only, not financial advice.',
+    desc: 'Markets move on numbers and narratives. Enter a ticker and Gemini weighs live price action against social sentiment for one clear read on the room. For entertainment only, not financial advice.',
     pills: ['Next.js 15', 'Gemini 2.0', 'Alpha Vantage', 'Xpoz API', 'Supabase', 'Three.js'],
     url: 'https://notfinancialadvice.site/',
     draw: drawNFA, drawM: drawNFAM
@@ -24,7 +24,7 @@ const projects = [
   {
     num: '03', name: 'Mood Support', sub: 'Mood-lifting interface',
     tag: 'AI · Wellness', tagBg: '#FBEAF0', tagColor: '#72243E',
-    desc: 'Choose a mood and the interface changes to match. Write a few lines about your day and get a gentle suggestion from Gemini. An experiment, not a substitute for professional support.',
+    desc: 'Software is usually indifferent to how you feel. Here, the interface shifts its colour, pace and tone to meet your mood, paired with a quiet note from Gemini. An experiment, not a substitute for professional support.',
     pills: ['React', 'Gemini', 'Framer Motion', 'Serverless Functions'],
     url: 'https://mood-align.netlify.app/',
     draw: drawMA, drawM: drawMAM,
@@ -33,7 +33,7 @@ const projects = [
   {
     num: '04', name: 'AR Portal', sub: 'Marker-based AR in the browser',
     tag: 'AR · 3D', tagBg: '#E6F1FB', tagColor: '#0C447C',
-    desc: 'Point your phone at a printed marker and step through a doorway into a 360° scene. Runs in the mobile browser, with nothing to install.',
+    desc: 'WebAR without the app-store friction. Point your phone at a printed marker and step through a doorway into a 360° space, right in the mobile browser.',
     pills: ['A-Frame', 'AR.js', 'Three.js', 'WebGL'],
     url: 'https://github.com/Royverse/AR-PORTAL',
     urlLabel: 'View code ↗',
@@ -42,7 +42,7 @@ const projects = [
   {
     num: '05', name: 'Midnight OS', sub: 'Browser-based OS interface',
     tag: 'Interface', tagBg: '#F1EFE8', tagColor: '#444441',
-    desc: 'A desktop in the browser, with draggable windows, a file browser, notes and a calculator. The window manager is hand-written.',
+    desc: 'My tribute to desktop interfaces—a browser OS with a window manager I wrote from scratch, complete with a file system, persistent notes and a working browser.',
     pills: ['Next.js 16', 'React 19', 'LocalStorage'],
     url: 'https://midnight-os-demo.netlify.app/',
     draw: drawOS, drawM: drawOSM
@@ -50,7 +50,7 @@ const projects = [
   {
     num: '06', name: 'LUMINARY', sub: 'Superhero flight engine',
     tag: 'Game · 3D', tagBg: '#E0F2F1', tagColor: '#0B7A8A',
-    desc: 'Fly a superhero through a generated neon city. Flight, cape and wind are simulated and synthesised in real time.',
+    desc: 'I wanted flight in the browser to feel earned, not animated. Every bank, dive, cape ripple and rush of wind is simulated and synthesised live.',
     pills: ['Three.js', 'WebGL', 'Verlet Physics', 'Web Audio API'],
     url: 'https://luminary-flight.netlify.app/',
     sourceUrl: 'https://github.com/Royverse/luminary',
@@ -59,7 +59,7 @@ const projects = [
   {
     num: '07', name: 'Wonderwave', sub: 'Gesture-controlled spellcasting',
     tag: 'AI · Vision', tagBg: '#E0F7FA', tagColor: '#006064',
-    desc: 'Cast spells with your hand. Webcam gestures move objects in a Three.js scene, with physics written from scratch.',
+    desc: 'Telekinesis in the browser. Use your hand on webcam to lift, pull and throw objects in 3D, backed by custom physics so every gesture carries weight.',
     pills: ['MediaPipe Tasks', 'Three.js', 'TypeScript', 'Vite'],
     url: 'https://wand-wave.netlify.app/',
     sourceUrl: 'https://github.com/Royverse/wand-wave',
@@ -68,7 +68,7 @@ const projects = [
   {
     num: '08', name: 'ECHO', sub: 'Voice-controlled 3D robot sandbox',
     tag: 'AI · Voice', tagBg: '#F3E5F5', tagColor: '#4A148C',
-    desc: 'Give a 3D robot spoken commands and it carries them out. Simple commands are parsed in the browser; looser phrasing goes to Gemini.',
+    desc: 'A study in natural-language control. Speak to a 3D robot in plain English and watch it plan and act out your instructions, handling quick commands locally and nuanced ones through Gemini.',
     pills: ['Three.js', 'Web Speech API', 'Gemini 2.5 Flash', 'Web Audio API'],
     url: 'https://echo-voice-sandbox.netlify.app/',
     sourceUrl: 'https://github.com/Royverse/echo',
@@ -77,7 +77,7 @@ const projects = [
   {
     num: '09', name: 'milkyway.ai', sub: 'A star map of NVIDIA\'s AI models',
     tag: 'AI · Dev Tools', tagBg: '#EAF1FF', tagColor: '#1E3A6E',
-    desc: 'A star map of the AI models on NVIDIA NIM, with a side-by-side chat arena and testing labs. An independent project, not affiliated with NVIDIA.',
+    desc: 'Choosing an AI model shouldn’t feel like reading a spreadsheet. I mapped NVIDIA NIM’s models as an interactive galaxy where you can test them side by side. Independent project, not affiliated with NVIDIA.',
     pills: ['React 18', 'Vite', 'NVIDIA NIM', 'SSE Streaming', 'Canvas 2D'],
     url: 'https://milkyway-ai-galaxy.netlify.app/',
     draw: drawIC, drawM: drawICM
@@ -85,7 +85,7 @@ const projects = [
   {
     num: '10', name: 'Cold Wake', sub: 'Zero-asset WebGL2 survival game',
     tag: 'Game · WebGL2', tagBg: '#E4F4FB', tagColor: '#0B4F6C',
-    desc: 'Break through the ice of a frozen lake. Every frame is drawn by shaders and every sound is generated in code.',
+    desc: 'A constraint challenge: build a tense underwater survival game with zero image, model or audio files. Every frame of cracking ice and every muffled sound is generated in code.',
     pills: ['WebGL2', 'GLSL Shaders', 'Web Audio API'],
     url: 'https://cold-wake-game-1.netlify.app/',
     sourceUrl: 'https://github.com/Royverse/cold-wake',
@@ -94,7 +94,7 @@ const projects = [
   {
     num: '11', name: 'Overtone', sub: 'Piano and hand-conducted orchestra',
     tag: 'AI · Music', tagBg: '#F6EEDD', tagColor: '#6B4A14',
-    desc: 'A piano you can see inside, and an orchestra you conduct with your hand. Every sound is synthesised.',
+    desc: 'As a pianist, I wanted to see the theory inside the music. Play the keys to watch strings resonate and chords name themselves, or step back and conduct a synthesised orchestra by hand.',
     pills: ['Web Audio API', 'Web Workers', 'MediaPipe Tasks', 'Web MIDI', 'Vanilla JS'],
     url: 'https://royverse.github.io/piano/',
     sourceUrl: 'https://github.com/Royverse/piano',
@@ -104,7 +104,7 @@ const projects = [
   {
     num: '12', name: "Roy's Theremin", sub: '3D WebGL acoustic field synthesizer',
     tag: 'AI · Vision & Audio', tagBg: '#FEF3C7', tagColor: '#92400E',
-    desc: 'A playable 3D theremin, controlled by your hands through the webcam.',
+    desc: 'The theremin is the original touchless instrument, making it a natural fit for computer vision. Shape pitch and volume in mid-air with both hands over a live 3D synth.',
     pills: ['Three.js', 'MediaPipe Hands', 'Web Audio API', 'WebGL', 'Vite'],
     url: 'https://roys-theremin.netlify.app/',
     sourceUrl: 'https://github.com/Royverse/roys-theremin',
