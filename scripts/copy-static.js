@@ -14,6 +14,12 @@ const files = [
   ['src/favicon.ico', 'dist/favicon.ico'],
   ['src/favicon.png', 'dist/favicon.png'],
   ['src/favicon.svg', 'dist/favicon.svg'],
+  ['src/apple-touch-icon.png', 'dist/apple-touch-icon.png'],
+  ['src/favicon-16.png', 'dist/favicon-16.png'],
+  ['src/favicon-32.png', 'dist/favicon-32.png'],
+  ['src/favicon-48.png', 'dist/favicon-48.png'],
+  ['src/icon-192.png', 'dist/icon-192.png'],
+  ['src/icon-512.png', 'dist/icon-512.png'],
   ['src/Assets/Images/Portrait/portrait-2.jpg', 'dist/portrait-2.jpg'],
   ['src/_headers', 'dist/_headers'],
 ];
