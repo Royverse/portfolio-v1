@@ -1,0 +1,67 @@
+{
+  "folders": [
+    {
+      "name": "00 · Portfolio (Base)",
+      "path": "c:/Users/User/Documents/GitHub/portfolio-v1"
+    },
+    {
+      "name": "01 · Air Canvas AI",
+      "path": "c:/Users/User/Documents/GitHub/air-canvas"
+    },
+    {
+      "name": "02 · not financial advice.",
+      "path": "c:/Users/User/Documents/GitHub/not-financial-advice"
+    },
+    {
+      "name": "03 · Mood Support",
+      "path": "c:/Users/User/Documents/GitHub/moodSupport"
+    },
+    {
+      "name": "04 · AR Portal",
+      "path": "c:/Users/User/Documents/GitHub/AR-PORTAL"
+    },
+    {
+      "name": "05 · Midnight OS",
+      "path": "c:/Users/User/Documents/GitHub/os-by-midnight"
+    },
+    {
+      "name": "06 · LUMINARY",
+      "path": "c:/Users/User/Documents/GitHub/luminary"
+    },
+    {
+      "name": "07 · Wonderwave",
+      "path": "c:/Users/User/Documents/GitHub/wand-wave"
+    },
+    {
+      "name": "08 · ECHO",
+      "path": "c:/Users/User/Documents/GitHub/echo"
+    },
+    {
+      "name": "09 · milkyway.ai",
+      "path": "c:/Users/User/Documents/GitHub/ideation-canvas"
+    },
+    {
+      "name": "10 · Cold Wake",
+      "path": "c:/Users/User/Documents/GitHub/cold-wake"
+    },
+    {
+      "name": "11 · Overtone",
+      "path": "c:/Users/User/Documents/GitHub/piano"
+    },
+    {
+      "name": "12 · Roy's Theremin",
+      "path": "c:/Users/User/Documents/GitHub/roys-theremin"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/.git": true,
+      "**/.DS_Store": true
+    },
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/.next": true,
+      "**/dist": true
+    }
+  }
+}
