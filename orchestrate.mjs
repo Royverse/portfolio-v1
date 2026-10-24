@@ -182,10 +182,12 @@ async function handleDeploy() {
 
     console.log(`📤 [${p.id}] Deploying ${deployDir} to Netlify (${p.netlifySiteName || p.netlifySiteId})...`);
     try {
-      const { stdout } = await execAsync(`netlify deploy --dir "${deployDir}" --site "${p.netlifySiteId}" --prod`, {
+      const { stdout } = await execAsync(`netlify deploy --dir "${deployDir}" --site "${p.netlifySiteId}" --prod --no-build`, {
         cwd: p.localPath
       });
       console.log(`✅ [${p.id}] Deployment complete.`);
+      const deployUrlMatch = stdout.match(/Website URL:\s+(\S+)/);
+      if (deployUrlMatch) console.log(`   🌐 ${deployUrlMatch[1]}`);
     } catch (err) {
       console.error(`❌ [${p.id}] Netlify deploy error: ${err.message}`);
     }
