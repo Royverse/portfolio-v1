@@ -132,7 +132,7 @@ const MenuScreen = ({ onProjectsClick }) => {
   ];
 
   return (
-    <div className="scene">
+    <main id="main-content" className="scene">
       {/* Portrait */}
       <Portrait covered={overlayOpen} />
 
@@ -277,7 +277,7 @@ const MenuScreen = ({ onProjectsClick }) => {
 
       {/* Design Inspiration Modal */}
       <DesignInspiration isOpen={showInspiration} onClose={() => setShowInspiration(false)} />
-    </div>
+    </main>
   );
 };
 

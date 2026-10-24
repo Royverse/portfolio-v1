@@ -68,7 +68,7 @@
     "accentColor": "#FBEAF0",
     "framework": "React / Framer Motion / Gemini",
     "buildCommand": "static",
-    "outputDir": ".",
+    "outputDir": "dist",
     "deployMethod": "netlify-api"
   },
   {
