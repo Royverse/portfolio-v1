@@ -44,7 +44,7 @@ Roy's Atelier Studio is an offline-first, client-side web application. We take u
 
 ### 3.1 License Grant
 - **Free Tier:** Users are granted a perpetual, non-exclusive license to use the Theremin and Swiss Handpan instruments for personal or non-commercial use.
-- **Pro Tier (Roy's Atelier Studio License):** Upon purchasing a Studio License ($29 Launch Special / $39 Regular), the purchaser is granted a perpetual, non-exclusive, worldwide, royalty-free commercial license to:
+- **Pro Tier (Roy's Atelier Studio License):** Upon purchasing a Studio License ($19 Early Adopter Special / $29 Regular), the purchaser is granted a perpetual, non-exclusive, worldwide, royalty-free commercial license to:
   - Access all 5 instruments (Theremin, Cristal Baschet, Swiss Handpan, Ondes Martenot, Spatial Laser Harp).
   - Use the 10-Axis WebMIDI Controller to route MIDI data to any Digital Audio Workstation (DAW) or hardware synthesizer.
   - Export 32-bit WAV stem recordings and MIDI files.
