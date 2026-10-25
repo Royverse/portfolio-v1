@@ -242,14 +242,14 @@
     "private": true,
     "branch": "main",
     "localPath": "C:\\Users\\User\\Documents\\GitHub\\roys-atelier-studio",
-    "netlifySiteId": null,
+    "netlifySiteId": "73917b14-e20d-4fd8-8667-3b9d1e0abe5d",
     "netlifySiteName": "roys-atelier-studio",
-    "liveUrl": null,
+    "liveUrl": "https://roys-atelier-studio.netlify.app/",
     "themeColor": "#D97706",
     "accentColor": "#FEF3C7",
     "framework": "Three.js / MediaPipe 1-Euro / WebMIDI / Web Audio / Vite",
     "buildCommand": "npm run build",
     "outputDir": "dist",
-    "deployMethod": "manual-or-netlify"
+    "deployMethod": "netlify-api"
   }
 ]
