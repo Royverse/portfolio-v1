@@ -232,5 +232,24 @@
     "buildCommand": "npm run build",
     "outputDir": "dist",
     "deployMethod": "netlify-api"
+  },
+  {
+    "id": "roys-atelier-studio",
+    "name": "Roy's Atelier Studio (Pro)",
+    "category": "Commercial · Pro Audio & WebMIDI",
+    "antigravityProjectId": null,
+    "repo": "Royverse/roys-atelier-studio",
+    "private": true,
+    "branch": "main",
+    "localPath": "C:\\Users\\User\\Documents\\GitHub\\roys-atelier-studio",
+    "netlifySiteId": null,
+    "netlifySiteName": "roys-atelier-studio",
+    "liveUrl": "https://roys-theremin.netlify.app/",
+    "themeColor": "#D97706",
+    "accentColor": "#FEF3C7",
+    "framework": "Three.js / MediaPipe 1-Euro / WebMIDI / Web Audio / Vite",
+    "buildCommand": "npm run build",
+    "outputDir": "dist",
+    "deployMethod": "manual-or-netlify"
   }
 ]
