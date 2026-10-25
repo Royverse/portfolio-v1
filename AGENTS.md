@@ -16,8 +16,7 @@ All 14 projects are cloned side-by-side on this machine in `C:\Users\User\Docume
 - `ideation-canvas` (`https://milkyway-ai-galaxy.netlify.app/`)
 - `cold-wake` (`https://cold-wake-game-1.netlify.app/`)
 - `piano` (`https://royverse.github.io/piano/`)
-- `roys-theremin` (`https://roys-theremin.netlify.app/`)
-- `roys-atelier-studio` (Commercial Pro Edition, `Royverse/roys-atelier-studio`)
+- `roys-atelier-studio` (Commercial Pro Edition, `https://roymootsana.art/atelier/`)
 
 ## Canonical Registry & Tooling
 - Complete project metadata (Netlify Site IDs, local paths, repos, branches, build commands, and theme colors) is stored in [`projects.json`](./projects.json).

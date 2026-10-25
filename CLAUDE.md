@@ -24,7 +24,7 @@ The machine-readable registry is stored in [`projects.json`](./projects.json).
 | **09** | `ideation-canvas` | milkyway.ai | React 18 / Vite / NVIDIA NIM | `C:\Users\User\Documents\GitHub\ideation-canvas` | `Royverse/ideation-canvas` | `main` | `36b7fef2-6771-4c8c-9fc1-8a56842b3ebf` | https://milkyway-ai-galaxy.netlify.app/ | `#3B82F6` |
 | **10** | `cold-wake` | Cold Wake | WebGL2 / GLSL Shaders | `C:\Users\User\Documents\GitHub\cold-wake` | `Royverse/cold-wake` | `main` | `c3a9b589-5c43-4699-a15d-df1da3c403f9` | https://cold-wake-game-1.netlify.app/ | `#38BDF8` |
 | **11** | `piano` | Overtone | Vanilla JS / Web Audio | `C:\Users\User\Documents\GitHub\piano` | `Royverse/piano` | `main` | GitHub Pages | https://royverse.github.io/piano/ | `#F59E0B` |
-| **12** | `roys-theremin` | Roy's Theremin | Three.js / MediaPipe / Web Audio | `C:\Users\User\Documents\GitHub\roys-theremin` | `Royverse/roys-theremin` | `main` | `df86f738-b5b7-4e92-b145-8db60dddce09` | https://roys-theremin.netlify.app/ | `#F97316` |
+| **12** | `roys-atelier-studio` | Roy's Atelier Studio (Pro) | Three.js / 1-Euro Kinematics / WebMIDI / Vite | `C:\Users\User\Documents\GitHub\roys-atelier-studio` | `Royverse/roys-atelier-studio` | `main` | `1854f21c-af23-4c4c-942d-403eb7ceff63` | https://roymootsana.art/atelier/ | `#D97706` |
 
 ---
 
@@ -41,7 +41,7 @@ node orchestrate.mjs status
 
 # Execute any shell command across all repositories
 node orchestrate.mjs exec "git pull origin main"
-node orchestrate.mjs exec "npm test" --only air-canvas,roys-theremin
+node orchestrate.mjs exec "npm test" --only air-canvas,roys-atelier-studio
 
 # Run parallel HTTP health check across all 13 live URLs
 node orchestrate.mjs verify

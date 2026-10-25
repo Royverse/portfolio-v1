@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>Roy’s Atelier — Professional Spatial Instruments & WebMIDI Studio</title>
+    <meta name="description" content="Play 5 rare world instruments (Theremin, Cristal Baschet, Swiss Handpan, Ondes Martenot & Laser Harp) in mid-air via 60fps webcam kinematics. 14-bit WebMIDI DAW bridge for Ableton, FL Studio, Logic & Bitwig." />
+    <meta name="keywords" content="Roy's Atelier, Spatial Audio, WebMIDI, Theremin, Cristal Baschet, Handpan, Ondes Martenot, Laser Harp, Three.js, MediaPipe, Ableton Live, FL Studio, Bitwig, DAW Controller, Roy Mootsana" />
+    <meta name="author" content="Roy Mootsana" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://roymootsana.art/atelier/" />
+
+    <!-- Favicon & PWA Icons -->
+    <link rel="icon" href="./favicon.ico" sizes="48x48" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <link rel="manifest" href="./manifest.json" />
+    <meta name="theme-color" content="#f4f1ea" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Roy's Atelier" />
+
+    <!-- Open Graph / Social Sharing (Upgraded for Streamers & Influencers) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://roymootsana.art/atelier/" />
+    <meta property="og:site_name" content="Roy's Atelier Studio (Pro)" />
+    <meta property="og:title" content="Roy’s Atelier — Professional Spatial Instruments & WebMIDI Studio" />
+    <meta property="og:description" content="Play 5 rare world instruments in mid-air via 60fps webcam kinematics. Route 10-axis 14-bit MPE/WebMIDI directly into Ableton, FL Studio, Bitwig & Logic." />
+    <meta property="og:image" content="https://roymootsana.art/atelier/og-preview.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Roy's Atelier Studio — 5 Rare Instruments and WebMIDI DAW Bridge" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://roymootsana.art/atelier/" />
+    <meta name="twitter:title" content="Roy’s Atelier — Professional Spatial Instruments & WebMIDI Studio" />
+    <meta name="twitter:description" content="Play 5 rare world instruments in mid-air via 60fps webcam kinematics. Route 10-axis 14-bit MPE/WebMIDI directly into Ableton, FL Studio, Bitwig & Logic." />
+    <meta name="twitter:image" content="https://roymootsana.art/atelier/og-preview.png" />
+    <meta name="twitter:image:alt" content="Roy's Atelier Studio — Spatial Instruments" />
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://roymootsana.art; media-src 'self' blob: mediastream:; connect-src 'self' https://cdn.jsdelivr.net https://*.polar.sh https://api.polar.sh https://api.lemonsqueezy.com https://api.gumroad.com blob: data:; worker-src 'self' blob:; object-src 'none'; base-uri 'self';" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- MediaPipe Hands & Camera Utils -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+  
+    <!-- Rich Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://roymootsana.art/atelier/#software",
+          "name": "Roy's Atelier Studio (Pro Edition)",
+          "operatingSystem": "Web Browser (Chrome, Edge, Brave, Safari, Firefox)",
+          "applicationCategory": "MultimediaApplication",
+          "offers": {
+            "@type": "Offer",
+            "price": "29.00",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "url": "https://roymootsana.art/atelier/"
+          },
+          "description": "Spatial Instruments in the browser: Theremin, Cristal Baschet, Swiss Handpan, Ondes Martenot, and Spatial Laser Harp powered by MediaPipe 60fps 1-Euro kinematics, 14-bit WebMIDI DAW Bridge, and Scale Quantizer.",
+          "author": {
+            "@type": "Person",
+            "name": "Roy Mootsana",
+            "url": "https://roymootsana.art"
+          }
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://roymootsana.art/atelier/#webpage",
+          "url": "https://roymootsana.art/atelier/",
+          "name": "Roy’s Atelier — Professional Spatial Instruments & WebMIDI Studio",
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "Roy Mootsana",
+            "url": "https://roymootsana.art"
+          }
+        }
+      ]
+    }
+    </script>
+    <script type="module" crossorigin src="/atelier/assets/index-D8j-K0TU.js"></script>
+    <link rel="stylesheet" crossorigin href="/atelier/assets/index-CPX02LHs.css">
+  </head>
+  <body>
+    <a href="#hud-overlay" class="skip-link">Skip to instrument controls</a>
+    <div id="app">
+      <!-- 3D Three.js WebGL Canvas -->
+      <canvas id="webgl-canvas"></canvas>
+
+      <!-- Minimal Floating Camera Viewport (Mobile PIP / Draggable / Collapsible) -->
+      <div id="camera-dock" class="camera-dock studio-hud-chrome" title="Camera Tracking Feed" role="region" aria-label="Camera Tracking Viewport">
+        <video id="webcam-video" autoplay playsinline muted></video>
+        <canvas id="skeleton-canvas" width="220" height="124"></canvas>
+        <div class="camera-status">
+          <span class="pulse-dot"></span>
+          <span id="camera-label" class="camera-label">Tracking Idle</span>
+        </div>
+
+        <!-- Optical Zoom & Lighting Micro-Toolbar -->
+        <div id="camera-optics-toolbar" class="camera-optics-toolbar" aria-label="Lens Optics & Exposure Controls">
+          <div class="optics-zoom-group">
+            <button id="btn-optics-zoom-out" class="optics-btn optics-btn-step" aria-label="Zoom camera lens out (Wider angle)" title="Zoom out / Wide angle (Key: [)">−</button>
+            <button id="btn-optics-zoom-level" class="optics-btn optics-btn-value" aria-label="Current lens zoom level. Click to cycle presets" title="Lens Zoom. Click to cycle Wide / Std / Tele">0.85x</button>
+            <button id="btn-optics-zoom-in" class="optics-btn optics-btn-step" aria-label="Zoom camera lens in" title="Zoom in (Key: ])">+</button>
+          </div>
+          <button id="btn-optics-auto" class="optics-btn optics-btn-toggle active" aria-pressed="true" aria-label="Toggle Auto-Optics hand distance framing" title="Auto-Optics: Adapts zoom to hand size & distance">AUTO</button>
+          <button id="btn-optics-light" class="optics-btn optics-btn-toggle active" aria-pressed="true" aria-label="Toggle Auto-Brightness exposure compensation" title="Auto-Light: Low-light tracking boost">☀</button>
+        </div>
+
+        <button id="camera-pip-toggle" class="camera-pip-toggle" aria-label="Toggle camera PIP view" title="Expand / collapse preview">⤢</button>
+      </div>
+
+      <!-- Neumorphic Luxury HUD Overlay -->
+      <main id="hud-overlay" role="main" aria-label="Roy's Atelier Instrument Controls"></main>
+    </div>
+
+  </body>
+</html>

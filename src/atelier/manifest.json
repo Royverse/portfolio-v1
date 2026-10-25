@@ -1,0 +1,133 @@
+{
+  "name": "Roy's Atelier Studio — Spatial Instruments & WebMIDI DAW Bridge",
+  "short_name": "Roy's Atelier",
+  "description": "5 Rare World Instruments (Theremin, Ondes Martenot, Cristal Baschet, Swiss Handpan, Laser Harp) with 60fps 1-Euro Hand Kinematics, 14-Bit WebMIDI DAW Bridge, Scale Quantizer, and 32-Bit WAV Stem Recorder.",
+  "start_url": "/atelier/",
+  "scope": "/atelier/",
+  "display": "standalone",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
+  "background_color": "#120f0c",
+  "theme_color": "#f4f1ea",
+  "orientation": "landscape",
+  "categories": [
+    "music",
+    "audio",
+    "multimedia"
+  ],
+  "icons": [
+    {
+      "src": "/atelier/favicon-16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/atelier/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/atelier/favicon-48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "/atelier/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/atelier/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Play Theremin",
+      "short_name": "Theremin",
+      "description": "Continuous pitch & volume spatial theremin (Free Tier)",
+      "url": "/atelier/?inst=theremin",
+      "icons": [
+        {
+          "src": "/atelier/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Play Cristal Baschet",
+      "short_name": "Cristal",
+      "description": "Acoustic glass rods & sub-harmonic resonance",
+      "url": "/atelier/?inst=cristal",
+      "icons": [
+        {
+          "src": "/atelier/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Play Swiss Handpan",
+      "short_name": "Handpan",
+      "description": "Velocity-sensitive steel resonant membrane (Free Tier)",
+      "url": "/atelier/?inst=handpan",
+      "icons": [
+        {
+          "src": "/atelier/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Play Ondes Martenot",
+      "short_name": "Martenot",
+      "description": "Expression ring ribbon & touche d'intensité dynamics",
+      "url": "/atelier/?inst=martenot",
+      "icons": [
+        {
+          "src": "/atelier/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Play Laser Harp",
+      "short_name": "Laser Harp",
+      "description": "Spatial optical concert harp with dual-handed tracking",
+      "url": "/atelier/?inst=laserharp",
+      "icons": [
+        {
+          "src": "/atelier/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "10-Axis MIDI Controller",
+      "short_name": "DAW MIDI",
+      "description": "60fps 14-bit pitchbend & CC router for Ableton / FL Studio",
+      "url": "/atelier/?midi=true",
+      "icons": [
+        {
+          "src": "/atelier/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/atelier/og-preview.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Roy's Atelier Studio — 3D Spatial Instruments & DAW WebMIDI Bridge"
+    }
+  ]
+}

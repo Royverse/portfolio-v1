@@ -1,0 +1,28 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/atelier/*"
+  [headers.values]
+    Permissions-Policy = "camera=(self), microphone=(), geolocation=(), payment=(self)"
+    Cross-Origin-Opener-Policy = "same-origin-allow-popups"
+
+[[redirects]]
+  from = "/atelier/api/verify-license"
+  to = "/.netlify/functions/verify-license"
+  status = 200
+
+[[redirects]]
+  from = "/api/verify-license"
+  to = "/.netlify/functions/verify-license"
+  status = 200
