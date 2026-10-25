@@ -251,5 +251,24 @@
     "buildCommand": "npm run build",
     "outputDir": "dist",
     "deployMethod": "netlify-api"
+  },
+  {
+    "id": "portfolio-design-system",
+    "name": "Ecosystem Design System & Storybook",
+    "category": "Design System & UI Library",
+    "antigravityProjectId": null,
+    "repo": "Royverse/portfolio-design-system",
+    "private": false,
+    "branch": "main",
+    "localPath": "C:\\Users\\User\\Documents\\GitHub\\portfolio-design-system",
+    "netlifySiteId": null,
+    "netlifySiteName": "portfolio-design-system",
+    "liveUrl": null,
+    "themeColor": "#3B82F6",
+    "accentColor": "#60A5FA",
+    "framework": "React 18 / Storybook 8 / Vite / TypeScript",
+    "buildCommand": "npm run build-storybook",
+    "outputDir": "dist",
+    "deployMethod": "manual-or-netlify"
   }
 ]
