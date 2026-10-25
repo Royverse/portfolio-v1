@@ -10,7 +10,6 @@
 /build
 /dist
 .cache
-/docs
 
 # misc
 .DS_Store

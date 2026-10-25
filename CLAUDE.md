@@ -85,3 +85,16 @@ HTML Standard across all projects:
 - **Node.js**: v22.17.1.
 - **PowerShell**: 5.1 on Windows.
 - **Branch Conventions**: Note that `air-canvas` and `os-by-midnight` use `master`, while all other repositories use `main`.
+
+---
+
+## 5. Roy's Atelier Studio (`/atelier/`) Deployment Pipeline
+
+Roy's Atelier Studio (Pro Edition) is hosted directly under Roy's apex domain at `https://roymootsana.art/atelier/`. Detailed architecture is documented in [`docs/ATELIER_INTEGRATION.md`](./docs/ATELIER_INTEGRATION.md).
+
+### Pipeline Highlights
+- **Vite Base Path**: Configured as `base: '/atelier/'` in `roys-atelier-studio/vite.config.ts`.
+- **Automated Copy Hook**: `scripts/copy-static.js` in `portfolio-v1` checks for `../roys-atelier-studio/dist` and automatically copies it to `dist/atelier/` during `npm run build`.
+- **License Verifier**: Serverless function at `portfolio-v1/netlify/functions/verify-license.js`, proxied via `src/_redirects` (`/atelier/api/verify-license /.netlify/functions/verify-license 200`).
+- **Webcam Security Policy**: Root `netlify.toml` injects `Permissions-Policy: camera=(self)` and `Cross-Origin-Opener-Policy: same-origin-allow-popups` on `/atelier/*` routes for MediaPipe tracking.
+- **Deployment**: Deploying `portfolio-v1` updates both the root portfolio and the commercial Studio in a single atomic release.

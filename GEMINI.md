@@ -21,6 +21,7 @@ All 14 projects are cloned side-by-side on this machine in `C:\Users\User\Docume
 ## Canonical Registry & Tooling
 - Complete project metadata (Netlify Site IDs, local paths, repos, branches, build commands, and theme colors) is stored in [`projects.json`](./projects.json).
 - Multi-project orchestrator CLI: [`orchestrate.mjs`](./orchestrate.mjs) (or `.\orchestrate.ps1`).
+- Atelier Studio Integration Guide: [`docs/ATELIER_INTEGRATION.md`](./docs/ATELIER_INTEGRATION.md).
 
 ### Quick Orchestrator Commands
 - `node orchestrate.mjs list` — Display all registered projects and local path statuses.
@@ -31,6 +32,14 @@ All 14 projects are cloned side-by-side on this machine in `C:\Users\User\Docume
 - `node orchestrate.mjs deploy` — Deploy production builds to Netlify via Netlify CLI.
 - `node orchestrate.mjs favicons` — Re-generate custom-bordered signature favicons.
 - `node orchestrate.mjs commit "<msg>"` — Git add, commit, and push modified repositories.
+
+## Commercial Sub-Path Architecture: Roy's Atelier Studio (`/atelier/`)
+`roys-atelier-studio` is Roy's commercial paid web app (replacing the experimental Theremin). It does not deploy to a separate Netlify site; it deploys directly onto `https://roymootsana.art/atelier/` through this repository:
+1. **Compilation**: `roys-atelier-studio` builds with Vite base `/atelier/` into its `dist/`.
+2. **Synchronization**: `scripts/copy-static.js` in `portfolio-v1` automatically syncs `../roys-atelier-studio/dist` into `portfolio-v1/dist/atelier/` during `npm run build`. A tracked backup also lives in `src/atelier/`.
+3. **Licensing & Routing**: `netlify.toml` and `src/_redirects` route `/atelier/api/verify-license` to `netlify/functions/verify-license.js` (Ed25519-signed verification for Polar.sh, Lemon Squeezy, Gumroad, and VIP press keys).
+4. **Permissions**: `Permissions-Policy: camera=(self), payment=(self)` and `Cross-Origin-Opener-Policy: same-origin-allow-popups` are enforced at root headers.
+5. **Standalone Retirement**: Standalone Netlify sites `roys-theremin.netlify.app` and `roys-atelier-studio.netlify.app` are deleted. All traffic lives on `roymootsana.art`. See [`docs/ATELIER_INTEGRATION.md`](./docs/ATELIER_INTEGRATION.md).
 
 ## Multi-Project Editing Rules
 1. **Parallel & Batch Operations**: When asked to make mass changes (e.g. updating headers, styles, analytics, dependencies, or favicons), inspect `projects.json` for paths and use `orchestrate.mjs` for execution.
