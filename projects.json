@@ -244,7 +244,7 @@
     "localPath": "C:\\Users\\User\\Documents\\GitHub\\roys-atelier-studio",
     "netlifySiteId": null,
     "netlifySiteName": "roys-atelier-studio",
-    "liveUrl": "https://roys-theremin.netlify.app/",
+    "liveUrl": null,
     "themeColor": "#D97706",
     "accentColor": "#FEF3C7",
     "framework": "Three.js / MediaPipe 1-Euro / WebMIDI / Web Audio / Vite",
