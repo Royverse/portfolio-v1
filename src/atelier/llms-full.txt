@@ -53,9 +53,9 @@ Roy's Atelier Studio Edition is a browser-native 3D spatial instrument atelier a
 ### 5. Spatial Laser Harp (1981 / Future) — Pro Tier (60-Second Free Preview)
 - **History & Heritage**: Pioneered by Bernard Szajner and popularized in arena concerts by Jean-Michel Jarre.
 - **Physical Controls**:
-  - 9 Volumetric Vertical Laser Beams rendered in 3D WebGL.
-  - Beam Occlusion: Breaking a laser beam triggers sharp optical transients.
-  - Hand Height: Sweeps a resonant lowpass/bandpass filter and modulates delay lines.
+  - 10 Volumetric Optical Laser Beams (E3, F#3, G3, A3, B3, D4, E4, G4, B4, E5) rendered in 3D WebGL with real-time ray occlusion.
+  - Beam Occlusion & Tapping: Slicing or tapping an individual laser beam cuts the light shaft at finger height, fires an optical Elka Synthex pluck transient, and sustains while held.
+  - Hand Height: Moving vertically along a held laser beam sweeps a resonant lowpass filter and modulates harmonic overtones.
 
 ---
 

@@ -37,4 +37,5 @@ Allow: /
 
 # Canonical Sitemap & LLM Specification
 Sitemap: https://roymootsana.art/sitemap.xml
+Sitemap: https://roymootsana.art/atelier/sitemap.xml
 LLMs-Txt: https://roymootsana.art/atelier/llms.txt
