@@ -1941,49 +1941,55 @@ function drawAtelierCore(ctx, w, h, t, isModal) {
 }
 
 function drawAtelier(ctx, w, h, t) {
-  const telemetry = drawAtelierCore(ctx, w, h, t, false);
+  // Minimal: one breathing sine wave shaped by a single orb, five instrument dots.
+  ctx.fillStyle = '#0c0a08';
+  ctx.fillRect(0, 0, w, h);
+
+  const glow = ctx.createRadialGradient(w * 0.5, h * 0.5, 0, w * 0.5, h * 0.5, w * 0.6);
+  glow.addColorStop(0, 'rgba(245, 158, 11, 0.07)');
+  glow.addColorStop(1, 'rgba(245, 158, 11, 0)');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, w, h);
+
+  // Orb drifts in a slow Lissajous: x = pitch, y = volume
+  const ox = w * 0.5 + Math.sin(t * 0.7) * w * 0.3;
+  const oy = h * 0.45 + Math.sin(t * 1.1 + 1) * h * 0.14;
+  const freq = 2 + ((ox / w) * 5);
+  const amp = (h * 0.34) * (1 - (oy / h) * 0.9) * 0.55;
+  const midY = h * 0.5;
 
   ctx.save();
-  // Eyebrow badge top left
-  ctx.font = `600 ${Math.max(8, h * 0.065)}px 'DM Mono', monospace`;
-  ctx.fillStyle = '#f59e0b';
-  ctx.fillText("ROY'S ATELIER STUDIO", 12, 20);
-
-  ctx.font = `400 ${Math.max(7, h * 0.048)}px 'DM Mono', monospace`;
-  ctx.fillStyle = 'rgba(254, 243, 199, 0.7)';
-  ctx.fillText("5 SPATIAL INSTRUMENTS • 14-BIT MIDI", 12, 34);
-
-  // Top right frequency & scale quantizer badge
-  const badgeX = w - 12;
-  ctx.font = `600 ${Math.max(9, h * 0.08)}px 'DM Mono', monospace`;
-  ctx.fillStyle = '#fef3c7';
-  ctx.textAlign = 'right';
-  ctx.fillText(`${telemetry.currentFreq} Hz (${telemetry.noteName})`, badgeX, 22);
-
-  ctx.font = `500 ${Math.max(7, h * 0.052)}px 'DM Mono', monospace`;
-  ctx.fillStyle = '#34d399';
-  ctx.fillText('1-EURO KINEMATICS • 60 FPS', badgeX, 36);
-
-  // Bottom instrument pills strip
-  const instNames = ['THEREMIN', 'CRISTAL', 'HANDPAN', 'MARTENOT', 'LASER HARP'];
-  const pillW = (w - 24) / instNames.length;
-  instNames.forEach((inst, i) => {
-    const px = 12 + i * pillW;
-    const py = h - 16;
-    const isCurrent = i === Math.floor((t * 0.6) % instNames.length);
-
-    ctx.fillStyle = isCurrent ? 'rgba(245, 158, 11, 0.25)' : 'rgba(20, 16, 12, 0.6)';
-    ctx.strokeStyle = isCurrent ? '#f59e0b' : 'rgba(245, 158, 11, 0.2)';
-    ctx.lineWidth = 1;
-    ctx.fillRect(px, py - 10, pillW - 4, 14);
-    ctx.strokeRect(px, py - 10, pillW - 4, 14);
-
-    ctx.font = `${isCurrent ? '600' : '400'} ${Math.max(6, h * 0.035)}px 'DM Mono', monospace`;
-    ctx.fillStyle = isCurrent ? '#fef3c7' : 'rgba(254, 243, 199, 0.5)';
-    ctx.textAlign = 'center';
-    ctx.fillText(inst, px + (pillW - 4) / 2, py);
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  [[3, 0.08], [1.4, 0.9]].forEach(([lw, a]) => {
+    ctx.beginPath();
+    for (let x = 0; x <= w; x += 2) {
+      const env = Math.exp(-Math.pow((x - ox) / (w * 0.35), 2));
+      const y = midY + Math.sin((x / w) * Math.PI * 2 * freq - t * 2.2) * amp * (0.15 + 0.85 * env);
+      x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.strokeStyle = `rgba(253, 230, 170, ${a})`;
+    ctx.lineWidth = lw;
+    ctx.stroke();
   });
 
+  // Orb with soft halo
+  const halo = ctx.createRadialGradient(ox, oy, 0, ox, oy, h * 0.2);
+  halo.addColorStop(0, 'rgba(245, 158, 11, 0.45)');
+  halo.addColorStop(1, 'rgba(245, 158, 11, 0)');
+  ctx.fillStyle = halo;
+  ctx.beginPath(); ctx.arc(ox, oy, h * 0.2, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#fef3c7';
+  ctx.beginPath(); ctx.arc(ox, oy, 3.2, 0, Math.PI * 2); ctx.fill();
+
+  // Five instrument dots, one lit at a time
+  const active = Math.floor((t * 0.5) % 5);
+  for (let i = 0; i < 5; i++) {
+    const dx = w * 0.5 + (i - 2) * 16;
+    const dy = h - 16;
+    ctx.fillStyle = i === active ? '#f59e0b' : 'rgba(254, 243, 199, 0.22)';
+    ctx.beginPath(); ctx.arc(dx, dy, i === active ? 2.6 : 1.8, 0, Math.PI * 2); ctx.fill();
+  }
   ctx.restore();
 }
 
