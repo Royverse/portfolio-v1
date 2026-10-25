@@ -187,8 +187,8 @@
       ]
     }
     </script>
-    <script type="module" crossorigin src="./assets/index-Bprdatnl.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BgnghmDO.css">
+    <script type="module" crossorigin src="./assets/index-DLJjG-w5.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-vFaV3jAb.css">
   </head>
   <body>
     <!-- High-Touch Cinematic Preloader (Fades gracefully once 3D stage & audio are ready) -->
@@ -231,24 +231,33 @@
       <!-- Minimal Floating Camera Viewport (Mobile PIP / Draggable / Collapsible) -->
       <div id="camera-dock" class="camera-dock studio-hud-chrome" title="Camera Tracking Feed" role="region" aria-label="Camera Tracking Viewport">
         <video id="webcam-video" autoplay playsinline webkit-playsinline muted></video>
-        <canvas id="skeleton-canvas" width="220" height="124"></canvas>
-        <div class="camera-status">
-          <span class="pulse-dot"></span>
-          <span id="camera-label" class="camera-label">Tracking Idle</span>
-        </div>
+        <canvas id="skeleton-canvas" width="280" height="158"></canvas>
 
-        <!-- Optical Zoom & Lighting Micro-Toolbar -->
-        <div id="camera-optics-toolbar" class="camera-optics-toolbar" aria-label="Lens Optics & Exposure Controls">
-          <div class="optics-zoom-group">
-            <button id="btn-optics-zoom-out" class="optics-btn optics-btn-step" aria-label="Zoom camera lens out (Wider angle)" title="Zoom out / Wide angle (Tap or Key [)">−</button>
-            <button id="btn-optics-zoom-level" class="optics-btn optics-btn-value" aria-label="Current lens zoom level. Click to cycle presets" title="Lens Zoom. Tap to cycle Wide / Std / Tele">0.85x</button>
-            <button id="btn-optics-zoom-in" class="optics-btn optics-btn-step" aria-label="Zoom camera lens in" title="Zoom in (Tap or Key ])">+</button>
+        <!-- Dedicated Non-Overlapping Header Bar -->
+        <div class="camera-dock-header">
+          <div class="camera-status">
+            <span class="pulse-dot"></span>
+            <span id="camera-label" class="camera-label">Tracking Idle</span>
           </div>
-          <button id="btn-optics-auto" class="optics-btn optics-btn-toggle active" aria-pressed="true" aria-label="Toggle Auto-Optics hand distance framing" title="Auto-Optics: Adapts zoom to hand size & distance">AUTO</button>
-          <button id="btn-optics-light" class="optics-btn optics-btn-toggle active" aria-pressed="true" aria-label="Toggle Auto-Brightness exposure compensation" title="Auto-Light: Low-light tracking boost">☀</button>
+
+          <div class="camera-controls-group">
+            <!-- Optical Zoom & Lighting Micro-Toolbar -->
+            <div id="camera-optics-toolbar" class="camera-optics-toolbar" aria-label="Lens Optics & Exposure Controls">
+              <div class="optics-zoom-group">
+                <button id="btn-optics-zoom-out" class="optics-btn optics-btn-step" aria-label="Zoom camera lens out (Wider angle)" title="Zoom out / Wide angle (Tap or Key [)">−</button>
+                <button id="btn-optics-zoom-level" class="optics-btn optics-btn-value" aria-label="Current lens zoom level. Click to cycle presets" title="Lens Zoom. Tap to cycle Wide / Std / Tele">0.85x</button>
+                <button id="btn-optics-zoom-in" class="optics-btn optics-btn-step" aria-label="Zoom camera lens in" title="Zoom in (Tap or Key ])">+</button>
+              </div>
+              <button id="btn-optics-auto" class="optics-btn optics-btn-toggle active" aria-pressed="true" aria-label="Toggle Auto-Optics hand distance framing" title="Auto-Optics: Adapts zoom to hand size & distance">AUTO</button>
+              <button id="btn-optics-light" class="optics-btn optics-btn-toggle active" aria-pressed="true" aria-label="Toggle Auto-Brightness exposure compensation" title="Auto-Light: Low-light tracking boost">☀</button>
+            </div>
+
+            <button id="camera-pip-toggle" class="camera-pip-toggle" aria-label="Toggle camera PIP view" title="Expand / collapse preview">⤢</button>
+          </div>
         </div>
 
-        <button id="camera-pip-toggle" class="camera-pip-toggle" aria-label="Toggle camera PIP view" title="Expand / collapse preview">⤢</button>
+        <!-- Real-Time Camera Feedback Banner (Non-overlapping Bottom Center Pill) -->
+        <div class="camera-status-feedback hidden" id="camera-status-feedback">Hold palm steady facing camera...</div>
       </div>
 
       <!-- Neumorphic Luxury HUD Overlay -->
