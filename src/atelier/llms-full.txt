@@ -1,0 +1,114 @@
+# Roy's Atelier Studio (Pro Edition) — Complete System Documentation
+> Canonical Markdown Reference for AI Crawlers, Large Language Models & Autonomous Agents
+> Canonical URL: https://roymootsana.art/atelier/
+> Author: Roy Mootsana (https://roymootsana.art)
+
+---
+
+## 1. Executive Summary & Category Definition
+
+Roy's Atelier Studio Edition is a browser-native 3D spatial instrument atelier and 14-bit WebMIDI DAW controller. Built on WebGL (Three.js), Web Audio API, WebMIDI, and 60fps MediaPipe Hands kinematics with second-order 1-Euro adaptive filtering, it resolves the historical trade-off between expressive acoustic modeling and studio utility.
+
+### Category-of-One Architecture:
+1. **Expressive Mid-Air Performance**: Play 5 rare historical and futuristic acoustic instruments in mid-air with zero physical contact or specialized hardware sensors.
+2. **DAW Master Controller**: Route 10 spatial/kinematic parameters simultaneously into Ableton Live, FL Studio, Logic Pro, and Bitwig Studio via standard virtual MIDI buses (IAC Driver on macOS, loopMIDI on Windows).
+3. **14-Bit High-Resolution Pitchbend**: Resolves the 7-bit MIDI "staircase" stepping artifact by utilizing 14-bit Pitchbend (16,384 discrete steps) for analog-smooth microtonal glissandos.
+4. **Frictionless DAW MIDI Learn**: Proprietary `[SOLO MAP]` isolation enables 2-second mapping of any axis to any DAW macro without multi-axis crosstalk flooding the DAW.
+5. **Instant Stem Export**: Record parallel 32-bit float stereo WAV stems and Standard MIDI Files (.mid SMF Format 0) directly in the browser tab.
+6. **Zero Data Egress Privacy**: 100% of computer vision and audio modeling executes on the local GPU/CPU via WebAssembly and WebGL shaders. No video, images, or audio are ever transmitted over the network.
+
+---
+
+## 2. The 5 Spatial Instruments
+
+### 1. Theremin (1920) — Free Tier
+- **History & Heritage**: Patented by Léon Theremin in 1928, popularized by virtuoso Clara Rockmore.
+- **Physical Controls**:
+  - Right Hand X-Axis: Continuous pitch antenna (heterodyne oscillator modeling with triode saturation and vacuum tube thermal drift LFO).
+  - Right Hand Pinch / Depth: Micro-vibrato depth and pitch expressivity.
+  - Left Hand Y-Axis: Volume loop antenna (higher = louder; clenching fist instantly silences sound).
+- **Acoustic Environment**: Parallel convolution with simulated 2.6s European concert hall impulse response.
+
+### 2. Cristal Baschet (1952) — Pro Tier (60-Second Free Preview)
+- **History & Heritage**: Invented by Bernard and François Baschet in Paris. Used in avant-garde compositions, film scores (e.g., *The Dark Knight*, *Dune*), and ambient sound design.
+- **Physical Controls**:
+  - Right Hand Motion: Stroking virtual moistened glass rods with velocity-sensitive stick-slip friction mechanics.
+  - Left Hand Elevation: Resonant steel flame and fiberglass cone dampening/modulation.
+- **Sonic Character**: Glassy, ethereal sustained overtones with intense sub-bass fundamental resonance.
+
+### 3. Swiss Handpan (2000) — Free Tier
+- **History & Heritage**: Developed in Bern, Switzerland, uniting the acoustics of Trinidadian steelpans with the ceramic resonance of the ghatam.
+- **Physical Controls**:
+  - Central Ding + 8 Surrounding Tone Fields (D Kurd: D3, A3, Bb3, C4, D4, E4, F4, G4, A4).
+  - Strike Kinematics: Downward hand acceleration triggers velocity-sensitive percussive strikes.
+  - Palm Tilt: Modulates harmonic overtone bloom.
+
+### 4. Ondes Martenot (1928) — Pro Tier (60-Second Free Preview)
+- **History & Heritage**: Created by Maurice Martenot, celebrated by Olivier Messiaen (*Turangalîla-Symphonie*), Jonny Greenwood (Radiohead), and film composers.
+- **Physical Controls**:
+  - Right Hand: Metallic ring (*bague*) sliding along a continuous horizontal ribbon wire for pitch.
+  - Left Hand: Touch intensity key (*touche d'intensité*) providing sensitive pressure-controlled dynamics and articulation.
+  - Diffuseur Palme: 12 sympathetically vibrating metallic strings producing an iridescent acoustic halo.
+
+### 5. Spatial Laser Harp (1981 / Future) — Pro Tier (60-Second Free Preview)
+- **History & Heritage**: Pioneered by Bernard Szajner and popularized in arena concerts by Jean-Michel Jarre.
+- **Physical Controls**:
+  - 9 Volumetric Vertical Laser Beams rendered in 3D WebGL.
+  - Beam Occlusion: Breaking a laser beam triggers sharp optical transients.
+  - Hand Height: Sweeps a resonant lowpass/bandpass filter and modulates delay lines.
+
+---
+
+## 3. WebMIDI 10-Axis Mapping Specification
+
+Roy's Atelier streams 10 continuous kinematic parameters across two MIDI channels:
+
+| Axis ID | Source Hand & Motion | MIDI Output Channel & Message | Range | Target DAW Parameter Suggestion |
+| :--- | :--- | :--- | :--- | :--- |
+| **`pitch_14bit`** | Right Hand X (Horizontal) | **Channel 1: 14-Bit Pitchbend** | -8192 to +8191 (16,384 steps) | Master Synthesizer Oscillator Pitch / VST Fine Tune |
+| **`rh_x`** | Right Hand X (Normalized) | Channel 1: CC 20 | 0 – 127 | Stereo Panning / Wavetable Position |
+| **`rh_y`** | Right Hand Y (Vertical) | Channel 1: CC 21 | 0 – 127 | Filter Cutoff Frequency / High-Cut |
+| **`rh_z`** | Right Hand Z (Depth to Lens) | Channel 1: CC 22 | 0 – 127 | Reverb Dry/Wet / Spatial Distance |
+| **`rh_pinch`** | Right Hand Pinch (Thumb-to-Index) | Channel 1: CC 23 | 0 – 127 | Vibrato Depth / Resonance (Q) / Distortion Drive |
+| **`rh_roll`** | Right Hand Wrist Roll (Rotation) | Channel 1: CC 24 | 0 – 127 | Grain Size / Chorus Rate / Flanger Feedback |
+| **`lh_x`** | Left Hand X (Horizontal) | Channel 2: CC 25 | 0 – 127 | Delay Time / Secondary Filter Cutoff |
+| **`lh_y`** | Left Hand Y (Vertical) | Channel 2: CC 26 | 0 – 127 | Master VCA Volume / Expression (CC 11) |
+| **`lh_z`** | Left Hand Z (Depth to Lens) | Channel 2: CC 27 | 0 – 127 | Envelope Release Time / Feedback |
+| **`lh_pinch`** | Left Hand Pinch (Thumb-to-Index) | Channel 2: CC 28 | 0 – 127 | Tremolo Speed / Sub-Harmonic Level |
+
+### The `[SOLO MAP]` 2-Second DAW Mapping Workflow:
+1. Open the **DAW MIDI Bridge** drawer in Roy's Atelier.
+2. Select your virtual MIDI port (`IAC Driver` on macOS, `loopMIDI` on Windows).
+3. Click `[SOLO MAP]` next to the axis you wish to bind. All other 9 axes are instantly silenced.
+4. In Ableton Live, press `Cmd+M` (or `Ctrl+J` in FL Studio), click the desired knob, and wave your hand.
+5. The parameter binds instantly without competing messages.
+6. Click `[UNSOLO]` in Roy's Atelier to resume full multi-dimensional performance.
+
+---
+
+## 4. Musical Scales and Harmonic Quantization
+
+Roy's Atelier includes an integrated pitch quantizer featuring variable **magnetic pull** (0.0 continuous microtonal to 1.0 rigid stepped):
+- **Chromatic**: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] (Free Tier)
+- **Major**: [0, 2, 4, 5, 7, 9, 11] (Free Tier)
+- **Dorian**: [0, 2, 3, 5, 7, 9, 10] (Pro Tier — Cinematic ambient & neo-classical)
+- **Hirajoshi**: [0, 2, 3, 7, 8] (Pro Tier — Traditional Japanese contemplative pentatonic)
+- **Phrygian Dominant**: [0, 1, 4, 5, 7, 8, 10] (Pro Tier — Flamenco & Middle Eastern expression)
+- **Minor Pentatonic**: [0, 3, 5, 7, 10] (Pro Tier — Blues, rock & ambient lead)
+- **Lydian**: [0, 2, 4, 6, 7, 9, 11] (Pro Tier — Dreamy film score & sci-fi brightness)
+- **Whole Tone**: [0, 2, 4, 6, 8, 10] (Pro Tier — Debussy impressionism & ethereal suspense)
+
+---
+
+## 5. Pricing, Licensing & Availability
+
+- **Free Tier (Permanent)**: 100% unlocked access to Theremin, Swiss Handpan, Chromatic & Major scales, mouse/touch/webcam tracking, and audio playback.
+- **Pro Studio License ($29 Launch Special / $39 Regular)**:
+  - Permanent unlock for Ondes Martenot, Cristal Baschet, and Spatial Laser Harp.
+  - 10-axis 14-bit WebMIDI DAW Bridge with `[SOLO MAP]` isolation.
+  - All 8 musical scale quantizers with continuous magnetic pull.
+  - Parallel 32-bit Float WAV stem and SMF Format 0 MIDI file recorder.
+  - OBS transparent streamer overlay mode (`?obs=true`).
+  - Zero-backend Ed25519 cryptographic offline receipts.
+- **Merchant of Record**: Polar.sh & Gumroad with automated VAT/tax compliance across 190+ countries.
+- **Production Host**: https://roymootsana.art/atelier/

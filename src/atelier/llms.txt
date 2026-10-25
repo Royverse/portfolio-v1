@@ -1,0 +1,28 @@
+# Roy's Atelier Studio (Pro Edition)
+> Professional browser-based 3D spatial instrument atelier and 14-bit WebMIDI DAW controller driven by 60fps 1-Euro filtered webcam hand kinematics.
+
+Roy's Atelier Studio Edition is a high-precision, zero-latency musical performance environment running 100% in modern web browsers (Chrome, Edge, Brave, Safari, Firefox). It turns any standard webcam into a touchless expressive instrument and 10-axis DAW MIDI controller for Ableton Live, FL Studio, Bitwig Studio, and Logic Pro.
+
+## Core Studio Capabilities
+- [Live Studio](https://roymootsana.art/atelier/): Interactive 3D spatial instruments and DAW bridge playable directly in modern Chromium and WebKit browsers.
+- [DAW MIDI Bridge](https://roymootsana.art/atelier/?midi=true): 10-axis 14-bit MIDI Pitchbend and CC router with one-click [SOLO MAP] isolation.
+- [Scale & Harmonic Quantizer](https://roymootsana.art/atelier/?scale=dorian): Continuous magnetic pitch quantizer across 8 Western, modal, and Japanese scales.
+- [Market & Productization Architecture](https://roymootsana.art/atelier/docs/MARKET_AND_PRODUCTIZATION_REPORT.md): Market benchmarks, competitor audits (Soniccouture, MUTI, Motion2MIDI), pricing psychology, and zero-backend licensing architecture.
+
+## 5 Rare World Instruments
+- [Theremin (1920)](https://roymootsana.art/atelier/?inst=theremin): Dual-antenna continuous pitch and volume electrophone modeled after Clara Rockmore's virtuoso instrument. Free Tier (unlocked).
+- [Cristal Baschet (1952)](https://roymootsana.art/atelier/?inst=cristal): Parisian acoustic glass rods transmitting high-energy friction vibrations into a monumental steel flame resonator. Pro Tier (60s preview).
+- [Swiss Handpan (2000)](https://roymootsana.art/atelier/?inst=handpan): Nitrided steel resonant dome in D Kurd with velocity-sensitive percussion and harmonic bloom. Free Tier (unlocked).
+- [Ondes Martenot (1928)](https://roymootsana.art/atelier/?inst=martenot): Continuous pitch ribbon ring with touche d'intensité dynamic pressure expression and 12-string diffuseur palme. Pro Tier (60s preview).
+- [Spatial Laser Harp (1981)](https://roymootsana.art/atelier/?inst=laserharp): Polyphonic optical concert harp with real-time beam occlusion and dual-handed height filtering. Pro Tier (60s preview).
+
+## Technical Specifications
+- **Kinematics Engine**: MediaPipe Hands tracking at 60fps with second-order 1-Euro adaptive filtering and Kalman smoothing to eliminate optical sensor noise and jitter.
+- **High-Resolution MIDI**: 14-bit MIDI Pitchbend (16,384 discrete steps) on Channel 1 to eradicate 7-bit MIDI CC stairstepping during smooth glissandos.
+- **[SOLO MAP] Isolation**: Single-click axis isolation muting all competing axes to complete DAW MIDI Learn in 2 seconds without multi-axis crosstalk.
+- **Parallel Stem Recorder**: Zero-dependency 32-bit IEEE Float stereo .wav stem recorder and binary Standard MIDI File (.mid SMF Format 0) exporter.
+- **OBS Transparent Mode**: `?obs=true` query flag rendering alpha-transparent WebGL for live streamers and video creators.
+- **Privacy & Security**: 100% on-device client-side inference via WebAssembly and WebGL. Zero video frames or audio signals ever leave the browser.
+
+## Optional & Comprehensive Documentation
+- [Full Documentation Bundle](https://roymootsana.art/atelier/llms-full.txt): Complete inline documentation, MIDI CC reference chart, scale quantization tables, and DAW integration guides.

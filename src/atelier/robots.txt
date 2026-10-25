@@ -1,0 +1,40 @@
+# ==============================================================================
+# ROY'S ATELIER STUDIO — ROBOTS.TXT
+# Welcomes Web Crawlers & AI Knowledge Engines (GEO / LLMs)
+# https://roymootsana.art/atelier/
+# ==============================================================================
+
+User-agent: *
+Allow: /
+Allow: /atelier/
+Allow: /atelier/llms.txt
+Allow: /atelier/manifest.json
+
+# Explicitly Permit AI Retrieval & Search Engines (SearchGPT, Perplexity, Gemini, Claude)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+# Canonical Sitemap & LLM Specification
+Sitemap: https://roymootsana.art/sitemap.xml
+LLMs-Txt: https://roymootsana.art/atelier/llms.txt
