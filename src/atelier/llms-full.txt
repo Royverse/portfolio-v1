@@ -103,7 +103,7 @@ Roy's Atelier includes an integrated pitch quantizer featuring variable **magnet
 ## 5. Pricing, Licensing & Availability
 
 - **Free Tier (Permanent)**: 100% unlocked access to Theremin, Swiss Handpan, Chromatic & Major scales, mouse/touch/webcam tracking, and audio playback.
-- **Pro Studio License ($29 Launch Special / $39 Regular)**:
+- **Pro Studio License ($19 Early Adopter Special / $29 Regular)**:
   - Permanent unlock for Ondes Martenot, Cristal Baschet, and Spatial Laser Harp.
   - 10-axis 14-bit WebMIDI DAW Bridge with `[SOLO MAP]` isolation.
   - All 8 musical scale quantizers with continuous magnetic pull.

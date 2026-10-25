@@ -2140,6 +2140,27 @@ function drawAtelierM(ctx, w, h, t) {
 
 const WorkShowcase = ({ active, onClose }) => {
   const [selectedProject, setSelectedProject] = useState(null);
+  const [footnoteDismissed, setFootnoteDismissed] = useState(() => {
+    try {
+      return localStorage.getItem('rm_experiments_footnote_dismissed') === 'true';
+    } catch (e) {
+      return false;
+    }
+  });
+
+  const handleDismissFootnote = () => {
+    setFootnoteDismissed(true);
+    try {
+      localStorage.setItem('rm_experiments_footnote_dismissed', 'true');
+    } catch (e) {}
+  };
+
+  const handleRestoreFootnote = () => {
+    setFootnoteDismissed(false);
+    try {
+      localStorage.setItem('rm_experiments_footnote_dismissed', 'false');
+    } catch (e) {}
+  };
   const modalCanvasRef = useRef(null);
   const modalRafRef = useRef(null);
   const closeBtnRef = useRef(null);
@@ -2234,7 +2255,55 @@ const WorkShowcase = ({ active, onClose }) => {
             <div className="port-grid-scroll">
               <ChromaGrid items={projects} onSelect={openProject} active={active} />
             </div>
-            <p className="port-note">These experiments were built with AI-assisted coding tools. Some ask to use your camera or microphone, only with your permission. Hand tracking runs in your browser. Voice input may be handled by your browser's speech service.</p>
+            {!footnoteDismissed ? (
+              <div className="port-footnote-bar" role="note" aria-label="Experiments info">
+                <span className="port-footnote-icon" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="16" x2="12" y2="12" />
+                    <line x1="12" y1="8" x2="12.01" y2="8" />
+                  </svg>
+                </span>
+                <p className="port-footnote-text">
+                  These experiments were built with AI-assisted coding tools. Some ask to use your camera or microphone, only with your permission. Hand tracking runs in your browser.
+                  <a
+                    href="https://roy-portfolio-design-system.netlify.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="port-footnote-link"
+                    title="View Design System & Component Storybook"
+                  >
+                    Design System & Storybook ↗
+                  </a>
+                </p>
+                <button
+                  type="button"
+                  className="port-footnote-dismiss"
+                  onClick={handleDismissFootnote}
+                  aria-label="Dismiss footnote"
+                  title="Dismiss note"
+                >
+                  ×
+                </button>
+              </div>
+            ) : (
+              <div className="port-footnote-collapsed">
+                <button
+                  type="button"
+                  className="port-footnote-restore-btn"
+                  onClick={handleRestoreFootnote}
+                  aria-label="Show experiments footnote info"
+                  title="Show experiments info"
+                >
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="16" x2="12" y2="12" />
+                    <line x1="12" y1="8" x2="12.01" y2="8" />
+                  </svg>
+                  <span className="port-footnote-restore-label">Info</span>
+                </button>
+              </div>
+            )}
           </div>
         </ElectricBorder>
 

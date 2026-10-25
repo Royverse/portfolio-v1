@@ -243,14 +243,14 @@
     "private": false,
     "branch": "main",
     "localPath": "C:\\Users\\User\\Documents\\GitHub\\portfolio-design-system",
-    "netlifySiteId": null,
-    "netlifySiteName": "portfolio-design-system",
-    "liveUrl": null,
+    "netlifySiteId": "5733c9f3-6d53-42c2-a83c-a9a5d7b31583",
+    "netlifySiteName": "roy-portfolio-design-system",
+    "liveUrl": "https://roy-portfolio-design-system.netlify.app/",
     "themeColor": "#3B82F6",
     "accentColor": "#60A5FA",
     "framework": "React 18 / Storybook 8 / Vite / TypeScript",
     "buildCommand": "npm run build-storybook",
     "outputDir": "dist",
-    "deployMethod": "manual-or-netlify"
+    "deployMethod": "netlify-api"
   }
 ]
