@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light" data-theme-preference="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
@@ -10,6 +10,36 @@
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://roymootsana.art/atelier/" />
 
+    <!-- Color Scheme & Theme Color (Default Light Mode) -->
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f4f1ea" />
+
+    <!-- Synchronous Early Theme Guard: Guarantee Light Mode on All Devices & Phones -->
+    <script>
+      (function() {
+        try {
+          var t = localStorage.getItem('roys_theme');
+          if (t === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.documentElement.setAttribute('data-theme-preference', 'dark');
+            var meta = document.querySelector('meta[name="theme-color"]');
+            if (meta) meta.setAttribute('content', '#121316');
+          } else {
+            if (t === 'system') {
+              try { localStorage.setItem('roys_theme', 'light'); } catch(e) {}
+            }
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.documentElement.setAttribute('data-theme-preference', 'light');
+            var meta = document.querySelector('meta[name="theme-color"]');
+            if (meta) meta.setAttribute('content', '#f4f1ea');
+          }
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'light');
+          document.documentElement.setAttribute('data-theme-preference', 'light');
+        }
+      })();
+    </script>
+
     <!-- Generative Engine Optimization (GEO) & Machine Documentation Index -->
     <link rel="describedby" href="./llms.txt" type="text/markdown" />
     <link rel="alternate" href="./llms-full.txt" type="text/markdown" title="Full AI Documentation Bundle" />
@@ -19,7 +49,6 @@
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
     <link rel="manifest" href="./manifest.json" />
-    <meta name="theme-color" content="#f4f1ea" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -187,8 +216,8 @@
       ]
     }
     </script>
-    <script type="module" crossorigin src="./assets/index-CtNFIXpp.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DVbUvQZs.css">
+    <script type="module" crossorigin src="./assets/index-BeOxiKMa.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Dioend0G.css">
   </head>
   <body>
     <!-- High-Touch Cinematic Preloader (Fades gracefully once 3D stage & audio are ready) -->
