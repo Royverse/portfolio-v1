@@ -4,26 +4,21 @@
 
 import crypto from 'node:crypto';
 
-// Default fallback Ed25519 keys for development / initial deployments
-// Override in Netlify environment variables: LICENSE_ED25519_PRIVATE_KEY_B64
-const DEFAULT_ED25519_PRIVATE_KEY_PKCS8_B64 =
-  process.env.LICENSE_ED25519_PRIVATE_KEY_B64 ||
-  'MC4CAQAwBQYDK2VwBCIEIKFSKJesG3cw2bUIhnWf8FJiBDP0j4ITqU9rVOkdXnsT';
+// Ed25519 PKCS8 private key (base64 DER). Must be set in Netlify environment variables and
+// must pair with ED25519_PUBLIC_KEY_SPKI_B64 in src/pro/ProLicenseManager.ts.
+// Generate a fresh pair with: node scripts/rotate-license-keys.mjs
+const ED25519_PRIVATE_KEY_PKCS8_B64 = process.env.LICENSE_ED25519_PRIVATE_KEY_B64 || '';
 
 function getCorsHeaders(event) {
   const origin = event.headers.origin || event.headers.Origin || '';
   const allowed = [
     'https://roymootsana.art',
-    'https://roys-theremin.netlify.app',
-    'https://roys-atelier-studio.netlify.app',
     'http://localhost:5173',
     'http://localhost:3000',
     'http://localhost:8888',
   ];
 
-  const allowOrigin = allowed.includes(origin) || origin.endsWith('.netlify.app')
-    ? origin
-    : allowed[0];
+  const allowOrigin = allowed.includes(origin) ? origin : allowed[0];
 
   return {
     'Access-Control-Allow-Origin': allowOrigin,
@@ -58,6 +53,14 @@ export const handler = async (event) => {
     };
   }
 
+  if (!ED25519_PRIVATE_KEY_PKCS8_B64) {
+    return {
+      statusCode: 503,
+      headers: CORS_HEADERS,
+      body: JSON.stringify({ valid: false, error: 'License service is not configured.' }),
+    };
+  }
+
   try {
     const {
       licenseKey,
@@ -77,13 +80,18 @@ export const handler = async (event) => {
     let verifiedProvider = null;
     let customerEmail = '';
     let instanceIdOut = activationId;
+    // Only a clean rejection from every configured provider counts as revoked; a misconfigured
+    // deploy or a provider outage must never downgrade customers during background re-checks.
+    let providersChecked = 0;
+    let providerErrors = 0;
 
-    // 0. VIP / PRESS KEYS (Default press keys + optional Netlify VIP_LICENSE_KEYS environment variable)
-    const defaultVipKeys = 'ATELIER_VIP_PRESS_2026,ATELIER_PRESS_2026';
-    const vipList = (process.env.VIP_LICENSE_KEYS ? `${process.env.VIP_LICENSE_KEYS},${defaultVipKeys}` : defaultVipKeys)
+    // 0. VIP / PRESS KEYS — only the comma-separated keys in the VIP_LICENSE_KEYS env var.
+    // Never hardcode keys here: this source is mirrored into the public portfolio-v1 repo.
+    const vipList = (process.env.VIP_LICENSE_KEYS || '')
       .split(',')
-      .map((k) => k.trim());
-    if (vipList.includes(cleanKey) || cleanKey.startsWith('ATELIER_VIP_')) {
+      .map((k) => k.trim())
+      .filter(Boolean);
+    if (vipList.includes(cleanKey)) {
       verifiedProvider = 'vip_press';
       instanceIdOut = `vip_${Date.now()}`;
       customerEmail = 'press@roymootsana.art';
@@ -112,6 +120,8 @@ export const handler = async (event) => {
         body: JSON.stringify(polarBody),
       });
 
+      if (polarRes.status < 500) providersChecked++;
+      else providerErrors++;
       if (polarRes.ok) {
         const polarData = await polarRes.json();
         const keyObj = polarData.license_key || polarData;
@@ -120,19 +130,25 @@ export const handler = async (event) => {
           !process.env.POLAR_BENEFIT_ID || keyObj.benefit_id === process.env.POLAR_BENEFIT_ID;
         if (isGranted && matchesBenefit) {
           verifiedProvider = 'polar';
-          instanceIdOut = polarData.id || activationId;
-          customerEmail = polarData.user?.email || '';
+          // /activate returns the activation itself; /validate returns the key with a nested activation.
+          instanceIdOut = activationId ? polarData.activation?.id || activationId : polarData.id;
+          customerEmail = keyObj.customer?.email || polarData.customer?.email || polarData.user?.email || '';
         }
       }
     }
 
     // 2. LEMON SQUEEZY FALLBACK VERIFICATION
     if (!verifiedProvider && process.env.LEMONSQUEEZY_STORE_ID) {
-      const lsParams = new URLSearchParams({
-        license_key: cleanKey,
-        instance_name: instanceName,
-      });
-      const lsRes = await fetch('https://api.lemonsqueezy.com/v1/licenses/activate', {
+      // Re-checks validate the existing instance so they never consume another activation.
+      const lsParams = new URLSearchParams(
+        activationId
+          ? { license_key: cleanKey, instance_id: activationId }
+          : { license_key: cleanKey, instance_name: instanceName }
+      );
+      const lsEndpoint = activationId
+        ? 'https://api.lemonsqueezy.com/v1/licenses/validate'
+        : 'https://api.lemonsqueezy.com/v1/licenses/activate';
+      const lsRes = await fetch(lsEndpoint, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -141,6 +157,8 @@ export const handler = async (event) => {
         body: lsParams.toString(),
       });
 
+      if (lsRes.status < 500) providersChecked++;
+      else providerErrors++;
       if (lsRes.ok) {
         const lsData = await lsRes.json();
         const matchesStore =
@@ -155,7 +173,7 @@ export const handler = async (event) => {
           lsData.license_key?.status === 'active'
         ) {
           verifiedProvider = 'lemonsqueezy';
-          instanceIdOut = lsData.instance?.id || null;
+          instanceIdOut = lsData.instance?.id || activationId || null;
           customerEmail = lsData.meta?.customer_email || '';
         }
       }
@@ -174,6 +192,8 @@ export const handler = async (event) => {
         body: gumParams.toString(),
       });
 
+      if (gumRes.status < 500) providersChecked++;
+      else providerErrors++;
       if (gumRes.ok) {
         const gumData = await gumRes.json();
         if (
@@ -195,6 +215,7 @@ export const handler = async (event) => {
         headers: CORS_HEADERS,
         body: JSON.stringify({
           valid: false,
+          revoked: providersChecked > 0 && providerErrors === 0,
           error: 'License key invalid, expired, or activation limit reached.',
         }),
       };
@@ -209,7 +230,7 @@ export const handler = async (event) => {
       activatedAt: Date.now(),
     };
 
-    const signedReceipt = signEd25519Receipt(receiptPayload, DEFAULT_ED25519_PRIVATE_KEY_PKCS8_B64);
+    const signedReceipt = signEd25519Receipt(receiptPayload, ED25519_PRIVATE_KEY_PKCS8_B64);
 
     return {
       statusCode: 200,
