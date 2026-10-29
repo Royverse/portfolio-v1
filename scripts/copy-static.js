@@ -61,6 +61,8 @@ if (fs.existsSync(srcAtelier)) {
 // 2. If local roys-atelier-studio sibling repo has an updated dist, sync it directly
 const siblingAtelierDist = path.resolve(root, '..', 'roys-atelier-studio', 'dist');
 if (fs.existsSync(siblingAtelierDist)) {
+  // Mirror rather than merge, so files removed from the app (old bundles, retired docs) don't linger live
+  fs.rmSync(distAtelier, { recursive: true, force: true });
   copyDirRecursive(siblingAtelierDist, distAtelier);
   console.log(`synced ../roys-atelier-studio/dist -> dist/atelier`);
 }
