@@ -1,13 +1,13 @@
 # Roy's Atelier Studio (Pro Edition)
 > Professional browser-based 3D spatial instrument atelier and 14-bit WebMIDI DAW controller driven by 60fps 1-Euro filtered webcam hand kinematics.
 
-Roy's Atelier Studio Edition is a high-precision, zero-latency musical performance environment running 100% in modern web browsers (Chrome, Edge, Brave, Safari, Firefox). It turns any standard webcam into a touchless expressive instrument and 10-axis DAW MIDI controller for Ableton Live, FL Studio, Bitwig Studio, and Logic Pro.
+Roy's Atelier Studio Edition is a high-precision, low-latency musical performance environment running in modern web browsers (DAW MIDI output requires Web MIDI: Chrome, Edge or Firefox; not Safari). It turns any standard webcam into a touchless expressive instrument and 10-axis DAW MIDI controller for Ableton Live, FL Studio, Bitwig Studio, and Logic Pro.
 
 ## Core Studio Capabilities
 - [Live Studio](https://roymootsana.art/atelier/): Interactive 3D spatial instruments and DAW bridge playable directly in modern Chromium and WebKit browsers.
 - [DAW MIDI Bridge](https://roymootsana.art/atelier/?midi=true): 10-axis 14-bit MIDI Pitchbend and CC router with one-click [SOLO MAP] isolation.
 - [Scale & Harmonic Quantizer](https://roymootsana.art/atelier/?scale=dorian): Continuous magnetic pitch quantizer across 8 Western, modal, and Japanese scales.
-- [Market & Productization Architecture](https://roymootsana.art/atelier/docs/MARKET_AND_PRODUCTIZATION_REPORT.md): Market benchmarks, competitor audits (Soniccouture, MUTI, Motion2MIDI), pricing psychology, and zero-backend licensing architecture.
+- [Terms, Privacy & Licences](https://roymootsana.art/atelier/legal/): Privacy policy, terms of use, 30-day refund policy, third-party services and open-source licences.
 
 ## 5 Rare World Instruments
 - [Theremin (1920)](https://roymootsana.art/atelier/?inst=theremin): Dual-antenna continuous pitch and volume electrophone modeled after Clara Rockmore's virtuoso instrument. Free Tier (unlocked).

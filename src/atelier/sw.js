@@ -4,8 +4,8 @@
 // Handles app shell, Vite bundles, MediaPipe WASM/assets, and typography.
 // ============================================================================
 
-const CACHE_NAME = 'roys-atelier-studio-v1.1';
-const RUNTIME_CACHE = 'roys-atelier-runtime-v1.1';
+const CACHE_NAME = 'roys-atelier-studio-v1.2';
+const RUNTIME_CACHE = 'roys-atelier-runtime-v1.2';
 
 const PRECACHE_LOCAL_PATHS = [
   '',
@@ -21,11 +21,11 @@ const PRECACHE_LOCAL_PATHS = [
   'apple-touch-icon.png',
   'og-preview.png',
   'icons.svg',
+  'legal/',
 ];
 
 const EXTERNAL_ASSETS = [
-  'https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js',
-  'https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js'
+  'https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/hands.js'
 ];
 
 // Install: precache critical assets dynamically matching registration scope
@@ -110,9 +110,7 @@ self.addEventListener('fetch', (event) => {
 
   // 1. External MediaPipe & CDN assets: Cache-First with runtime fallback
   if (
-    url.hostname.includes('cdn.jsdelivr.net') ||
-    url.hostname.includes('fonts.googleapis.com') ||
-    url.hostname.includes('fonts.gstatic.com')
+    url.hostname.includes('cdn.jsdelivr.net')
   ) {
     event.respondWith(
       caches.match(req).then((cached) => {

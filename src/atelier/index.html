@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>Roy’s Atelier — Professional Spatial Instruments & 14-Bit WebMIDI Studio</title>
     <meta name="description" content="Play 5 rare world instruments (Theremin, Ondes Martenot, Cristal Baschet, Swiss Handpan & Laser Harp) in mid-air via 60fps webcam kinematics. 14-bit WebMIDI DAW controller for Ableton Live, FL Studio, Bitwig & Logic." />
-    <meta name="keywords" content="webcam midi controller, browser theremin, spatial audio synthesizer, ondes martenot web, cristal baschet online emulation, swiss handpan virtual instrument, spatial laser harp, 14-bit midi pitchbend, mpe hand tracking, ableton webcam controller, fl studio gesture controller, bitwig midi bridge, mediapipe music controller, touchless musical instrument, roy mootsana atelier" />
+    <meta name="keywords" content="webcam midi controller, browser theremin, spatial audio synthesizer, ondes martenot web, cristal baschet online emulation, swiss handpan virtual instrument, spatial laser harp, 14-bit midi pitchbend, hand tracking midi, ableton webcam controller, fl studio gesture controller, bitwig midi bridge, mediapipe music controller, touchless musical instrument, roy mootsana atelier" />
     <meta name="author" content="Roy Mootsana" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://roymootsana.art/atelier/" />
@@ -59,7 +59,7 @@
     <meta property="og:url" content="https://roymootsana.art/atelier/" />
     <meta property="og:site_name" content="Roy's Atelier Studio (Pro)" />
     <meta property="og:title" content="Roy’s Atelier — Professional Spatial Instruments & 14-Bit WebMIDI Studio" />
-    <meta property="og:description" content="Play 5 rare world instruments in mid-air via 60fps webcam kinematics. Route 10-axis 14-bit MPE/WebMIDI directly into Ableton, FL Studio, Bitwig & Logic." />
+    <meta property="og:description" content="Play 5 rare world instruments in mid-air via 60fps webcam kinematics. Route 10 axes of 14-bit WebMIDI directly into Ableton, FL Studio, Bitwig & Logic." />
     <meta property="og:image" content="https://roymootsana.art/atelier/og-preview.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -69,18 +69,14 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://roymootsana.art/atelier/" />
     <meta name="twitter:title" content="Roy’s Atelier — Professional Spatial Instruments & 14-Bit WebMIDI Studio" />
-    <meta name="twitter:description" content="Play 5 rare world instruments in mid-air via 60fps webcam kinematics. Route 10-axis 14-bit MPE/WebMIDI directly into Ableton, FL Studio, Bitwig & Logic." />
+    <meta name="twitter:description" content="Play 5 rare world instruments in mid-air via 60fps webcam kinematics. Route 10 axes of 14-bit WebMIDI directly into Ableton, FL Studio, Bitwig & Logic." />
     <meta name="twitter:image" content="https://roymootsana.art/atelier/og-preview.png" />
     <meta name="twitter:image:alt" content="Roy's Atelier Studio — Spatial Instruments" />
 
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://roymootsana.art; media-src 'self' blob: mediastream:; connect-src 'self' https://cdn.jsdelivr.net https://*.polar.sh https://api.polar.sh https://api.lemonsqueezy.com https://api.gumroad.com blob: data:; worker-src 'self' blob:; object-src 'none'; base-uri 'self';" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob: https://roymootsana.art; media-src 'self' blob: mediastream:; connect-src 'self' https://cdn.jsdelivr.net https://*.polar.sh https://api.polar.sh https://api.lemonsqueezy.com https://api.gumroad.com blob: data:; worker-src 'self' blob:; object-src 'none'; base-uri 'self';" />
     
     <!-- MediaPipe Hands & Camera Utils -->
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/hands.js" integrity="sha384-oHwoZ9HyKv5ark5VOH+XWdbNfmhYtptAOBuV8plz6mAfXvTA6d8fULuYllWouEK2" crossorigin="anonymous"></script>
   
     <!-- Rich Structured Data (JSON-LD) for Search & Generative Engine Optimization (GEO) -->
     <script type="application/ld+json">
@@ -95,7 +91,7 @@
           "description": "Professional 3D spatial instrument atelier and 14-bit WebMIDI DAW controller powered by 60fps 1-Euro filtered webcam hand kinematics. Play Theremin, Cristal Baschet, Swiss Handpan, Ondes Martenot, and Spatial Laser Harp in mid-air.",
           "applicationCategory": "MultimediaApplication",
           "applicationSubCategory": "Audio Synthesizer & WebMIDI Spatial Controller",
-          "operatingSystem": "All modern web browsers (Chrome, Edge, Brave, Safari, Firefox)",
+          "operatingSystem": "Modern desktop browsers; Web MIDI output works in Chrome, Edge and Firefox (not Safari)",
           "browserRequirements": "Requires Web Audio API, WebGL 2.0, WebRTC MediaStreams, and WebMIDI API support",
           "author": {
             "@type": "Person",
@@ -110,13 +106,6 @@
             "url": "https://roymootsana.art/atelier/",
             "priceValidUntil": "2026-12-31"
           },
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.9",
-            "ratingCount": "128",
-            "bestRating": "5",
-            "worstRating": "1"
-          },
           "featureList": [
             "Play 5 rare world instruments: Theremin, Cristal Baschet, Swiss Handpan, Ondes Martenot, and Spatial Laser Harp",
             "60fps MediaPipe hand tracking with 1-Euro adaptive filtering to eliminate jitter",
@@ -125,7 +114,7 @@
             "Musical scale quantizer with continuous magnetic pull (0.0 to 1.0) across 8 scales",
             "Parallel 32-bit float stereo WAV stem and Standard MIDI File (.mid) recording",
             "OBS transparent streamer overlay mode (?obs=true)",
-            "Zero-backend offline cryptographic license verification"
+            "Offline-first license: one online activation, then signed receipts verified on-device"
           ]
         },
         {
@@ -184,7 +173,7 @@
             {
               "@type": "HowToStep",
               "name": "Open the DAW MIDI Bridge",
-              "text": "Click 'Studio Tools' ☰ in Roy's Atelier and select 'DAW MIDI Bridge' to open the 10-axis router.",
+              "text": "Click 'Studio Tools' in Roy's Atelier and select 'DAW MIDI Bridge' to open the 10-axis router.",
               "url": "https://roymootsana.art/atelier/#step1"
             },
             {
@@ -216,8 +205,8 @@
       ]
     }
     </script>
-    <script type="module" crossorigin src="./assets/index-BeOxiKMa.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-Dioend0G.css">
+    <script type="module" crossorigin src="./assets/index-NofO0Zed.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-1IkB8p_x.css">
   </head>
   <body>
     <!-- High-Touch Cinematic Preloader (Fades gracefully once 3D stage & audio are ready) -->
@@ -247,7 +236,8 @@
         </div>
 
         <button id="btn-preloader-enter" class="btn-preloader-enter hidden" aria-label="Enter Studio">
-          Enter Atelier →
+          <span>Enter Atelier</span>
+          <svg class="atelier-icon" width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="10" x2="16" y2="10" /><polyline points="11,5 16,10 11,15" /></svg>
         </button>
       </div>
     </div>
@@ -273,15 +263,23 @@
             <!-- Optical Zoom & Lighting Micro-Toolbar -->
             <div id="camera-optics-toolbar" class="camera-optics-toolbar" aria-label="Lens Optics & Exposure Controls">
               <div class="optics-zoom-group">
-                <button id="btn-optics-zoom-out" class="optics-btn optics-btn-step" aria-label="Zoom camera lens out (Wider angle)" title="Zoom out / Wide angle (Tap or Key [)">−</button>
+                <button id="btn-optics-zoom-out" class="optics-btn optics-btn-step" aria-label="Zoom camera lens out (Wider angle)" title="Zoom out / Wide angle (Tap or Key [)">
+                  <svg class="atelier-icon" width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="10" x2="16" y2="10" /></svg>
+                </button>
                 <button id="btn-optics-zoom-level" class="optics-btn optics-btn-value" aria-label="Current lens zoom level. Click to cycle presets" title="Lens Zoom. Tap to cycle Wide / Std / Tele">0.85x</button>
-                <button id="btn-optics-zoom-in" class="optics-btn optics-btn-step" aria-label="Zoom camera lens in" title="Zoom in (Tap or Key ])">+</button>
+                <button id="btn-optics-zoom-in" class="optics-btn optics-btn-step" aria-label="Zoom camera lens in" title="Zoom in (Tap or Key ])">
+                  <svg class="atelier-icon" width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="10" y1="4" x2="10" y2="16" /><line x1="4" y1="10" x2="16" y2="10" /></svg>
+                </button>
               </div>
               <button id="btn-optics-auto" class="optics-btn optics-btn-toggle active" aria-pressed="true" aria-label="Toggle Auto-Optics hand distance framing" title="Auto-Optics: Adapts zoom to hand size & distance">AUTO</button>
-              <button id="btn-optics-light" class="optics-btn optics-btn-toggle active" aria-pressed="true" aria-label="Toggle Auto-Brightness exposure compensation" title="Auto-Light: Low-light tracking boost">☀</button>
+              <button id="btn-optics-light" class="optics-btn optics-btn-toggle active" aria-pressed="true" aria-label="Toggle Auto-Brightness exposure compensation" title="Auto-Light: Low-light tracking boost">
+                <svg class="atelier-icon" width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="3.2" fill="currentColor" fill-opacity="0.2" /><line x1="10" y1="2.5" x2="10" y2="4.2" /><line x1="10" y1="15.8" x2="10" y2="17.5" /><line x1="2.5" y1="10" x2="4.2" y2="10" /><line x1="15.8" y1="10" x2="17.5" y2="10" /><line x1="4.7" y1="4.7" x2="5.9" y2="5.9" /><line x1="14.1" y1="14.1" x2="15.3" y2="15.3" /><line x1="15.3" y1="4.7" x2="14.1" y2="5.9" /><line x1="5.9" y1="14.1" x2="4.7" y2="15.3" /></svg>
+              </button>
             </div>
 
-            <button id="camera-pip-toggle" class="camera-pip-toggle" aria-label="Toggle camera PIP view" title="Expand / collapse preview">⤢</button>
+            <button id="camera-pip-toggle" class="camera-pip-toggle" aria-label="Toggle camera PIP view" title="Expand / collapse preview">
+              <svg class="atelier-icon" width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="14" height="12" rx="2" /><rect x="10" y="9.5" width="5.5" height="5" rx="1" fill="currentColor" fill-opacity="0.2" /></svg>
+            </button>
           </div>
         </div>
 
@@ -292,6 +290,6 @@
       <!-- Neumorphic Luxury HUD Overlay -->
       <main id="hud-overlay" role="main" aria-label="Roy's Atelier Instrument Controls"></main>
     </div>
-
+
   </body>
 </html>

@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Terms, Privacy &amp; Licences · Roy's Atelier Studio</title>
+  <meta name="description" content="Terms of use, privacy policy, refund policy, safety notes, third-party services and open-source licences for Roy's Atelier Studio." />
+  <link rel="canonical" href="https://roymootsana.art/atelier/legal/" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; object-src 'none'; base-uri 'self';" />
+  <style>
+    :root {
+      --bg: #f4f1ea; --card: #fffdf8; --ink: #2b2620; --muted: #6b6257; --line: #e3dccf;
+      --accent: #b45309; --accent-soft: #fef3c7;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #121316; --card: #1a1b20; --ink: #ece7de; --muted: #a39b8f; --line: #2c2d33; --accent: #f59e0b; --accent-soft: #3a2a0c; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    main { max-width: 820px; margin: 0 auto; padding: 40px 20px 80px; }
+    header p { color: var(--muted); margin: 4px 0; }
+    h1 { font-size: 30px; line-height: 1.2; margin: 0 0 8px; }
+    h2 { font-size: 22px; margin: 0 0 12px; padding-top: 8px; }
+    h3 { font-size: 17px; margin: 22px 0 6px; }
+    section { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px; margin: 18px 0; scroll-margin-top: 16px; }
+    a { color: var(--accent); }
+    nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 4px; }
+    nav a { text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; font-size: 14px; background: var(--card); }
+    .callout { background: var(--accent-soft); border-radius: 10px; padding: 12px 16px; margin: 12px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+    th, td { text-align: left; vertical-align: top; padding: 8px 6px; border-bottom: 1px solid var(--line); }
+    th { color: var(--muted); font-weight: 600; }
+    code { font-size: 13.5px; background: var(--bg); padding: 1px 5px; border-radius: 4px; }
+    .back { display: inline-block; margin-bottom: 18px; }
+    footer { color: var(--muted); font-size: 14px; text-align: center; margin-top: 32px; }
+    @media (max-width: 560px) { section { padding: 18px 16px; } table, thead, tbody, tr, th, td { display: block; } thead { display: none; } td { border: 0; padding: 2px 0; } tr { border-bottom: 1px solid var(--line); padding: 8px 0; } }
+  </style>
+</head>
+<body>
+<main>
+  <a class="back" href="../">← Back to the Studio</a>
+  <header>
+    <h1>Terms, Privacy &amp; Licences</h1>
+    <p>Roy's Atelier Studio · Effective 29 October 2026</p>
+    <p>Plain-language policies for a small, independent product. If anything is unclear, email <a href="mailto:support@roymootsana.art">support@roymootsana.art</a>.</p>
+  </header>
+
+  <nav aria-label="Sections">
+    <a href="#summary">Summary</a>
+    <a href="#privacy">Privacy</a>
+    <a href="#third-parties">Third parties</a>
+    <a href="#terms">Terms of use</a>
+    <a href="#refunds">Refunds</a>
+    <a href="#safety">Safety</a>
+    <a href="#licences">Open-source licences</a>
+    <a href="#heritage">Instruments &amp; trademarks</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section id="summary">
+    <h2>Summary</h2>
+    <ul>
+      <li><strong>Your camera stays on your device.</strong> Hand tracking runs in your browser. We never receive, record or store video, images or hand data.</li>
+      <li><strong>No analytics, no ads, no cookies.</strong> The Studio saves a few settings and your license receipt in your browser's local storage.</li>
+      <li><strong>Payments are handled by a merchant of record</strong> (Polar or Gumroad). They process your payment, tax and invoice. We never see your card details.</li>
+      <li><strong>You own what you make.</strong> Recordings and MIDI you create are yours to release commercially, royalty-free.</li>
+      <li><strong>30-day refunds</strong> on Pro purchases, no questions asked.</li>
+    </ul>
+    <p>The Studio is made by Mosa Thato Roy Mootsana ("Roy", "we", "us"), an independent developer based in Cape Town, South Africa. For privacy law purposes (POPIA and, where it applies, the GDPR), Roy is the responsible party / controller for the limited personal information described below.</p>
+  </section>
+
+  <section id="privacy">
+    <h2>Privacy policy</h2>
+
+    <h3>Camera and hand tracking</h3>
+    <p>When you turn on hand tracking, your browser asks for camera permission. Video frames are processed locally by Google MediaPipe Hands, which runs as WebAssembly inside your browser tab. Only the resulting hand-landmark coordinates are used, frame by frame, and they are discarded immediately. No frame, image, landmark or recording is ever uploaded. You can revoke camera permission at any time in your browser's site settings. The Studio never requests your microphone.</p>
+
+    <h3>Information stored on your device</h3>
+    <p>The Studio uses your browser's <code>localStorage</code>. Nothing here is sent to us, and you can delete it by clearing site data for roymootsana.art.</p>
+    <table>
+      <thead><tr><th>Item</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td><code>roys_atelier_pro_receipt</code></td><td>Your signed Pro license receipt: tier, payment provider, the last 6 characters of your key, an activation ID, the purchase email returned by the provider, and the activation time. It lets Pro work offline.</td></tr>
+        <tr><td><code>roys_atelier_pro_key</code></td><td>Your license key, so the Studio can quietly re-check it with the provider about every two weeks when you're online (this is how refunds and revoked keys are deactivated).</td></tr>
+        <tr><td><code>roys_atelier_preview_ledger</code></td><td>How many seconds of the free 60-second Pro preview you've used per instrument today.</td></tr>
+        <tr><td>Theme, camera zoom/exposure and panel positions</td><td>Remembering your interface preferences.</td></tr>
+      </tbody>
+    </table>
+    <p>A service worker also caches the app's files so the Studio loads quickly and works offline.</p>
+
+    <h3>License activation</h3>
+    <p>When you activate a license key, your browser sends the key, a short device label (your browser's platform name, e.g. "Win32" or "MacIntel") and any previous activation ID to our verification function. The same check repeats about every two weeks while you're online. That function forwards the key to the payment provider that issued it (Polar or Gumroad) to confirm it is valid. It then returns a digitally signed receipt. The function has no database and does not keep your key. Our host may briefly keep standard request logs (see below).</p>
+
+    <h3>Purchases</h3>
+    <p>Checkout happens on the merchant of record's own pages. They collect your payment and billing details under their own privacy policies (linked below). They share order information with us: your name, email, country, product and order status. We use it only to deliver your license, provide support, process refunds, and meet tax and accounting obligations.</p>
+
+    <h3>Support email</h3>
+    <p>If you email us, we keep the conversation for as long as needed to help you and keep reasonable business records.</p>
+
+    <h3>MIDI and recordings</h3>
+    <p>WebMIDI messages go only to the MIDI ports you select on your own computer. WAV and MIDI recordings are created in browser memory and downloaded straight to your device. They are never uploaded.</p>
+
+    <h3>What we don't do</h3>
+    <p>We don't use analytics, advertising, tracking pixels, cookies or fingerprinting. We don't sell or rent personal information, and we don't use it for profiling or automated decisions.</p>
+
+    <h3>Security</h3>
+    <p>License receipts are signed with Ed25519 and verified in your browser. The page applies a Content Security Policy that limits where scripts can load from and connect to. As an extra safeguard, an in-app guard refuses outgoing <code>fetch</code>, XHR and beacon requests to domains outside a short allow-list. No system is perfectly secure, but we keep the amount of personal information we handle to a minimum.</p>
+
+    <h3>International transfers</h3>
+    <p>Our providers operate infrastructure in the United States, the European Union and elsewhere. Where personal information leaves South Africa or the EEA, it is handled under those providers' own safeguards and policies.</p>
+
+    <h3>Children</h3>
+    <p>The Studio is not directed at children under 13 (or under 16 in the EEA), and we don't knowingly collect their personal information. Purchases must be made by an adult or with a parent's or guardian's permission.</p>
+
+    <h3>Your rights</h3>
+    <p>You may ask us to confirm what personal information we hold about you, correct it, delete it or stop using it. Email <a href="mailto:support@roymootsana.art?subject=Privacy%20request">support@roymootsana.art</a>. Payment records held by Polar or Gumroad are subject to their own processes, and we'll help you reach them. If you are unhappy with how we handle your information, you may complain to South Africa's <a href="https://inforegulator.org.za/" rel="noopener noreferrer" target="_blank">Information Regulator</a> or your local data protection authority.</p>
+  </section>
+
+  <section id="third-parties">
+    <h2>Third-party services</h2>
+    <p>These are the only external services involved in running and selling the Studio. Each receives your IP address and standard browser information when your browser contacts it.</p>
+    <table>
+      <thead><tr><th>Service</th><th>What it does for the Studio</th><th>Policies</th></tr></thead>
+      <tbody>
+        <tr><td>Netlify, Inc.</td><td>Hosts roymootsana.art and runs the license verification function. Keeps standard server logs, including IP addresses, for a limited period.</td><td><a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener noreferrer">Privacy</a></td></tr>
+        <tr><td>jsDelivr</td><td>Open-source CDN that serves the MediaPipe Hands code and model files, pinned to version 0.4.1675469240 and verified with subresource integrity.</td><td><a href="https://jsdelivr.com/privacy-policy-jsdelivr-net" target="_blank" rel="noopener noreferrer">Privacy</a></td></tr>
+        <tr><td>Polar Software, Inc.</td><td>Primary merchant of record: checkout, payment, sales tax/VAT, invoices, license keys and refunds. Payments are processed by Stripe.</td><td><a href="https://polar.sh/legal/checkout-buyer-terms" target="_blank" rel="noopener noreferrer">Buyer terms</a> · <a href="https://polar.sh/legal/privacy" target="_blank" rel="noopener noreferrer">Privacy</a> · <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer">Stripe privacy</a></td></tr>
+        <tr><td>Gumroad, Inc.</td><td>Alternative storefront and merchant of record for the same Pro license.</td><td><a href="https://gumroad.com/terms" target="_blank" rel="noopener noreferrer">Terms</a> · <a href="https://gumroad.com/privacy" target="_blank" rel="noopener noreferrer">Privacy</a></td></tr>
+      </tbody>
+    </table>
+    <p>Fonts and every other asset are served from roymootsana.art itself. If we add or change a provider, we'll update this page first.</p>
+  </section>
+
+  <section id="terms">
+    <h2>Terms of use</h2>
+    <p>By using Roy's Atelier Studio you agree to these terms. If you don't agree, please don't use it.</p>
+
+    <h3>1. Purchases</h3>
+    <p>Pro licenses are sold by our merchant of record, Polar Software, Inc. (or Gumroad, Inc. if you buy there). They are the seller of record, and their buyer terms govern payment, taxes, invoicing and chargebacks. The price is the one shown at checkout. These terms govern your license to use the software.</p>
+
+    <h3>2. Free tier</h3>
+    <p>Anyone may use the Theremin and Swiss Handpan, the Chromatic and Major scales, and a short daily preview of the Pro instruments, free of charge.</p>
+
+    <h3>3. Pro license</h3>
+    <p>A Pro purchase gives you a personal, non-exclusive, non-transferable license to use all Pro features: every instrument, Pro scales, DAW MIDI output, stem export, OBS mode and the Companion Pack. You may activate it on your own devices up to the activation limit shown at purchase. Don't share, resell or publish your license key.</p>
+
+    <h3>4. What you create is yours</h3>
+    <p>Performances, audio recordings and MIDI files you make with the Studio belong to you. You may use them commercially (releases, film, games, streams, live shows) with no royalties owed to us. You may use the Companion Pack's sounds in your own productions. You may not redistribute them as-is or as part of a competing sample library, preset pack or template pack.</p>
+
+    <h3>5. Our rights</h3>
+    <p>The Studio's code, 3D models, sound designs, Companion Pack, name and branding belong to Roy. Third-party components remain under their own licences (see <a href="#licences">Open-source licences</a>). You may not copy, resell or redistribute the Studio. You also may not tamper with or circumvent its licensing, or use it to build a competing product.</p>
+
+    <h3>6. Availability and changes</h3>
+    <p>The Studio is a web application, and its features may change, improve or occasionally be removed. "Lifetime" or "perpetual" access means for as long as we offer the Studio. We intend to keep it available. If we ever discontinue it, we'll make reasonable efforts to give notice in advance. Downloaded files such as the Companion Pack and your recordings stay yours to keep.</p>
+
+    <h3>7. Suspension</h3>
+    <p>We may revoke a license that was refunded or charged back, or used fraudulently. We may also revoke one that was shared publicly or used in serious breach of these terms.</p>
+
+    <h3>8. No warranty</h3>
+    <p>To the extent the law allows, the Studio is provided "as is" and "as available", without warranties of any kind. We do not promise that it will be uninterrupted or error-free, or that it will work with every browser, camera, operating system, DAW or MIDI device. Hand tracking quality depends on your camera, lighting and hardware.</p>
+
+    <h3>9. Limitation of liability</h3>
+    <p>To the extent the law allows, Roy is not liable for any indirect, incidental, special or consequential loss. This includes lost profits, lost data, lost recordings, missed performances and hardware damage. Roy's total liability for any claim relating to the Studio is limited to the amount you paid for it in the 12 months before the claim. Nothing in these terms excludes liability that cannot legally be excluded, or limits your statutory rights as a consumer.</p>
+
+    <h3>10. Governing law</h3>
+    <p>These terms are governed by the laws of the Republic of South Africa. If you are a consumer, you also keep the protections of the mandatory laws of the country where you live.</p>
+
+    <h3>11. Changes to these terms</h3>
+    <p>We may update these policies; the effective date above shows the latest version. Material changes will be highlighted in the Studio. Changes never reduce rights you already paid for.</p>
+  </section>
+
+  <section id="refunds">
+    <h2>Refund policy</h2>
+    <div class="callout"><strong>30 days, no questions asked.</strong> If the Studio isn't right for you, or doesn't work well with your setup, you can get a full refund within 30 days of purchase.</div>
+    <p>Email <a href="mailto:support@roymootsana.art?subject=Refund%20request">support@roymootsana.art</a> with your order email or the last characters of your key. You can also request it through the Polar or Gumroad customer portal. The refund is issued by the merchant of record to your original payment method. A refunded license is deactivated. Any statutory refund rights you have under local law remain in addition to this policy.</p>
+  </section>
+
+  <section id="safety">
+    <h2>Safety notes</h2>
+    <ul>
+      <li><strong>Protect your hearing.</strong> Start with low system volume, especially on headphones. Use the Audio Kill switch (top bar) to silence everything instantly.</li>
+      <li><strong>Give yourself room.</strong> Playing in mid-air involves sweeping arm movements. Clear the space around you and take breaks to avoid fatigue or strain.</li>
+      <li><strong>Supervise children</strong> using the camera and audio.</li>
+      <li>The Studio is a creative tool. It is not a medical, therapeutic or accessibility device.</li>
+    </ul>
+  </section>
+
+  <section id="licences">
+    <h2>Open-source licences &amp; credits</h2>
+    <table>
+      <thead><tr><th>Component</th><th>Used for</th><th>Licence</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://github.com/google-ai-edge/mediapipe" target="_blank" rel="noopener noreferrer">MediaPipe Hands</a> © Google LLC</td><td>On-device hand landmark tracking</td><td><a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener noreferrer">Apache 2.0</a></td></tr>
+        <tr><td><a href="https://threejs.org/" target="_blank" rel="noopener noreferrer">three.js</a> © three.js authors</td><td>3D rendering</td><td><a href="https://github.com/mrdoob/three.js/blob/dev/LICENSE" target="_blank" rel="noopener noreferrer">MIT</a></td></tr>
+        <tr><td><a href="https://github.com/tokotype/PlusJakartaSans" target="_blank" rel="noopener noreferrer">Plus Jakarta Sans</a> © Tokotype, self-hosted via <a href="https://fontsource.org/" target="_blank" rel="noopener noreferrer">Fontsource</a></td><td>Interface typeface</td><td><a href="https://openfontlicense.org/" target="_blank" rel="noopener noreferrer">SIL Open Font License 1.1</a></td></tr>
+        <tr><td><a href="https://gery.casiez.net/1euro/" target="_blank" rel="noopener noreferrer">1€ Filter</a>: Casiez, Roussel &amp; Vogel, CHI 2012</td><td>Smoothing hand movement. Our own implementation of the published algorithm.</td><td>Academic citation</td></tr>
+        <tr><td><a href="https://vite.dev/" target="_blank" rel="noopener noreferrer">Vite</a> · <a href="https://www.typescriptlang.org/" target="_blank" rel="noopener noreferrer">TypeScript</a></td><td>Build tools (not shipped in the app)</td><td>MIT · Apache 2.0</td></tr>
+      </tbody>
+    </table>
+    <p>Web platform features used: <a href="https://developer.mozilla.org/docs/Web/API/Web_Audio_API" target="_blank" rel="noopener noreferrer">Web Audio API</a>, <a href="https://developer.mozilla.org/docs/Web/API/Web_MIDI_API" target="_blank" rel="noopener noreferrer">Web MIDI API</a>, <a href="https://developer.mozilla.org/docs/Web/API/MediaDevices/getUserMedia" target="_blank" rel="noopener noreferrer">getUserMedia</a> and <a href="https://developer.mozilla.org/docs/Web/API/WebGL_API" target="_blank" rel="noopener noreferrer">WebGL</a>.</p>
+  </section>
+
+  <section id="heritage">
+    <h2>Instruments &amp; trademarks</h2>
+    <p>Every sound in the Studio is generated live by original synthesis code. No recordings, sample libraries or manufacturer ROMs of the original instruments are used. The instruments are interpretations inspired by these pioneers:</p>
+    <ul>
+      <li><a href="https://en.wikipedia.org/wiki/Theremin" target="_blank" rel="noopener noreferrer">Theremin</a>: invented by Leon Theremin around 1920.</li>
+      <li><a href="https://en.wikipedia.org/wiki/Ondes_Martenot" target="_blank" rel="noopener noreferrer">Ondes Martenot</a>: invented by Maurice Martenot in 1928.</li>
+      <li><a href="https://en.wikipedia.org/wiki/Cristal_baschet" target="_blank" rel="noopener noreferrer">Cristal Baschet</a>: created by Bernard and François Baschet in 1952.</li>
+      <li><a href="https://en.wikipedia.org/wiki/Handpan" target="_blank" rel="noopener noreferrer">Handpan</a>: a family of instruments that grew out of the Hang®, created by Felix Rohner and Sabina Schärer of PANArt in Bern, Switzerland, in 2000. Hang® is a registered trademark of PANArt Hangbau AG.</li>
+      <li><a href="https://en.wikipedia.org/wiki/Laser_harp" target="_blank" rel="noopener noreferrer">Laser harp</a>: pioneered by Bernard Szajner and popularised by Jean-Michel Jarre.</li>
+    </ul>
+    <p>Roy's Atelier Studio is independent. It is not affiliated with, endorsed by or sponsored by any instrument maker or the inventors' estates. It has no connection to PANArt, Ableton, Image-Line (FL Studio), Apple (Logic Pro, IAC Driver), Bitwig, Cockos (Reaper), Google or OBS Project. These names are trademarks of their respective owners, used here only to describe compatibility.</p>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Support, refunds, privacy requests and legal notices: <a href="mailto:support@roymootsana.art">support@roymootsana.art</a>. We aim to reply within two business days.</p>
+    <p>Mosa Thato Roy Mootsana · Cape Town, South Africa · <a href="https://roymootsana.art" target="_blank" rel="noopener noreferrer">roymootsana.art</a></p>
+  </section>
+
+  <footer>© 2026 Roy Mootsana · <a href="../">Open the Studio</a></footer>
+</main>
+</body>
+</html>
