@@ -167,11 +167,6 @@ const MenuScreen = ({ onProjectsClick }) => {
           ))}
         </nav>
 
-        <div className="status">
-          <span className="status-dot"></span>
-          <span className="status-label">EMPLOYED // OPEN TO OFFERS</span>
-        </div>
-
         {/* Phones never see this panel, so they skip the Lottie download. The
             placeholder holds the runner's space so the centred nav doesn't jump
             when it lands. */}

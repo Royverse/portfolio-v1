@@ -543,3 +543,15 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
+
+/* Category pill in the project dialog */
+.card-tag {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 99px;
+  font-weight: 500;
+}

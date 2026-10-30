@@ -2,45 +2,70 @@ import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import '../Assets/ChromaGrid.css';
 
-const ChromaCardItem = ({ project, index, active = true, onMouseMove, onClick, onFocus, onBlur }) => {
+// A frame chosen to read well when motion is off.
+const STILL_T = 3.2;
+
+const prefersReducedMotion = () =>
+  typeof window !== 'undefined' && window.matchMedia &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const ChromaCardItem = ({ project, active = true, onMouseMove, onClick, onFocus, onBlur }) => {
   const canvasRef = useRef(null);
-  const rafRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
-    // The grid lives inside an always-mounted overlay; only animate when it's open.
-    if (!active) return;
+    // The grid lives inside an always-mounted overlay; only draw while it's open.
+    if (!canvas || !active) return undefined;
     const ctx = canvas.getContext('2d');
+    const still = prefersReducedMotion();
+    let raf = 0;
+    let visible = true;
 
-    const render = () => {
-      // Pause while the tab is backgrounded.
-      if (typeof document !== 'undefined' && document.hidden) {
-        rafRef.current = requestAnimationFrame(render);
-        return;
+    // Size the backing store to device pixels, then draw in CSS pixels.
+    const paint = t => {
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      if (!w || !h) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const bw = Math.round(w * dpr), bh = Math.round(h * dpr);
+      if (canvas.width !== bw || canvas.height !== bh) {
+        canvas.width = bw;
+        canvas.height = bh;
       }
-      const w = canvas.offsetWidth;
-      const h = canvas.offsetHeight;
-      if (w > 0 && h > 0) {
-        if (canvas.width !== w || canvas.height !== h) {
-          canvas.width = w;
-          canvas.height = h;
-        }
-        project.draw(ctx, w, h, performance.now() / 1000);
-      }
-      rafRef.current = requestAnimationFrame(render);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      project.draw(ctx, w, h, t);
     };
 
-    render();
+    const loop = () => {
+      paint(performance.now() / 1000);
+      raf = requestAnimationFrame(loop);
+    };
+    const start = () => { if (!raf && !still && visible) raf = requestAnimationFrame(loop); };
+    const stop = () => { cancelAnimationFrame(raf); raf = 0; };
+
+    paint(still ? STILL_T : performance.now() / 1000);
+    start();
+
+    // Cards scrolled out of the panel stop drawing.
+    let io;
+    if (typeof IntersectionObserver !== 'undefined') {
+      io = new IntersectionObserver(([entry]) => {
+        visible = entry.isIntersecting;
+        if (visible) start(); else stop();
+      });
+      io.observe(canvas);
+    }
+
+    // A still frame still has to follow the card's size.
+    const onResize = () => { if (still) paint(STILL_T); };
+    window.addEventListener('resize', onResize);
+
     return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      stop();
+      if (io) io.disconnect();
+      window.removeEventListener('resize', onResize);
     };
   }, [project, active]);
-
-  // Derive gradient and border color from project tag color
-  // Dark deep gradient to match the cinematic vibe
-  const baseColor = project.tagColor || 'rgba(255, 255, 255, 0.4)';
-  const gradient = `linear-gradient(145deg, #13141a, #0b0c10)`;
 
   const handleKeyDown = e => {
     if (e.key === 'Enter' || e.key === ' ') {
@@ -61,25 +86,17 @@ const ChromaCardItem = ({ project, index, active = true, onMouseMove, onClick, o
       onKeyDown={handleKeyDown}
       onFocus={onFocus}
       onBlur={onBlur}
-      style={{
-        '--card-border': baseColor,
-        '--card-gradient': gradient
-      }}
+      style={{ '--card-accent': project.accent || 'rgba(255, 255, 255, 0.4)' }}
     >
       <div className="chroma-img-wrapper">
-        <canvas ref={canvasRef} id={`cv${index}`}></canvas>
-        <span className="thumb-num">{project.num}</span>
-        {project.isNew && (
-          <span className="thumb-new">NEW</span>
-        )}
-        <span className="thumb-arrow">↗</span>
+        <canvas ref={canvasRef} aria-hidden="true" />
+        {project.isNew && <span className="thumb-new">New</span>}
+        <span className="thumb-arrow" aria-hidden="true">↗</span>
       </div>
       <footer className="chroma-info">
-        <span className="card-tag" style={{ background: project.tagBg, color: project.tagColor }}>
-          {project.tag}
-        </span>
-        <div className="card-name">{project.name}</div>
-        <div className="card-sub">{project.sub}</div>
+        <span className="card-kicker">{project.tag}</span>
+        <span className="card-name">{project.name}</span>
+        <span className="card-sub">{project.sub}</span>
       </footer>
     </article>
   );
@@ -126,8 +143,10 @@ export const ChromaGrid = ({
     });
   };
 
+  // Touch pointers get no spotlight (the CSS drops the greyscale for them),
+  // so only a mouse or pen steers it.
   const handleMove = e => {
-    if (!rootRef.current) return;
+    if (!rootRef.current || e.pointerType === 'touch') return;
     const r = rootRef.current.getBoundingClientRect();
     moveTo(e.clientX - r.left, e.clientY - r.top);
     gsap.to(fadeRef.current, { opacity: 0, duration: 0.25, overwrite: true });
@@ -154,36 +173,31 @@ export const ChromaGrid = ({
   const handleCardMove = e => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    card.style.setProperty('--mouse-x', `${x}px`);
-    card.style.setProperty('--mouse-y', `${y}px`);
+    card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+    card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
   };
 
   return (
     <div
       ref={rootRef}
       className={`chroma-grid ${className}`}
-      style={{
-        '--r': `${radius}px`
-      }}
+      style={{ '--r': `${radius}px` }}
       onPointerMove={handleMove}
       onPointerLeave={handleLeave}
     >
-      {items.map((project, i) => (
+      {items.map(project => (
         <ChromaCardItem
-            key={i}
-            index={i}
-            project={project}
-            active={active}
-            onMouseMove={handleCardMove}
-            onClick={() => onSelect(project)}
-            onFocus={handleCardFocus}
-            onBlur={handleLeave}
+          key={project.num}
+          project={project}
+          active={active}
+          onMouseMove={handleCardMove}
+          onClick={() => onSelect(project)}
+          onFocus={handleCardFocus}
+          onBlur={handleLeave}
         />
       ))}
-      <div className="chroma-overlay" />
-      <div ref={fadeRef} className="chroma-fade" />
+      <div className="chroma-overlay" aria-hidden="true" />
+      <div ref={fadeRef} className="chroma-fade" aria-hidden="true" />
     </div>
   );
 };

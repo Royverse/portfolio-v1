@@ -3,8 +3,8 @@
   position: relative;
   width: 100%;
   display: grid;
-  /* 4 columns at full width, drops to 2 below ~600px */
-  grid-template-columns: repeat(4, 1fr);
+  /* 4 columns at full width, 3 → 2 → 1 as the panel narrows */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 14px;
   box-sizing: border-box;
 
@@ -14,13 +14,13 @@
 }
 
 @media (max-width: 1100px) {
-  .chroma-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .chroma-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 }
 @media (max-width: 850px) {
-  .chroma-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .chroma-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 }
 @media (max-width: 520px) {
-  .chroma-grid { grid-template-columns: 1fr; gap: 14px; }
+  .chroma-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
 }
 
 /* ── Cards ───────────────────────────────────────────────── */
@@ -29,36 +29,44 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  border-radius: 18px;
+  border-radius: 16px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: border-color 0.3s ease, transform 0.2s ease;
-  background: var(--card-gradient);
+  background: #0b0c10;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 0.2s ease, transform 0.2s cubic-bezier(0.2, 0, 0, 1);
 
   --mouse-x: 50%;
   --mouse-y: 50%;
-  --spotlight-color: rgba(255, 255, 255, 0.18);
 }
-.chroma-card:hover {
-  border-color: var(--card-border);
-  transform: translateY(-4px);
-}
+
+/* Pointer spotlight inside the card */
 .chroma-card::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 70%);
+  background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.1), transparent 65%);
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.3s ease;
   z-index: 2;
 }
-.chroma-card:hover::before { opacity: 1; }
+
+/* Hover only where a real pointer can hover; on touch :hover latches after a tap. */
+@media (hover: hover) {
+  .chroma-card:hover {
+    border-color: var(--card-accent);
+    border-color: color-mix(in srgb, var(--card-accent) 55%, transparent);
+    transform: translateY(-3px);
+  }
+  .chroma-card:hover::before { opacity: 1; }
+  .chroma-card:hover .thumb-arrow { opacity: 1; transform: translate(0, 0); }
+}
+.chroma-card:active { transform: scale(0.98); }
 
 /* Keyboard focus: an inset ring, because the grid's scroll container would
-   clip an outline on the outer cards. Kept apart from the :hover rules so
-   browsers without :focus-visible still get those. */
+   clip an outline on the outer cards. Lifted above the greyscale layers. */
 .chroma-card::after {
   content: '';
   position: absolute;
@@ -66,17 +74,17 @@
   border-radius: inherit;
   box-shadow: inset 0 0 0 2px #7df9ff;
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.15s ease;
   pointer-events: none;
   z-index: 5;
 }
 .chroma-card:focus-visible {
   outline: none;
-  border-color: var(--card-border);
-  transform: translateY(-4px);
+  z-index: 5;
+  transform: translateY(-3px);
 }
 .chroma-card:focus-visible::after { opacity: 1; }
-.chroma-card:focus-visible .thumb-arrow { color: rgba(255, 255, 255, 0.7); }
+.chroma-card:focus-visible .thumb-arrow { opacity: 1; transform: translate(0, 0); }
 
 /* ── Thumbnail canvas ────────────────────────────────────── */
 .chroma-img-wrapper {
@@ -85,8 +93,8 @@
   width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  background: #000;
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.05);
+  background: #08090c;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 .chroma-img-wrapper canvas {
   position: absolute;
@@ -96,50 +104,62 @@
   display: block;
 }
 
-.thumb-num {
-  position: absolute;
-  top: 10px;
-  left: 12px;
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  color: rgba(255, 255, 255, 0.35);
-  letter-spacing: 0.06em;
-  z-index: 2;
-}
 .thumb-arrow {
   position: absolute;
-  bottom: 10px;
-  right: 12px;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 99px;
   font-size: 11px;
-  color: rgba(255, 255, 255, 0);
-  transition: color 0.2s;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  transform: translate(-3px, 3px);
+  transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.2, 0, 0, 1);
   z-index: 2;
 }
-.chroma-card:hover .thumb-arrow { color: rgba(255, 255, 255, 0.7); }
+/* A wider frame keeps more than one card in view on a phone. */
+@media (max-width: 520px) {
+  .chroma-img-wrapper { aspect-ratio: 2 / 1; }
+}
+
+/* No hover on touch, so the affordance is always shown there. */
+@media (hover: none) {
+  .thumb-arrow { opacity: 0.7; transform: none; }
+}
 
 /* ── NEW badge ────────────────────────────────────────────── */
 .thumb-new {
   position: absolute;
-  top: 10px;
-  right: 12px;
+  top: 12px;
+  left: 12px;
   font-family: 'DM Mono', monospace;
-  font-size: 7px;
+  font-size: 9px;
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(80, 215, 250, 0.95);
+  color: rgba(125, 249, 255, 0.95);
   background: rgba(0, 30, 45, 0.72);
-  border: 1px solid rgba(80, 210, 250, 0.45);
+  border: 1px solid rgba(125, 249, 255, 0.4);
   padding: 3px 8px;
   border-radius: 99px;
   z-index: 2;
   backdrop-filter: blur(6px);
-  animation: thumb-new-pulse 2.4s ease-in-out infinite;
+  -webkit-backdrop-filter: blur(6px);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .thumb-new { animation: thumb-new-pulse 2.4s ease-in-out infinite; }
 }
 
 @keyframes thumb-new-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(80, 210, 250, 0); }
-  50%       { box-shadow: 0 0 8px 2px rgba(80, 210, 250, 0.22); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(125, 249, 255, 0); }
+  50%       { box-shadow: 0 0 8px 2px rgba(125, 249, 255, 0.2); }
 }
 
 /* ── Card footer ─────────────────────────────────────────── */
@@ -147,52 +167,61 @@
   position: relative;
   z-index: 1;
   padding: 12px 14px 14px;
-  font-family: 'Epilogue', sans-serif;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  gap: 4px;
   flex: 1;
+  min-width: 0;
 }
 
-.card-tag {
-  display: inline-block;
+/* Category: small caps label with the project's accent as a dot */
+.card-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-family: 'DM Mono', monospace;
-  font-size: 8px;
-  letter-spacing: 0.08em;
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 3px 9px;
-  border-radius: 99px;
-  margin-bottom: 8px;
-  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 2px;
+}
+.card-kicker::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--card-accent);
+  flex-shrink: 0;
 }
 
 .card-name {
   font-family: 'Syne', sans-serif;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 600;
+  line-height: 1.25;
   color: rgba(255, 255, 255, 0.95);
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 4px 10px;
-  border-radius: 99px;
-  margin-bottom: 6px;
-  line-height: 1.2;
+  max-width: 100%;
 }
 
 .card-sub {
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.55);
-  font-weight: 400;
-  line-height: 1.35;
+  font-family: 'Epilogue', sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.6);
+  text-wrap: pretty;
 }
 
 /* ── Mouse-spotlight overlay ─────────────────────────────── */
+/* Everything rests in greyscale; colour follows the pointer. */
 .chroma-overlay {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 3;
-  backdrop-filter: grayscale(1) brightness(0.78);
+  backdrop-filter: grayscale(1) brightness(0.85);
+  -webkit-backdrop-filter: grayscale(1) brightness(0.85);
   background: rgba(0, 0, 0, 0.001);
 
   mask-image: radial-gradient(
@@ -216,7 +245,8 @@
   inset: 0;
   pointer-events: none;
   z-index: 4;
-  backdrop-filter: grayscale(1) brightness(0.78);
+  backdrop-filter: grayscale(1) brightness(0.85);
+  -webkit-backdrop-filter: grayscale(1) brightness(0.85);
   background: rgba(0, 0, 0, 0.001);
 
   mask-image: radial-gradient(
@@ -236,4 +266,20 @@
 
   opacity: 1;
   transition: opacity 0.25s ease;
+}
+
+/* Touch screens can't steer the spotlight, so show every card in full colour. */
+@media (hover: none) {
+  .chroma-overlay,
+  .chroma-fade { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chroma-card,
+  .thumb-arrow { transition: opacity 0.2s ease, border-color 0.2s ease; }
+  .chroma-card:focus-visible,
+  .chroma-card:active { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) and (hover: hover) {
+  .chroma-card:hover { transform: none; }
 }

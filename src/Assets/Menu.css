@@ -255,35 +255,8 @@ html, body {
 .nav-item:hover .nav-bar,
 .nav-item:focus-visible .nav-bar { background: var(--accent); opacity: 0.5; }
 
-/* ── STATUS ── */
-.status {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 48px;
-}
-
-.status-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--accent);
-  animation: pulse 2.4s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 0.9; }
-  50%       { opacity: 0.25; }
-}
-
-.status-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.22em;
-  color: var(--ink-muted);
-}
-
 .data-analysis-wrap {
-  margin-top: 32px;
+  margin-top: 56px;
   opacity: 1;
   filter: grayscale(0.2) contrast(1.1);
   pointer-events: none;

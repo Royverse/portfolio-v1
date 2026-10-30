@@ -2,6 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import '../Assets/WorkShowcase.css';
 import ElectricBorder from './ElectricBorder';
 import ChromaGrid from './ChromaGrid';
+import {
+  field, artAirCanvas, artNFA, artMood, artAR, artOS, artLuminary,
+  artEcho, artMilkyway, artColdWake, artOvertone, artAtelier
+} from './cardArt';
 
 const projects = [
   {
@@ -11,7 +15,7 @@ const projects = [
     pills: ['MediaPipe Hands', 'Canvas 2D', 'Kalman Filter', 'Vite'],
     url: 'https://air-canvas-ai.netlify.app/',
     sourceUrl: 'https://github.com/Royverse/air-canvas',
-    draw: drawAC, drawM: drawACM
+    accent: '#7F77DD', draw: artAirCanvas, drawM: drawACM
   },
   {
     num: '02', name: 'not financial advice.', sub: 'Terminal stock dashboard',
@@ -19,7 +23,7 @@ const projects = [
     desc: 'Markets move on numbers and narratives. Enter a ticker and Gemini weighs live price action against social sentiment for one clear read on the room. For entertainment only, not financial advice.',
     pills: ['Next.js 15', 'Gemini 2.0', 'Alpha Vantage', 'Xpoz API', 'Supabase', 'Three.js'],
     url: 'https://notfinancialadvice.site/',
-    draw: drawNFA, drawM: drawNFAM
+    accent: '#10B981', draw: artNFA, drawM: drawNFAM
   },
   {
     num: '03', name: 'Mood Support', sub: 'Mood-lifting interface',
@@ -27,7 +31,7 @@ const projects = [
     desc: 'Software is usually indifferent to how you feel. Here, the interface shifts its colour, pace and tone to meet your mood, paired with a quiet note from Gemini. An experiment, not a substitute for professional support.',
     pills: ['React', 'Gemini', 'Framer Motion', 'Serverless Functions'],
     url: 'https://mood-align.netlify.app/',
-    draw: drawMA, drawM: drawMAM,
+    accent: '#E11D48', draw: artMood, drawM: drawMAM,
     note: 'Runs on a free API tier, so replies can pause when it\'s busy.'
   },
   {
@@ -37,7 +41,7 @@ const projects = [
     pills: ['A-Frame', 'AR.js', 'Three.js', 'WebGL'],
     url: 'https://github.com/Royverse/AR-PORTAL',
     urlLabel: 'View code ↗',
-    draw: drawAR, drawM: drawARM
+    accent: '#06B6D4', draw: artAR, drawM: drawARM
   },
   {
     num: '05', name: 'Midnight OS', sub: 'Browser-based OS interface',
@@ -45,7 +49,7 @@ const projects = [
     desc: 'A tribute to desktop interfaces: a browser-based OS with draggable windows, a file browser, persistent notes and a working browser.',
     pills: ['Next.js 16', 'React 19', 'LocalStorage'],
     url: 'https://midnight-os-demo.netlify.app/',
-    draw: drawOS, drawM: drawOSM
+    accent: '#94A3B8', draw: artOS, drawM: drawOSM
   },
   {
     num: '06', name: 'LUMINARY', sub: 'Superhero flight engine',
@@ -54,7 +58,7 @@ const projects = [
     pills: ['Three.js', 'WebGL', 'Verlet Physics', 'Web Audio API'],
     url: 'https://luminary-flight.netlify.app/',
     sourceUrl: 'https://github.com/Royverse/luminary',
-    draw: drawLuminary, drawM: drawLuminaryModal
+    accent: '#0D9488', draw: artLuminary, drawM: drawLuminaryModal
   },
   {
     num: '07', name: 'Wonderwave', sub: 'Gesture-controlled spellcasting',
@@ -63,7 +67,7 @@ const projects = [
     pills: ['MediaPipe Tasks', 'Three.js', 'TypeScript', 'Vite'],
     url: 'https://wand-wave.netlify.app/',
     sourceUrl: 'https://github.com/Royverse/wand-wave',
-    draw: drawWonderwave, drawM: drawWonderwaveM
+    accent: '#2DD4BF', draw: drawWonderwave, drawM: drawWonderwaveM
   },
   {
     num: '08', name: 'ECHO', sub: 'Voice-controlled 3D robot sandbox',
@@ -72,7 +76,7 @@ const projects = [
     pills: ['Three.js', 'Web Speech API', 'Gemini 2.5 Flash', 'Web Audio API'],
     url: 'https://echo-voice-sandbox.netlify.app/',
     sourceUrl: 'https://github.com/Royverse/echo',
-    draw: drawEcho, drawM: drawEchoModal
+    accent: '#A855F7', draw: artEcho, drawM: drawEchoModal
   },
   {
     num: '09', name: 'milkyway.ai', sub: 'A star map of NVIDIA\'s AI models',
@@ -80,7 +84,7 @@ const projects = [
     desc: 'Choosing an AI model shouldn’t feel like reading a spreadsheet. I mapped NVIDIA NIM’s models as an interactive galaxy where you can test them side by side. Independent project, not affiliated with NVIDIA.',
     pills: ['React 18', 'Vite', 'NVIDIA NIM', 'SSE Streaming', 'Canvas 2D'],
     url: 'https://milkyway-ai-galaxy.netlify.app/',
-    draw: drawIC, drawM: drawICM
+    accent: '#3B82F6', draw: artMilkyway, drawM: drawICM
   },
   {
     num: '10', name: 'Cold Wake', sub: 'Zero-asset WebGL2 survival game',
@@ -89,7 +93,7 @@ const projects = [
     pills: ['WebGL2', 'GLSL Shaders', 'Web Audio API'],
     url: 'https://cold-wake-game-1.netlify.app/',
     sourceUrl: 'https://github.com/Royverse/cold-wake',
-    draw: drawColdWake, drawM: drawColdWakeM
+    accent: '#38BDF8', draw: artColdWake, drawM: drawColdWakeM
   },
   {
     num: '11', name: 'Overtone', sub: 'Piano and hand-conducted orchestra',
@@ -98,7 +102,7 @@ const projects = [
     pills: ['Web Audio API', 'Web Workers', 'MediaPipe Tasks', 'Web MIDI', 'Vanilla JS'],
     url: 'https://royverse.github.io/piano/',
     sourceUrl: 'https://github.com/Royverse/piano',
-    draw: drawOvertone, drawM: drawOvertoneM,
+    accent: '#F59E0B', draw: artOvertone, drawM: drawOvertoneM,
     isNew: true
   },
   {
@@ -108,36 +112,12 @@ const projects = [
     pills: ['Three.js', 'MediaPipe 1-Euro', 'WebMIDI Bridge', 'Scale Quantizer', 'Stem Recorder', 'Commercial Pro'],
     url: 'https://roymootsana.art/atelier/',
     urlLabel: 'Open Studio (Pro) ↗',
-    draw: drawAtelier, drawM: drawAtelierM,
+    accent: '#D97706', draw: artAtelier, drawM: drawAtelierM,
     isNew: true
   }
 ];
 
 // Drawing functions
-function drawAC(ctx, w, h, t) {
-  ctx.fillStyle = '#0c0a18'; ctx.fillRect(0, 0, w, h);
-  ctx.strokeStyle = 'rgba(127,119,221,0.1)'; ctx.lineWidth = 0.5;
-  for (let x = 0; x < w; x += 18) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke() }
-  for (let y = 0; y < h; y += 18) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke() }
-  const cx = w / 2, cy = h / 2, pts = [];
-  for (let i = 0; i < 90; i++) {
-    const a = (i / 90) * Math.PI * 3.5 + t * 0.55;
-    const r = h * 0.22 + Math.sin(i * 0.22 + t) * h * 0.09;
-    pts.push([cx + Math.cos(a) * r, cy + Math.sin(a) * r * 0.55]);
-  }
-  ctx.strokeStyle = 'rgba(175,169,236,0.85)'; ctx.lineWidth = 1.5;
-  ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke();
-  const tx = cx + Math.cos(t * 0.55 + Math.PI * 3.5) * h * 0.22 * 1.05;
-  const ty = cy + Math.sin(t * 0.55 + Math.PI * 3.5) * h * 0.22 * 0.55;
-  ctx.beginPath(); ctx.arc(tx, ty, 3, 0, Math.PI * 2); ctx.fillStyle = '#fff'; ctx.fill();
-  ctx.beginPath(); ctx.arc(tx, ty, 7, 0, Math.PI * 2); ctx.strokeStyle = 'rgba(175,169,236,0.45)'; ctx.lineWidth = 1; ctx.stroke();
-  ctx.strokeStyle = 'rgba(127,119,221,0.4)'; ctx.lineWidth = 0.8;
-  [[4, 4], [w - 4, 4], [w - 4, h - 4], [4, h - 4]].forEach(([x, y]) => {
-    const sx = x < w / 2 ? 1 : -1, sy = y < h / 2 ? 1 : -1;
-    ctx.beginPath(); ctx.moveTo(x + 10 * sx, y); ctx.lineTo(x, y); ctx.lineTo(x, y + 10 * sy); ctx.stroke();
-  });
-}
-
 function drawACM(ctx, w, h, t) {
   ctx.fillStyle = '#08060f'; ctx.fillRect(0, 0, w, h);
   ctx.strokeStyle = 'rgba(127,119,221,0.07)'; ctx.lineWidth = 0.5;
@@ -162,24 +142,6 @@ function drawACM(ctx, w, h, t) {
   ctx.beginPath(); ctx.arc(hx, hy, 3, 0, Math.PI * 2); ctx.fillStyle = '#AFA9EC'; ctx.fill();
 }
 
-function drawNFA(ctx, w, h, t) {
-  ctx.fillStyle = '#030d07'; ctx.fillRect(0, 0, w, h);
-  for (let y = 0; y < h; y += 3) { ctx.fillStyle = 'rgba(0,0,0,0.18)'; ctx.fillRect(0, y, w, 1) }
-  const pts = [];
-  for (let i = 0; i < 50; i++) pts.push([i * (w / 49), h * 0.58 - Math.sin(i * 0.38 + t) * h * 0.17 - Math.cos(i * 0.85) * h * 0.04]);
-  ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y));
-  ctx.lineTo(w, h); ctx.lineTo(0, h); ctx.closePath(); ctx.fillStyle = 'rgba(29,158,117,0.07)'; ctx.fill();
-  ctx.strokeStyle = '#1D9E75'; ctx.lineWidth = 1.5;
-  ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke();
-  ctx.font = `${h * 0.12}px 'DM Mono',monospace`;
-  [['> VIBE CHECK: BULLISH', 0.85], ['> SPY  +1.2%', 0.45], ['> BTC  -0.3%', 0.45], ['> NVDA +3.8%', 0.45]].forEach(([l, a], i) => {
-    const al = i === 0 ? a * (Math.sin(t * 2) * 0.25 + 0.8) : a;
-    ctx.fillStyle = `rgba(29,158,117,${al})`;
-    ctx.fillText(l, 7, h * 0.16 + i * (h * 0.13));
-  });
-  if (Math.floor(t * 2) % 2 === 0) { ctx.fillStyle = '#1D9E75'; ctx.fillRect(7, h * 0.65, 4, h * 0.1) }
-}
-
 function drawNFAM(ctx, w, h, t) {
   ctx.fillStyle = '#030a07'; ctx.fillRect(0, 0, w, h);
   for (let y = 0; y < h; y += 3) { ctx.fillStyle = 'rgba(0,0,0,0.12)'; ctx.fillRect(0, y, w, 1) }
@@ -197,25 +159,6 @@ function drawNFAM(ctx, w, h, t) {
     ctx.fillStyle = i === 0 ? 'rgba(29,158,117,0.9)' : i === 1 ? 'rgba(29,158,117,0.18)' : i === 7 ? `rgba(29,158,117,${Math.sin(t * 2) * 0.3 + 0.8})` : 'rgba(29,158,117,0.55)';
     ctx.fillText(l, w * 0.58, h * 0.11 + i * (h * 0.105));
   });
-}
-
-function drawMA(ctx, w, h, t) {
-  ctx.fillStyle = '#120818'; ctx.fillRect(0, 0, w, h);
-  const cx = w / 2, cy = h * 0.42;
-  for (let i = 4; i >= 0; i--) {
-    const r = 10 + i * 14 + Math.sin(t + i * 0.6) * 3;
-    const a = (0.55 - i * 0.1) * (Math.sin(t * 1.4 + i * 0.8) * 0.2 + 0.8);
-    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
-    ctx.strokeStyle = `rgba(212,83,126,${a})`; ctx.lineWidth = 1.4; ctx.stroke();
-  }
-  ctx.beginPath(); ctx.arc(cx, cy, 7, 0, Math.PI * 2); ctx.fillStyle = '#D4537E'; ctx.fill();
-  const bw = w * 0.72, bx = (w - bw) / 2;
-  for (let i = 0; i < 22; i++) {
-    const bh = 5 + Math.abs(Math.sin(i * 0.55 + t * 2.2)) * h * 0.18;
-    const x = bx + (bw / 22) * i;
-    ctx.fillStyle = `rgba(212,83,126,${0.3 + Math.abs(Math.sin(i * 0.35 + t)) * 0.55})`;
-    ctx.fillRect(x, h * 0.82 - bh / 2, 4, bh);
-  }
 }
 
 function drawMAM(ctx, w, h, t) {
@@ -238,31 +181,6 @@ function drawMAM(ctx, w, h, t) {
   ctx.font = `300 ${h * 0.1}px 'Epilogue',sans-serif`;
   ctx.fillStyle = 'rgba(237,147,177,0.5)';
   ctx.fillText(['calm', 'melancholy', 'elated', 'anxious'][Math.floor(t * 0.4) % 4], cx - 22, h * 0.22);
-}
-
-function drawAR(ctx, w, h, t) {
-  ctx.fillStyle = '#04111f'; ctx.fillRect(0, 0, w, h);
-  const cx = w / 2, cy = h / 2;
-  for (let i = 0; i < 4; i++) {
-    const r = 12 + i * 16;
-    ctx.beginPath();
-    for (let a = 0; a <= Math.PI * 2; a += 0.05) {
-      const x = cx + Math.cos(a) * r;
-      const y = cy + Math.sin(a) * r * 0.4 + Math.sin(a * 2 + t) * r * 0.08;
-      a === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-    }
-    ctx.strokeStyle = `rgba(55,138,221,${0.55 - i * 0.1})`; ctx.lineWidth = i === 0 ? 1.8 : 0.8; ctx.stroke();
-  }
-  const scl = h * 0.38;
-  ctx.strokeStyle = 'rgba(55,138,221,0.3)'; ctx.lineWidth = 0.7;
-  ctx.beginPath();
-  [[0, -1], [0.87, -0.5], [0.87, 0.5], [0, 1], [-0.87, 0.5], [-0.87, -0.5], [0, -1]].forEach(([hx, hy]) => {
-    const px = cx + hx * scl, py = cy + hy * scl * 0.5;
-    ctx.lineTo(px, py);
-  }); ctx.stroke();
-  const gx = cx + Math.cos(t * 0.4) * h * 0.15, gy = cy + Math.sin(t * 0.4) * h * 0.08;
-  ctx.beginPath(); ctx.arc(gx, gy, 4, 0, Math.PI * 2); ctx.fillStyle = '#378ADD'; ctx.fill();
-  ctx.beginPath(); ctx.arc(gx, gy, 9, 0, Math.PI * 2); ctx.strokeStyle = 'rgba(55,138,221,0.35)'; ctx.lineWidth = 1; ctx.stroke();
 }
 
 function drawARM(ctx, w, h, t) {
@@ -290,28 +208,6 @@ function drawARM(ctx, w, h, t) {
   ctx.font = `${h * 0.08}px 'DM Mono',monospace`;
   ctx.fillStyle = 'rgba(55,138,221,0.45)';
   ctx.fillText('PORTAL READY', 10, h - 10);
-}
-
-function drawOS(ctx, w, h, t) {
-  ctx.fillStyle = '#111114'; ctx.fillRect(0, 0, w, h);
-  [[w * 0.05, h * 0.12, w * 0.52, h * 0.62, 0], [w * 0.4, h * 0.22, w * 0.54, h * 0.6, 1]].forEach(([x, y, ww, wh, wi]) => {
-    ctx.fillStyle = wi === 0 ? '#1a1a20' : '#161619';
-    ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(x, y, ww, wh, 4); else ctx.rect(x, y, ww, wh);
-    ctx.fill(); ctx.strokeStyle = 'rgba(255,255,255,0.07)'; ctx.lineWidth = 0.5; ctx.stroke();
-    ctx.fillStyle = '#0f0f12';
-    ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(x, y, ww, 16, 4); else ctx.rect(x, y, ww, 16); ctx.fill();
-    [x + 6, x + 12, x + 18].forEach((dx, di) => {
-      ctx.beginPath(); ctx.arc(dx, y + 8, 2.5, 0, Math.PI * 2);
-      ctx.fillStyle = ['#ff5f57', '#febc2e', '#28c840'][di]; ctx.fill();
-    });
-    ctx.font = `${h * 0.08}px 'DM Mono',monospace`;
-    ctx.fillStyle = 'rgba(255,255,255,0.18)';
-    ctx.fillText(wi === 0 ? '~/projects' : '~/notes', x + 32, y + 11);
-  });
-  ctx.fillStyle = '#09090c'; ctx.fillRect(0, h - 16, w, 16);
-  ctx.font = `${h * 0.08}px 'DM Mono',monospace`;
-  ctx.fillStyle = `rgba(251,191,36,${Math.sin(t * 0.8) * 0.2 + 0.65})`;
-  ctx.fillText('midnight os', 7, h - 5);
 }
 
 function drawOSM(ctx, w, h, t) {
@@ -349,45 +245,6 @@ function drawOSM(ctx, w, h, t) {
   ctx.font = `${h * 0.07}px 'DM Mono',monospace`;
   ctx.fillStyle = `rgba(251,191,36,0.7)`;
   ctx.fillText('midnight os  —  v1.0', 8, h - 6);
-}
-
-function drawLuminary(ctx, w, h, t) {
-  ctx.fillStyle = '#040f12';
-  ctx.fillRect(0, 0, w, h);
-
-  ctx.strokeStyle = 'rgba(11,122,138,0.15)';
-  ctx.lineWidth = 1.5;
-  ctx.lineCap = 'round';
-  for(let i = 14; i < w; i += 24) { ctx.beginPath(); ctx.moveTo(i, 14); ctx.lineTo(i, h-14); ctx.stroke(); }
-  for(let i = 14; i < h; i += 24) { ctx.beginPath(); ctx.moveTo(14, i); ctx.lineTo(w-14, i); ctx.stroke(); }
-
-  const startX = w * 0.15, startY = h * 0.75;
-  const endX = w * 0.85, endY = h * 0.35;
-  const cpX = w * 0.5, cpY = h * 0.1;
-
-  ctx.beginPath();
-  ctx.moveTo(startX, startY);
-  ctx.quadraticCurveTo(cpX, cpY, endX, endY);
-  ctx.strokeStyle = 'rgba(11,122,138,0.4)';
-  ctx.lineWidth = 3;
-  ctx.lineCap = 'round';
-  ctx.stroke();
-
-  const progress = (t * 0.4) % 2;
-  if (progress <= 1) {
-     const px = Math.pow(1-progress, 2)*startX + 2*(1-progress)*progress*cpX + Math.pow(progress, 2)*endX;
-     const py = Math.pow(1-progress, 2)*startY + 2*(1-progress)*progress*cpY + Math.pow(progress, 2)*endY;
-
-     ctx.beginPath(); ctx.arc(px, py, 8, 0, Math.PI*2);
-     ctx.fillStyle = 'rgba(11,122,138,0.4)'; ctx.fill();
-
-     ctx.beginPath(); ctx.arc(px, py, 3.5, 0, Math.PI*2);
-     ctx.fillStyle = '#10B9D1'; ctx.fill();
-  }
-
-  ctx.font = `600 ${Math.max(10, h * 0.085)}px system-ui, sans-serif`;
-  ctx.fillStyle = 'rgba(11,122,138,0.5)';
-  ctx.fillText('luminary', 12, h - 12);
 }
 
 function drawLuminaryModal(ctx, w, h, t) {
@@ -451,17 +308,7 @@ function drawLuminaryModal(ctx, w, h, t) {
 }
 
 function drawWonderwave(ctx, w, h, t) {
-  ctx.fillStyle = '#030b0d';
-  ctx.fillRect(0, 0, w, h);
-
-  ctx.strokeStyle = 'rgba(151, 254, 237, 0.05)';
-  ctx.lineWidth = 0.5;
-  for (let x = 0; x < w; x += 20) {
-    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
-  }
-  for (let y = 0; y < h; y += 20) {
-    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
-  }
+  field(ctx, w, h, '#97FEED', w * 0.5, h * 0.5);
 
   const tx = w * 0.72 + Math.sin(t * 1.2) * 6;
   const ty = h * 0.45 + Math.cos(t * 1.5) * 12;
@@ -911,24 +758,6 @@ function drawEchoCore(ctx, w, h, t, opts) {
   ctx.stroke();
 }
 
-function drawEcho(ctx, w, h, t) {
-  drawEchoCore(ctx, w, h, t, {
-    bg: '#08070d',
-    accentA: '#8B7CF6',
-    accentB: '#C792EA',
-    eyeColor: '#7DE0E8',
-    showHUD: false
-  });
-
-  ctx.font = `600 ${Math.max(10, h * 0.085)}px system-ui, sans-serif`;
-  ctx.fillStyle = 'rgba(139, 124, 246, 0.5)';
-  ctx.fillText('echo', 12, h - 12);
-
-  ctx.font = `500 ${Math.max(8, h * 0.05)}px 'JetBrains Mono', 'DM Mono', monospace`;
-  ctx.fillStyle = 'rgba(199, 146, 234, 0.65)';
-  ctx.fillText('listening', w - 78, 20);
-}
-
 function drawEchoModal(ctx, w, h, t) {
   drawEchoCore(ctx, w, h, t, {
     bg: '#06050a',
@@ -992,67 +821,6 @@ function drawEchoModal(ctx, w, h, t) {
    vision / embedding), with a soft telemetry HUD in the modal
    view echoing the real Chat Arena's TTFT/TPS readout.
    ============================================================ */
-function drawIC(ctx, w, h, t) {
-  ctx.fillStyle = '#070b14'; ctx.fillRect(0, 0, w, h);
-
-  ctx.strokeStyle = 'rgba(116,160,255,0.06)'; ctx.lineWidth = 0.5;
-  for (let x = 0; x < w; x += 20) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke() }
-  for (let y = 0; y < h; y += 20) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke() }
-
-  const cx = w / 2, cy = h / 2;
-
-  const clusters = [
-    { a: 0, r: 0.30, col: '#7AA0FF', n: 3 },
-    { a: Math.PI * 0.4, r: 0.34, col: '#5BD8C4', n: 3 },
-    { a: Math.PI * 0.85, r: 0.28, col: '#C792EA', n: 2 },
-    { a: Math.PI * 1.35, r: 0.33, col: '#F2A65A', n: 2 },
-    { a: Math.PI * 1.75, r: 0.29, col: '#7AA0FF', n: 3 },
-  ];
-
-  const nodePositions = [];
-
-  clusters.forEach((cl, ci) => {
-    const drift = Math.sin(t * 0.3 + ci * 1.7) * 0.025;
-    const baseA = cl.a + t * 0.06;
-    const bx = cx + Math.cos(baseA) * w * cl.r;
-    const by = cy + Math.sin(baseA) * h * cl.r * 0.62;
-
-    ctx.strokeStyle = `rgba(122,160,255,${0.10 + Math.sin(t * 0.6 + ci) * 0.03})`;
-    ctx.lineWidth = 0.8;
-    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(bx, by); ctx.stroke();
-
-    for (let n = 0; n < cl.n; n++) {
-      const na = baseA + (n - (cl.n - 1) / 2) * 0.5 + drift;
-      const nr = w * cl.r + n * 10;
-      const nx = cx + Math.cos(na) * nr;
-      const ny = cy + Math.sin(na) * nr * 0.62;
-      nodePositions.push([nx, ny, cl.col]);
-
-      const pulse = 2.2 + Math.sin(t * 1.8 + ci * 2 + n) * 0.9;
-      ctx.beginPath(); ctx.arc(nx, ny, pulse, 0, Math.PI * 2);
-      ctx.fillStyle = cl.col; ctx.globalAlpha = 0.85; ctx.fill(); ctx.globalAlpha = 1;
-    }
-  });
-
-  ctx.strokeStyle = 'rgba(122,160,255,0.07)'; ctx.lineWidth = 0.6;
-  for (let i = 0; i < nodePositions.length; i++) {
-    const [x1, y1] = nodePositions[i];
-    const [x2, y2] = nodePositions[(i + 1) % nodePositions.length];
-    const d = Math.hypot(x2 - x1, y2 - y1);
-    if (d < w * 0.4) { ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); }
-  }
-
-  const hubPulse = 4 + Math.sin(t * 2.2) * 1.2;
-  ctx.beginPath(); ctx.arc(cx, cy, hubPulse + 5, 0, Math.PI * 2);
-  ctx.strokeStyle = 'rgba(255,255,255,0.18)'; ctx.lineWidth = 1; ctx.stroke();
-  ctx.beginPath(); ctx.arc(cx, cy, hubPulse, 0, Math.PI * 2);
-  ctx.fillStyle = '#ffffff'; ctx.fill();
-
-  ctx.font = `${h * 0.085}px 'DM Mono',monospace`;
-  ctx.fillStyle = 'rgba(122,160,255,0.55)';
-  ctx.fillText('NIM://galaxy', 7, h - 9);
-}
-
 function drawICM(ctx, w, h, t) {
   ctx.fillStyle = '#05080f'; ctx.fillRect(0, 0, w, h);
 
@@ -1265,16 +1033,6 @@ function drawColdWakeCore(ctx, w, h, t, sceneW) {
   ctx.font = `${Math.max(7, h * 0.055)}px 'DM Mono',monospace`;
   ctx.fillStyle = 'rgba(80,200,230,0.6)';
   ctx.fillText(`${(4.2 + depthPct * 8).toFixed(1)}m`, gx - 34, gMarker - 5);
-}
-
-function drawColdWake(ctx, w, h, t) {
-  drawColdWakeCore(ctx, w, h, t, w);
-  ctx.font = `600 ${Math.max(10, h * 0.085)}px system-ui, sans-serif`;
-  ctx.fillStyle = 'rgba(80,200,240,0.55)';
-  ctx.fillText('cold wake', 12, h - 12);
-  ctx.font = `500 ${Math.max(8, h * 0.05)}px 'DM Mono',monospace`;
-  ctx.fillStyle = 'rgba(140,220,255,0.55)';
-  ctx.fillText('SURVIVE', w - 62, h * 0.28);
 }
 
 function drawColdWakeM(ctx, w, h, t) {
@@ -1542,46 +1300,6 @@ function otKeys(ctx, x0, x1, y0, y1, held) {
   shade.addColorStop(0, 'rgba(0,0,0,0.4)');
   shade.addColorStop(1, 'rgba(0,0,0,0)');
   ctx.fillStyle = shade; ctx.fillRect(x0, y0, x1 - x0, kh * 0.22);
-}
-
-function drawOvertone(ctx, w, h, t) {
-  ctx.save();
-  const railY = h * 0.62;
-  const railH = Math.max(11, h * 0.1);
-  otBackdrop(ctx, w, h, w * 0.1, railY);
-
-  // a chord every 2.6 s: struck, held for 2 s, then the dampers drop
-  const period = 2.6;
-  const hold = 2;
-  const idx = Math.floor(t / period);
-  const chord = OT_PIANO[((idx % 4) + 4) % 4];
-  const dt = t - idx * period;
-  const held = dt < hold;
-  const env = held ? Math.exp(-dt * 0.8) : Math.exp(-hold * 0.8) * Math.exp(-(dt - hold) * 9);
-
-  const ring = {};
-  chord.notes.forEach(n => {
-    // octave strings answer: the one above rings whole, the one below in two loops
-    [[n + 12, 1], [n - 12, 2]].forEach(([m, loops]) => {
-      if (m >= OT_LO && m <= OT_HI && chord.notes.indexOf(m) === -1) ring[m] = { amp: env * 0.35, loops, lifted: held };
-    });
-  });
-  chord.notes.forEach(n => { ring[n] = { amp: env, loops: 1, lifted: held }; });
-
-  otStrings(ctx, w * 0.05, w * 0.95, h * 0.15, h * 0.45, railY, ring, t);
-
-  // the readout names what you're holding; on small cards it drops to clear the NEW badge
-  const size = h * 0.17;
-  const fadeIn = Math.min(1, dt * 5);
-  const fadeOut = dt > period - 0.3 ? (period - dt) / 0.3 : 1;
-  ctx.globalAlpha = fadeIn * fadeOut;
-  ctx.fillStyle = '#efe7d6';
-  otChordName(ctx, chord.root, chord.q, w - 12, Math.max(h * 0.33, 28 + size * 0.8), size, true);
-  ctx.globalAlpha = 1;
-
-  otRail(ctx, w, railY, railH);
-  otKeys(ctx, 0, w, railY + railH, h, held ? chord.notes : []);
-  ctx.restore();
 }
 
 // Where the baton tip is at time t. Four beats to the bar (down, left, right, up):
@@ -1940,59 +1658,6 @@ function drawAtelierCore(ctx, w, h, t, isModal) {
   return { currentFreq, noteName, vibrato, pitchPhase, sceneW };
 }
 
-function drawAtelier(ctx, w, h, t) {
-  // Minimal: one breathing sine wave shaped by a single orb, five instrument dots.
-  ctx.fillStyle = '#0c0a08';
-  ctx.fillRect(0, 0, w, h);
-
-  const glow = ctx.createRadialGradient(w * 0.5, h * 0.5, 0, w * 0.5, h * 0.5, w * 0.6);
-  glow.addColorStop(0, 'rgba(245, 158, 11, 0.07)');
-  glow.addColorStop(1, 'rgba(245, 158, 11, 0)');
-  ctx.fillStyle = glow;
-  ctx.fillRect(0, 0, w, h);
-
-  // Orb drifts in a slow Lissajous: x = pitch, y = volume
-  const ox = w * 0.5 + Math.sin(t * 0.7) * w * 0.3;
-  const oy = h * 0.45 + Math.sin(t * 1.1 + 1) * h * 0.14;
-  const freq = 2 + ((ox / w) * 5);
-  const amp = (h * 0.34) * (1 - (oy / h) * 0.9) * 0.55;
-  const midY = h * 0.5;
-
-  ctx.save();
-  ctx.lineCap = 'round';
-  ctx.lineJoin = 'round';
-  [[3, 0.08], [1.4, 0.9]].forEach(([lw, a]) => {
-    ctx.beginPath();
-    for (let x = 0; x <= w; x += 2) {
-      const env = Math.exp(-Math.pow((x - ox) / (w * 0.35), 2));
-      const y = midY + Math.sin((x / w) * Math.PI * 2 * freq - t * 2.2) * amp * (0.15 + 0.85 * env);
-      x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-    }
-    ctx.strokeStyle = `rgba(253, 230, 170, ${a})`;
-    ctx.lineWidth = lw;
-    ctx.stroke();
-  });
-
-  // Orb with soft halo
-  const halo = ctx.createRadialGradient(ox, oy, 0, ox, oy, h * 0.2);
-  halo.addColorStop(0, 'rgba(245, 158, 11, 0.45)');
-  halo.addColorStop(1, 'rgba(245, 158, 11, 0)');
-  ctx.fillStyle = halo;
-  ctx.beginPath(); ctx.arc(ox, oy, h * 0.2, 0, Math.PI * 2); ctx.fill();
-  ctx.fillStyle = '#fef3c7';
-  ctx.beginPath(); ctx.arc(ox, oy, 3.2, 0, Math.PI * 2); ctx.fill();
-
-  // Five instrument dots, one lit at a time
-  const active = Math.floor((t * 0.5) % 5);
-  for (let i = 0; i < 5; i++) {
-    const dx = w * 0.5 + (i - 2) * 16;
-    const dy = h - 16;
-    ctx.fillStyle = i === active ? '#f59e0b' : 'rgba(254, 243, 199, 0.22)';
-    ctx.beginPath(); ctx.arc(dx, dy, i === active ? 2.6 : 1.8, 0, Math.PI * 2); ctx.fill();
-  }
-  ctx.restore();
-}
-
 function drawAtelierM(ctx, w, h, t) {
   const telemetry = drawAtelierCore(ctx, w, h, t, true);
   const sceneW = telemetry.sceneW;
@@ -2179,13 +1844,16 @@ const WorkShowcase = ({ active, onClose }) => {
     const ctx = canvas.getContext('2d');
 
     const render = () => {
-      const w = canvas.offsetWidth;
-      const h = canvas.offsetHeight;
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
       if (w > 0 && h > 0) {
-        if (canvas.width !== w || canvas.height !== h) {
-          canvas.width = w;
-          canvas.height = h;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const bw = Math.round(w * dpr), bh = Math.round(h * dpr);
+        if (canvas.width !== bw || canvas.height !== bh) {
+          canvas.width = bw;
+          canvas.height = bh;
         }
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         selectedProject.drawM(ctx, w, h, performance.now() / 1000);
       }
       modalRafRef.current = requestAnimationFrame(render);
